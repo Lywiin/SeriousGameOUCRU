@@ -6,10 +6,10 @@ public class ProjectileController : MonoBehaviour
 {
     private Rigidbody rb;
 
-    public float speed;
-    public float maxVelocity;
-    public float lifeTime;
-    public int damage;
+    public float speed = 20f;
+    public float maxVelocity = 100f;
+    public float lifeTime = 1f;
+    public int damage = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +23,9 @@ public class ProjectileController : MonoBehaviour
     {
         //Add force to the projectile
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
+
+        //Clamp max velocity
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
     IEnumerator KillProjectile()
@@ -33,7 +36,7 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "BadBacteria")
+        if (collision.gameObject.CompareTag("BadBacteria"))
         {
             collision.gameObject.GetComponent<BadBacteria>().DamageBacteria(damage);
         }

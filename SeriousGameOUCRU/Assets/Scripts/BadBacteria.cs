@@ -5,17 +5,17 @@ using UnityEngine;
 public class BadBacteria : MonoBehaviour
 {
     [Header("Movement")]
-    public int moveForce;
-    public float moveRate;
-    public float moveRateVariance;
+    public int moveForce = 200;
+    public float moveRate = 2f;
+    public float moveRateVariance = 1f;
 
     [Header("Health")]
-    public int maxHealth;
+    public int maxHealth = 100;
     public Color fullHealthColor;
     public Color lowHealthColor;
 
     [Header("Replication")]
-    public float duplicationRate;
+    public float duplicationRate = 0.02f;
     public GameObject badBacteria;
 
      // Private variables
@@ -125,7 +125,7 @@ public class BadBacteria : MonoBehaviour
             // If touch something else than same bacteria try another position
             foreach (Collider c in hitColliders)
             {
-                if (c.gameObject.tag != "BadBacteria")
+                if (!c.gameObject.CompareTag( "BadBacteria"))
                 {
                     continue;
                 }

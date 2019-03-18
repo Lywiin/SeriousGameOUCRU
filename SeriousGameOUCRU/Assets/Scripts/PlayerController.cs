@@ -11,12 +11,17 @@ public class PlayerController : MonoBehaviour
 
     [Header("Projectile")]
     public GameObject firePoint;
-    public GameObject projectile;
-    public float fireRate;
+    public GameObject projectile1;
+    public float fireRateP1 = 10f;
+    public GameObject projectile2;
+    public float fireRateP2 = 3f;
 
     // Private variables
     private Rigidbody rb;
-    private float timeToFire = 0f;
+
+    private float timeToFireP1 = 0f;
+    private float timeToFireP2 = 0f;
+
     private Plane plane;
     private GameController gameController;
     private bool dead = false;
@@ -38,11 +43,15 @@ public class PlayerController : MonoBehaviour
         //If game not paused
         if (!gameController.IsGamePaused())
         {
-            //Firing projectile
-            if (Input.GetButton("Fire1") && Time.time >= timeToFire)
+            //Firing projectile 1 or 2
+            if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
             {
-                timeToFire = Time.time + 1 / fireRate;
-                SpawnProjectile();
+                timeToFireP1 = Time.time + 1 / fireRateP1;
+                SpawnProjectile1();
+            }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
+            {
+                timeToFireP2 = Time.time + 1 / fireRateP2;
+                SpawnProjectile2();
             }
 
             //Create a ray from the Mouse click position
@@ -76,16 +85,22 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
-    void SpawnProjectile()
+    void SpawnProjectile1()
     {
-        //Instantiate projectile at player position and rotation
-        GameObject p = Instantiate(projectile, firePoint.transform.position + (firePoint.transform.forward), transform.rotation);
+        //Instantiate projectile1 at player position and rotation
+        GameObject p = Instantiate(projectile1, firePoint.transform.position + (firePoint.transform.forward), transform.rotation);
+    }
+
+    void SpawnProjectile2()
+    {
+        //Instantiate projectile1 at player position and rotation
+        GameObject p = Instantiate(projectile2, firePoint.transform.position + (firePoint.transform.forward), transform.rotation);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         //Player dies on collision with bacteria
-        if (collision.gameObject.tag == "BadBacteria" && !dead)
+        if (collision.gameObject.CompareTag("BadBacteria") && !dead)
         {
             dead = true;
             gameController.PlayerDied();

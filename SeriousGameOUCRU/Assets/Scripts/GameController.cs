@@ -86,7 +86,7 @@ public class GameController : MonoBehaviour
         if (bacteriaList.Count == 0)
         {
             //Player won
-            Debug.Log("You won");
+            PlayerWon();
         }
     }
 
@@ -126,6 +126,13 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("You died!");
         Destroy(player);
+        Invoke("RestartGame", 2);
+    }
+
+    //Called when the player win
+    private void PlayerWon()
+    {
+        Debug.Log("You won");
         Invoke("RestartGame", 2);
     }
 }
