@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7694102096287720424}
   - component: {fileID: 4300288935477704150}
   - component: {fileID: 8798922997456759078}
-  - component: {fileID: 4733819226333877941}
+  - component: {fileID: 7801106142865198882}
   m_Layer: 0
   m_Name: Bacteria1
   m_TagString: BadBacteria
@@ -109,7 +109,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &4733819226333877941
+--- !u!114 &7801106142865198882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6255904132152021855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afdbe631edf60914888d788a17af66a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveForce: 200
@@ -127,3 +127,5 @@ MonoBehaviour:
   maxHealth: 100
   fullHealthColor: {r: 0.84313726, g: 0.078431375, b: 0.078431375, a: 1}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 1}
+  duplicationRate: 0.02
+  badBacteria: {fileID: 6255904132152021855}

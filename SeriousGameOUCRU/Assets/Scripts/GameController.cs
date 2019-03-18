@@ -22,19 +22,7 @@ public class GameController : MonoBehaviour
 
         for (int i = 0; i < bacteriaCount; i++)
         {
-            //Check if there is no object at position before spawing, if yes find a new position
-            int nbHit = 0;
-            Vector3 randomPos = new Vector3();
-            do
-            {
-                randomPos = ComputeRandomSpawnPos();
-                Collider[] hitColliders = Physics.OverlapSphere(randomPos, bacteriaSize);
-                nbHit = hitColliders.Length;
-            } while (nbHit != 0);
-            
-            //Instantiate bacteria at position and add it to the list
-            GameObject b = Instantiate(bacteria, randomPos, Quaternion.identity);
-            bacteriaList.Add(b);
+            SpawnBacteria();
         }
     }
 
@@ -102,11 +90,35 @@ public class GameController : MonoBehaviour
         }
     }
 
+    //Called by a bacteria when it deplicate
+    public void AddBacteriaToList(GameObject b)
+    {
+        bacteriaList.Add(b);
+    }
+
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
     private Vector3 ComputeRandomSpawnPos()
     {
         return new Vector3(Random.Range(-gameZoneRadius.x + bacteriaSize, gameZoneRadius.x - bacteriaSize), 
                         0.0f, Random.Range(-gameZoneRadius.y + bacteriaSize, gameZoneRadius.y - bacteriaSize));
+    }
+
+    //Spawn a new bacteria
+    private void SpawnBacteria()
+    {
+        //Check if there is no object at position before spawing, if yes find a new position
+            int nbHit = 0;
+            Vector3 randomPos = new Vector3();
+            do
+            {
+                randomPos = ComputeRandomSpawnPos();
+                Collider[] hitColliders = Physics.OverlapSphere(randomPos, bacteriaSize);
+                nbHit = hitColliders.Length;
+            } while (nbHit != 0);
+            
+            //Instantiate bacteria at position and add it to the list
+            GameObject b = Instantiate(bacteria, randomPos, Quaternion.identity);
+            bacteriaList.Add(b);
     }
 
     //Called by player when he dies

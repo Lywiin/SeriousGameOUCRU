@@ -35,7 +35,7 @@ public class ProjectileController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BadBacteria")
         {
-            collision.gameObject.GetComponent<BacteriaController>().DamageBacteria(damage);
+            collision.gameObject.GetComponent<BadBacteria>().DamageBacteria(damage);
         }
 
         Destroy(gameObject);
