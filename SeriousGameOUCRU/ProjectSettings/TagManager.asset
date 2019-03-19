@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - BadBacteria
+  - Shield
   layers:
   - Default
   - TransparentFX

@@ -15,6 +15,7 @@ public class BadBacteria : MonoBehaviour
     public Color lowHealthColor;
 
     [Header("Replication")]
+    public float mutationProbability = 0.01f;
     public float duplicationRate = 0.02f;
     public GameObject badBacteria;
 
@@ -27,11 +28,17 @@ public class BadBacteria : MonoBehaviour
     private float timeToDuplicate = 0f;
     private float randomDuplicationRate;
 
+    private bool canMutate = false;
+    private bool isResistant = false;
+
     private GameController gameController;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Desactivate child at the start
+        transform.GetChild(0).gameObject.SetActive(false);
+
         // Initialize Health
         health = maxHealth;
         UpdateHealthColor();
@@ -46,8 +53,24 @@ public class BadBacteria : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check is game is not currently paused
+        if (!gameController.IsGamePaused())
+        {
+            // Attempt to move bacteria every frame
+            TryToMoveBacteria();
+
+            // Attempt to duplicate bacteria every frame
+            TryToDuplicateBacteria();
+
+            // Attempt to mutate bacteria every frame
+            TryToMutateBacteria();
+        }
+    }
+
+    private void TryToMoveBacteria()
+    {
         // Randomly moves the bacteria across the level
-        if (!gameController.IsGamePaused() && Time.time >= timeToMove)
+        if (Time.time >= timeToMove)
         {
             // Computer next time bacteria should move
             randomMoveRate = Random.Range(moveRate - moveRateVariance, moveRate + moveRateVariance);
@@ -56,9 +79,12 @@ public class BadBacteria : MonoBehaviour
             // Add force to the current bacteria velocity
             rb.AddForce(new Vector3(Random.Range(-moveForce, moveForce), 0f, Random.Range(-moveForce, moveForce)), ForceMode.Impulse);
         }
+    }
 
+    private void TryToDuplicateBacteria()
+    {
         // Randomly duplicate bacteria
-        if (!gameController.IsGamePaused() && Time.time >= timeToDuplicate)
+        if (Time.time >= timeToDuplicate)
         {
             // Compute next time bacteria should duplicate
             randomDuplicationRate = Random.Range(duplicationRate - duplicationRate / 3f, duplicationRate + duplicationRate / 3f);
@@ -67,6 +93,26 @@ public class BadBacteria : MonoBehaviour
             // Spawn a new duplicated bacteria
             SpawnDuplicatedBacteria();
         }
+    }
+
+    private void TryToMutateBacteria()
+    {
+        canMutate = Random.Range(0f, 1f) < mutationProbability;
+
+            // If mutation is triggered
+            if (canMutate)
+            {
+                if (isResistant)
+                {
+                    // If shield is already activated, duplicate it
+                    transform.GetChild(0).gameObject.GetComponent<Shield>().DuplicateShield();
+                }else
+                {
+                    // Activate child which means the resistance shield
+                    transform.GetChild(0).gameObject.SetActive(true);
+                    isResistant = true;
+                }
+            }
     }
 
     private void UpdateHealthColor()
@@ -102,7 +148,7 @@ public class BadBacteria : MonoBehaviour
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
         return transform.position + newTrans.forward * gameController.bacteriaSize;
     }
-    
+
     //Spawn a new bacteria around the current one
     private void SpawnDuplicatedBacteria()
     {
@@ -136,7 +182,5 @@ public class BadBacteria : MonoBehaviour
             gameController.AddBacteriaToList(b);
             break;
         }
-            
-            
     }
 }

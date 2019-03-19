@@ -36,7 +36,11 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("BadBacteria"))
+        if (collision.gameObject.CompareTag("Shield"))
+        {
+            collision.gameObject.GetComponent<Shield>().DamageShield(damage);
+        }
+        else if (collision.gameObject.CompareTag("BadBacteria"))
         {
             collision.gameObject.GetComponent<BadBacteria>().DamageBacteria(damage);
         }
