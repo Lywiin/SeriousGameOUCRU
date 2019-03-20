@@ -9,11 +9,24 @@ public class GameController : MonoBehaviour
     public GameObject bacteria;
     public Vector2 gameZoneRadius;
     public int bacteriaCount;
-    public float bacteriaSize;
+    public float bacteriaInitSize;
 
     // Private variables
     private bool isPaused = false;
     private List<GameObject> bacteriaList;
+
+    private static GameController _instance;
+    public static GameController Instance { get { return _instance; } }
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -99,8 +112,8 @@ public class GameController : MonoBehaviour
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
     private Vector3 ComputeRandomSpawnPos()
     {
-        return new Vector3(Random.Range(-gameZoneRadius.x + bacteriaSize, gameZoneRadius.x - bacteriaSize), 
-                        0.0f, Random.Range(-gameZoneRadius.y + bacteriaSize, gameZoneRadius.y - bacteriaSize));
+        return new Vector3(Random.Range(-gameZoneRadius.x + bacteriaInitSize, gameZoneRadius.x - bacteriaInitSize), 
+                        0.0f, Random.Range(-gameZoneRadius.y + bacteriaInitSize, gameZoneRadius.y - bacteriaInitSize));
     }
 
     //Spawn a new bacteria
@@ -112,7 +125,7 @@ public class GameController : MonoBehaviour
             do
             {
                 randomPos = ComputeRandomSpawnPos();
-                Collider[] hitColliders = Physics.OverlapSphere(randomPos, bacteriaSize);
+                Collider[] hitColliders = Physics.OverlapSphere(randomPos, bacteriaInitSize);
                 nbHit = hitColliders.Length;
             } while (nbHit != 0);
             

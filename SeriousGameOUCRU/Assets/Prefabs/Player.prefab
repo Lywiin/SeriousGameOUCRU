@@ -114,7 +114,9 @@ MonoBehaviour:
   fireRateP1: 10
   projectile2: {fileID: 6379939513572856885, guid: f801e83e6af419e4ea4ab59c642b9eef,
     type: 3}
-  fireRateP2: 7
+  fireRateP2: 3
+  gameController: {fileID: 9058940053126992108, guid: b1b34be5d40741746afa1cad1fbf0e74,
+    type: 3}
 --- !u!54 &5735719035098886769
 Rigidbody:
   m_ObjectHideFlags: 0

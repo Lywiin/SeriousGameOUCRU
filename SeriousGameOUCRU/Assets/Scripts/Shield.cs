@@ -10,14 +10,9 @@ public class Shield : MonoBehaviour
     // Private variables
     private int shieldHealth = 0;
 
-    private GameController gameController;
-
     // Start is called before the first frame update
     void Start()
     {
-        // CHANGE THIS LATER
-        gameController = Camera.main.GetComponent<GameController>();
-
         UpdateShieldSize();
     }
 
@@ -51,5 +46,15 @@ public class Shield : MonoBehaviour
 
         //Change shield size according to health
         UpdateShieldSize();
+    }
+
+    public int GetShieldHealth()
+    {
+        return shieldHealth;
+    }
+
+    public void SetShieldHealth(int h)
+    {
+        shieldHealth = h;
     }
 }

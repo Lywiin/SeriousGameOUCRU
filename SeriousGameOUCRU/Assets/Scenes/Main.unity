@@ -403,7 +403,7 @@ MonoBehaviour:
     type: 3}
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCount: 10
-  bacteriaSize: 7
+  bacteriaInitSize: 7
 --- !u!1 &1032626009
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,11 +844,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2008463050521556422, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2008463050521556426, guid: b847c48398719ea4598e2e2094d0508c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,8 +901,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
         type: 3}
-      propertyPath: fireRateP2
-      value: 3
+      propertyPath: gameController
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b847c48398719ea4598e2e2094d0508c, type: 3}

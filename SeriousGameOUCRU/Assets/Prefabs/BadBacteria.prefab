@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 7694102096287720424}
   - component: {fileID: 4300288935477704150}
   - component: {fileID: 8798922997456759078}
-  - component: {fileID: 7801106142865198882}
+  - component: {fileID: 5734408623321591388}
   m_Layer: 0
   m_Name: BadBacteria
   m_TagString: BadBacteria
@@ -124,7 +124,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &7801106142865198882
+--- !u!114 &5734408623321591388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,11 +140,11 @@ MonoBehaviour:
   moveRate: 2
   moveRateVariance: 1
   maxHealth: 100
-  fullHealthColor: {r: 0.84313726, g: 0.078431375, b: 0.078431375, a: 1}
-  lowHealthColor: {r: 0, g: 0, b: 0, a: 1}
-  mutationProbability: 0.0001
+  fullHealthColor: {r: 0.8396226, g: 0.07524917, b: 0.07524917, a: 0}
+  lowHealthColor: {r: 0, g: 0, b: 0, a: 0}
+  mutationProbability: 0.001
   duplicationRate: 0.02
-  badBacteria: {fileID: 6255904132152021855}
+  bacteriaDuplicate: {fileID: 6255904132152021855}
 --- !u!1001 &8997406214262764444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,21 +225,6 @@ PrefabInstance:
     - target: {fileID: 2872052403364305024, guid: 40be9d5b6ec59c1419da095f4cd65294,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2872052403364305024, guid: 40be9d5b6ec59c1419da095f4cd65294,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8837923001858898581, guid: 40be9d5b6ec59c1419da095f4cd65294,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8837923001858898581, guid: 40be9d5b6ec59c1419da095f4cd65294,
-        type: 3}
-      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
