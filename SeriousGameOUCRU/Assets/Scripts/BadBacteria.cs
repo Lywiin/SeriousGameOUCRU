@@ -5,7 +5,6 @@ using UnityEngine;
 public class BadBacteria : Bacteria
 {
     private bool canMutate = false;
-    private bool isResistant = false;
 
     private GameObject shield;
 
@@ -48,8 +47,7 @@ public class BadBacteria : Bacteria
             }else
             {
                 // Activate shield for the first time
-                isResistant = true;
-                shield.SetActive(true);
+                ActivateResistance(0);
             }
             // Update size for spawning purposes
             bacteriaSize = transform.localScale.x * shield.transform.localScale.x;
@@ -74,8 +72,13 @@ public class BadBacteria : Bacteria
         }
     }
 
-    public void ActivateResistance()
+    public override void ActivateResistance(int shieldStartingHealth)
     {
-        isResistant = true;
+        if (shield)
+        {
+            base.ActivateResistance(shieldStartingHealth);
+            shield.SetActive(true);
+            shield.GetComponent<Shield>().SetShieldHealth(shieldStartingHealth);
+        }
     }
 }

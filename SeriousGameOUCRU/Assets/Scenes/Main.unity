@@ -399,11 +399,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1691786199}
-  bacteria: {fileID: 6255904132152021855, guid: 7ee60a98349733440b052616c031c7e1,
+  badBacteria: {fileID: 6255904132152021855, guid: 7ee60a98349733440b052616c031c7e1,
+    type: 3}
+  goodBacteria: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
     type: 3}
   gameZoneRadius: {x: 100, y: 100}
-  bacteriaCount: 10
+  badBacteriaCount: 15
+  goodBacteriaCount: 5
   bacteriaInitSize: 7
+  mutationProbaIncrease: 0.001
 --- !u!1 &1032626009
 GameObject:
   m_ObjectHideFlags: 0

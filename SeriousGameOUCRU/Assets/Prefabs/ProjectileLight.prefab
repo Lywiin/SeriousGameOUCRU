@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4238753236924817854}
   - component: {fileID: 6483229901078364328}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: ProjectileLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: eead6c001961f524c8fbd2dc92cbbbfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,3 +125,4 @@ MonoBehaviour:
   maxVelocity: 100
   lifeTime: 1
   damage: 10
+  boostedColor: {r: 0.90860164, g: 0.15686274, b: 0.9372549, a: 1}

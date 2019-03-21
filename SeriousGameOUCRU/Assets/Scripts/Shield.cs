@@ -56,5 +56,22 @@ public class Shield : MonoBehaviour
     public void SetShieldHealth(int h)
     {
         shieldHealth = h;
+        UpdateShieldSize();
+    }
+
+    // Resistance transmited by conjugation
+    private void OnCollisionEnter(Collision collision)
+    {
+        Shield s = collision.gameObject.GetComponent<Shield>();
+
+        if (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("GoodBacteria"))
+        {
+            // If we collide a bacteria we activate the resistance
+            collision.gameObject.GetComponent<Bacteria>().ActivateResistance(shieldHealth);
+        }else if (collision.gameObject.CompareTag("Shield"))
+        {
+            // If we collide with a shield we change the shield health
+            collision.gameObject.GetComponent<Shield>().SetShieldHealth(Mathf.Max(shieldHealth, s.GetShieldHealth()));
+        }
     }
 }

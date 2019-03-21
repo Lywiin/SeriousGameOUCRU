@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BadBacteria
   - Shield
+  - GoodBacteria
   layers:
   - Default
   - TransparentFX

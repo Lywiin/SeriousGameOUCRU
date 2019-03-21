@@ -5,11 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Prefabs")]
     public GameObject player;
-    public GameObject bacteria;
+    public GameObject badBacteria;
+    public GameObject goodBacteria;
+
+    [Header("Spawn")]
     public Vector2 gameZoneRadius;
-    public int bacteriaCount;
+    public int badBacteriaCount;
+    public int goodBacteriaCount;
     public float bacteriaInitSize;
+
+    [Header("Mutation")]
+    public float mutationProbaIncrease;
 
     // Private variables
     private bool isPaused = false;
@@ -33,9 +41,14 @@ public class GameController : MonoBehaviour
     {
         bacteriaList = new List<GameObject>();
 
-        for (int i = 0; i < bacteriaCount; i++)
+        for (int i = 0; i < badBacteriaCount; i++)
         {
-            SpawnBacteria();
+            SpawnBacteria(badBacteria);
+        }
+
+        for (int i = 0; i < goodBacteriaCount; i++)
+        {
+            SpawnBacteria(goodBacteria);
         }
     }
 
@@ -117,7 +130,7 @@ public class GameController : MonoBehaviour
     }
 
     //Spawn a new bacteria
-    private void SpawnBacteria()
+    private void SpawnBacteria(GameObject bacteria)
     {
         //Check if there is no object at position before spawing, if yes find a new position
             int nbHit = 0;
@@ -147,5 +160,14 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("You won");
         Invoke("RestartGame", 2);
+    }
+
+    // Called by playerController when fire heavy projectile
+    public void IncreaseAllMutationProba()
+    {
+        foreach (GameObject b in bacteriaList)
+        {
+            b.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
+        }
     }
 }

@@ -10,6 +10,7 @@ public class ProjectileController : MonoBehaviour
     public float maxVelocity = 100f;
     public float lifeTime = 1f;
     public int damage = 10;
+    public Color boostedColor;
 
     // Start is called before the first frame update
     void Start()
@@ -40,11 +41,17 @@ public class ProjectileController : MonoBehaviour
         {
             collision.gameObject.GetComponent<Shield>().DamageShield(damage);
         }
-        else if (collision.gameObject.CompareTag("BadBacteria"))
+        else if (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("GoodBacteria"))
         {
-            collision.gameObject.GetComponent<BadBacteria>().DamageBacteria(damage);
+            collision.gameObject.GetComponent<Bacteria>().DamageBacteria(damage);
         }
 
         Destroy(gameObject);
+    }
+
+    public void MultiplyDamage(float multiplier)
+    {
+        damage = (int)(damage * multiplier);
+        GetComponent<Renderer>().material.SetColor("_Color", boostedColor);
     }
 }

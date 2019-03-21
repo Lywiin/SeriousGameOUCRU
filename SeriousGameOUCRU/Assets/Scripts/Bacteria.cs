@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public abstract class Bacteria : MonoBehaviour
 {
     [Header("Movement")]
@@ -20,8 +21,10 @@ public abstract class Bacteria : MonoBehaviour
     public GameObject bacteriaDuplicate;
 
     // Private variables
-    protected int health;
     protected Rigidbody rb;
+    protected GameController gameController;
+
+    protected int health;
 
     protected float timeToMove = 0f;
     protected float randomMoveRate;
@@ -30,7 +33,8 @@ public abstract class Bacteria : MonoBehaviour
 
     protected float bacteriaSize;
 
-    protected GameController gameController;
+    protected bool isResistant = false;
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -109,13 +113,13 @@ public abstract class Bacteria : MonoBehaviour
             // If touch something doesn't duplicate (avoid overcrowding of a zone)
             if (hitColliders.Length > 0)
             {
-                Debug.Log("OVERCROWDING");
+                //Debug.Log("OVERCROWDING");
                 continue;
             }
 
-            Debug.Log("DUPLICATION");
+            //Debug.Log("DUPLICATION");
             GameObject b = Instantiate(bacteriaDuplicate, randomPos, Quaternion.identity);
-            b.GetComponent<BadBacteria>().ActivateResistance();
+            b.GetComponent<Bacteria>().ActivateResistance(0);
             gameController.AddBacteriaToList(b);
             break;
         }
@@ -144,9 +148,24 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
-    protected void KillBacteria()
+    public void KillBacteria()
     {
         gameController.RemoveBacteriaFromList(gameObject);
         Destroy(gameObject);
+    }
+
+    public virtual void ActivateResistance(int startingShieldHealth)
+    {
+        isResistant = true;
+    }
+
+    public bool IsResistant()
+    {
+        return isResistant;
+    }
+
+    public void IncreaseMutationProba(float increase)
+    {
+        mutationProbability += increase;
     }
 }
