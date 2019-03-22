@@ -6,7 +6,8 @@ using UnityEngine;
 public abstract class Bacteria : MonoBehaviour
 {
     [Header("Movement")]
-    public int moveForce = 200;
+    public float moveForce = 200;
+    public float moveAwayForce = 20;
     public float moveRate = 2f;
     public float moveRateVariance = 1f;
 
@@ -30,8 +31,6 @@ public abstract class Bacteria : MonoBehaviour
     protected float randomMoveRate;
     protected float timeToDuplicate = 0f;
     protected float randomDuplicationRate;
-
-    protected float bacteriaSize;
 
     protected bool isResistant = false;
 
@@ -108,7 +107,7 @@ public abstract class Bacteria : MonoBehaviour
         {
             nbTry++;
             randomPos = ComputeRandomSpawnPosAround();
-            Collider[] hitColliders = Physics.OverlapSphere(randomPos, transform.localScale.x / 2);
+            Collider[] hitColliders = TestPosition(randomPos);
 
             // If touch something doesn't duplicate (avoid overcrowding of a zone)
             if (hitColliders.Length > 0)
@@ -118,19 +117,24 @@ public abstract class Bacteria : MonoBehaviour
             }
 
             //Debug.Log("DUPLICATION");
-            GameObject b = Instantiate(bacteriaDuplicate, randomPos, Quaternion.identity);
-            b.GetComponent<Bacteria>().ActivateResistance(0);
+            GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+            //ActivateResistance(b.GetComponent<Bacteria>());
             gameController.AddBacteriaToList(b);
             break;
         }
     }
 
+    protected virtual Collider[] TestPosition(Vector3 randomPos)
+    {
+        return Physics.OverlapSphere(randomPos, transform.localScale.x / 2);
+    }
+
     //Compute a random spawn position around bacteria
-    private Vector3 ComputeRandomSpawnPosAround()
+    protected virtual Vector3 ComputeRandomSpawnPosAround()
     {
         Transform newTrans = transform;
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
-        return transform.position + newTrans.forward * bacteriaSize / 2 + newTrans.forward * transform.localScale.x * 1.1f / 2; // Add a little gap with *1.1f
+        return transform.position + newTrans.forward * transform.localScale.x * 1.5f; // Add a little gap with *1.5f
     }
     
     public virtual void DamageBacteria(int dmg)
@@ -154,10 +158,16 @@ public abstract class Bacteria : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void ActivateResistance(int startingShieldHealth)
+    public virtual void ActivateResistance(Bacteria b)
     {
+        //b.ActivateResistance(0);
         isResistant = true;
     }
+    
+    // public virtual void ActivateResistance(int startingShieldHealth)
+    // {
+    //     isResistant = true;
+    // }
 
     public bool IsResistant()
     {
@@ -168,4 +178,13 @@ public abstract class Bacteria : MonoBehaviour
     {
         mutationProbability += increase;
     }
+
+/*
+    // Used to move bacteria away from a position
+    public void MoveAway(Vector3 pos)
+    {
+        Vector3 direction = transform.position - pos;
+        rb.AddForce(direction * moveAwayForce, ForceMode.Impulse);
+    }
+*/
 }

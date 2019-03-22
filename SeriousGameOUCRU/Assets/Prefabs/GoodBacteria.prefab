@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveForce: 200
+  moveAwayForce: 50
   moveRate: 2
   moveRateVariance: 1
   maxHealth: 100

@@ -123,4 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oneShieldHealth: 20
-  duplicationRate: 0.5
+  shieldGrowthSpeed: 2
+  conjugaisonProba: 0.1
+  recallTime: 5
