@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3077295831690825615}
   - component: {fileID: 8837923001858898581}
   - component: {fileID: 7076264279085153984}
-  - component: {fileID: 2557223201317552321}
+  - component: {fileID: 6273338748055662049}
   m_Layer: 0
   m_Name: ResistantShield
   m_TagString: Shield
@@ -110,7 +110,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2557223201317552321
+--- !u!114 &6273338748055662049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,10 +119,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 7928606023470627913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c40584262e2bd841a8e3be981b225db, type: 3}
+  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oneShieldHealth: 20
-  shieldGrowthSpeed: 2
-  conjugaisonProba: 0.1
-  recallTime: 5

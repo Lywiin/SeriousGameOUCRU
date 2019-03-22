@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class BadBacteria : Bacteria
 {
+    [Header("Conjugaison")]
+    public float conjugaisonProba = 0.1f;
+    public float recallTime = 5f;
+    private bool canCollide = false;
+
     private bool canMutate = false;
 
-    private GameObject shield;
+    //private GameObject shield;
+    private Shield shieldScript;
     protected float bacteriaSize;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        // Desactivate child at the start
-        shield = transform.GetChild(0).gameObject;
-        shield.SetActive(isResistant);
+
+        shieldScript = transform.GetComponent<Shield>();
 
         // Init size
         bacteriaSize = transform.localScale.x;
+        StartCoroutine(collidingRecall());
     }
 
     // Update is called once per frame
@@ -43,42 +49,54 @@ public class BadBacteria : Bacteria
             if (isResistant)
             {
                 // If shield is already activated, duplicate it
-                shield.GetComponent<Shield>().DuplicateShield();
+                shieldScript.DuplicateShield();
             }else
             {
                 // Activate shield for the first time
-                ActivateResistance(this);
+                ActivateResistance();
             }
-            // Update size for spawning purposes
-            bacteriaSize = transform.localScale.x * shield.transform.localScale.x;
+            UpdateBacteriaSize();
         }
     }
 
-    public override void ActivateResistance(Bacteria b)
+    public void UpdateBacteriaSize()
     {
-        base.ActivateResistance(b);
-        ActivateResistance(shield.GetComponent<Shield>().GetShieldHealth());
+        // Update size for spawning purposes
+        bacteriaSize = transform.localScale.x * shieldScript.shield.transform.localScale.x;
+    }
+
+    public override void ActivateResistance()
+    {
+        base.ActivateResistance();
+        shieldScript.shield.SetActive(true);
+    }
+
+    protected override void InstantiateBacteria(Vector3 randomPos)
+    {
+        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+        gameController.AddBacteriaToList(b);
+        
+        // Only set shield health if bacteria is resistant
+        if(isResistant)
+            b.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
     }
 
     protected override Collider[] TestPosition(Vector3 randomPos)
     {
-        Debug.DrawLine(transform.position, randomPos, Color.red, 10f);
         return Physics.OverlapSphere(randomPos, bacteriaSize / 2);
     }
 
     //Compute a random spawn position around bacteria
     protected override Vector3 ComputeRandomSpawnPosAround()
     {
-        Debug.Log("POS");
         Transform newTrans = transform;
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
-        //return transform.position + newTrans.forward * bacteriaSize + newTrans.forward * transform.localScale.x / 2 * 1.5f; // Add a little gap with *1.5f
         return transform.position + newTrans.forward * bacteriaSize * 1.5f; // Add a little gap with *1.5f
     }
 
     public override void DamageBacteria(int dmg)
     {
-        if (shield.GetComponent<Shield>().GetShieldHealth() == 0)
+        if (shieldScript.GetShieldHealth() == 0)
         {
             //Apply damage to bacteria's health
             health -= dmg;
@@ -94,13 +112,51 @@ public class BadBacteria : Bacteria
         }
     }
 
-    private void ActivateResistance(int shieldStartingHealth)
+    // Resistance transmited by conjugation
+    private void OnCollisionEnter(Collision collision)
     {
-        if (shield)
+        CollisionEvent(collision);
+    }
+
+    public void CollisionEvent(Collision collision)
+    {
+        if (canCollide)
         {
-            //base.ActivateResistance(shieldStartingHealth);
-            shield.SetActive(true);
-            shield.GetComponent<Shield>().SetShieldHealth(shieldStartingHealth);
+            // Start coroutine to prevent multiColliding
+            StartCoroutine(collidingRecall());
+            
+            // If conjugaison chance is triggered
+            if (Random.Range(0, 1) < conjugaisonProba)
+            {
+                if (collision.gameObject.CompareTag("Shield"))
+                {
+                    // If first time we activate resistance
+                    if (!isResistant)
+                    {
+                        ActivateResistance();
+                    }
+
+                    // Change shield health if collided object has a larger health amount
+                    int collidedShieldHealth = collision.transform.parent.gameObject.GetComponent<Shield>().GetShieldHealth();
+                    if (collidedShieldHealth > shieldScript.GetShieldHealth())
+                        shieldScript.SetShieldHealth(collidedShieldHealth);
+                }
+
+                // Move away from collided object
+                //transform.parent.GetComponent<Bacteria>().MoveAway(collision.gameObject.transform.position);
+            }
         }
+    }
+
+    public IEnumerator collidingRecall()
+    {
+        canCollide = false;
+        yield return new WaitForSeconds(recallTime); // Time to wait before it can collide again
+        canCollide = true;
+    }
+
+    public bool CanCollide()
+    {
+        return canCollide;
     }
 }

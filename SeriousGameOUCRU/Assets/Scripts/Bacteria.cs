@@ -19,7 +19,6 @@ public abstract class Bacteria : MonoBehaviour
     [Header("Replication")]
     public float mutationProbability = 0.01f;
     public float duplicationRate = 0.02f;
-    public GameObject bacteriaDuplicate;
 
     // Private variables
     protected Rigidbody rb;
@@ -112,16 +111,18 @@ public abstract class Bacteria : MonoBehaviour
             // If touch something doesn't duplicate (avoid overcrowding of a zone)
             if (hitColliders.Length > 0)
             {
-                //Debug.Log("OVERCROWDING");
                 continue;
             }
 
-            //Debug.Log("DUPLICATION");
-            GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-            //ActivateResistance(b.GetComponent<Bacteria>());
-            gameController.AddBacteriaToList(b);
+            InstantiateBacteria(randomPos);
             break;
         }
+    }
+
+    protected virtual void InstantiateBacteria(Vector3 randomPos)
+    {
+        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+        gameController.AddBacteriaToList(b);
     }
 
     protected virtual Collider[] TestPosition(Vector3 randomPos)
@@ -158,9 +159,8 @@ public abstract class Bacteria : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public virtual void ActivateResistance(Bacteria b)
+    public virtual void ActivateResistance()
     {
-        //b.ActivateResistance(0);
         isResistant = true;
     }
     
