@@ -21,7 +21,12 @@ public class GameController : MonoBehaviour
 
     // Private variables
     private bool isPaused = false;
-    private List<GameObject> bacteriaList;
+
+    private float globalMutationProbaIncrease = 0f;
+
+    // Bacteria lists
+    private List<Bacteria> goodBacteriaList;
+    private List<Bacteria> badBacteriaList;
 
     private static GameController _instance;
     public static GameController Instance { get { return _instance; } }
@@ -39,7 +44,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bacteriaList = new List<GameObject>();
+        goodBacteriaList = new List<Bacteria>();
+        badBacteriaList = new List<Bacteria>();
 
         for (int i = 0; i < badBacteriaCount; i++)
         {
@@ -80,9 +86,14 @@ public class GameController : MonoBehaviour
         {
             ToggleFreeze(player.GetComponent<Rigidbody>());
         }
-        foreach (GameObject b in bacteriaList)
+
+        foreach (Bacteria bb in badBacteriaList)
         {
-            ToggleFreeze(b.GetComponent<Rigidbody>());
+            ToggleFreeze(bb.GetComponent<Rigidbody>());
+        }
+        foreach (Bacteria gb in goodBacteriaList)
+        {
+            ToggleFreeze(gb.GetComponent<Rigidbody>());
         }
     }
 
@@ -106,20 +117,33 @@ public class GameController : MonoBehaviour
     }
 
     //Called by a bacteria when it dies
-    public void RemoveBacteriaFromList(GameObject b)
+    public void RemoveBacteriaFromList(Bacteria b)
     {
-        bacteriaList.Remove(b);
-        if (bacteriaList.Count == 0)
+        if (b is BadBacteria)
         {
-            //Player won
+            badBacteriaList.Remove(b);
+        }else
+        {
+            goodBacteriaList.Remove(b);
+        }
+
+        // If no bad bacteria left, player win
+        if (badBacteriaList.Count == 0)
+        {
             PlayerWon();
         }
     }
 
     //Called by a bacteria when it deplicate
-    public void AddBacteriaToList(GameObject b)
+    public void AddBacteriaToList(Bacteria b)
     {
-        bacteriaList.Add(b);
+        if (b is BadBacteria)
+        {
+            badBacteriaList.Add(b);
+        }else
+        {
+            goodBacteriaList.Add(b);
+        }
     }
 
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
@@ -144,7 +168,8 @@ public class GameController : MonoBehaviour
             
             //Instantiate bacteria at position and add it to the list
             GameObject b = Instantiate(bacteria, randomPos, Quaternion.identity);
-            bacteriaList.Add(b);
+            //bacteriaList.Add(b);
+            AddBacteriaToList(b.GetComponent<Bacteria>());
     }
 
     //Called by player when he dies
@@ -165,9 +190,17 @@ public class GameController : MonoBehaviour
     // Called by playerController when fire heavy projectile
     public void IncreaseAllMutationProba()
     {
-        foreach (GameObject b in bacteriaList)
+        // Keep trace of global inscrease
+        globalMutationProbaIncrease += mutationProbaIncrease;
+
+        // Update bacteria mutation rate
+        foreach (Bacteria bb in badBacteriaList)
         {
-            b.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
+            bb.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
+        }
+        foreach (Bacteria gb in goodBacteriaList)
+        {
+            gb.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
         }
     }
 }

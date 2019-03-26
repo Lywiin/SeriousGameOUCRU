@@ -122,7 +122,7 @@ public abstract class Bacteria : MonoBehaviour
     protected virtual void InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-        gameController.AddBacteriaToList(b);
+        gameController.AddBacteriaToList(this);
     }
 
     protected virtual Collider[] TestPosition(Vector3 randomPos)
@@ -155,7 +155,7 @@ public abstract class Bacteria : MonoBehaviour
 
     public virtual void KillBacteria()
     {
-        gameController.RemoveBacteriaFromList(gameObject);
+        gameController.RemoveBacteriaFromList(this);
         Destroy(gameObject);
     }
 

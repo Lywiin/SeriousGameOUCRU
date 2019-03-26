@@ -77,7 +77,7 @@ public class BadBacteria : Bacteria
     protected override void InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-        gameController.AddBacteriaToList(b);
+        gameController.AddBacteriaToList(this);
         
         // Only set shield health if bacteria is resistant
         if(isResistant)
