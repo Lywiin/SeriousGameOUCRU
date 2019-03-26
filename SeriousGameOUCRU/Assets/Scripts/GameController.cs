@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
     // Private variables
     private bool isPaused = false;
 
-    private float globalMutationProbaIncrease = 0f;
+    private float globalMutationProba = 0f;
 
     // Bacteria lists
     private List<Bacteria> goodBacteriaList;
@@ -56,6 +56,9 @@ public class GameController : MonoBehaviour
         {
             SpawnBacteria(goodBacteria);
         }
+
+        // TEMP to get initial proba
+        globalMutationProba = badBacteriaList[0].mutationProbability;
     }
 
     // Update is called once per frame
@@ -191,7 +194,7 @@ public class GameController : MonoBehaviour
     public void IncreaseAllMutationProba()
     {
         // Keep trace of global inscrease
-        globalMutationProbaIncrease += mutationProbaIncrease;
+        globalMutationProba += mutationProbaIncrease;
 
         // Update bacteria mutation rate
         foreach (Bacteria bb in badBacteriaList)
@@ -202,5 +205,20 @@ public class GameController : MonoBehaviour
         {
             gb.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
         }
+    }
+
+    public int GetCurrentBadBacteriaCount()
+    {
+        return badBacteriaList.Count;
+    }
+
+    public int GetCurrentGoodBacteriaCount()
+    {
+        return goodBacteriaList.Count;
+    }
+
+    public float GetGlobalMutationGlobalProba()
+    {
+        return globalMutationProba;
     }
 }
