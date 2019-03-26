@@ -22,9 +22,6 @@ public class Shield : MonoBehaviour
     {
         shield = transform.GetChild(0).gameObject;
         bacteriaScript = transform.GetComponent<BadBacteria>();
-
-        // Update shield to init size
-        //UpdateShieldSize();
     }
 
     // Called by bacteria when it mutate stronger

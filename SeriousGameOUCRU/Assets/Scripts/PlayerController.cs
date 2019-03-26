@@ -22,12 +22,12 @@ public class PlayerController : MonoBehaviour
 
     // Private variables
     private Rigidbody rb;
+    private GameController gameController;
 
     private float timeToFireP1 = 0f;
     private float timeToFireP2 = 0f;
 
     private Plane plane;
-    private GameController gameController;
     private bool dead = false;
 
     private bool isBoosted = false;
@@ -36,10 +36,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        gameController = GameController.Instance;
+        
         plane = new Plane(Vector3.up, Camera.main.transform.position.y);
-
-        gameController = Camera.main.GetComponent<GameController>();
     }
 
     // Update is called once per frame

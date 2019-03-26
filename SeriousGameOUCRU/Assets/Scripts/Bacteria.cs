@@ -42,7 +42,7 @@ public abstract class Bacteria : MonoBehaviour
         UpdateHealthColor();
 
         rb = GetComponent<Rigidbody>();
-        gameController = Camera.main.GetComponent<GameController>();
+        gameController = GameController.Instance;
 
         // To avoid duplicating on spawn
         timeToDuplicate = Random.Range(Time.time + 1 / duplicationRate / 2, Time.time + 1 / duplicationRate);
@@ -174,12 +174,5 @@ public abstract class Bacteria : MonoBehaviour
         mutationProbability += increase;
     }
 
-/*
-    // Used to move bacteria away from a position
-    public void MoveAway(Vector3 pos)
-    {
-        Vector3 direction = transform.position - pos;
-        rb.AddForce(direction * moveAwayForce, ForceMode.Impulse);
-    }
-*/
+
 }

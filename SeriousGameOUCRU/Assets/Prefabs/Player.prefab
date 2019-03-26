@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7a09d4f19ed9d49a3f0b00823eff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameController: {fileID: 0}
   speed: 8
   maxVelocity: 20
   firePoint: {fileID: 8795248466062620653}
@@ -115,8 +116,8 @@ MonoBehaviour:
   projectile2: {fileID: 6379939513572856885, guid: f801e83e6af419e4ea4ab59c642b9eef,
     type: 3}
   fireRateP2: 3
-  gameController: {fileID: 9058940053126992108, guid: b1b34be5d40741746afa1cad1fbf0e74,
-    type: 3}
+  damageMultiplier: 1.5
+  boostDuration: 5
 --- !u!54 &5735719035098886769
 Rigidbody:
   m_ObjectHideFlags: 0

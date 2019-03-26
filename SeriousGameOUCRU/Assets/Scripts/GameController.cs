@@ -19,6 +19,9 @@ public class GameController : MonoBehaviour
     [Header("Mutation")]
     public float mutationProbaIncrease;
 
+    [Header("UI")]
+    public UIController uiController;
+
     // Private variables
     private bool isPaused = false;
 
@@ -122,18 +125,21 @@ public class GameController : MonoBehaviour
     //Called by a bacteria when it dies
     public void RemoveBacteriaFromList(Bacteria b)
     {
-        if (b is BadBacteria)
+        if (b)
         {
-            badBacteriaList.Remove(b);
-        }else
-        {
-            goodBacteriaList.Remove(b);
-        }
+            if (b is BadBacteria)
+            {
+                badBacteriaList.Remove(b);
+            }else
+            {
+                goodBacteriaList.Remove(b);
+            }
 
-        // If no bad bacteria left, player win
-        if (badBacteriaList.Count == 0)
-        {
-            PlayerWon();
+            // If no bad bacteria left, player win
+            if (badBacteriaList.Count == 0)
+            {
+                PlayerWon();
+            }
         }
     }
 
@@ -178,7 +184,7 @@ public class GameController : MonoBehaviour
     //Called by player when he dies
     public void PlayerDied()
     {
-        Debug.Log("You died!");
+        uiController.DisplayGameOver();
         Destroy(player);
         Invoke("RestartGame", 2);
     }
@@ -186,7 +192,7 @@ public class GameController : MonoBehaviour
     //Called when the player win
     private void PlayerWon()
     {
-        Debug.Log("You won");
+        uiController.DisplayVictory();
         Invoke("RestartGame", 2);
     }
 
