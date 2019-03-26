@@ -7,6 +7,7 @@ TagManager:
   - BadBacteria
   - Shield
   - GoodBacteria
+  - ResistantGene
   layers:
   - Default
   - TransparentFX

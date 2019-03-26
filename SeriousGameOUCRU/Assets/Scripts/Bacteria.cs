@@ -153,7 +153,7 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
-    public void KillBacteria()
+    public virtual void KillBacteria()
     {
         gameController.RemoveBacteriaFromList(gameObject);
         Destroy(gameObject);
@@ -163,11 +163,6 @@ public abstract class Bacteria : MonoBehaviour
     {
         isResistant = true;
     }
-    
-    // public virtual void ActivateResistance(int startingShieldHealth)
-    // {
-    //     isResistant = true;
-    // }
 
     public bool IsResistant()
     {

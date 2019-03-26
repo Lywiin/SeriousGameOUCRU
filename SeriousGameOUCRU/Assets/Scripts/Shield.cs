@@ -13,7 +13,7 @@ public class Shield : MonoBehaviour
 
     // Private variables
     private int shieldHealth = 0;
-    private bool canCollide = false;
+    private int shieldMaxHealth = 0;
 
     private BadBacteria bacteriaScript;
 
@@ -23,9 +23,6 @@ public class Shield : MonoBehaviour
         shield = transform.GetChild(0).gameObject;
         bacteriaScript = transform.GetComponent<BadBacteria>();
 
-        // Prevent duplication on spawn
-        //StartCoroutine(collidingRecall());
-
         // Update shield to init size
         //UpdateShieldSize();
     }
@@ -34,7 +31,17 @@ public class Shield : MonoBehaviour
     public void DuplicateShield()
     {
         shieldHealth += oneShieldHealth;
+        UpdateShieldMaxHealth();
         UpdateShieldSize();
+    }
+
+    // Keep in memory the largest health shield had
+    public void UpdateShieldMaxHealth()
+    {
+        if (shieldHealth > shieldMaxHealth)
+        {
+            shieldMaxHealth = shieldHealth;
+        }
     }
 
     // Use to visualize shield health
@@ -85,6 +92,12 @@ public class Shield : MonoBehaviour
     public void SetShieldHealth(int h)
     {
         shieldHealth = h;
+        UpdateShieldMaxHealth();
         UpdateShieldSize(); // Update size when changing health
+    }
+
+    public int GetShieldMaxHealth()
+    {
+        return shieldMaxHealth;
     }
 }

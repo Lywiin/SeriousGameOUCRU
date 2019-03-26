@@ -7,11 +7,14 @@ public class BadBacteria : Bacteria
     [Header("Conjugaison")]
     public float conjugaisonProba = 0.1f;
     public float recallTime = 5f;
-    private bool canCollide = false;
 
+    [Header("Transformation")]
+    public float transformationProbability = 0.01f;
+    public GameObject resistantGene;
+
+    private bool canCollide = false;
     private bool canMutate = false;
 
-    //private GameObject shield;
     private Shield shieldScript;
     protected float bacteriaSize;
 
@@ -158,5 +161,17 @@ public class BadBacteria : Bacteria
     public bool CanCollide()
     {
         return canCollide;
+    }
+
+    public override void KillBacteria()
+    {
+        base.KillBacteria();
+
+        // Try to transform and leave resistant gene behind
+        if (isResistant && Random.Range(0f, 1f) < transformationProbability)
+        {
+            GameObject g = Instantiate(resistantGene, transform.position, Quaternion.identity);
+            g.GetComponent<ResistantGene>().SetOldShieldMaxHealth(shieldScript.GetShieldMaxHealth());
+        }
     }
 }

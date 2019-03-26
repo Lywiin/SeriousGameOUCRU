@@ -146,9 +146,11 @@ MonoBehaviour:
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0}
   mutationProbability: 0.001
   duplicationRate: 0.02
-  bacteriaDuplicate: {fileID: 6255904132152021855}
   conjugaisonProba: 0.1
   recallTime: 5
+  transformationProbability: 0.5
+  resistantGene: {fileID: 3885464220961194481, guid: 0d0f29dff988bd949a8778773a6d10f3,
+    type: 3}
 --- !u!114 &1141746175851391684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,8 +165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oneShieldHealth: 20
   shieldGrowthSpeed: 2
-  conjugaisonProba: 0.1
-  recallTime: 5
   shield: {fileID: 1357030873261346773}
 --- !u!1001 &8997406214262764444
 PrefabInstance:

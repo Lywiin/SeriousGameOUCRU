@@ -45,6 +45,10 @@ public class ProjectileController : MonoBehaviour
         {
             collision.gameObject.GetComponent<Bacteria>().DamageBacteria(damage);
         }
+        else if (collision.gameObject.CompareTag("ResistantGene"))
+        {
+            collision.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
+        }
 
         Destroy(gameObject);
     }
