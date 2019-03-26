@@ -125,21 +125,20 @@ public class GameController : MonoBehaviour
     //Called by a bacteria when it dies
     public void RemoveBacteriaFromList(Bacteria b)
     {
-        if (b)
+        if (b is BadBacteria)
         {
-            if (b is BadBacteria)
-            {
-                badBacteriaList.Remove(b);
-            }else
-            {
-                goodBacteriaList.Remove(b);
-            }
+            badBacteriaList.Remove(b);
+        }else if (b is GoodBacteria)
+        {
+            goodBacteriaList.Remove(b);
+        }
 
-            // If no bad bacteria left, player win
-            if (badBacteriaList.Count == 0)
-            {
-                PlayerWon();
-            }
+        Destroy(b.gameObject);
+
+        // If no bad bacteria left, player win
+        if (badBacteriaList.Count == 0)
+        {
+            PlayerWon();
         }
     }
 

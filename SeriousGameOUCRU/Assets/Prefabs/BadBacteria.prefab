@@ -137,8 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-    type: 3}
   moveForce: 200
   moveAwayForce: 75
   moveRate: 2
@@ -166,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oneShieldHealth: 20
-  shieldGrowthSpeed: 2
+  shieldGrowthSpeed: 3
   shield: {fileID: 1357030873261346773}
 --- !u!1001 &8997406214262764444
 PrefabInstance:

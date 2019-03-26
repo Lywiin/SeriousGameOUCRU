@@ -155,8 +155,9 @@ public abstract class Bacteria : MonoBehaviour
 
     public virtual void KillBacteria()
     {
+        // GameObject is destroyed in the gamecontroller
         gameController.RemoveBacteriaFromList(this);
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public virtual void ActivateResistance()

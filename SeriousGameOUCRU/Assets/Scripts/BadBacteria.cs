@@ -165,13 +165,13 @@ public class BadBacteria : Bacteria
 
     public override void KillBacteria()
     {
-        base.KillBacteria();
-
         // Try to transform and leave resistant gene behind
         if (isResistant && Random.Range(0f, 1f) < transformationProbability)
         {
             GameObject g = Instantiate(resistantGene, transform.position, Quaternion.identity);
             g.GetComponent<ResistantGene>().SetOldShieldMaxHealth(shieldScript.GetShieldMaxHealth());
         }
+
+        base.KillBacteria();
     }
 }
