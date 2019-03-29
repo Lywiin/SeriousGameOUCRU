@@ -62,28 +62,22 @@ public class ResistantGene : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        // If hit a good bacteria, activate the resistant gene
-        if (collision.gameObject.CompareTag("GoodBacteria"))
+        // If hit a bacteria
+        Bacteria bacteriaScript = collision.gameObject.GetComponent<Bacteria>();
+        if (bacteriaScript)
         {
-            collision.gameObject.GetComponent<Bacteria>().ActivateResistance();
+            bacteriaScript.ActivateResistance();
         }
 
-        // If hit a bad bacteria, activate the resistant gene then apply the new health
-        if (collision.gameObject.CompareTag("BadBacteria"))
+        // If hit a shield
+        Shield shieldScript = collision.gameObject.GetComponentInParent<Shield>();
+        if (shieldScript)
         {
-            collision.gameObject.GetComponent<Bacteria>().ActivateResistance();
-            collision.gameObject.GetComponent<Shield>().SetShieldHealth(oldShieldMaxHealth);
+            shieldScript.SetShieldHealth(Mathf.Max(oldShieldMaxHealth, shieldScript.GetShieldHealth()));
         }
 
-        // If hit a shield, only change the shield health
-        if (collision.gameObject.CompareTag("Shield"))
-        {
-            // Componenent is on parent bacteria
-            collision.gameObject.transform.parent.GetComponent<Shield>().SetShieldHealth(oldShieldMaxHealth);
-        }
-
-        // Kills gene afterward
-        if (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("GoodBacteria") || collision.gameObject.CompareTag("Shield"))
+        // If gave his resistant gene it can be destroyed
+        if (bacteriaScript || shieldScript)
             KillGene();
     }
 }

@@ -40,10 +40,12 @@ public class ProjectileController : MonoBehaviour
         if (collision.gameObject.CompareTag("Shield"))
         {
             collision.transform.parent.gameObject.GetComponent<Shield>().DamageShield(damage);
+            CameraShake.Instance.LightScreenShake();
         }
         else if (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("GoodBacteria"))
         {
             collision.gameObject.GetComponent<Bacteria>().DamageBacteria(damage);
+            CameraShake.Instance.LightScreenShake();
         }
         else if (collision.gameObject.CompareTag("ResistantGene"))
         {

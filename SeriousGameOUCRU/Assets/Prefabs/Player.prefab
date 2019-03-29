@@ -106,8 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7a09d4f19ed9d49a3f0b00823eff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
   speed: 8
+  drawbackSpeed: 2
   maxVelocity: 20
   firePoint: {fileID: 8795248466062620653}
   projectile1: {fileID: 6379939513572856885, guid: 440095619b5297c40bc3d4487bc02019,

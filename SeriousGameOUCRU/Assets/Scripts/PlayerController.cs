@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
-    public float speed;
+    public float speed = 8f;
     [Range(0, 1)]
     public float maxVelocity;
 
@@ -47,32 +47,55 @@ public class PlayerController : MonoBehaviour
         // If game not paused
         if (!gameController.IsGamePaused())
         {
-            // Firing projectile 1 or 2
-            if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
-            {
-                timeToFireP1 = Time.time + 1 / fireRateP1;
-                SpawnProjectile(projectile1);
-            }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
-            {
-                timeToFireP2 = Time.time + 1 / fireRateP2;
-                SpawnProjectile(projectile2);
-                gameController.IncreaseAllMutationProba();
-            }
+            // Check if player is firing
+            CheckFire();
 
-            // Create a ray from the Mouse click position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float enter = 0.0f;
+            UpdateRotation();
+        }
+    }
 
-            if (plane.Raycast(ray, out enter))
-            {
-                // Get the point that was touched
-                Vector3 hitPoint = ray.GetPoint(enter);
-                hitPoint.y = 0.0f;
+    private void CheckFire()
+    {
+        // Firing projectile 1 or 2
+        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        {
+            timeToFireP1 = Time.time + 1 / fireRateP1;
+            SpawnProjectile(projectile1);
+            ApplyFireDrawback(2.0f);
+        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
+        {
+            timeToFireP2 = Time.time + 1 / fireRateP2;
+            SpawnProjectile(projectile2);
+            gameController.IncreaseAllMutationProba();
+            ApplyFireDrawback(10.0f);
 
-                // Determine new player rotation
-                Quaternion rotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
-                transform.rotation = rotation;
-            }
+            //TEMP LOCATION
+            //CameraShake.Instance.HeavyScreenShake();
+        }
+    }
+
+    private void ApplyFireDrawback(float drawbackForce)
+    {
+        Vector3 drawbackDirection = transform.position - firePoint.transform.position;
+        drawbackDirection.Normalize();
+        rb.AddForce(drawbackDirection * drawbackForce, ForceMode.Impulse);
+    }
+
+    public void UpdateRotation()
+    {
+        // Create a ray from the Mouse click position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float enter = 0.0f;
+
+        if (plane.Raycast(ray, out enter))
+        {
+            // Get the point that was touched
+            Vector3 hitPoint = ray.GetPoint(enter);
+            hitPoint.y = 0.0f;
+
+            // Determine new player rotation
+            Quaternion rotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
+            transform.rotation = rotation;
         }
     }
 

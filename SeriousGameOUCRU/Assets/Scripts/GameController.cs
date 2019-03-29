@@ -183,6 +183,7 @@ public class GameController : MonoBehaviour
     //Called by player when he dies
     public void PlayerDied()
     {
+        CameraShake.Instance.HeavyScreenShake();
         uiController.DisplayGameOver();
         Destroy(player);
         Invoke("RestartGame", 2);
