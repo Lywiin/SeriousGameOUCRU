@@ -119,10 +119,13 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
-    protected virtual void InstantiateBacteria(Vector3 randomPos)
+    protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-        gameController.AddBacteriaToList(this);
+        gameController.AddBacteriaToList(b.GetComponent<Bacteria>());
+        return b;
+        // Debug.Log(b.GetComponent<Bacteria>());
+        // Debug.Log("ADD: " + b.GetComponent<Bacteria>().GetInstanceID());
     }
 
     protected virtual Collider[] TestPosition(Vector3 randomPos)
@@ -157,7 +160,7 @@ public abstract class Bacteria : MonoBehaviour
     {
         // GameObject is destroyed in the gamecontroller
         gameController.RemoveBacteriaFromList(this);
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public virtual void ActivateResistance()
@@ -174,6 +177,5 @@ public abstract class Bacteria : MonoBehaviour
     {
         mutationProbability += increase;
     }
-
 
 }

@@ -72,10 +72,10 @@ public class Shield : MonoBehaviour
     public void DamageShield(int dmg)
     {
         //Apply damage to shield's health
-        shieldHealth -= dmg;
+        //shieldHealth -= dmg;
 
         //If shield health is below 0 we set is back to 0
-        shieldHealth = Mathf.Max(0, shieldHealth);
+        shieldHealth = Mathf.Max(0, shieldHealth - dmg);
 
         //Change shield size according to health
         UpdateShieldSize();

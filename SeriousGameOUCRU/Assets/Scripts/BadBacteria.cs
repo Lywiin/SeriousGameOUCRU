@@ -74,14 +74,15 @@ public class BadBacteria : Bacteria
         shieldScript.shield.SetActive(true);
     }
 
-    protected override void InstantiateBacteria(Vector3 randomPos)
+    protected override GameObject InstantiateBacteria(Vector3 randomPos)
     {
-        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-        gameController.AddBacteriaToList(this);
+        GameObject b = base.InstantiateBacteria(randomPos);
         
         // Only set shield health if bacteria is resistant
         if(isResistant)
             b.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
+
+        return b;
     }
 
     protected override Collider[] TestPosition(Vector3 randomPos)
@@ -101,17 +102,21 @@ public class BadBacteria : Bacteria
     {
         if (shieldScript.GetShieldHealth() == 0)
         {
-            //Apply damage to bacteria's health
-            health -= dmg;
+            base.DamageBacteria(dmg);
+            // //Apply damage to bacteria's health
+            // health -= dmg;
 
-            //Change material color according to health
-            UpdateHealthColor();
+            // //Change material color according to health
+            // UpdateHealthColor();
 
-            //If health is below 0, the bacteria dies
-            if (health <= 0)
-            {
-                KillBacteria();
-            }
+            // //If health is below 0, the bacteria dies
+            // if (health <= 0)
+            // {
+            //     KillBacteria();
+            // }
+        }else
+        {
+            shieldScript.DamageShield(dmg);
         }
     }
 

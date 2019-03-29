@@ -132,9 +132,7 @@ public class GameController : MonoBehaviour
         {
             goodBacteriaList.Remove(b);
         }
-
-        Destroy(b.gameObject);
-
+        
         // If no bad bacteria left, player win
         if (badBacteriaList.Count == 0)
         {
