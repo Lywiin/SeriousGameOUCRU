@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Bacteria : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+    
     [Header("Movement")]
     public float moveForce = 200;
     public float moveAwayForce = 20;
@@ -21,35 +23,49 @@ public abstract class Bacteria : MonoBehaviour
     public float duplicationProbability = 0.02f;
     public float duplicationRecallTime = 5f;
 
-    // Private variables
+
+    /*** PRIVATE/PROTECTED VARIABLES ***/
+
+    // Components
     protected Rigidbody rb;
     protected GameController gameController;
 
-    protected int health;
-
+    // Movement
     protected float timeToMove = 0f;
     protected float randomMoveRate;
-    
+
+    // Health
+    protected int health;
+
+    // Replication
     protected bool canDuplicate = false;
 
+    // Resistance
     protected bool isResistant = false;
 
+    // Size
+    protected float bacteriaSize;
 
-    // Start is called before the first frame update
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
     protected virtual void Start()
     {
+        // Initialize components
+        rb = GetComponent<Rigidbody>();
+        gameController = GameController.Instance;
+
         // Initialize Health
         health = maxHealth;
         UpdateHealthColor();
 
-        rb = GetComponent<Rigidbody>();
-        gameController = GameController.Instance;
+        // Initialize bacteria size
+        bacteriaSize = transform.localScale.x;
 
-        // To avoid duplicating on spawn
+        // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
     }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
         // Check is game is not currently paused
@@ -63,10 +79,8 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
-    protected void UpdateHealthColor()
-    {
-        GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(lowHealthColor, fullHealthColor, (float)health / maxHealth));
-    }
+
+    /***** MOVEMENTS FUNCTIONS *****/
 
         private void TryToMoveBacteria()
     {
@@ -82,6 +96,17 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
+
+    /***** MUTATION FUNCTIONS *****/
+
+    public void IncreaseMutationProba(float increase)
+    {
+        mutationProbability += increase;
+    }
+
+
+    /***** DUPLICATION FUNCTIONS *****/
+
     private void TryToDuplicateBacteria()
     {
         // If duplication is triggered
@@ -93,6 +118,14 @@ public abstract class Bacteria : MonoBehaviour
             // Spawn new bacteria
             SpawnDuplicatedBacteria();
         }
+    }
+
+    // Buffer to prevent duplication for a short time
+    public IEnumerator DuplicationRecall()
+    {
+        canDuplicate = false;
+        yield return new WaitForSeconds(duplicationRecallTime); // Time to wait before it can duplicate again
+        canDuplicate = true;
     }
     
     //Spawn a new bacteria around the current one
@@ -118,13 +151,21 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
-    public IEnumerator DuplicationRecall()
+    //Compute a random spawn position around bacteria
+    protected virtual Vector3 ComputeRandomSpawnPosAround()
     {
-        canDuplicate = false;
-        yield return new WaitForSeconds(duplicationRecallTime); // Time to wait before it can duplicate again
-        canDuplicate = true;
+        Transform newTrans = transform;
+        newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
+        return transform.position + newTrans.forward * bacteriaSize * 1.5f; // Add a little gap with *1.5f
     }
 
+    // Test an overlap at position with size of the bacteria
+    protected virtual Collider[] TestPosition(Vector3 randomPos)
+    {
+        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
+    }
+
+    // Instantiate bacteria at given position and add it to gameController list
     protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
@@ -132,19 +173,16 @@ public abstract class Bacteria : MonoBehaviour
         return b;
     }
 
-    protected virtual Collider[] TestPosition(Vector3 randomPos)
+
+    /***** HEALTH FUNCTIONS *****/
+    
+    // Change color of the material according to health
+    protected void UpdateHealthColor()
     {
-        return Physics.OverlapSphere(randomPos, transform.localScale.x / 2 * 1.1f); // Test 1.1 times bigger
+        GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(lowHealthColor, fullHealthColor, (float)health / maxHealth));
     }
 
-    //Compute a random spawn position around bacteria
-    protected virtual Vector3 ComputeRandomSpawnPosAround()
-    {
-        Transform newTrans = transform;
-        newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
-        return transform.position + newTrans.forward * transform.localScale.x * 1.5f; // Add a little gap with *1.5f
-    }
-    
+    // Apply damage to bacteria, update color and kill it if needed
     public virtual void DamageBacteria(int dmg)
     {
         //Apply damage to bacteria's health
@@ -160,12 +198,16 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
+    // Called when the bacteria has to die
     public virtual void KillBacteria()
     {
         // GameObject is destroyed in the gamecontroller
         gameController.RemoveBacteriaFromList(this);
         Destroy(gameObject);
     }
+
+
+    /***** RESISTANCE FUNCTIONS *****/
 
     public virtual void ActivateResistance()
     {
@@ -175,11 +217,6 @@ public abstract class Bacteria : MonoBehaviour
     public bool IsResistant()
     {
         return isResistant;
-    }
-
-    public void IncreaseMutationProba(float increase)
-    {
-        mutationProbability += increase;
     }
 
 }

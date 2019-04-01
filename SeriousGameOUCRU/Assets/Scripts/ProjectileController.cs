@@ -4,24 +4,39 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
+    /*** PRIVATE VARIABLES ***/
+
+    // Components
     private Rigidbody rb;
 
+    // Speed
     public float speed = 20f;
     public float maxVelocity = 100f;
+
+    // Living duration
     public float lifeTime = 1f;
+
+    // Damage
     public int damage = 10;
+
+    // Color when boosted
     public Color boostedColor;
 
+    // Collision
     private bool canCollide = true;
 
-    // Start is called before the first frame update
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
     void Start()
     {
+        // Initialize components
         rb = GetComponent<Rigidbody>();
+
+        // Trigger destroy countdown
         StartCoroutine(KillProjectile());
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //Add force to the projectile
@@ -31,11 +46,18 @@ public class ProjectileController : MonoBehaviour
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
+
+    /***** KILL FUNCTIONS *****/
+
+    // Kill the projectile after some time
     IEnumerator KillProjectile()
     {
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
+
+
+    /***** COLLISION FUNCTIONS *****/
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -54,7 +76,7 @@ public class ProjectileController : MonoBehaviour
             }
             else if (collision.gameObject.CompareTag("ResistantGene"))
             {
-                // Otherwise if gene damage gene
+                // Otherwise if gene, damage gene
                 collision.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
             }
 
@@ -62,9 +84,16 @@ public class ProjectileController : MonoBehaviour
         }
     }
 
+
+    /***** BOOST FUNCTIONS *****/
+
+    // Multiply damage of the current projectile
     public void MultiplyDamage(float multiplier)
     {
+        // Compute new damage
         damage = (int)(damage * multiplier);
+
+        // Apply new color
         GetComponent<Renderer>().material.SetColor("_Color", boostedColor);
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Health")]
     public int oneShieldHealth = 20;
     public float shieldGrowthSpeed = 2f;
@@ -11,35 +13,28 @@ public class Shield : MonoBehaviour
     [Header("Shield")]
     public GameObject shield;
 
-    // Private variables
+
+    /*** PRIVATE VARIABLES ***/
+
+    // Components
+    private BadBacteria bacteriaScript;
+
+    // Health
     private int shieldHealth = 0;
     private int shieldMaxHealth = 0;
 
-    private BadBacteria bacteriaScript;
 
-    // Start is called before the first frame update
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
     void Start()
     {
+        // Initialize components
         shield = transform.GetChild(0).gameObject;
         bacteriaScript = transform.GetComponent<BadBacteria>();
     }
+    
 
-    // Called by bacteria when it mutate stronger
-    public void DuplicateShield()
-    {
-        shieldHealth += oneShieldHealth;
-        UpdateShieldMaxHealth();
-        UpdateShieldSize();
-    }
-
-    // Keep in memory the largest health shield had
-    public void UpdateShieldMaxHealth()
-    {
-        if (shieldHealth > shieldMaxHealth)
-        {
-            shieldMaxHealth = shieldHealth;
-        }
-    }
+    /***** SHIELD SIZE FUNCTIONS *****/
 
     // Use to visualize shield health
     public void UpdateShieldSize()
@@ -69,11 +64,19 @@ public class Shield : MonoBehaviour
         bacteriaScript.UpdateBacteriaSize();
     }
 
+
+    /***** HEALTH FUNCTIONS *****/
+
+    // Called by bacteria when it mutate stronger
+    public void DuplicateShield()
+    {
+        shieldHealth += oneShieldHealth;
+        UpdateShieldMaxHealth();
+        UpdateShieldSize();
+    }
+
     public void DamageShield(int dmg)
     {
-        //Apply damage to shield's health
-        //shieldHealth -= dmg;
-
         //If shield health is below 0 we set is back to 0
         shieldHealth = Mathf.Max(0, shieldHealth - dmg);
 
@@ -96,5 +99,14 @@ public class Shield : MonoBehaviour
     public int GetShieldMaxHealth()
     {
         return shieldMaxHealth;
+    }
+
+    // Keep in memory the largest health shield had
+    public void UpdateShieldMaxHealth()
+    {
+        if (shieldHealth > shieldMaxHealth)
+        {
+            shieldMaxHealth = shieldHealth;
+        }
     }
 }

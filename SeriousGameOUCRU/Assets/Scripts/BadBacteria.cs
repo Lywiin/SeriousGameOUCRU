@@ -4,33 +4,39 @@ using UnityEngine;
 
 public class BadBacteria : Bacteria
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Conjugaison")]
     public float conjugaisonProba = 0.1f;
-    public float recallTime = 5f;
+    public float conjugaisonRecallTime = 5f;
 
     [Header("Transformation")]
     public float transformationProbability = 0.01f;
     public GameObject resistantGene;
 
+
+    /*** PRIVATE/PROTECTED VARIABLES ***/
+
+    // Conjugaison
     private bool canCollide = false;
-    private bool canMutate = false;
 
+    // Shield
     private Shield shieldScript;
-    protected float bacteriaSize;
 
-    // Start is called before the first frame update
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
     protected override void Start()
     {
         base.Start();
 
+        // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
 
-        // Init size
-        bacteriaSize = transform.localScale.x;
-        StartCoroutine(collidingRecall());
+        // To avoid conjugaison on spawn
+        StartCoroutine(CollidingRecall());
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
@@ -42,12 +48,22 @@ public class BadBacteria : Bacteria
         }
     }
 
+
+    /***** SIZE FUNCTIONS *****/
+
+    public void UpdateBacteriaSize()
+    {
+        // Update size for spawning purposes
+        bacteriaSize = transform.localScale.x * shieldScript.shield.transform.localScale.x;
+    }
+
+
+    /***** MUTATION FUNCTIONS *****/
+
     private void TryToMutateBacteria()
     {
-        canMutate = Random.Range(0f, 1f) < mutationProbability;
-
         // If mutation is triggered
-        if (canMutate)
+        if (Random.Range(0f, 1f) < mutationProbability)
         {
             if (isResistant)
             {
@@ -62,17 +78,8 @@ public class BadBacteria : Bacteria
         }
     }
 
-    public void UpdateBacteriaSize()
-    {
-        // Update size for spawning purposes
-        bacteriaSize = transform.localScale.x * shieldScript.shield.transform.localScale.x;
-    }
 
-    public override void ActivateResistance()
-    {
-        base.ActivateResistance();
-        shieldScript.shield.SetActive(true);
-    }
+    /***** DUPLICATION FUNCTIONS *****/
 
     protected override GameObject InstantiateBacteria(Vector3 randomPos)
     {
@@ -85,19 +92,63 @@ public class BadBacteria : Bacteria
         return b;
     }
 
-    protected override Collider[] TestPosition(Vector3 randomPos)
+    
+    /***** CONJUGAISON FUNCTIONS *****/
+
+    // Resistance transmited by conjugation
+    private void OnCollisionEnter(Collision collision)
     {
-        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
+        CollisionEvent(collision);
     }
 
-    //Compute a random spawn position around bacteria
-    protected override Vector3 ComputeRandomSpawnPosAround()
+    // Collision event called by both bacteria and shield on collision
+    public void CollisionEvent(Collision collision)
     {
-        Transform newTrans = transform;
-        newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
-        return transform.position + newTrans.forward * bacteriaSize * 1.5f; // Add a little gap with *1.5f
+        if (canCollide)
+        {
+            // Start coroutine to prevent multiColliding
+            StartCoroutine(CollidingRecall());
+            
+            // Try to trigger the conjugaison
+            TryToConjugateBacteria(collision.gameObject.GetComponentInParent<Shield>());
+        }
     }
 
+    // Buffer to prevent collision for a short time
+    public IEnumerator CollidingRecall()
+    {
+        canCollide = false;
+        yield return new WaitForSeconds(conjugaisonRecallTime); // Time to wait before it can collide again
+        canCollide = true;
+    }
+
+    // Process to trigger the conjugaison
+    private void TryToConjugateBacteria(Shield s)
+    {
+        // If collided object is a shield and conjugaison chance is triggered
+        if (s && Random.Range(0, 1) < conjugaisonProba)
+        {
+            // If first time we activate resistance
+            if (!isResistant)
+            {
+                ActivateResistance();
+            }
+
+            // Change shield health if collided object has a larger health amount
+            if (s.GetShieldHealth() > shieldScript.GetShieldHealth())
+                shieldScript.SetShieldHealth(s.GetShieldHealth());
+        }
+    }
+
+    public bool CanCollide()
+    {
+        return canCollide;
+    }
+
+
+    /***** HEALTH FUNCTIONS *****/
+
+    // Apply damage to bacteria if shield health is at 0, otherwise damage the shield
     public override void DamageBacteria(int dmg)
     {
         if (shieldScript.GetShieldHealth() == 0)
@@ -109,51 +160,7 @@ public class BadBacteria : Bacteria
         }
     }
 
-    // Resistance transmited by conjugation
-    private void OnCollisionEnter(Collision collision)
-    {
-        CollisionEvent(collision);
-    }
-
-    public void CollisionEvent(Collision collision)
-    {
-        if (canCollide)
-        {
-            // Start coroutine to prevent multiColliding
-            StartCoroutine(collidingRecall());
-            
-            // If conjugaison chance is triggered
-            if (Random.Range(0, 1) < conjugaisonProba)
-            {
-                if (collision.gameObject.CompareTag("Shield"))
-                {
-                    // If first time we activate resistance
-                    if (!isResistant)
-                    {
-                        ActivateResistance();
-                    }
-
-                    // Change shield health if collided object has a larger health amount
-                    int collidedShieldHealth = collision.transform.parent.gameObject.GetComponent<Shield>().GetShieldHealth();
-                    if (collidedShieldHealth > shieldScript.GetShieldHealth())
-                        shieldScript.SetShieldHealth(collidedShieldHealth);
-                }
-            }
-        }
-    }
-
-    public IEnumerator collidingRecall()
-    {
-        canCollide = false;
-        yield return new WaitForSeconds(recallTime); // Time to wait before it can collide again
-        canCollide = true;
-    }
-
-    public bool CanCollide()
-    {
-        return canCollide;
-    }
-
+    // Called when the bacteria has to die
     public override void KillBacteria()
     {
         // Try to transform and leave resistant gene behind
@@ -164,5 +171,14 @@ public class BadBacteria : Bacteria
         }
 
         base.KillBacteria();
+    }
+
+
+    /***** RESISTANCE FUNCTIONS *****/
+
+    public override void ActivateResistance()
+    {
+        base.ActivateResistance();
+        shieldScript.shield.SetActive(true);
     }
 }

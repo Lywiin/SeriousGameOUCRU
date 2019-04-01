@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Player Movement")]
     public float speed = 8f;
     [Range(0, 1)]
@@ -20,28 +22,49 @@ public class PlayerController : MonoBehaviour
     public float damageMultiplier = 1.5f;
     public float boostDuration = 5f;
 
-    // Private variables
+
+    /*** PRIVATE VARIABLES ***/
+
+    // Componenents
     private Rigidbody rb;
     private GameController gameController;
+    private Plane plane;
 
+    // Fire time buffer
     private float timeToFireP1 = 0f;
     private float timeToFireP2 = 0f;
 
-    private Plane plane;
+    // Status
     private bool dead = false;
-
     private bool isBoosted = false;
 
-    // Start is called before the first frame update
+
+    /*** INSTANCE ***/
+
+    private static PlayerController _instance;
+    public static PlayerController Instance { get { return _instance; } }
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
+        // Initialize components
         rb = GetComponent<Rigidbody>();
         gameController = GameController.Instance;
-        
         plane = new Plane(Vector3.up, Camera.main.transform.position.y);
     }
 
-    // Update is called once per frame
     void Update()
     {
         // If game not paused
@@ -50,37 +73,94 @@ public class PlayerController : MonoBehaviour
             // Check if player is firing
             CheckFire();
 
+            // Update player rotation
             UpdateRotation();
         }
     }
 
-    private void CheckFire()
+    void FixedUpdate()
     {
-        // Firing projectile 1 or 2
-        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        if (!gameController.IsGamePaused())
         {
-            timeToFireP1 = Time.time + 1 / fireRateP1;
-            SpawnProjectile(projectile1);
-            ApplyFireDrawback(2.0f);
-        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
-        {
-            timeToFireP2 = Time.time + 1 / fireRateP2;
-            SpawnProjectile(projectile2);
-            gameController.IncreaseAllMutationProba();
-            ApplyFireDrawback(10.0f);
-
-            //TEMP LOCATION
-            //CameraShake.Instance.HeavyScreenShake();
+            MovePlayer();
         }
     }
 
+
+    /*** FIRE FUNCTIONS ***/
+
+    // Check if player is firing
+    private void CheckFire()
+    {
+        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        {
+            // Fire projectile 1
+            Fire(timeToFireP1, fireRateP1, projectile1, 2.0f);
+        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
+        {
+            // Fire projectile 2
+            Fire(timeToFireP2, fireRateP2, projectile2, 2.0f);
+
+            // Increase all proba
+            gameController.IncreaseAllMutationProba();
+        }
+    }
+
+    // Fire a projectile
+    private void Fire(float timeToFire, float fireRate, GameObject projectile, float fireDrawback)
+    {
+        // Update next time to fire
+        timeToFire = Time.time + 1 / fireRate;
+
+        // Spawn the projectile
+        SpawnProjectile(projectile);
+
+        // Apply a drawback force
+        ApplyFireDrawback(fireDrawback);
+    }
+
+    // Spawn the desired projectile
+    void SpawnProjectile(GameObject projectile)
+    {
+        // Instantiate projectile at player position and rotation
+        GameObject p = Instantiate(projectile, firePoint.transform.position + (firePoint.transform.forward), transform.rotation);
+
+        // If boosted, multiply projectile damage
+        if (isBoosted)
+        {
+            p.GetComponent<ProjectileController>().MultiplyDamage(damageMultiplier);            
+        }
+    }
+
+    /*** MOVEMENTS FUNCTIONS ***/
+
+    // Move the player from input
+    private void MovePlayer()
+    {
+        // Get player inputs
+        float moveHor = Input.GetAxis("Horizontal");
+        float moveVer = Input.GetAxis("Vertical");
+
+        // Create movement vector
+        Vector3 movement = new Vector3(moveHor, 0.0f, moveVer);
+
+        // Apply a force to move the player
+        rb.AddForce(movement * speed, ForceMode.Impulse);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+    }
+
+    // Apply a drawback force to the player when firing
     private void ApplyFireDrawback(float drawbackForce)
     {
+        // Get the direction of the drawback
         Vector3 drawbackDirection = transform.position - firePoint.transform.position;
         drawbackDirection.Normalize();
+
+        // Apply force
         rb.AddForce(drawbackDirection * drawbackForce, ForceMode.Impulse);
     }
 
+    // Update the rotation of the player toward aiming direction
     public void UpdateRotation()
     {
         // Create a ray from the Mouse click position
@@ -99,50 +179,30 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        if (!gameController.IsGamePaused())
-        {
-            float moveHor = Input.GetAxis("Horizontal");
-            float moveVer = Input.GetAxis("Vertical");
 
-            Vector3 movement = new Vector3(moveHor, 0.0f, moveVer);
-
-            rb.AddForce(movement * speed, ForceMode.Impulse);
-        }
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
-    }
-
-    void SpawnProjectile(GameObject projectile)
-    {
-        // Instantiate projectile at player position and rotation
-        GameObject p = Instantiate(projectile, firePoint.transform.position + (firePoint.transform.forward), transform.rotation);
-
-        // If boosted, multiply projectile damage
-        if (isBoosted)
-        {
-            p.GetComponent<ProjectileController>().MultiplyDamage(damageMultiplier);            
-        }
-    }
+    /*** COLLISION FUNCTIONS ***/
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Player dies on collision with bacteria
+        // Player dies on collision with bacteria
         if (!dead && (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("Shield")))
         {
             dead = true;
             gameController.PlayerDied();
         } else if (collision.gameObject.CompareTag("GoodBacteria"))
         {
+            // Boost player when hit good bacteria
             if (!isBoosted)
             {
                 StartCoroutine(TriggerAttackBoost());
             }
+
+            // Kill the good bacteria afterwards
             collision.gameObject.GetComponent<GoodBacteria>().KillBacteria();
         }
     }
 
-    //Coroutine for boost duration
+    // Buffer for boost duration
     private IEnumerator TriggerAttackBoost()
     {
         isBoosted = true;

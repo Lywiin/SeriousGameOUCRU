@@ -5,6 +5,8 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Info Panel")]
     public TextMeshProUGUI badBacteriaCountText;
     public TextMeshProUGUI goodBacteriaCountText;
@@ -15,22 +17,32 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI victoryText;
     public TextMeshProUGUI gameOverText;
 
+
+    /*** PRIVATE VARIABLES ***/
+
     private GameController gameController;
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     void Start()
     {
         gameController = GameController.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Update bacteria count text
         badBacteriaCountText.text = "Bad bacteria: " + gameController.GetCurrentBadBacteriaCount().ToString();
         goodBacteriaCountText.text = "Good bacteria: " + gameController.GetCurrentGoodBacteriaCount().ToString();
 
+        // Update global mutation probability text
         float globalProba = Mathf.Round(gameController.GetGlobalMutationGlobalProba() * 1000f) / 1000f;
         mutationProbaText.text = "Mutation probability: " + globalProba.ToString();
     }
+
+
+    /***** DISPLAY FUNCTIONS *****/
 
     public void DisplayVictory()
     {

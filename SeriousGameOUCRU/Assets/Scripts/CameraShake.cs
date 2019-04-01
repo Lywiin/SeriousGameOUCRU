@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Light Shake")]
     public float lightShakeDuration = 0.1f;
     public float lightShakeSpeed = 1f;
@@ -14,8 +16,14 @@ public class CameraShake : MonoBehaviour
     public float heavyShakeSpeed = 1f;
     public float heavyShakeMagnitude = 0.4f;
 
+
+    /*** INSTANCE ***/
+
     private static CameraShake _instance;
     public static CameraShake Instance { get { return _instance; } }
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     private void Awake()
     {
@@ -26,6 +34,9 @@ public class CameraShake : MonoBehaviour
             _instance = this;
         }
     }
+
+
+    /***** SHAKE FUNCTIONS *****/
 
     // Function use to shake the camera
     public static IEnumerator Shake(float duration, float speed, float magnitude)

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    /*** PUBLIC VARIABLES ***/
+
     [Header("Camera Movement")]
     public Transform target;
     public Vector3 offset;
@@ -15,9 +17,15 @@ public class CameraController : MonoBehaviour
     public float cameraSizingFactor = 1.3f;
     public float cameraSmoothSpeed = 6f;
 
+
+    /*** PRIVATE VARIABLES ***/
+
     private Plane plane;
     private Camera cam;
     private float cameraBaseSize;
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     void Start()
     {
@@ -27,6 +35,15 @@ public class CameraController : MonoBehaviour
     }
 
     void FixedUpdate()
+    {
+        MoveCamera();
+    }
+
+
+    /***** CAMERA FUNCTIONS *****/
+
+    // Move camera according to target movements
+    private void MoveCamera()
     {
         if (target != null)
         {
@@ -39,14 +56,8 @@ public class CameraController : MonoBehaviour
             // Get look at offset
             Vector3 lookAtOffset = GetLookAtOffset();
 
-            float desiredSize = cameraBaseSize;
-            // Use that offset to zoom camera in or out
-            if(Input.GetButton("Fire1"))
-            {
-                float newSize = cameraBaseSize + lookAtOffset.magnitude * cameraSizingSpeed;
-                desiredSize = Mathf.Clamp(newSize, cameraBaseSize, cameraBaseSize * cameraSizingFactor);
-            }
-            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+            // Handle the zoom of the camera
+            ZoomCamera(lookAtOffset);
 
             // Set the camera position to that smooth position plus an offset from player mouse position
             transform.position = smoothedPosition + lookAtOffset;
@@ -68,12 +79,30 @@ public class CameraController : MonoBehaviour
             Vector3 hitPoint = ray.GetPoint(enter);
 
             // Compute offset position and clamp it to have the same max distance everywhere on the screen
-            Vector3 direction = hitPoint - target.position; //Vector3.ClampMagnitude(hitPoint - target.position, cam.orthographicSize);
+            Vector3 direction = hitPoint - target.position;
             direction.Normalize();
             direction *= cam.orthographicSize;
             lookAtOffset = direction * Time.deltaTime * lookAtSpeed;
         }
 
         return lookAtOffset;
+    }
+
+    // Zoom the camera when player fires
+    private void ZoomCamera(Vector3 lookAtOffset)
+    {
+        // Init desired size
+        float desiredSize = cameraBaseSize;
+
+        // Use that offset to zoom camera in or out
+        if(Input.GetButton("Fire1"))
+        {
+            // Compute new camera size and clamp it
+            float newSize = cameraBaseSize + lookAtOffset.magnitude * cameraSizingSpeed;
+            desiredSize = Mathf.Clamp(newSize, cameraBaseSize, cameraBaseSize * cameraSizingFactor);
+        }
+
+        // Apply the new camera size
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
     }
 }
