@@ -87,7 +87,7 @@ public class BadBacteria : Bacteria
 
     protected override Collider[] TestPosition(Vector3 randomPos)
     {
-        return Physics.OverlapSphere(randomPos, bacteriaSize / 2);
+        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
     }
 
     //Compute a random spawn position around bacteria
@@ -103,17 +103,6 @@ public class BadBacteria : Bacteria
         if (shieldScript.GetShieldHealth() == 0)
         {
             base.DamageBacteria(dmg);
-            // //Apply damage to bacteria's health
-            // health -= dmg;
-
-            // //Change material color according to health
-            // UpdateHealthColor();
-
-            // //If health is below 0, the bacteria dies
-            // if (health <= 0)
-            // {
-            //     KillBacteria();
-            // }
         }else
         {
             shieldScript.DamageShield(dmg);
@@ -149,9 +138,6 @@ public class BadBacteria : Bacteria
                     if (collidedShieldHealth > shieldScript.GetShieldHealth())
                         shieldScript.SetShieldHealth(collidedShieldHealth);
                 }
-
-                // Move away from collided object
-                //transform.parent.GetComponent<Bacteria>().MoveAway(collision.gameObject.transform.position);
             }
         }
     }

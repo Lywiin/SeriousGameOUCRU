@@ -18,7 +18,8 @@ public abstract class Bacteria : MonoBehaviour
 
     [Header("Replication")]
     public float mutationProbability = 0.01f;
-    public float duplicationRate = 0.02f;
+    public float duplicationProbability = 0.02f;
+    public float duplicationRecallTime = 5f;
 
     // Private variables
     protected Rigidbody rb;
@@ -28,8 +29,8 @@ public abstract class Bacteria : MonoBehaviour
 
     protected float timeToMove = 0f;
     protected float randomMoveRate;
-    protected float timeToDuplicate = 0f;
-    protected float randomDuplicationRate;
+    
+    protected bool canDuplicate = false;
 
     protected bool isResistant = false;
 
@@ -45,7 +46,7 @@ public abstract class Bacteria : MonoBehaviour
         gameController = GameController.Instance;
 
         // To avoid duplicating on spawn
-        timeToDuplicate = Random.Range(Time.time + 1 / duplicationRate / 2, Time.time + 1 / duplicationRate);
+        StartCoroutine(DuplicationRecall());
     }
 
     // Update is called once per frame
@@ -83,15 +84,13 @@ public abstract class Bacteria : MonoBehaviour
 
     private void TryToDuplicateBacteria()
     {
-
-        // Randomly duplicate bacteria
-        if (Time.time >= timeToDuplicate)
+        // If duplication is triggered
+        if (canDuplicate && Random.Range(0f, 1f) < duplicationProbability)
         {
-            // Compute next time bacteria should duplicate
-            randomDuplicationRate = Random.Range(duplicationRate - duplicationRate / 3f, duplicationRate + duplicationRate / 3f);
-            timeToDuplicate = Time.time + 1 / randomDuplicationRate;
+            // Buffer to prevent quick duplication
+            StartCoroutine(DuplicationRecall());
 
-            // Spawn a new duplicated bacteria
+            // Spawn new bacteria
             SpawnDuplicatedBacteria();
         }
     }
@@ -108,7 +107,7 @@ public abstract class Bacteria : MonoBehaviour
             randomPos = ComputeRandomSpawnPosAround();
             Collider[] hitColliders = TestPosition(randomPos);
 
-            // If touch something doesn't duplicate (avoid overcrowding of a zone)
+            // If touch something doesn't duplicate (avoid bacteria spawning on top of each other)
             if (hitColliders.Length > 0)
             {
                 continue;
@@ -119,18 +118,23 @@ public abstract class Bacteria : MonoBehaviour
         }
     }
 
+    public IEnumerator DuplicationRecall()
+    {
+        canDuplicate = false;
+        yield return new WaitForSeconds(duplicationRecallTime); // Time to wait before it can duplicate again
+        canDuplicate = true;
+    }
+
     protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
         gameController.AddBacteriaToList(b.GetComponent<Bacteria>());
         return b;
-        // Debug.Log(b.GetComponent<Bacteria>());
-        // Debug.Log("ADD: " + b.GetComponent<Bacteria>().GetInstanceID());
     }
 
     protected virtual Collider[] TestPosition(Vector3 randomPos)
     {
-        return Physics.OverlapSphere(randomPos, transform.localScale.x / 2);
+        return Physics.OverlapSphere(randomPos, transform.localScale.x / 2 * 1.1f); // Test 1.1 times bigger
     }
 
     //Compute a random spawn position around bacteria
