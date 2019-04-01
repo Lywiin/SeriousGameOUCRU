@@ -19,8 +19,8 @@ public abstract class Bacteria : MonoBehaviour
     public Color lowHealthColor;
 
     [Header("Replication")]
-    public float mutationProba = 0.01f;
-    public float duplicationProba = 0.02f;
+    public float mutationProba = 0.001f;
+    public float duplicationProba = 0.0002f;
     public float duplicationRecallTime = 5f;
 
 
@@ -76,6 +76,9 @@ public abstract class Bacteria : MonoBehaviour
 
             // Attempt to duplicate bacteria every frame
             TryToDuplicateBacteria();
+
+            // Attempt to mutate bacteria every frame
+            TryToMutateBacteria();
         }
     }
 
@@ -93,6 +96,18 @@ public abstract class Bacteria : MonoBehaviour
 
             // Add force to the current bacteria velocity
             rb.AddForce(new Vector3(Random.Range(-moveForce, moveForce), 0f, Random.Range(-moveForce, moveForce)), ForceMode.Impulse);
+        }
+    }
+
+
+    /***** MUTATION FUNCTIONS *****/
+
+    protected virtual void TryToMutateBacteria()
+    {
+        // If bacteria not already resistant and mutation is triggered
+        if (!isResistant && Random.Range(0f, 1f) < mutationProba)
+        {
+            ActivateResistance();
         }
     }
 
@@ -161,6 +176,11 @@ public abstract class Bacteria : MonoBehaviour
     protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+
+        // Activate the resistance on duplicated bacteria is already resistant
+        if(isResistant)
+            b.GetComponent<Bacteria>().ActivateResistance();
+
         return b;
     }
 

@@ -11,7 +11,7 @@ public class BadBacteria : Bacteria
     public float conjugaisonRecallTime = 5f;
 
     [Header("Transformation")]
-    public float transformationProbability = 0.01f;
+    public float transformationProbability = 0.5f;
     public GameObject resistantGene;
 
     public static List<BadBacteria> badBacteriaList = new List<BadBacteria>();
@@ -69,7 +69,7 @@ public class BadBacteria : Bacteria
 
     /***** MUTATION FUNCTIONS *****/
 
-    private void TryToMutateBacteria()
+    protected override void TryToMutateBacteria()
     {
         // If mutation is triggered
         if (Random.Range(0f, 1f) < mutationProba)
@@ -99,7 +99,7 @@ public class BadBacteria : Bacteria
     {
         GameObject b = base.InstantiateBacteria(randomPos);
         
-        // Only set shield health if bacteria is resistant
+        // Set shield health if bacteria is resistant
         if(isResistant)
             b.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
 
