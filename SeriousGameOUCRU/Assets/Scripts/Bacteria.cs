@@ -19,8 +19,8 @@ public abstract class Bacteria : MonoBehaviour
     public Color lowHealthColor;
 
     [Header("Replication")]
-    public float mutationProbability = 0.01f;
-    public float duplicationProbability = 0.02f;
+    public float mutationProba = 0.01f;
+    public float duplicationProba = 0.02f;
     public float duplicationRecallTime = 5f;
 
 
@@ -97,20 +97,12 @@ public abstract class Bacteria : MonoBehaviour
     }
 
 
-    /***** MUTATION FUNCTIONS *****/
-
-    public void IncreaseMutationProba(float increase)
-    {
-        mutationProbability += increase;
-    }
-
-
     /***** DUPLICATION FUNCTIONS *****/
 
     private void TryToDuplicateBacteria()
     {
         // If duplication is triggered
-        if (canDuplicate && Random.Range(0f, 1f) < duplicationProbability)
+        if (canDuplicate && Random.Range(0f, 1f) < duplicationProba)
         {
             // Buffer to prevent quick duplication
             StartCoroutine(DuplicationRecall());
@@ -169,7 +161,6 @@ public abstract class Bacteria : MonoBehaviour
     protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
-        gameController.AddBacteriaToList(b.GetComponent<Bacteria>());
         return b;
     }
 
@@ -202,7 +193,6 @@ public abstract class Bacteria : MonoBehaviour
     public virtual void KillBacteria()
     {
         // GameObject is destroyed in the gamecontroller
-        gameController.RemoveBacteriaFromList(this);
         Destroy(gameObject);
     }
 

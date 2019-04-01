@@ -31,7 +31,8 @@ public class GameController : MonoBehaviour
     private bool isPaused = false;
 
     // Keep track of the mutation proba
-    private float globalMutationProba = 0f;
+    [HideInInspector]
+    public float globalMutationProba = 0f;
 
     // Bacteria lists
     private List<Bacteria> goodBacteriaList;
@@ -95,9 +96,6 @@ public class GameController : MonoBehaviour
         {
             SpawnBacteria(goodBacteria);
         }
-
-        // TEMP to get initial proba
-        globalMutationProba = badBacteriaList[0].mutationProbability;
     }
 
     //Spawn a new bacteria
@@ -115,8 +113,6 @@ public class GameController : MonoBehaviour
             
             //Instantiate bacteria at position and add it to the list
             GameObject b = Instantiate(bacteria, randomPos, Quaternion.identity);
-            //bacteriaList.Add(b);
-            AddBacteriaToList(b.GetComponent<Bacteria>());
     }
 
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
@@ -138,79 +134,17 @@ public class GameController : MonoBehaviour
     // Activate or desactivate player input and objects movements
     public void TogglePause()
     {
+        // Change pause state
         isPaused = !isPaused;
 
-        // Freeze player
-        if (player)
-        {
-            ToggleFreeze(player.GetComponent<Rigidbody>());
-        }
-
-        // Freeze bad bacteria
-        foreach (Bacteria bb in badBacteriaList)
-        {
-            ToggleFreeze(bb.GetComponent<Rigidbody>());
-        }
-
-        // Freeze good bacteria
-        foreach (Bacteria gb in goodBacteriaList)
-        {
-            ToggleFreeze(gb.GetComponent<Rigidbody>());
-        }
+        // Change time scale according to bool
+        Time.timeScale = isPaused ? 0 : 1;
     }
 
     // Get pause state
     public bool IsGamePaused()
     {
         return isPaused;
-    }
-
-    // Toggle freeze of all objects position and rotation, which means change their rigidbody constraint
-    public void ToggleFreeze(Rigidbody rb)
-    {
-        if (IsGamePaused())
-        {
-            // When game is paused
-            rb.constraints = RigidbodyConstraints.FreezePosition;
-        }
-        else
-        {
-            // When game is not paused
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-        }
-    }
-
-
-    /***** LISTS FUNCTIONS *****/
-
-    //Called by a bacteria when it dies
-    public void RemoveBacteriaFromList(Bacteria b)
-    {
-        if (b is BadBacteria)
-        {
-            badBacteriaList.Remove(b);
-        }else if (b is GoodBacteria)
-        {
-            goodBacteriaList.Remove(b);
-        }
-        
-        // If no bad bacteria left, player win
-        if (badBacteriaList.Count == 0)
-        {
-            PlayerWon();
-        }
-    }
-
-    //Called by a bacteria when it deplicate
-    public void AddBacteriaToList(Bacteria b)
-    {
-        if (b is BadBacteria)
-        {
-            badBacteriaList.Add(b);
-        }else
-        {
-            goodBacteriaList.Add(b);
-        }
     }
 
 
@@ -248,13 +182,9 @@ public class GameController : MonoBehaviour
         globalMutationProba += mutationProbaIncrease;
 
         // Update bacteria mutation rate
-        foreach (Bacteria bb in badBacteriaList)
+        foreach (BadBacteria b in BadBacteria.badBacteriaList)
         {
-            bb.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
-        }
-        foreach (Bacteria gb in goodBacteriaList)
-        {
-            gb.GetComponent<Bacteria>().IncreaseMutationProba(mutationProbaIncrease);
+            b.IncreaseMutationProba(mutationProbaIncrease);
         }
     }
 

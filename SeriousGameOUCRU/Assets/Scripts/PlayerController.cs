@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
         {
             // Fire projectile 1
-            Fire(timeToFireP1, fireRateP1, projectile1, 2.0f);
+            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, 2.0f);
         }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
         {
             // Fire projectile 2
-            Fire(timeToFireP2, fireRateP2, projectile2, 2.0f);
+            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, 2.0f);
 
             // Increase all proba
             gameController.IncreaseAllMutationProba();
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Fire a projectile
-    private void Fire(float timeToFire, float fireRate, GameObject projectile, float fireDrawback)
+    private void Fire(ref float timeToFire, ref float fireRate, ref GameObject projectile, float fireDrawback)
     {
         // Update next time to fire
         timeToFire = Time.time + 1 / fireRate;

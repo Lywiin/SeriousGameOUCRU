@@ -14,6 +14,8 @@ public class BadBacteria : Bacteria
     public float transformationProbability = 0.01f;
     public GameObject resistantGene;
 
+    public static List<BadBacteria> badBacteriaList = new List<BadBacteria>();
+
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
@@ -29,6 +31,13 @@ public class BadBacteria : Bacteria
     protected override void Start()
     {
         base.Start();
+
+        // Add to list
+        badBacteriaList.Add(this);
+
+        // TEMP to get initial proba
+        if (BadBacteria.badBacteriaList.Count == 1)
+            GameController.Instance.globalMutationProba = mutationProba;
 
         // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
@@ -63,7 +72,7 @@ public class BadBacteria : Bacteria
     private void TryToMutateBacteria()
     {
         // If mutation is triggered
-        if (Random.Range(0f, 1f) < mutationProbability)
+        if (Random.Range(0f, 1f) < mutationProba)
         {
             if (isResistant)
             {
@@ -76,6 +85,11 @@ public class BadBacteria : Bacteria
             }
             UpdateBacteriaSize();
         }
+    }
+
+    public void IncreaseMutationProba(float increase)
+    {
+        mutationProba += increase;
     }
 
 
@@ -169,6 +183,9 @@ public class BadBacteria : Bacteria
             GameObject g = Instantiate(resistantGene, transform.position, Quaternion.identity);
             g.GetComponent<ResistantGene>().SetOldShieldMaxHealth(shieldScript.GetShieldMaxHealth());
         }
+
+        // Remove from list
+        badBacteriaList.Remove(this);
 
         base.KillBacteria();
     }
