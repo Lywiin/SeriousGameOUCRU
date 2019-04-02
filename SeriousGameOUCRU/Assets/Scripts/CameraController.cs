@@ -13,8 +13,8 @@ public class CameraController : MonoBehaviour
     public float lookAtSpeed = 1.5f;
 
     [Header("Camera Size")]
-    public float cameraSizingSpeed = 2f;
-    public float cameraSizingFactor = 1.3f;
+    public float cameraSizingSpeed = 2.5f;
+    public float cameraSizingFactor = 1.2f;
     public float cameraSmoothSpeed = 6f;
 
 
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     {
         plane = new Plane(Vector3.up, Vector3.zero);
         cam = transform.GetComponentInChildren<Camera>();
-        cameraBaseSize = cam.orthographicSize;
+        cameraBaseSize = cam.fieldOfView;
     }
 
     void FixedUpdate()
@@ -98,11 +98,11 @@ public class CameraController : MonoBehaviour
         if(Input.GetButton("Fire1"))
         {
             // Compute new camera size and clamp it
-            float newSize = cameraBaseSize + lookAtOffset.magnitude * cameraSizingSpeed;
+            float newSize = cameraBaseSize + lookAtOffset.magnitude * cameraSizingSpeed; 
             desiredSize = Mathf.Clamp(newSize, cameraBaseSize, cameraBaseSize * cameraSizingFactor);
         }
 
         // Apply the new camera size
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, desiredSize, Time.deltaTime * cameraSmoothSpeed);
     }
 }

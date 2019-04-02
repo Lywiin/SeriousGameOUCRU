@@ -125,4 +125,4 @@ MonoBehaviour:
   maxVelocity: 80
   lifeTime: 1.5
   damage: 50
-  boostedColor: {r: 0.9098039, g: 0.15686275, b: 0.9372549, a: 1}
+  boostedColor: {r: 0.9811321, g: 0.8623381, b: 0.041651815, a: 1}

@@ -178,8 +178,8 @@ public abstract class Bacteria : MonoBehaviour
         GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
 
         // Activate the resistance on duplicated bacteria is already resistant
-        if(isResistant)
-            b.GetComponent<Bacteria>().ActivateResistance();
+        // if(isResistant)
+        //     b.GetComponent<Bacteria>().ActivateResistance();
 
         return b;
     }

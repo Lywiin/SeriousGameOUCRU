@@ -34,10 +34,6 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public float globalMutationProba = 0f;
 
-    // Bacteria lists
-    private List<Bacteria> goodBacteriaList;
-    private List<Bacteria> badBacteriaList;
-
 
     /*** INSTANCE ***/
 
@@ -60,8 +56,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         // Initialize bacteria lists
-        goodBacteriaList = new List<Bacteria>();
-        badBacteriaList = new List<Bacteria>();
+        GoodBacteria.goodBacteriaList.Clear();
+        BadBacteria.badBacteriaList.Clear();
 
         // Setup the game and spawn bacterias
         SetupGame();
@@ -190,16 +186,6 @@ public class GameController : MonoBehaviour
 
 
     /***** GETTERS *****/
-
-    public int GetCurrentBadBacteriaCount()
-    {
-        return badBacteriaList.Count;
-    }
-
-    public int GetCurrentGoodBacteriaCount()
-    {
-        return goodBacteriaList.Count;
-    }
 
     public float GetGlobalMutationGlobalProba()
     {

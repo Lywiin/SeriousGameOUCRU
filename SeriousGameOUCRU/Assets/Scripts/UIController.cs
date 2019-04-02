@@ -33,8 +33,8 @@ public class UIController : MonoBehaviour
     void Update()
     {
         // Update bacteria count text
-        badBacteriaCountText.text = "Bad bacteria: " + gameController.GetCurrentBadBacteriaCount().ToString();
-        goodBacteriaCountText.text = "Good bacteria: " + gameController.GetCurrentGoodBacteriaCount().ToString();
+        badBacteriaCountText.text = "Bad bacteria: " + BadBacteria.badBacteriaList.Count.ToString();
+        goodBacteriaCountText.text = "Good bacteria: " + GoodBacteria.goodBacteriaList.Count.ToString();
 
         // Update global mutation probability text
         float globalProba = Mathf.Round(gameController.GetGlobalMutationGlobalProba() * 1000f) / 1000f;
