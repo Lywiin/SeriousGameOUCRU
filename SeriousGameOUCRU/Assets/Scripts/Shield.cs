@@ -40,10 +40,10 @@ public class Shield : MonoBehaviour
     public void UpdateShieldSize()
     {
         // Compute new scale
-        Vector3 newScale = new Vector3(0.8f, 0.1f, 0.8f);
+        Vector3 newScale = new Vector3(0.9f, 1.0f, 0.9f);
         if (shieldHealth > 0)
         {
-            newScale.x = newScale.z = 1.0f + (float)shieldHealth / 100;  
+            newScale.x = newScale.z = 1.0f + (float)shieldHealth / 100;
         }
         
         // Animate the scale change
