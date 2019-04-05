@@ -37,7 +37,7 @@ public class BadBacteria : Bacteria
 
         // TEMP to get initial proba
         if (BadBacteria.badBacteriaList.Count == 1)
-            GameController.Instance.globalMutationProba = mutationProba;
+            gameController.globalMutationProba = mutationProba;
 
         // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
@@ -185,7 +185,7 @@ public class BadBacteria : Bacteria
         }
 
         // Remove from list
-        badBacteriaList.Remove(this);
+        RemoveFromList();
 
         base.KillBacteria();
     }
@@ -197,5 +197,18 @@ public class BadBacteria : Bacteria
     {
         base.ActivateResistance();
         shieldScript.shield.SetActive(true);
+    }
+
+
+    /***** LIST FUNCTIONS *****/
+    
+    private void RemoveFromList()
+    {
+        badBacteriaList.Remove(this);
+
+        if (BadBacteria.badBacteriaList.Count == 0)
+        {
+            gameController.PlayerWon();
+        }
     }
 }

@@ -76,6 +76,7 @@ public class GameController : MonoBehaviour
         {
             RestartGame();
         }
+
     }
 
     /***** START FUNCTIONS *****/
@@ -122,6 +123,7 @@ public class GameController : MonoBehaviour
     private void RestartGame()
     {
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        Time.timeScale = 1.0f;
     }
 
 
@@ -161,9 +163,10 @@ public class GameController : MonoBehaviour
     }
 
     //Called when the player win
-    private void PlayerWon()
+    public void PlayerWon()
     {
         // Update the UI and restart
+        Time.timeScale = 0.5f;
         uiController.DisplayVictory();
         Invoke("RestartGame", 2);
     }

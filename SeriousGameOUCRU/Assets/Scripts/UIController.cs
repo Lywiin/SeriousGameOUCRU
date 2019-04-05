@@ -28,6 +28,9 @@ public class UIController : MonoBehaviour
     void Start()
     {
         gameController = GameController.Instance;
+        finishPanel.SetActive(false);
+        victoryText.gameObject.SetActive(false);
+        gameOverText.gameObject.SetActive(false);
     }
 
     void Update()
