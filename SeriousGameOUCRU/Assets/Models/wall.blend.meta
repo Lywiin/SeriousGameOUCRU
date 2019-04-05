@@ -6,6 +6,8 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: Material
+    2100002: WallMaterial__background1_psd
+    2100004: WallMaterial__wall1_psd
     2300000: //RootNode
     3300000: //RootNode
     4300000: Wall
@@ -13,7 +15,7 @@ ModelImporter:
     9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
