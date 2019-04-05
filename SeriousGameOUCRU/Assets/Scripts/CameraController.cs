@@ -24,6 +24,9 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     private float cameraBaseSize;
 
+    // Camera zone size
+    private Vector2 cameraZone;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -32,6 +35,9 @@ public class CameraController : MonoBehaviour
         plane = new Plane(Vector3.up, Vector3.zero);
         cam = transform.GetComponentInChildren<Camera>();
         cameraBaseSize = cam.orthographicSize;
+
+        // Initialize zone where the camera can go
+        cameraZone = GameController.Instance.gameZoneRadius - new Vector2(15f, 5f);
     }
 
     void FixedUpdate()
@@ -59,8 +65,11 @@ public class CameraController : MonoBehaviour
             // Handle the zoom of the camera
             ZoomCamera(lookAtOffset);
 
-            // Set the camera position to that smooth position plus an offset from player mouse position
-            transform.position = smoothedPosition + lookAtOffset;
+            // Set the camera final position to that smooth position plus an offset from player mouse position
+            Vector3 finalPosition = smoothedPosition + lookAtOffset;
+
+            // Clamp the final position in the camera zone
+            transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
         }
     }
 
