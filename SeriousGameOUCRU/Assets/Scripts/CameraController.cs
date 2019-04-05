@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
     {
         plane = new Plane(Vector3.up, Vector3.zero);
         cam = transform.GetComponentInChildren<Camera>();
-        cameraBaseSize = cam.fieldOfView;
+        cameraBaseSize = cam.orthographicSize;
     }
 
     void FixedUpdate()
@@ -103,6 +103,6 @@ public class CameraController : MonoBehaviour
         }
 
         // Apply the new camera size
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
     }
 }
