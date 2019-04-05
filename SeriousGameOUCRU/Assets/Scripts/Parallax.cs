@@ -13,6 +13,8 @@ public class Parallax : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     private Vector3 startPos;
+    private float lenX = 48f;
+    private float lenZ = 24f;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -24,9 +26,21 @@ public class Parallax : MonoBehaviour
 
     void FixedUpdate()
     {
-        float newX = cam.transform.position.x * parallaxEffect;
-        float newZ = cam.transform.position.z * parallaxEffect;
+        float tempX = cam.transform.position.x * (1 - parallaxEffect);
+        float tempZ = cam.transform.position.z * (1 - parallaxEffect);
 
-        transform.position = new Vector3(startPos.x + newX, transform.position.y, startPos.z + newZ);
+        float distX = cam.transform.position.x * parallaxEffect;
+        float distZ = cam.transform.position.z * parallaxEffect;
+
+        // Affect new position
+        transform.position = new Vector3(startPos.x + distX, transform.position.y, startPos.z + distZ);
+
+        // Adjust X start position
+        if (tempX > startPos.x + lenX / 2) startPos.x += lenX;
+        else if (tempX < startPos.x - lenX / 2) startPos.x -= lenX;
+
+        // Adjust Z start position
+        if (tempZ > startPos.z + lenZ / 2) startPos.z += lenZ;
+        else if (tempZ < startPos.z - lenZ / 2) startPos.z -= lenZ;
     }
 }
