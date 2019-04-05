@@ -142,7 +142,7 @@ MonoBehaviour:
   moveRate: 2
   moveRateVariance: 1
   maxHealth: 100
-  fullHealthColor: {r: 0.8396226, g: 0.07524917, b: 0.07524917, a: 0}
+  fullHealthColor: {r: 0.7294118, g: 0, b: 0, a: 0}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0}
   mutationProba: 0.001
   duplicationProba: 0.0002
