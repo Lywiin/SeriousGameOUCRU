@@ -48,6 +48,8 @@ public class GameController : MonoBehaviour
         } else {
             _instance = this;
         }
+
+        // Pause the game before the start to animate it
     }
 
 
@@ -76,7 +78,6 @@ public class GameController : MonoBehaviour
         {
             RestartGame();
         }
-
     }
 
     /***** START FUNCTIONS *****/

@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private bool dead = false;
     private bool isBoosted = false;
 
+    // Can player interact
+    private bool canMove = false;
+
 
     /*** INSTANCE ***/
 
@@ -63,12 +66,15 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         gameController = GameController.Instance;
         plane = new Plane(Vector3.up, Camera.main.transform.position.y);
+
+        // Prevent player movement from start
+        canMove = false;
     }
 
     void Update()
     {
         // If game not paused
-        if (!gameController.IsGamePaused())
+        if (!gameController.IsGamePaused() && canMove)
         {
             // Check if player is firing
             CheckFire();
@@ -80,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gameController.IsGamePaused())
+        if (!gameController.IsGamePaused() && canMove)
         {
             MovePlayer();
         }
@@ -133,6 +139,12 @@ public class PlayerController : MonoBehaviour
     }
 
     /*** MOVEMENTS FUNCTIONS ***/
+
+    // Toggle player movement
+    public void SetCanMove(bool b)
+    {
+        canMove = b;
+    }
 
     // Move the player from input
     private void MovePlayer()
