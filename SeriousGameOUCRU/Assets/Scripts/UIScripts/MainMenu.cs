@@ -7,14 +7,6 @@ public class MainMenu : MonoBehaviour
     public Animator animator;
 
 
-    /***** MONOBEHAVIOUR FUNCTIONS *****/
-
-    void Start()
-    {
-        
-    }
-
-
     /***** SIZE FUNCTIONS *****/
 
     public void GrowText()

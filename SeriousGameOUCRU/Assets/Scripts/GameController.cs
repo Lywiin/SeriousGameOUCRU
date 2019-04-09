@@ -40,6 +40,9 @@ public class GameController : MonoBehaviour
     private static GameController _instance;
     public static GameController Instance { get { return _instance; } }
 
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -48,12 +51,8 @@ public class GameController : MonoBehaviour
         } else {
             _instance = this;
         }
-
-        // Pause the game before the start to animate it
     }
 
-
-    /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     void Start()
     {
@@ -152,6 +151,9 @@ public class GameController : MonoBehaviour
     //Called by player when he dies
     public void PlayerDied()
     {
+        // Hide the minimap
+        Minimap.Instance.HideMinimap();
+
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();
 
@@ -166,6 +168,9 @@ public class GameController : MonoBehaviour
     //Called when the player win
     public void PlayerWon()
     {
+        // Hide the minimap
+        Minimap.Instance.HideMinimap();
+
         // Update the UI and restart
         Time.timeScale = 0.5f;
         uiController.DisplayVictory();

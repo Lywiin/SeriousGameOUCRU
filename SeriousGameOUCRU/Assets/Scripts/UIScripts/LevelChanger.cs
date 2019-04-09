@@ -39,8 +39,8 @@ public class LevelChanger : MonoBehaviour
         // Unpause the game to start
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            //GameController.Instance.TogglePause();
             PlayerController.Instance.SetCanMove(true);
+            Minimap.Instance.ShowMinimap();
         }
     }
 }
