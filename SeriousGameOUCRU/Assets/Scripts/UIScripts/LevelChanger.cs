@@ -41,6 +41,7 @@ public class LevelChanger : MonoBehaviour
         {
             PlayerController.Instance.SetCanMove(true);
             Minimap.Instance.ShowMinimap();
+            Tutorial.Instance.DisplayTutorial();
         }
     }
 }
