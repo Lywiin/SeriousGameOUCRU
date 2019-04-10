@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum Languages
-{
-    English,
-    Vietnamese,
-    French
-}
-
 public class TextLocalization : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
@@ -18,9 +11,6 @@ public class TextLocalization : MonoBehaviour
     public string textEnglish;
     public string textVietnamese;
     public string textFrench;
-
-    // Current language
-    public static Languages selectedLanguage = Languages.English;
 
     // List of all instances of localized text
     public static List<TextLocalization> localizationInstancesList = new List<TextLocalization>();
@@ -33,6 +23,12 @@ public class TextLocalization : MonoBehaviour
 
     private void Awake()
     {
+        // Add the default language in the pref the first time
+        if (!PlayerPrefs.HasKey("Language"))
+        {
+            PlayerPrefs.SetString("Language", "English");
+        }
+
         // Add instance and update text for initialization
         localizationInstancesList.Add(this);
         UpdateText();
@@ -50,15 +46,15 @@ public class TextLocalization : MonoBehaviour
     // Change the text of the current object according to current language
     public void UpdateText()
     {
-        switch (selectedLanguage)
+        switch (PlayerPrefs.GetString("Language"))
         {
-            case Languages.English:
+            case "English":
                 transform.GetComponent<TextMeshProUGUI>().text = textEnglish;
                 break;
-            case Languages.Vietnamese:
+            case "Vietnamese":
                 transform.GetComponent<TextMeshProUGUI>().text = textVietnamese;
                 break;
-            case Languages.French:
+            case "French":
                 transform.GetComponent<TextMeshProUGUI>().text = textFrench;
                 break;
         }
@@ -66,24 +62,26 @@ public class TextLocalization : MonoBehaviour
 
     public void SwitchLanguageToEnglish()
     {
-        TextLocalization.ChangeLanguage(Languages.English);
+        TextLocalization.ChangeLanguage("English");
         UnselectButton();
     }
     public void SwitchLanguageToVietnamese()
     {
-        TextLocalization.ChangeLanguage(Languages.Vietnamese);
+        TextLocalization.ChangeLanguage("Vietnamese");
         UnselectButton();
     }
     public void SwitchLanguageToFrench()
     {
-        TextLocalization.ChangeLanguage(Languages.French);
+        TextLocalization.ChangeLanguage("French");
         UnselectButton();
     }
 
     // Change the language
-    public static void ChangeLanguage(Languages l)
+    public static void ChangeLanguage(string l)
     {
-        selectedLanguage = l;
+        // Change language in the preference
+        PlayerPrefs.SetString("Language", l);
+
         TextLocalization.UpdateAllText();
     }
 
