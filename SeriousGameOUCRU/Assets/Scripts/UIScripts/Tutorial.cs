@@ -107,7 +107,7 @@ public class Tutorial : MonoBehaviour
     }
 
 
-    /***** FADE IN COMPLETED FUNCTIONS *****/
+    /***** COMPLETED FUNCTIONS *****/
 
     public void OnMoveTextFadeInComplete()
     {
@@ -133,8 +133,15 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    public void HideTutorial()
+    {
+        // Only trigger when last thing has been done
+        if (playerShooted)
+            gameObject.SetActive(false);
+    }
 
-    /***** FADE IN COMPLETED FUNCTIONS *****/
+
+    /***** GETTERS FUNCTIONS *****/
 
     public bool CanPlayerMove()
     {
