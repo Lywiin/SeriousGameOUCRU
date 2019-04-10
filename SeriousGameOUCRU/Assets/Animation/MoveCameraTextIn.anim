@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MoveTextIn
+  m_Name: MoveCameraTextIn
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -42,7 +42,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Canvas/MovePanel
+    path: Canvas/MoveCameraPanel
     classID: 224
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -54,7 +54,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 1931969735
+      path: 3448075782
       attribute: 1460864421
       script: {fileID: 0}
       typeID: 224
@@ -107,7 +107,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_AnchoredPosition.x
-    path: Canvas/MovePanel
+    path: Canvas/MoveCameraPanel
     classID: 224
     script: {fileID: 0}
   m_EulerEditorCurves: []
@@ -115,7 +115,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1
-    functionName: OnMoveTextFadeInComplete
+    functionName: OnMoveCameraTextFadeInComplete
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

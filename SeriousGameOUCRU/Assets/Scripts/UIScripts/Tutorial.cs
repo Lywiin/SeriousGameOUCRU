@@ -8,6 +8,21 @@ public class Tutorial : MonoBehaviour
 
     public Animator animator;
 
+    public bool on = true;
+
+
+    /*** PRIVATE VARIABLES ***/
+
+    // Control what can the player do
+    private bool canPlayerMove = true;
+    private bool canPlayerMoveCamera = true;
+    private bool canPlayerShoot = true;
+
+    // Keep track of what the player did
+    private bool playerMoved = false;
+    private bool playerMovedCamera = false;
+    private bool playerShooted = false;
+
 
     /*** INSTANCE ***/
 
@@ -19,31 +34,120 @@ public class Tutorial : MonoBehaviour
 
     private void Awake()
     {
+        // Setup the instance
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
         } else {
             _instance = this;
         }
+
+        // If tutorial on, reset what player can do
+        if (on)
+        {
+            canPlayerMove = canPlayerMoveCamera = canPlayerShoot = false;
+        }
+    }
+
+    private void Update()
+    {
+        // Trigger when player move the character
+        if (canPlayerMove && !playerMoved && 
+            (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("z") || Input.GetKeyDown("q")))
+        {
+            playerMoved = true;
+            ShowMoveCameraText();
+        }
+
+        // Trigger when player move the camera
+        else if (canPlayerMoveCamera && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
+        {
+            playerMovedCamera = true;
+            ShowShootText();
+        }
+
+        // Trigger when player shoot
+        else if (canPlayerShoot && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
+        {
+            playerShooted = true;
+            TutorialFinished();
+        }
     }
 
 
-    /***** ANIMATION FUNCTIONS *****/
+    /***** FADE IN FUNCTIONS *****/
 
-    public void DisplayTutorial()
+    public void StartTutorial()
     {
         ShowMoveText();
-        StartCoroutine(ShowMoveCameraText());
     }
 
     private void ShowMoveText()
     {
-        animator.SetBool("showMoveText", true);
+        // Trigger the first animation for player movement
+        animator.SetTrigger("showMoveText");
     }
 
-    private IEnumerator ShowMoveCameraText()
+    private void ShowMoveCameraText()
     {
-        yield return new WaitForSeconds(3f);
-        animator.SetBool("showMoveCameraText", true);
+        // Trigger the next animation for camera movement
+        animator.SetTrigger("showMoveCameraText");
+    }
+
+    private void ShowShootText()
+    {
+        // Trigger the next animation for shoot input
+        animator.SetTrigger("showShootText");
+    }
+
+    private void TutorialFinished()
+    {
+        // Trigger the end of the tutorial
+        animator.SetTrigger("tutorialFinished");
+    }
+
+
+    /***** FADE IN COMPLETED FUNCTIONS *****/
+
+    public void OnMoveTextFadeInComplete()
+    {
+        if (!canPlayerMove)
+        {
+            canPlayerMove = true;
+        }
+    }
+
+    public void OnMoveCameraTextFadeInComplete()
+    {
+        if (!canPlayerMoveCamera)
+        {
+            canPlayerMoveCamera = true;
+        }
+    }
+
+    public void OnShootTextFadeInComplete()
+    {
+        if (!canPlayerShoot)
+        {
+            canPlayerShoot = true;
+        }
+    }
+
+
+    /***** FADE IN COMPLETED FUNCTIONS *****/
+
+    public bool CanPlayerMove()
+    {
+        return canPlayerMove;
+    }
+
+    public bool CanPlayerMoveCamera()
+    {
+        return canPlayerMoveCamera;
+    }
+
+    public bool CanPlayerShoot()
+    {
+        return canPlayerShoot;
     }
 }

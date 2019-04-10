@@ -41,7 +41,10 @@ public class LevelChanger : MonoBehaviour
         {
             PlayerController.Instance.SetCanMove(true);
             Minimap.Instance.ShowMinimap();
-            Tutorial.Instance.DisplayTutorial();
+
+            // Only start tutorial if activated
+            if (Tutorial.Instance.on)
+                Tutorial.Instance.StartTutorial();
         }
     }
 }

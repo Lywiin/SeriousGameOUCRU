@@ -62,14 +62,25 @@ public class CameraController : MonoBehaviour
             // Get look at offset
             Vector3 lookAtOffset = GetLookAtOffset();
 
-            // Handle the zoom of the camera
-            ZoomCamera(lookAtOffset);
+            if (Tutorial.Instance.CanPlayerMoveCamera())
+            {
+                // Handle the zoom of the camera
+                ZoomCamera(lookAtOffset);
+            }
 
             // Set the camera final position to that smooth position plus an offset from player mouse position
             Vector3 finalPosition = smoothedPosition + lookAtOffset;
 
-            // Clamp the final position in the camera zone
-            transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
+            // If player has completed tutorial can move camera everywhere
+            if (Tutorial.Instance.CanPlayerMoveCamera())
+            {
+                // Clamp the final position in the camera zone
+                transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
+            }else   
+            {
+                // Otherwise camera only follow player position
+                transform.position = smoothedPosition;
+            }
         }
     }
 
