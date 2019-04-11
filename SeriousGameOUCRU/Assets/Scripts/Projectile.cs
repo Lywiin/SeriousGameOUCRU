@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    /*** PRIVATE VARIABLES ***/
-
-    // Components
-    private Rigidbody rb;
+    /*** PUBLIC VARIABLES ***/
 
     // Speed
     public float speed = 20f;
@@ -22,13 +19,19 @@ public class ProjectileController : MonoBehaviour
     // Color when boosted
     public Color boostedColor;
 
+
+    /*** PRIVATE/PROTECTED VARIABLES ***/
+
+    // Components
+    protected Rigidbody rb;
+
     // Collision
-    private bool canCollide = true;
+    protected bool canCollide = true;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    void Start()
+    protected void Start()
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();
@@ -37,7 +40,7 @@ public class ProjectileController : MonoBehaviour
         StartCoroutine(KillProjectile());
     }
 
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
         //Add force to the projectile
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
@@ -50,38 +53,34 @@ public class ProjectileController : MonoBehaviour
     /***** KILL FUNCTIONS *****/
 
     // Kill the projectile after some time
-    IEnumerator KillProjectile()
+    protected virtual IEnumerator KillProjectile()
     {
-        yield return new WaitForSeconds(lifeTime);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(0);
     }
 
 
     /***** COLLISION FUNCTIONS *****/
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
-        // Used to prevent double collision with one projectile
-        if (canCollide)
-        {
-            canCollide = false;
+        Destroy(gameObject);
+    }
 
-            // Check if collided object is a bacteria
-            Bacteria bacteriaScript = collision.transform.GetComponentInParent<Bacteria>();
+    protected virtual void ApplyDamage(GameObject g)
+    {
+        // Check if collided object is a bacteria
+            Bacteria bacteriaScript = g.transform.GetComponentInParent<Bacteria>();
             if (bacteriaScript)
             {
                 // If so damage bacteria
                 bacteriaScript.DamageBacteria(damage);
-                CameraShake.Instance.LightScreenShake();
             }
-            else if (collision.gameObject.CompareTag("ResistantGene"))
+            else if (g.gameObject.CompareTag("ResistantGene"))
             {
                 // Otherwise if gene, damage gene
-                collision.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
+                g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
             }
 
-            Destroy(gameObject);
-        }
     }
 
 

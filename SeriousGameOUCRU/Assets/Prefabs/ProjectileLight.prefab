@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8473704378987861479}
   - component: {fileID: 6576065875603266981}
   - component: {fileID: 4238753236924817854}
-  - component: {fileID: 6483229901078364328}
+  - component: {fileID: 6389900593378594400}
   m_Layer: 0
   m_Name: ProjectileLight
   m_TagString: Untagged
@@ -109,7 +109,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &6483229901078364328
+--- !u!114 &6389900593378594400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,4 +125,4 @@ MonoBehaviour:
   maxVelocity: 100
   lifeTime: 1
   damage: 10
-  boostedColor: {r: 1, g: 0.9167996, b: 0, a: 1}
+  boostedColor: {r: 0.70462185, g: 0, b: 0.8207547, a: 0}

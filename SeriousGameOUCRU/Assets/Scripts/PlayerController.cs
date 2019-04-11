@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
         // If boosted, multiply projectile damage
         if (isBoosted)
         {
-            p.GetComponent<ProjectileController>().MultiplyDamage(damageMultiplier);            
+            p.GetComponent<Projectile>().MultiplyDamage(damageMultiplier);            
         }
     }
 
