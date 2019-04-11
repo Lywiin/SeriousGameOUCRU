@@ -6236,6 +6236,9 @@ MonoBehaviour:
   cameraSizingSpeed: 2.5
   cameraSizingFactor: 1.1
   cameraSmoothSpeed: 6
+  projectileFollowFactor: 0.1
+  projectileFollowZoomFactor: 2
+  projectileFollowReturnSpeed: 6
 --- !u!1001 &1872878777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7488,6 +7491,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
+        type: 3}
+      propertyPath: fireRateP2
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b847c48398719ea4598e2e2094d0508c, type: 3}

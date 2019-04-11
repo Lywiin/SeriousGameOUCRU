@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectile1;
     public float fireRateP1 = 10f;
     public GameObject projectile2;
-    public float fireRateP2 = 3f;
+    public float fireRateP2 = 0.5f;
 
     [Header("Attack Boost")]
     public float damageMultiplier = 1.5f;

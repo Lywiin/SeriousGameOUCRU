@@ -17,6 +17,13 @@ public class ProjectileHeavy : Projectile
         ParticleSystem.ShapeModule shapeModule = particle.shape;
         shapeModule.radius = explosionRadius - 5f;
     }
+    
+    protected override void Start()
+    {
+        base.Start();
+
+        CameraController.Instance.FollowProjectile(this);
+    }
 
 
     /***** KILL FUNCTIONS *****/
@@ -25,7 +32,10 @@ public class ProjectileHeavy : Projectile
     protected override IEnumerator KillProjectile()
     {
         yield return new WaitForSeconds(lifeTime);
-        Explode();
+
+        // Only explode if still enabled
+        if (transform.GetComponent<MeshRenderer>().enabled)
+            Explode();
     }
 
 

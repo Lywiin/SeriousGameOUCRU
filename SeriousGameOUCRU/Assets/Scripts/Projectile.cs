@@ -31,7 +31,7 @@ public class Projectile : MonoBehaviour
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    protected void Start()
+    protected virtual void Start()
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();

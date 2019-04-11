@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   maxVelocity: 80
-  lifeTime: 0.7
+  lifeTime: 0.5
   damage: 50
   boostedColor: {r: 0.7058824, g: 0, b: 0.8235294, a: 0}
   explosionRadius: 30

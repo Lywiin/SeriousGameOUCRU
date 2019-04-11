@@ -17,6 +17,11 @@ public class CameraController : MonoBehaviour
     public float cameraSizingFactor = 1.2f;
     public float cameraSmoothSpeed = 6f;
 
+    [Header("Projectile")]
+    public float projectileFollowFactor = 0.1f;
+    public float projectileFollowZoomFactor = 2f;
+    public float projectileFollowReturnSpeed = 6f;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -26,6 +31,30 @@ public class CameraController : MonoBehaviour
 
     // Camera zone size
     private Vector2 cameraZone;
+
+    // Projectile
+    private bool followProjectile = false;
+    private ProjectileHeavy projectile;
+    private Vector3 projectileOffset = Vector3.zero;
+
+
+    /*** INSTANCE ***/
+
+    private static CameraController _instance;
+    public static CameraController Instance { get { return _instance; } }
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -68,8 +97,28 @@ public class CameraController : MonoBehaviour
                 ZoomCamera(lookAtOffset);
             }
 
+            // Add offset if follow projectile
+            if (followProjectile)
+            {
+                // Compute new offset
+                Vector3 tempFollowOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
+
+                // Prevent screen exit
+                tempFollowOffset.z /= 2f;
+
+                // Affect new offset
+                projectileOffset = tempFollowOffset;
+
+                // Add temporary zoom out
+                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
+                
+            }else
+            {
+                projectileOffset = Vector3.Lerp(projectileOffset, Vector3.zero, projectileFollowReturnSpeed * Time.deltaTime);
+            }
+
             // Set the camera final position to that smooth position plus an offset from player mouse position
-            Vector3 finalPosition = smoothedPosition + lookAtOffset;
+            Vector3 finalPosition = smoothedPosition + lookAtOffset + projectileOffset;
 
             // If player has completed tutorial can move camera everywhere
             if (GameController.Instance.CanPlayerMoveCamera())
@@ -124,5 +173,21 @@ public class CameraController : MonoBehaviour
 
         // Apply the new camera size
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+    }
+
+    public void FollowProjectile(ProjectileHeavy p)
+    {
+        followProjectile = true;
+        projectile = p;
+        StartCoroutine(StopFollowProjectile(p.lifeTime + 0.5f));
+    }
+
+    private IEnumerator StopFollowProjectile(float t)
+    {
+        yield return new WaitForSeconds(t);
+
+        // Reset follow
+        followProjectile = false;
+        projectile = null;
     }
 }
