@@ -34,6 +34,13 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public float globalMutationProba = 0f;
 
+    // Control what can the player do
+    private bool canPlayerMove = true;
+    private bool canPlayerMoveCamera = true;
+    private bool canPlayerShoot = true;
+
+    // Keep track of number of killed bad bacteria
+    private int badBacteriaKillCount = 0;
 
     /*** INSTANCE ***/
 
@@ -120,7 +127,7 @@ public class GameController : MonoBehaviour
     }
 
     // Restart the game
-    private void RestartGame()
+    public void RestartGame()
     {
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
         Time.timeScale = 1.0f;
@@ -158,11 +165,10 @@ public class GameController : MonoBehaviour
         CameraShake.Instance.HeavyScreenShake();
 
         // Update the UI
-        uiController.DisplayGameOver();
+        uiController.TriggerGameOver();
 
         // Kill the player and restart
         Destroy(player);
-        Invoke("RestartGame", 2);
     }
 
     //Called when the player win
@@ -172,9 +178,7 @@ public class GameController : MonoBehaviour
         Minimap.Instance.HideMinimap();
 
         // Update the UI and restart
-        Time.timeScale = 0.5f;
-        uiController.DisplayVictory();
-        Invoke("RestartGame", 2);
+        uiController.TriggerVictory();
     }
 
 
@@ -199,5 +203,51 @@ public class GameController : MonoBehaviour
     public float GetGlobalMutationGlobalProba()
     {
         return globalMutationProba;
+    }
+
+    public bool CanPlayerMove()
+    {
+        return canPlayerMove;
+    }
+    public bool CanPlayerMoveCamera()
+    {
+        return canPlayerMoveCamera;
+    }
+    public bool CanPlayerShoot()
+    {
+        return canPlayerShoot;
+    }
+
+    public int GetBadBacteriaKillCount()
+    {
+        return badBacteriaKillCount;
+    }
+
+
+    /***** SETTERS *****/
+
+    public void BlockPlayerInput()
+    {
+        canPlayerMove = false;
+        canPlayerMoveCamera = false;
+        canPlayerShoot = false;
+    }
+
+    public void SetCanPlayerMove(bool b)
+    {
+        canPlayerMove = b;
+    }
+    public void SetCanPlayerMoveCamera(bool b)
+    {
+        canPlayerMoveCamera = b;
+    }
+    public void SetCanPlayerShoot(bool b)
+    {
+        canPlayerShoot = b;
+    }
+
+    public void IncrementBadBacteriaKillCount()
+    {
+        badBacteriaKillCount++;
     }
 }

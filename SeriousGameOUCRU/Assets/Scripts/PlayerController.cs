@@ -76,13 +76,13 @@ public class PlayerController : MonoBehaviour
         // If game not paused
         if (!gameController.IsGamePaused() && canMove)
         {
-            if (Tutorial.Instance.CanPlayerShoot())
+            if (gameController.CanPlayerShoot())
             {
                 // Check if player is firing
                 CheckFire();
             }
 
-            if (Tutorial.Instance.CanPlayerMoveCamera())
+            if (gameController.CanPlayerMoveCamera())
             {
                 // Update player rotation
                 UpdateRotation();
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gameController.IsGamePaused() && canMove && Tutorial.Instance.CanPlayerMove())
+        if (!gameController.IsGamePaused() && canMove && gameController.CanPlayerMove())
         {
             MovePlayer();
         }

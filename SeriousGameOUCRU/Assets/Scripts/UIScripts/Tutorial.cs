@@ -8,15 +8,8 @@ public class Tutorial : MonoBehaviour
 
     public Animator animator;
 
-    public bool on = true;
-
 
     /*** PRIVATE VARIABLES ***/
-
-    // Control what can the player do
-    private bool canPlayerMove = true;
-    private bool canPlayerMoveCamera = true;
-    private bool canPlayerShoot = true;
 
     // Keep track of what the player did
     private bool playerMoved = false;
@@ -42,38 +35,67 @@ public class Tutorial : MonoBehaviour
             _instance = this;
         }
 
-        // If tutorial on, reset what player can do
-        if (on)
+        if (!PlayerPrefs.HasKey("Tutorial"))
         {
-            canPlayerMove = canPlayerMoveCamera = canPlayerShoot = false;
+            PlayerPrefs.SetInt("Tutorial", 1);
+        }
+    }
+
+    private void Start()
+    {
+        // If tutorial on, reset what player can do
+        if (PlayerPrefs.GetInt("Tutorial") == 1)
+        {
+            GameController.Instance.BlockPlayerInput();
         }
     }
 
     private void Update()
     {
         // Trigger when player move the character
-        if (canPlayerMove && !playerMoved && 
+        if (GameController.Instance.CanPlayerMove() && !playerMoved && 
             (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("z") || Input.GetKeyDown("q")))
         {
-            playerMoved = true;
-            ShowMoveCameraText();
+            // Add delay before next step
+            StartCoroutine(PlayerMovedCoroutine(0.5f));
         }
 
         // Trigger when player move the camera
-        else if (canPlayerMoveCamera && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
+        else if (GameController.Instance.CanPlayerMoveCamera() && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
         {
-            playerMovedCamera = true;
-            ShowShootText();
+            // Add delay before next step
+            StartCoroutine(PlayerMovedCameraCoroutine(0.5f));
         }
 
         // Trigger when player shoot
-        else if (canPlayerShoot && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
+        else if (GameController.Instance.CanPlayerShoot() && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
         {
-            playerShooted = true;
-            TutorialFinished();
+            // Add delay before next step
+            StartCoroutine(PlayerShootedCoroutine(1.0f));
         }
     }
 
+
+    /***** COROUTINES FUNCTIONS *****/
+
+    private IEnumerator PlayerMovedCoroutine(float t)
+    {
+        yield return new WaitForSeconds(t);
+        playerMoved = true;
+        ShowMoveCameraText();
+    }
+    private IEnumerator PlayerMovedCameraCoroutine(float t)
+    {
+        yield return new WaitForSeconds(t);
+        playerMovedCamera = true;
+        ShowShootText();
+    }
+    private IEnumerator PlayerShootedCoroutine(float t)
+    {
+        yield return new WaitForSeconds(t);
+        playerShooted = true;
+        TutorialFinished();
+    }
 
     /***** FADE IN FUNCTIONS *****/
 
@@ -111,25 +133,25 @@ public class Tutorial : MonoBehaviour
 
     public void OnMoveTextFadeInComplete()
     {
-        if (!canPlayerMove)
+        if (!GameController.Instance.CanPlayerMove())
         {
-            canPlayerMove = true;
+            GameController.Instance.SetCanPlayerMove(true);
         }
     }
 
     public void OnMoveCameraTextFadeInComplete()
     {
-        if (!canPlayerMoveCamera)
+        if (!GameController.Instance.CanPlayerMoveCamera())
         {
-            canPlayerMoveCamera = true;
+            GameController.Instance.SetCanPlayerMoveCamera(true);
         }
     }
 
     public void OnShootTextFadeInComplete()
     {
-        if (!canPlayerShoot)
+        if (!GameController.Instance.CanPlayerShoot())
         {
-            canPlayerShoot = true;
+            GameController.Instance.SetCanPlayerShoot(true);
         }
     }
 
@@ -140,21 +162,4 @@ public class Tutorial : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-
-    /***** GETTERS FUNCTIONS *****/
-
-    public bool CanPlayerMove()
-    {
-        return canPlayerMove;
-    }
-
-    public bool CanPlayerMoveCamera()
-    {
-        return canPlayerMoveCamera;
-    }
-
-    public bool CanPlayerShoot()
-    {
-        return canPlayerShoot;
-    }
 }

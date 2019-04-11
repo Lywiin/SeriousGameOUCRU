@@ -16,7 +16,6 @@ public class BadBacteria : Bacteria
 
     public static List<BadBacteria> badBacteriaList = new List<BadBacteria>();
 
-
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
     // Conjugaison
@@ -177,6 +176,9 @@ public class BadBacteria : Bacteria
     // Called when the bacteria has to die
     public override void KillBacteria()
     {
+        // Increase killed count
+        gameController.IncrementBadBacteriaKillCount();
+
         // Try to transform and leave resistant gene behind
         if (isResistant && Random.Range(0f, 1f) < transformationProbability)
         {

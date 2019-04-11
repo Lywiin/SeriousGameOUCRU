@@ -43,7 +43,7 @@ public class LevelChanger : MonoBehaviour
             Minimap.Instance.ShowMinimap();
 
             // Only start tutorial if activated
-            if (Tutorial.Instance.on)
+            if (PlayerPrefs.GetInt("Tutorial") == 1)
                 Tutorial.Instance.StartTutorial();
         }
     }
