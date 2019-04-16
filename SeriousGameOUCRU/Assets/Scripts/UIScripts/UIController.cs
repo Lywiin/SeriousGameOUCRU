@@ -9,9 +9,9 @@ public class UIController : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Info Panel")]
+    public GameObject infoPanel;
     public TextMeshProUGUI badBacteriaCountText;
-    public TextMeshProUGUI goodBacteriaCountText;
-    public TextMeshProUGUI mutationProbaText;
+    public Slider resistanceSlider;
 
     [Header("End Panel")]
     public GameObject endGamePanel;
@@ -43,12 +43,11 @@ public class UIController : MonoBehaviour
     void Update()
     {
         // Update bacteria count text
-        badBacteriaCountText.text = "Bad bacteria: " + BadBacteria.badBacteriaList.Count.ToString();
-        goodBacteriaCountText.text = "Good bacteria: " + GoodBacteria.goodBacteriaList.Count.ToString();
+        badBacteriaCountText.text = BadBacteria.badBacteriaList.Count.ToString();
 
-        // Update global mutation probability text
-        float globalProba = Mathf.Round(gameController.GetGlobalMutationGlobalProba() * 1000f) / 1000f;
-        mutationProbaText.text = "Mutation probability: " + globalProba.ToString();
+        // Update global mutation probability slider
+        float globalProba = gameController.GetGlobalMutationGlobalProba();
+        resistanceSlider.value = globalProba;
     }
 
 
@@ -75,6 +74,9 @@ public class UIController : MonoBehaviour
 
     private void DisplayEndGamePanel()
     {
+        // Hide info panel
+        infoPanel.SetActive(false);
+
         // Calculate time spent and update text
         int minutes = (int)Time.time / 60;
         int seconds = (int)Time.time % 60;
