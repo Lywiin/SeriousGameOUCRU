@@ -129,5 +129,5 @@ MonoBehaviour:
   fullHealthColor: {r: 0.07058824, g: 0.78431374, b: 0.21568628, a: 0.39215687}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0.39215687}
   mutationProba: 0.0005
-  duplicationProba: 0.0002
+  duplicationProba: 0.0001
   duplicationRecallTime: 3
