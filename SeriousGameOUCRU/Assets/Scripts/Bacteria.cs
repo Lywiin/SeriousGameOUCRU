@@ -39,6 +39,7 @@ public abstract class Bacteria : MonoBehaviour
 
     // Replication
     protected bool canDuplicate = false;
+    protected float bacteriaBaseSize;
 
     // Resistance
     protected bool isResistant = false;
@@ -61,6 +62,7 @@ public abstract class Bacteria : MonoBehaviour
 
         // Initialize bacteria size
         bacteriaSize = transform.localScale.x;
+        bacteriaBaseSize = transform.GetComponent<Collider>().bounds.size.x;
 
         // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
@@ -116,6 +118,7 @@ public abstract class Bacteria : MonoBehaviour
 
     private void TryToDuplicateBacteria()
     {
+
         // If duplication is triggered
         if (canDuplicate && Random.Range(0f, 1f) < duplicationProba)
         {
@@ -163,13 +166,21 @@ public abstract class Bacteria : MonoBehaviour
     {
         Transform newTrans = transform;
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
-        return transform.position + newTrans.forward * bacteriaSize * 1.5f; // Add a little gap with *1.5f
+
+        // Compute new spawning position
+        Vector3 spawnPos = transform.position + newTrans.forward * bacteriaBaseSize * bacteriaSize * 1.5f;
+
+        // Clamp spawning position inside the game zone
+        spawnPos.x = Mathf.Clamp(spawnPos.x, -GameController.Instance.gameZoneRadius.x, GameController.Instance.gameZoneRadius.x);
+        spawnPos.z = Mathf.Clamp(spawnPos.z, -GameController.Instance.gameZoneRadius.y, GameController.Instance.gameZoneRadius.y);
+
+        return spawnPos; // Add a little gap with *1.5f
     }
 
     // Test an overlap at position with size of the bacteria
     protected virtual Collider[] TestPosition(Vector3 randomPos)
     {
-        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
+        return Physics.OverlapSphere(randomPos, bacteriaBaseSize * bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
     }
 
     // Instantiate bacteria at given position and add it to gameController list

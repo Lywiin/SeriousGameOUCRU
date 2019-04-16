@@ -55,7 +55,8 @@ public class Projectile : MonoBehaviour
     // Kill the projectile after some time
     protected virtual IEnumerator KillProjectile()
     {
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(lifeTime);
+        Destroy(gameObject);
     }
 
 

@@ -6,10 +6,10 @@ Preset:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GameControllerDefault
+  m_Name: ProjectileHeavy
   m_TargetType:
     m_NativeTypeID: 114
-    m_ManagedTypePPtr: {fileID: 11500000, guid: 4d4b9399ddebf2a47a1333c6a48823b6,
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 0d148f38a513b5d46855785cae97de84,
       type: 3}
     m_ManagedTypeFallback: 
   m_Properties:
@@ -26,48 +26,42 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: player
-    value: 
+    propertyPath: speed
+    value: 10
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: badBacteria
-    value: 
-    objectReference: {fileID: 6255904132152021855, guid: 7ee60a98349733440b052616c031c7e1,
-      type: 3}
-  - target: {fileID: 0}
-    propertyPath: goodBacteria
-    value: 
-    objectReference: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
-      type: 3}
-  - target: {fileID: 0}
-    propertyPath: gameZoneRadius.x
-    value: 100
+    propertyPath: maxVelocity
+    value: 80
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: gameZoneRadius.y
-    value: 100
+    propertyPath: lifeTime
+    value: 0.5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: badBacteriaCount
-    value: 15
+    propertyPath: damage
+    value: 80
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: goodBacteriaCount
-    value: 3
+    propertyPath: boostedColor.r
+    value: 0.7058824
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: bacteriaInitSize
-    value: 6
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mutationProbaIncrease
-    value: 0.00075
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: uiController
-    value: 
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: globalMutationProba
+    propertyPath: boostedColor.g
     value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: boostedColor.b
+    value: 0.8235294
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: boostedColor.a
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: explosionRadius
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: particle
+    value: 
     objectReference: {fileID: 0}

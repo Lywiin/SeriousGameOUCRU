@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     public float bacteriaInitSize;
 
     [Header("Mutation")]
-    public float mutationProbaIncrease;
+    public float mutationProbaIncrease = 0.00075f;
 
     [Header("UI")]
     public UIController uiController;

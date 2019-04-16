@@ -144,12 +144,12 @@ MonoBehaviour:
   maxHealth: 100
   fullHealthColor: {r: 0.7294118, g: 0, b: 0, a: 0}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0}
-  mutationProba: 0.001
-  duplicationProba: 0.0002
-  duplicationRecallTime: 5
+  mutationProba: 0.0005
+  duplicationProba: 0.0003
+  duplicationRecallTime: 1
   conjugaisonProba: 0.1
   conjugaisonRecallTime: 5
-  transformationProbability: 0.5
+  transformationProbability: 0.1
   resistantGene: {fileID: 3885464220961194481, guid: 0d0f29dff988bd949a8778773a6d10f3,
     type: 3}
 --- !u!114 &1141746175851391684

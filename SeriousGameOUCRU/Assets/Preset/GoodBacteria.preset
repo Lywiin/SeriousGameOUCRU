@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GoodBacteria
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: moveForce
+    value: 200
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: moveAwayForce
+    value: 50
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: moveRate
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: moveRateVariance
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: maxHealth
+    value: 50
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fullHealthColor.r
+    value: 0.07058824
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fullHealthColor.g
+    value: 0.78431374
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fullHealthColor.b
+    value: 0.21568628
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: fullHealthColor.a
+    value: 0.39215687
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: lowHealthColor.r
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: lowHealthColor.g
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: lowHealthColor.b
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: lowHealthColor.a
+    value: 0.39215687
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mutationProba
+    value: 0.0005
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: duplicationProba
+    value: 0.0002
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: duplicationRecallTime
+    value: 3
+    objectReference: {fileID: 0}
