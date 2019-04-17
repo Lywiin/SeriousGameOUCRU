@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
 
     /***** COLLISION FUNCTIONS *****/
 
-    protected virtual void OnCollisionEnter(Collision collision)
+    protected virtual void OnTriggerEnter(Collider c)
     {
         Destroy(gameObject);
     }
@@ -70,18 +70,29 @@ public class Projectile : MonoBehaviour
     protected virtual void ApplyDamage(GameObject g)
     {
         // Check if collided object is a bacteria
-            Bacteria bacteriaScript = g.transform.GetComponentInParent<Bacteria>();
-            if (bacteriaScript)
-            {
-                // If so damage bacteria
-                bacteriaScript.DamageBacteria(damage);
-            }
-            else if (g.gameObject.CompareTag("ResistantGene"))
-            {
-                // Otherwise if gene, damage gene
-                g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
-            }
+        Bacteria bacteriaScript = g.transform.GetComponentInParent<Bacteria>();
+        if (bacteriaScript)
+        {
+            // If so damage bacteria
+            bacteriaScript.DamageBacteria(damage);
+        }
+        else if (g.gameObject.CompareTag("ResistantGene"))
+        {
+            // Otherwise if gene, damage gene
+            g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
+        }
 
+    }
+
+    // Hide projectile, freeze it and prevent it from colliding again
+    protected void Hide()
+    {
+        // Hide the projectile before the explosion
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+
+        // Freeze the projectile before playing the effect
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
 

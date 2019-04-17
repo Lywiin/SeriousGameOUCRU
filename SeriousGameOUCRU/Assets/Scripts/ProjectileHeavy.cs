@@ -25,6 +25,11 @@ public class ProjectileHeavy : Projectile
         CameraController.Instance.FollowProjectile(this);
     }
 
+    private void Update()
+    {
+        //Debug.Log(canCollide);
+    }
+
 
     /***** KILL FUNCTIONS *****/
 
@@ -35,24 +40,21 @@ public class ProjectileHeavy : Projectile
 
         // Only explode if still enabled
         if (transform.GetComponent<MeshRenderer>().enabled)
+        {
+            Hide();
             Explode();
+        }
     }
 
 
-    /***** COLLISION FUNCTIONS *****/
+    /***** TRIGGER FUNCTIONS *****/
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider c)
     {
-        // Used to prevent double collision with one projectile
-        if (canCollide)
+        if (!c.gameObject.CompareTag("Player"))
         {
-            canCollide = false;
-
-            // Check if collided object is a bacteria or a resistant gene
-            if (collision.transform.GetComponentInParent<Bacteria>() || collision.gameObject.CompareTag("ResistantGene"))
-            {
-                Explode();
-            }
+            Hide();
+            Explode();
         }
     }
 
@@ -63,13 +65,6 @@ public class ProjectileHeavy : Projectile
 
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();
-
-        // Hide the projectile before the explosion
-        transform.GetComponent<MeshRenderer>().enabled = false;
-        transform.GetComponent<Collider>().enabled = false;
-
-        // Freeze the projectile before playing the effect
-        rb.constraints = RigidbodyConstraints.FreezeAll;
 
         // Trigger particle effect
         particle.Play();

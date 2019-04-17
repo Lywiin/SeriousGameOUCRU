@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5735719035098886769}
   m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -114,7 +114,7 @@ MonoBehaviour:
   fireRateP1: 10
   projectile2: {fileID: 6379939513572856885, guid: f801e83e6af419e4ea4ab59c642b9eef,
     type: 3}
-  fireRateP2: 0.5
+  fireRateP2: 1
   damageMultiplier: 1.5
   boostDuration: 5
 --- !u!54 &5735719035098886769
@@ -144,7 +144,6 @@ GameObject:
   - component: {fileID: 4070687907954855923}
   - component: {fileID: 3809093938616639208}
   - component: {fileID: 2347589552806698164}
-  - component: {fileID: 5552009584176977370}
   m_Layer: 2
   m_Name: FirePoint
   m_TagString: Untagged
@@ -184,7 +183,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -211,16 +210,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5552009584176977370
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8795248466062620653}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

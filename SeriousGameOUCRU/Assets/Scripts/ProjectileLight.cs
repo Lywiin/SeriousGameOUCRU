@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class ProjectileLight: Projectile
 {
-    /***** COLLISION FUNCTIONS *****/
+    /***** TRIGGER FUNCTIONS *****/
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider c)
     {
-        // Used to prevent double collision with one projectile
-        if (canCollide)
+        if (!c.gameObject.CompareTag("Player"))
         {
-            canCollide = false;
+            Hide();
 
             // Apply damage on the collided object
-            ApplyDamage(collision.gameObject);
+            ApplyDamage(c.gameObject);
 
             Destroy(gameObject);
         }
