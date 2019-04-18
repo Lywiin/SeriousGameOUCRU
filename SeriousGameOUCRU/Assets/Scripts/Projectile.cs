@@ -105,6 +105,6 @@ public class Projectile : MonoBehaviour
         damage = (int)(damage * multiplier);
 
         // Apply new color
-        GetComponent<Renderer>().material.SetColor("_Color", boostedColor);
+        GetComponent<Renderer>().materials[0].SetColor("_Color", boostedColor);
     }
 }
