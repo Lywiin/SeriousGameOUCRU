@@ -122,8 +122,20 @@ public class GameController : MonoBehaviour
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
     private Vector3 ComputeRandomSpawnPos()
     {
-        return new Vector3(Random.Range(-gameZoneRadius.x + bacteriaInitSize, gameZoneRadius.x - bacteriaInitSize), 
+        Vector3 pos = new Vector3(Random.Range(-gameZoneRadius.x + bacteriaInitSize, gameZoneRadius.x - bacteriaInitSize), 
                         0.0f, Random.Range(-gameZoneRadius.y + bacteriaInitSize, gameZoneRadius.y - bacteriaInitSize));
+
+        // Prevent spawning around the player
+        if(pos.x > -10f && pos.x < 10f)
+        {
+            pos.x = 10f * Mathf.Sign(pos.x);
+        }
+        if(pos.z > -10f && pos.z < 10f)
+        {
+            pos.z = 10f * Mathf.Sign(pos.z);
+        }
+
+        return pos;
     }
 
     // Restart the game
