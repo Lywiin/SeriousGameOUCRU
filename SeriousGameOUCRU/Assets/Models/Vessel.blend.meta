@@ -1,30 +1,40 @@
 fileFormatVersion: 2
-guid: b954b81c2be2e2246a8a0d4745f3f7cb
+guid: 5f9a0611db692d947b27c3037c130821
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: unnamed
-    2100002: AntibodyMaterial2
-    2100004: AntibodyMaterial1
+    2100000: VesselMaterial4
+    2100002: VesselMaterial3
+    2100004: VesselMaterial1
+    2100006: VesselMaterial2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Icosphere
-    4300002: Antibody
+    4300000: Vessel
     7400000: Default Take
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AntibodyMaterial1
-    second: {fileID: 2100000, guid: 4186e6992db0d334c99d9eadc7981d41, type: 2}
+      name: VesselMaterial1
+    second: {fileID: 2100000, guid: 78c7d76633db25b44832deb7eecf3622, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: AntibodyMaterial2
-    second: {fileID: 2100000, guid: 279c8225ee476eb448ff719c311d2055, type: 2}
+      name: VesselMaterial2
+    second: {fileID: 2100000, guid: 38e0297a40d702446bb5d264b4c953de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial3
+    second: {fileID: 2100000, guid: 239fca476b1a17844bc67a0c410df38c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial4
+    second: {fileID: 2100000, guid: 50aba20765693aa46bddef4209567159, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -61,8 +71,8 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -104,7 +114,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

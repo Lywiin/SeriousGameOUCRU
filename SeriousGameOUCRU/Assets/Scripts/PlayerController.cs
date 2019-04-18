@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
     void SpawnProjectile(GameObject projectile)
     {
         // Instantiate projectile at player position and rotation
-        GameObject p = Instantiate(projectile, firePoint.transform.position + (firePoint.transform.forward * 2f), transform.rotation);
+        GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
 
         // If boosted, multiply projectile damage
         if (isBoosted)

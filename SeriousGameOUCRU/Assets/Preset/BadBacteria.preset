@@ -83,7 +83,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: duplicationProba
-    value: 0.0003
+    value: 0.0002
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: duplicationRecallTime

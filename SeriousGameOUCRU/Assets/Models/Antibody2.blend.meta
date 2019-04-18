@@ -1,30 +1,18 @@
 fileFormatVersion: 2
-guid: b954b81c2be2e2246a8a0d4745f3f7cb
+guid: a5c55ba1227725144a5f9ac82d7bfa1d
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: unnamed
+    2100000: AntibodyMaterial1
     2100002: AntibodyMaterial2
-    2100004: AntibodyMaterial1
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Icosphere
-    4300002: Antibody
+    4300000: Antibody
     7400000: Default Take
     9500000: //RootNode
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: AntibodyMaterial1
-    second: {fileID: 2100000, guid: 4186e6992db0d334c99d9eadc7981d41, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: AntibodyMaterial2
-    second: {fileID: 2100000, guid: 279c8225ee476eb448ff719c311d2055, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
