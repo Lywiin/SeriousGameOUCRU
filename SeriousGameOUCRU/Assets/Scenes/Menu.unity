@@ -148,6 +148,80 @@ RectTransform:
   m_AnchoredPosition: {x: -450, y: 0}
   m_SizeDelta: {x: 450, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &194779388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 194779389}
+  - component: {fileID: 194779391}
+  - component: {fileID: 194779390}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [OpenSans-Regular SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &194779389
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194779388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5885546857863583518}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &194779390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194779388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 0
+  m_canvasRenderer: {fileID: 194779391}
+  m_TextComponent: {fileID: 5885546857863583519}
+  m_materialReferenceIndex: 1
+--- !u!222 &194779391
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194779388}
+  m_CullTransparentMesh: 0
 --- !u!1 &250059849
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,9 +545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: ENGLISH
-  textVietnamese: TIENG ANH
-  textFrench: ANGLAIS
+  textEnglish: English
+  textVietnamese: "Ti\u1EBFng Anh"
+  textFrench: Anglais
 --- !u!114 &493406323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,7 +568,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: ENGLISH
+  m_text: English
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14e6db8c47ed3e648ac103a45f6effc1, type: 2}
   m_sharedMaterial: {fileID: 21357790346521626, guid: 14e6db8c47ed3e648ac103a45f6effc1,
@@ -530,7 +604,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -786,9 +860,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: FRENCH
-  textVietnamese: TIENG PHAP
-  textFrench: FRANCAIS
+  textEnglish: French
+  textVietnamese: "Ti\u1EBFng Ph\xE1p"
+  textFrench: "Fran\xE7ais"
 --- !u!114 &674588576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,7 +883,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: FRENCH
+  m_text: French
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14e6db8c47ed3e648ac103a45f6effc1, type: 2}
   m_sharedMaterial: {fileID: 21357790346521626, guid: 14e6db8c47ed3e648ac103a45f6effc1,
@@ -845,7 +919,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -1103,7 +1177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Temporary title
-  textVietnamese: Temporary title viet
+  textVietnamese: "Ti\xEAu \u0111\u1EC1 t\u1EA1m th\u1EDDi"
   textFrench: Titre temporaire
 --- !u!114 &736142821
 MonoBehaviour:
@@ -1127,8 +1201,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Temporary title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 677a71a6fd2eb0542a8ee85bd1b9fdbf, type: 2}
+  m_sharedMaterial: {fileID: 21817326114671628, guid: 677a71a6fd2eb0542a8ee85bd1b9fdbf,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1522,7 +1597,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: PLAY
+  m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 96419e9099f84cc44b42862b5d19ab39, type: 2}
   m_sharedMaterial: {fileID: 21507028654652680, guid: 96419e9099f84cc44b42862b5d19ab39,
@@ -1555,10 +1630,10 @@ MonoBehaviour:
   m_fontSize: 84
   m_fontSizeBase: 84
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 84
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -1639,9 +1714,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: PLAY
-  textVietnamese: CHOI
-  textFrench: JOUER
+  textEnglish: Play
+  textVietnamese: "Ch\u01A1i"
+  textFrench: Jouer
 --- !u!114 &1224761064 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3359798461158487358, guid: 1f5b45926c3c19747be8529d1954e48b,
@@ -2252,9 +2327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: VIETNAMESE
-  textVietnamese: TIENG VIET
-  textFrench: VIETNAMIEN
+  textEnglish: Vietnamese
+  textVietnamese: "Ti\u1EBFng vi\u1EC7t"
+  textFrench: Vietnamien
 --- !u!114 &1616497849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,7 +2350,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: VIETNAMESE
+  m_text: Vietnamese
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 14e6db8c47ed3e648ac103a45f6effc1, type: 2}
   m_sharedMaterial: {fileID: 21357790346521626, guid: 14e6db8c47ed3e648ac103a45f6effc1,
@@ -2311,7 +2386,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 50
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1
   m_characterSpacing: 0
@@ -2683,6 +2758,53 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 677a71a6fd2eb0542a8ee85bd1b9fdbf,
+        type: 2}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 21817326114671628, guid: 677a71a6fd2eb0542a8ee85bd1b9fdbf,
+        type: 2}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_text
+      value: Game in development
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+        type: 3}
+      propertyPath: m_subTextObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 1988151273}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5990722392530444e9385b37ce1c7507, type: 3}
 --- !u!1 &1951840869
@@ -2751,6 +2873,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1988151271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1988151272}
+  - component: {fileID: 1988151274}
+  - component: {fileID: 1988151273}
+  m_Layer: 0
+  m_Name: TMP SubMeshUI [OpenSans-Regular SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1988151272
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988151271}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5885546857863583518}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &1988151273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988151271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 0
+  m_canvasRenderer: {fileID: 1988151274}
+  m_TextComponent: {fileID: 5885546857863583519}
+  m_materialReferenceIndex: 1
+--- !u!222 &1988151274
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988151271}
+  m_CullTransparentMesh: 0
 --- !u!1 &2020556645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2930,3 +3126,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f5b45926c3c19747be8529d1954e48b, type: 3}
+--- !u!224 &5885546857863583518 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5885546857863583518, guid: 5990722392530444e9385b37ce1c7507,
+    type: 3}
+  m_PrefabInstance: {fileID: 1896077246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5885546857863583519 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5885546857863583519, guid: 5990722392530444e9385b37ce1c7507,
+    type: 3}
+  m_PrefabInstance: {fileID: 1896077246}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
