@@ -81,7 +81,7 @@ public class ProjectileHeavy : Projectile
         // Apply damage to each object
         foreach(Collider c in hitColliders)
         {
-            if (c.gameObject.CompareTag("BadBacteria") || c.gameObject.CompareTag("ResistantGene"))
+            if (c.gameObject.CompareTag("BadBacteria") || c.gameObject.CompareTag("GoodBacteria") || c.gameObject.CompareTag("ResistantGene"))
             {
                 ApplyDamage(c.gameObject);
             }

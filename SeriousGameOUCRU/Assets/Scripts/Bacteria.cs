@@ -56,7 +56,7 @@ public abstract class Bacteria : MonoBehaviour
 
         // Initialize Health
         health = maxHealth;
-        UpdateHealthColor();
+        //UpdateHealthColor();
 
         // Initialize bacteria size
         bacteriaSize = transform.localScale.x;
