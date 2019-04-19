@@ -93,13 +93,27 @@ public class GameController : MonoBehaviour
         UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
 
         // Spawn some bacterias
+        StartCoroutine(DelaySpawnBadBacteria());
+        StartCoroutine(DelaySpawnGoodBacteria());
+    }
+
+    private IEnumerator DelaySpawnBadBacteria()
+    {
+        // Spawn some bacterias
         for (int i = 0; i < badBacteriaCount; i++)
         {
             SpawnBacteria(badBacteria);
+            yield return new WaitForEndOfFrame();
         }
+    }
+
+    private IEnumerator DelaySpawnGoodBacteria()
+    {
+        // Spawn some bacterias
         for (int i = 0; i < goodBacteriaCount; i++)
         {
             SpawnBacteria(goodBacteria);
+            yield return new WaitForEndOfFrame();
         }
     }
 
