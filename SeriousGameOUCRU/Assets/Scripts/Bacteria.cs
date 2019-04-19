@@ -28,7 +28,6 @@ public abstract class Bacteria : MonoBehaviour
 
     // Components
     protected Rigidbody rb;
-    protected GameController gameController;
 
     // Movement
     protected float timeToMove = 0f;
@@ -54,7 +53,6 @@ public abstract class Bacteria : MonoBehaviour
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();
-        gameController = GameController.Instance;
 
         // Initialize Health
         health = maxHealth;
@@ -71,7 +69,7 @@ public abstract class Bacteria : MonoBehaviour
     protected virtual void Update()
     {
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused())
+        if (!GameController.Instance.IsGamePaused())
         {
             // Attempt to move bacteria every frame
             TryToMoveBacteria();

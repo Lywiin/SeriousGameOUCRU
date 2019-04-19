@@ -17,12 +17,10 @@ public class GameController : MonoBehaviour
     public int badBacteriaCount;
     public int goodBacteriaCount;
     public float bacteriaInitSize;
+    public float playerSpawnSafeRadius = 15f;
 
     [Header("Mutation")]
     public float mutationProbaIncrease = 0.00075f;
-
-    [Header("UI")]
-    public UIController uiController;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -67,8 +65,8 @@ public class GameController : MonoBehaviour
         GoodBacteria.goodBacteriaList.Clear();
         BadBacteria.badBacteriaList.Clear();
 
-        // Setup the game and spawn bacterias
-        SetupGame();
+        // // Setup the game and spawn bacterias
+        // SetupGame();
     }
 
     void Update()
@@ -89,8 +87,11 @@ public class GameController : MonoBehaviour
     /***** START FUNCTIONS *****/
 
     // Setup the game and spawn bacterias
-    private void SetupGame()
+    public void SetupGame()
     {
+        // Fade info UI in
+        UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
+
         // Spawn some bacterias
         for (int i = 0; i < badBacteriaCount; i++)
         {
@@ -125,14 +126,17 @@ public class GameController : MonoBehaviour
         Vector3 pos = new Vector3(Random.Range(-gameZoneRadius.x + bacteriaInitSize, gameZoneRadius.x - bacteriaInitSize), 
                         0.0f, Random.Range(-gameZoneRadius.y + bacteriaInitSize, gameZoneRadius.y - bacteriaInitSize));
 
+        float playerX = player.transform.position.x;
+        float playerZ = player.transform.position.z;
+
         // Prevent spawning around the player
-        if(pos.x > -10f && pos.x < 10f)
+        if(pos.x > playerX - playerSpawnSafeRadius && pos.x < playerX + playerSpawnSafeRadius)
         {
-            pos.x = 10f * Mathf.Sign(pos.x);
+            pos.x = playerX + playerSpawnSafeRadius * Mathf.Sign(pos.x - playerX);
         }
-        if(pos.z > -10f && pos.z < 10f)
+        if(pos.z > playerZ - playerSpawnSafeRadius && pos.z < playerZ + playerSpawnSafeRadius)
         {
-            pos.z = 10f * Mathf.Sign(pos.z);
+            pos.z = playerZ + playerSpawnSafeRadius * Mathf.Sign(pos.z - playerZ);
         }
 
         return pos;
@@ -155,7 +159,7 @@ public class GameController : MonoBehaviour
         isPaused = !isPaused;
 
         // Display pause UI
-        uiController.TogglePauseUI(isPaused);
+        UIController.Instance.TogglePauseUI(isPaused);
 
         // Change time scale according to bool
         Time.timeScale = isPaused ? 0 : 1;
@@ -180,7 +184,7 @@ public class GameController : MonoBehaviour
         CameraShake.Instance.HeavyScreenShake();
 
         // Update the UI
-        uiController.TriggerGameOver();
+        UIController.Instance.TriggerGameOver();
 
         // Kill the player and restart
         Destroy(player);
@@ -193,7 +197,7 @@ public class GameController : MonoBehaviour
         Minimap.Instance.HideMinimap();
 
         // Update the UI and restart
-        uiController.TriggerVictory();
+        UIController.Instance.TriggerVictory();
     }
 
 

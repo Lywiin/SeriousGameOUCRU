@@ -53,6 +53,13 @@ public class Tutorial : MonoBehaviour
         if (PlayerPrefs.GetInt("Tutorial") == 1)
         {
             GameController.Instance.BlockPlayerInput();
+
+            // Hide UI since it's useless for now
+            UIController.Instance.ToggleInfoPanel(false);
+        }else
+        {
+            // Start the game if tutorial is off
+            GameController.Instance.SetupGame();
         }
 
         // Change key texture if detect french language
@@ -172,7 +179,15 @@ public class Tutorial : MonoBehaviour
     {
         // Only trigger when last thing has been done
         if (playerShooted)
+        {
             gameObject.SetActive(false);
+
+            // Start the game after
+            GameController.Instance.SetupGame();
+
+            // Display info UI after
+            UIController.Instance.ToggleInfoPanel(true);
+        }
     }
 
 }

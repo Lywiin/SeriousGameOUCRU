@@ -27,15 +27,28 @@ public class UIController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
-    private GameController gameController;
+
+
+    /*** INSTANCE ***/
+
+    private static UIController _instance;
+    public static UIController Instance { get { return _instance; } }
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
-        gameController = GameController.Instance;
-
         // Make sure this panel is unactive
         endGamePanel.SetActive(false);
 
@@ -49,7 +62,7 @@ public class UIController : MonoBehaviour
         badBacteriaCountText.text = BadBacteria.badBacteriaList.Count.ToString();
 
         // Update global mutation probability slider
-        float globalProba = gameController.GetGlobalMutationGlobalProba();
+        float globalProba = GameController.Instance.GetGlobalMutationGlobalProba();
         resistanceSlider.value = globalProba;
     }
 
@@ -95,6 +108,11 @@ public class UIController : MonoBehaviour
     public void TogglePauseUI(bool b)
     {
         pausePanel.SetActive(b);
+    }
+
+    public void ToggleInfoPanel(bool b)
+    {
+        infoPanel.SetActive(b);
     }
 
 

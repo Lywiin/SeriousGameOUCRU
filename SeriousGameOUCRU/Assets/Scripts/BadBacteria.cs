@@ -36,7 +36,7 @@ public class BadBacteria : Bacteria
 
         // TEMP to get initial proba
         if (BadBacteria.badBacteriaList.Count == 1)
-            gameController.globalMutationProba = mutationProba;
+            GameController.Instance.globalMutationProba = mutationProba;
 
         // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
@@ -49,7 +49,7 @@ public class BadBacteria : Bacteria
     {
         base.Update();
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused())
+        if (!GameController.Instance.IsGamePaused())
         {
             // Attempt to mutate bacteria every frame
             TryToMutateBacteria();
@@ -177,7 +177,7 @@ public class BadBacteria : Bacteria
     public override void KillBacteria()
     {
         // Increase killed count
-        gameController.IncrementBadBacteriaKillCount();
+        GameController.Instance.IncrementBadBacteriaKillCount();
 
         // Try to transform and leave resistant gene behind
         if (isResistant && Random.Range(0f, 1f) < transformationProbability)
@@ -210,7 +210,7 @@ public class BadBacteria : Bacteria
 
         if (BadBacteria.badBacteriaList.Count == 0)
         {
-            gameController.PlayerWon();
+            GameController.Instance.PlayerWon();
         }
     }
 }
