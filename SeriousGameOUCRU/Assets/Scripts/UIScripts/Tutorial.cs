@@ -45,6 +45,11 @@ public class Tutorial : MonoBehaviour
         {
             PlayerPrefs.SetInt("Tutorial", 1);
         }
+
+        if (!PlayerPrefs.HasKey("IsAzerty"))
+        {
+            PlayerPrefs.SetInt("IsAzerty", 0);
+        }
     }
 
     private void Start()
@@ -63,7 +68,7 @@ public class Tutorial : MonoBehaviour
         }
 
         // Change key texture if detect french language
-        if (Application.systemLanguage == SystemLanguage.French)
+        if (PlayerPrefs.GetInt("IsAzerty") == 1 || Application.systemLanguage == SystemLanguage.French) 
         {
             forwardKeyImage.texture = zKeyTexture;
             leftKeyImage.texture = qKeyTexture;
@@ -72,6 +77,13 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
+        // TEMP POUR ARTHUR AZERTY
+        if (Input.GetKeyDown("p"))
+        {
+            int newValue = PlayerPrefs.GetInt("IsAzerty") == 0 ? 1 : 0;
+            PlayerPrefs.SetInt("IsAzerty", newValue);
+        }
+
         // Trigger when player move the character
         if (GameController.Instance.CanPlayerMove() && !playerMoved && 
             (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("z") || Input.GetKeyDown("q")))
