@@ -154,6 +154,9 @@ public class GameController : MonoBehaviour
         // Change pause state
         isPaused = !isPaused;
 
+        // Display pause UI
+        uiController.TogglePauseUI(isPaused);
+
         // Change time scale according to bool
         Time.timeScale = isPaused ? 0 : 1;
     }

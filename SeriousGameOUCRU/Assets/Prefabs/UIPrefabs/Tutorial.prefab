@@ -1362,6 +1362,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 107602615928541727}
+  forwardKeyImage: {fileID: 107602615519624415}
+  leftKeyImage: {fileID: 107602614558753332}
+  zKeyTexture: {fileID: 2800000, guid: de4b26ab63333f043ab5bfc13e772723, type: 3}
+  qKeyTexture: {fileID: 2800000, guid: 3f45d354303729c4482462d45a01cc3f, type: 3}
 --- !u!1 &107602616073154538
 GameObject:
   m_ObjectHideFlags: 0

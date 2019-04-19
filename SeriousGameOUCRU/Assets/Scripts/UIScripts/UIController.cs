@@ -21,6 +21,9 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI killedCountTextValue;
     public Toggle tutorialToggle;
 
+    [Header("Pause Panel")]
+    public GameObject pausePanel;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -87,6 +90,11 @@ public class UIController : MonoBehaviour
 
         // Display panel
         endGamePanel.SetActive(true);
+    }
+
+    public void TogglePauseUI(bool b)
+    {
+        pausePanel.SetActive(b);
     }
 
 

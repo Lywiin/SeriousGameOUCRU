@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class Tutorial : MonoBehaviour
@@ -7,6 +8,11 @@ public class Tutorial : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     public Animator animator;
+
+    public RawImage forwardKeyImage;
+    public RawImage leftKeyImage;
+    public Texture zKeyTexture;
+    public Texture qKeyTexture;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -47,6 +53,13 @@ public class Tutorial : MonoBehaviour
         if (PlayerPrefs.GetInt("Tutorial") == 1)
         {
             GameController.Instance.BlockPlayerInput();
+        }
+
+        // Change key texture if detect french language
+        if (Application.systemLanguage == SystemLanguage.French)
+        {
+            forwardKeyImage.texture = zKeyTexture;
+            leftKeyImage.texture = qKeyTexture;
         }
     }
 
