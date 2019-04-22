@@ -27,6 +27,7 @@ public class UIController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private float tempTime = 0f;
 
 
     /*** INSTANCE ***/
@@ -54,6 +55,9 @@ public class UIController : MonoBehaviour
 
         // Initialize toggle status
         tutorialToggle.isOn = PlayerPrefs.GetInt("Tutorial") == 0 ? false : true;
+
+        // Init time survived
+        tempTime = Time.time;
     }
 
     void Update()
@@ -94,8 +98,8 @@ public class UIController : MonoBehaviour
         infoPanel.SetActive(false);
 
         // Calculate time spent and update text
-        int minutes = (int)Time.time / 60;
-        int seconds = (int)Time.time % 60;
+        int minutes = (int)(Time.time - tempTime) / 60;
+        int seconds = (int)(Time.time - tempTime) % 60;
         timeTextValue.text = minutes.ToString() + "m " + seconds.ToString() + "s";
 
         // Update killed count text
