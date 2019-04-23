@@ -98,7 +98,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 112000000, guid: 8886b06979703f442a95ace123b5d331,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -148,7 +148,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 0.9811321, g: 0.9604106, b: 0.71733713, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -284,17 +284,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7653840922312325945, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 6783441914887117901, guid: 240e99ffba4225a4aa3687338a073241,
-        type: 3}
-    - target: {fileID: 4289631374000591443, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300002, guid: 4e3e8dd4222ba37488d7fac529651387, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4ea40e10f5681b42b722a9c8fa9e946, type: 3}
 --- !u!4 &295394123 stripped
@@ -694,17 +683,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7653840922312325945, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 6783441914887117901, guid: 240e99ffba4225a4aa3687338a073241,
-        type: 3}
-    - target: {fileID: 4289631374000591443, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300002, guid: 4e3e8dd4222ba37488d7fac529651387, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4ea40e10f5681b42b722a9c8fa9e946, type: 3}
 --- !u!4 &1110385111 stripped
@@ -819,17 +797,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7653840922312325945, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 6783441914887117901, guid: 240e99ffba4225a4aa3687338a073241,
-        type: 3}
-    - target: {fileID: 4289631374000591443, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300002, guid: 4e3e8dd4222ba37488d7fac529651387, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4ea40e10f5681b42b722a9c8fa9e946, type: 3}
 --- !u!4 &1122626936 stripped
@@ -1049,7 +1016,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4f67768352651644db36ad0f782b5d37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1481,17 +1448,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7653840922312325945, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 6783441914887117901, guid: 240e99ffba4225a4aa3687338a073241,
-        type: 3}
-    - target: {fileID: 4289631374000591443, guid: c4ea40e10f5681b42b722a9c8fa9e946,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 4300002, guid: 4e3e8dd4222ba37488d7fac529651387, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4ea40e10f5681b42b722a9c8fa9e946, type: 3}
 --- !u!1001 &4006486504312096300
@@ -2002,6 +1958,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059655704891848079, guid: 05a2bc76381e33b4fa14cb1a8cd82f17,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 9059655704891848075, guid: 05a2bc76381e33b4fa14cb1a8cd82f17,
         type: 3}
