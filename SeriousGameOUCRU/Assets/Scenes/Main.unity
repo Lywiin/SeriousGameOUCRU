@@ -96,8 +96,9 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
-  m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingDataAsset: {fileID: 112000000, guid: 8886b06979703f442a95ace123b5d331,
+    type: 2}
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -147,8 +148,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 9
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.8
+  m_Color: {r: 0.9811321, g: 0.9604106, b: 0.71733713, a: 1}
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1997,6 +1998,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FogPlane
       objectReference: {fileID: 0}
+    - target: {fileID: 9059655704891848079, guid: 05a2bc76381e33b4fa14cb1a8cd82f17,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9059655704891848075, guid: 05a2bc76381e33b4fa14cb1a8cd82f17,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2051,6 +2057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059655704891848077, guid: 05a2bc76381e33b4fa14cb1a8cd82f17,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a2bc76381e33b4fa14cb1a8cd82f17, type: 3}
