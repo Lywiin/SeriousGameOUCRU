@@ -8,14 +8,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BadBacteriaMaterial
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 31ecbf2f3d409c2428993fd48c6f62f5,
+    type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2050
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -71,13 +71,17 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
+    - _DisolveValue: 0
     - _DstBlend: 0
+    - _EdgeThickness: 0.01
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _LerpValue: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseScale: 10
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueOffset: 0
@@ -93,6 +97,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7264151, g: 0, b: 0, a: 0}
     - _Color: {r: 0.7264151, g: 0, b: 0, a: 0}
+    - _DeadColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EdgeColor: {r: 1, g: 0.6114371, b: 0.003921568, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
 --- !u!114 &8783715236473943942

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public abstract class Bacteria : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
@@ -22,6 +21,9 @@ public abstract class Bacteria : MonoBehaviour
     public float mutationProba = 0.001f;
     public float duplicationProba = 0.0002f;
     public float duplicationRecallTime = 5f;
+
+    [Header("Disolve")]
+    public float disolveSpeed = 2f;
 
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
@@ -46,6 +48,10 @@ public abstract class Bacteria : MonoBehaviour
     // Size
     protected float bacteriaSize;
 
+    // Disolve
+    protected Renderer render;
+    protected bool disolve = false;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -53,6 +59,7 @@ public abstract class Bacteria : MonoBehaviour
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();
+        render = GetComponent<Renderer>();
 
         // Initialize Health
         health = maxHealth;
@@ -79,6 +86,12 @@ public abstract class Bacteria : MonoBehaviour
 
             // Attempt to mutate bacteria every frame
             TryToMutateBacteria();
+        }
+
+        // Animate disolve of the bacteria
+        if (disolve)
+        {
+            DisolveOverTime();
         }
     }
 
@@ -199,7 +212,8 @@ public abstract class Bacteria : MonoBehaviour
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
-        GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(lowHealthColor, fullHealthColor, (float)health / maxHealth));
+        render.material.SetFloat("_LerpValue", (float)health / 100f);
+        //GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(lowHealthColor, fullHealthColor, (float)health / maxHealth));
     }
 
     // Apply damage to bacteria, update color and kill it if needed
@@ -221,8 +235,30 @@ public abstract class Bacteria : MonoBehaviour
     // Called when the bacteria has to die
     public virtual void KillBacteria()
     {
-        // GameObject is destroyed in the gamecontroller
-        Destroy(gameObject);
+        // Trigger disolve anim in update
+        disolve = true;
+
+        // Prevent colliding again during animation
+        GetComponent<Collider>().enabled = false;
+        rb.Sleep();
+    }
+
+    // Disolve the bacteria according to deltaTime
+    protected virtual float DisolveOverTime()
+    {
+        //Compute new value
+        float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
+
+        // Animate the disolve of the bacteria
+        render.material.SetFloat("_DisolveValue", newDisolveValue);
+
+        if (newDisolveValue == 1f)
+        {
+            // GameObject is destroyed after disolve
+            Destroy(gameObject);
+        }
+        
+        return newDisolveValue;
     }
 
 

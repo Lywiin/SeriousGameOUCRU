@@ -189,7 +189,22 @@ public class BadBacteria : Bacteria
         // Remove from list
         RemoveFromList();
 
+        // Prevent shield to collide again during animation
+        transform.GetChild(0).GetComponent<Collider>().enabled = false;
+        transform.GetChild(0).GetComponent<Rigidbody>().Sleep();
+
         base.KillBacteria();
+    }
+
+    protected override float DisolveOverTime()
+    {
+        // Call base script to get new disolve value
+        float newDisolveValue = base.DisolveOverTime();
+
+        // Disolve shield as well
+        shieldScript.GetRenderer().material.SetFloat("_DisolveValue", newDisolveValue);
+
+        return newDisolveValue;
     }
 
 

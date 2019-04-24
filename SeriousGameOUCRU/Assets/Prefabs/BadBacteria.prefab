@@ -147,6 +147,7 @@ MonoBehaviour:
   mutationProba: 0.0005
   duplicationProba: 0.0002
   duplicationRecallTime: 1
+  disolveSpeed: 2
   conjugaisonProba: 0.1
   conjugaisonRecallTime: 5
   transformationProbability: 0.1

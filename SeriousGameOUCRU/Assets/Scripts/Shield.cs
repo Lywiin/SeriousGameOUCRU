@@ -23,6 +23,9 @@ public class Shield : MonoBehaviour
     private int shieldHealth = 0;
     private int shieldMaxHealth = 0;
 
+    // Disolve
+    protected Renderer render;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -31,6 +34,8 @@ public class Shield : MonoBehaviour
         // Initialize components
         shield = transform.GetChild(0).gameObject;
         bacteriaScript = transform.GetComponent<BadBacteria>();
+
+        render = transform.GetChild(0).GetComponent<Renderer>();
     }
     
 
@@ -118,5 +123,10 @@ public class Shield : MonoBehaviour
         {
             shieldMaxHealth = shieldHealth;
         }
+    }
+
+    public Renderer GetRenderer()
+    {
+        return render;
     }
 }
