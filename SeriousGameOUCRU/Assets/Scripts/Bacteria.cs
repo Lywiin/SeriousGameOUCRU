@@ -30,6 +30,8 @@ public abstract class Bacteria : MonoBehaviour
 
     // Components
     protected Rigidbody rb;
+    protected Renderer render;
+    protected Collider coll;
 
     // Movement
     protected float timeToMove = 0f;
@@ -49,7 +51,6 @@ public abstract class Bacteria : MonoBehaviour
     protected float bacteriaSize;
 
     // Disolve
-    protected Renderer render;
     protected bool disolve = false;
 
 
@@ -57,20 +58,25 @@ public abstract class Bacteria : MonoBehaviour
 
     protected virtual void Start()
     {
-        // Initialize components
-        rb = GetComponent<Rigidbody>();
-        render = GetComponent<Renderer>();
+        InitComponents();
 
         // Initialize Health
         health = maxHealth;
-        //UpdateHealthColor();
 
         // Initialize bacteria size
         bacteriaSize = transform.localScale.x;
-        bacteriaBaseSize = transform.GetComponent<Collider>().bounds.size.x;
+        bacteriaBaseSize = render.bounds.size.x;
 
         // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
+    }
+
+    protected virtual void InitComponents()
+    {
+        // Initialize components
+        rb = GetComponent<Rigidbody>();
+        render = GetComponent<Renderer>();
+        coll = GetComponent<Collider>();
     }
 
     protected virtual void Update()
@@ -98,7 +104,7 @@ public abstract class Bacteria : MonoBehaviour
 
     /***** MOVEMENTS FUNCTIONS *****/
 
-        private void TryToMoveBacteria()
+    private void TryToMoveBacteria()
     {
         // Randomly moves the bacteria across the level
         if (Time.time >= timeToMove)
@@ -213,7 +219,6 @@ public abstract class Bacteria : MonoBehaviour
     protected void UpdateHealthColor()
     {
         render.material.SetFloat("_LerpValue", (float)health / 100f);
-        //GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(lowHealthColor, fullHealthColor, (float)health / maxHealth));
     }
 
     // Apply damage to bacteria, update color and kill it if needed
@@ -239,12 +244,12 @@ public abstract class Bacteria : MonoBehaviour
         disolve = true;
 
         // Prevent colliding again during animation
-        GetComponent<Collider>().enabled = false;
+        coll.enabled = false;
         rb.Sleep();
     }
 
     // Disolve the bacteria according to deltaTime
-    protected virtual float DisolveOverTime()
+    protected virtual void DisolveOverTime()
     {
         //Compute new value
         float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
@@ -257,8 +262,6 @@ public abstract class Bacteria : MonoBehaviour
             // GameObject is destroyed after disolve
             Destroy(gameObject);
         }
-        
-        return newDisolveValue;
     }
 
 

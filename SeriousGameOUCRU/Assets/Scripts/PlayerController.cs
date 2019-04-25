@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player dies on collision with bacteria
-        if (!dead && (collision.gameObject.CompareTag("BadBacteria") || collision.gameObject.CompareTag("Shield")))
+        if (!dead && (collision.gameObject.CompareTag("BadBacteria")))
         {
             dead = true;
             gameController.PlayerDied();

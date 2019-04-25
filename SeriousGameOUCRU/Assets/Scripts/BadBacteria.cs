@@ -45,6 +45,14 @@ public class BadBacteria : Bacteria
         StartCoroutine(CollidingRecall());
     }
 
+    protected override void InitComponents()
+    {
+        // Initialize components
+        rb = transform.GetChild(1).GetComponent<Rigidbody>();
+        render = transform.GetChild(0).GetComponent<Renderer>();
+        coll = transform.GetChild(1).GetComponent<Collider>();
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -62,7 +70,7 @@ public class BadBacteria : Bacteria
     public void UpdateBacteriaSize()
     {
         // Update size for spawning purposes
-        bacteriaSize = transform.localScale.x * shieldScript.shield.transform.localScale.x;
+        bacteriaSize = shieldScript.GetShieldSize().x;
     }
 
 
@@ -107,12 +115,6 @@ public class BadBacteria : Bacteria
 
     
     /***** CONJUGAISON FUNCTIONS *****/
-
-    // Resistance transmited by conjugation
-    private void OnCollisionEnter(Collision collision)
-    {
-        CollisionEvent(collision);
-    }
 
     // Collision event called by both bacteria and shield on collision
     public void CollisionEvent(Collision collision)
@@ -190,30 +192,18 @@ public class BadBacteria : Bacteria
         RemoveFromList();
 
         // Prevent shield to collide again during animation
-        transform.GetChild(0).GetComponent<Collider>().enabled = false;
-        transform.GetChild(0).GetComponent<Rigidbody>().Sleep();
+        transform.GetChild(1).GetComponent<Collider>().enabled = false;
+        transform.GetChild(1).GetComponent<Rigidbody>().Sleep();
 
         base.KillBacteria();
     }
 
-    protected override float DisolveOverTime()
+    protected override void DisolveOverTime()
     {
-        // Call base script to get new disolve value
-        float newDisolveValue = base.DisolveOverTime();
+        base.DisolveOverTime();
 
-        // Disolve shield as well
-        shieldScript.GetRenderer().material.SetFloat("_DisolveValue", newDisolveValue);
-
-        return newDisolveValue;
-    }
-
-
-    /***** RESISTANCE FUNCTIONS *****/
-
-    public override void ActivateResistance()
-    {
-        base.ActivateResistance();
-        shieldScript.shield.SetActive(true);
+        // Desactivate shield for disolve
+        shieldScript.DesactivateShield();
     }
 
 

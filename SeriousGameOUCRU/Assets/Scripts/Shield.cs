@@ -10,8 +10,7 @@ public class Shield : MonoBehaviour
     public int oneShieldHealth = 20;
     public float shieldGrowthSpeed = 2f;
 
-    [Header("Shield")]
-    public GameObject shield;
+    private GameObject shield;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -29,13 +28,12 @@ public class Shield : MonoBehaviour
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    void Start()
+    private void Awake()
     {
         // Initialize components
-        shield = transform.GetChild(0).gameObject;
+        shield = transform.GetChild(1).gameObject;
+        render = transform.GetChild(1).GetComponent<Renderer>();
         bacteriaScript = transform.GetComponent<BadBacteria>();
-
-        render = transform.GetChild(0).GetComponent<Renderer>();
     }
     
 
@@ -45,7 +43,7 @@ public class Shield : MonoBehaviour
     public void UpdateShieldSize()
     {
         // Compute new scale
-        Vector3 newScale = new Vector3(0.9f, 1.0f, 0.9f);
+        Vector3 newScale = new Vector3(0.999f, 0.999f, 0.999f);
         if (shieldHealth > 0)
         {
             newScale.x = newScale.z = 1.0f + (float)shieldHealth / 100;
@@ -125,8 +123,25 @@ public class Shield : MonoBehaviour
         }
     }
 
+
+    /***** KILL FUNCTIONS *****/
+
+    public void DesactivateShield()
+    {
+        shield.SetActive(false);
+    }
+
+
+    /***** GETTERS FUNCTIONS *****/
+
     public Renderer GetRenderer()
     {
         return render;
+    }
+
+    // Return size of the shield
+    public Vector3 GetShieldSize()
+    {
+        return render.bounds.size;
     }
 }
