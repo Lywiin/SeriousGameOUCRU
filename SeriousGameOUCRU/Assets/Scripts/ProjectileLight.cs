@@ -8,7 +8,7 @@ public class ProjectileLight: Projectile
 
     protected override void OnTriggerEnter(Collider c)
     {
-        if (!c.gameObject.CompareTag("Player"))
+        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
         {
             Hide();
 

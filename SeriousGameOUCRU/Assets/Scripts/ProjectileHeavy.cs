@@ -25,11 +25,6 @@ public class ProjectileHeavy : Projectile
         CameraController.Instance.FollowProjectile(this);
     }
 
-    private void Update()
-    {
-        //Debug.Log(canCollide);
-    }
-
 
     /***** KILL FUNCTIONS *****/
 
@@ -51,7 +46,8 @@ public class ProjectileHeavy : Projectile
 
     protected override void OnTriggerEnter(Collider c)
     {
-        if (!c.gameObject.CompareTag("Player"))
+        // Prevent projectile to interact with player and other projectile
+        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
         {
             Hide();
             Explode();
