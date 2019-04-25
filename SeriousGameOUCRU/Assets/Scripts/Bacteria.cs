@@ -42,7 +42,6 @@ public abstract class Bacteria : MonoBehaviour
 
     // Replication
     protected bool canDuplicate = false;
-    protected float bacteriaBaseSize;
 
     // Resistance
     protected bool isResistant = false;
@@ -64,8 +63,7 @@ public abstract class Bacteria : MonoBehaviour
         health = maxHealth;
 
         // Initialize bacteria size
-        bacteriaSize = transform.localScale.x;
-        bacteriaBaseSize = render.bounds.size.x;
+        bacteriaSize = render.bounds.size.x;
 
         // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
@@ -185,7 +183,7 @@ public abstract class Bacteria : MonoBehaviour
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
 
         // Compute new spawning position
-        Vector3 spawnPos = transform.position + newTrans.forward * bacteriaBaseSize * bacteriaSize * 1.5f;
+        Vector3 spawnPos = transform.position + newTrans.forward * bacteriaSize * 1.5f;
 
         // Clamp spawning position inside the game zone
         spawnPos.x = Mathf.Clamp(spawnPos.x, -GameController.Instance.gameZoneRadius.x, GameController.Instance.gameZoneRadius.x);
@@ -197,7 +195,7 @@ public abstract class Bacteria : MonoBehaviour
     // Test an overlap at position with size of the bacteria
     protected virtual Collider[] TestPosition(Vector3 randomPos)
     {
-        return Physics.OverlapSphere(randomPos, bacteriaBaseSize * bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
+        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
     }
 
     // Instantiate bacteria at given position and add it to gameController list
