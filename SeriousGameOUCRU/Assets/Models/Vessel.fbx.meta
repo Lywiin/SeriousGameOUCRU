@@ -3,7 +3,27 @@ guid: 0a44761cbde8364499a99f89802c1e6b
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial1
+    second: {fileID: 2100000, guid: 78c7d76633db25b44832deb7eecf3622, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial2
+    second: {fileID: 2100000, guid: 38e0297a40d702446bb5d264b4c953de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial3
+    second: {fileID: 2100000, guid: 239fca476b1a17844bc67a0c410df38c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VesselMaterial4
+    second: {fileID: 2100000, guid: 50aba20765693aa46bddef4209567159, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +54,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

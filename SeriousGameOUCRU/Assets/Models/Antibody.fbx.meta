@@ -3,7 +3,17 @@ guid: 2166994156f60bc4ab1bfdc0fc7a217b
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntibodyMaterial1
+    second: {fileID: 2100000, guid: 4186e6992db0d334c99d9eadc7981d41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntibodyMaterial2
+    second: {fileID: 2100000, guid: 279c8225ee476eb448ff719c311d2055, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +44,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

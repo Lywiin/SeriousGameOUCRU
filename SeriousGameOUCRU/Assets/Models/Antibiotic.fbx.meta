@@ -3,7 +3,17 @@ guid: 215bcebfebf0dc941b862146d77f43f1
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntibioticMaterial1
+    second: {fileID: 2100000, guid: f29543718c2a13841837a4a5d2a73cdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AntibioticMaterial2
+    second: {fileID: 2100000, guid: f6c4caf2d9942924ca92f6db2e70af78, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -34,7 +44,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
