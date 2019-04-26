@@ -63,7 +63,7 @@ public class CameraController : MonoBehaviour
     {
         plane = new Plane(Vector3.up, Vector3.zero);
         cam = transform.GetComponentInChildren<Camera>();
-        cameraBaseSize = cam.orthographicSize;
+        cameraBaseSize = cam.fieldOfView;
 
         // Initialize zone where the camera can go
         cameraZone = GameController.Instance.gameZoneRadius - new Vector2(15f, 5f);
@@ -110,7 +110,7 @@ public class CameraController : MonoBehaviour
                 projectileOffset = tempFollowOffset;
 
                 // Add temporary zoom out
-                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
+                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
                 
             }else
             {
@@ -150,7 +150,7 @@ public class CameraController : MonoBehaviour
             // Compute offset position and clamp it to have the same max distance everywhere on the screen
             Vector3 direction = hitPoint - target.position;
             direction.Normalize();
-            direction *= cam.orthographicSize;
+            direction *= cam.fieldOfView;
             lookAtOffset = direction * Time.deltaTime * lookAtSpeed;
         }
 
@@ -172,7 +172,7 @@ public class CameraController : MonoBehaviour
         }
 
         // Apply the new camera size
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, desiredSize, Time.deltaTime * cameraSmoothSpeed);
     }
 
     public void FollowProjectile(ProjectileHeavy p)

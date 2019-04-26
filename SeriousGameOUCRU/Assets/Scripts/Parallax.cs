@@ -13,8 +13,8 @@ public class Parallax : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     private Vector3 startPos;
-    private float lenX = 48f;
-    private float lenZ = 24f;
+    private float lenX = 80f;
+    private float lenZ = 40f;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
