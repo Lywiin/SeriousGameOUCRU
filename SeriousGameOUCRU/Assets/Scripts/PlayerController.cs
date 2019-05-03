@@ -8,15 +8,17 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Movement")]
     public float speed = 8f;
-    [Range(0, 1)]
-    public float maxVelocity;
+    public float maxVelocity = 20f;
+    //public float smoothRotationSpeed = 10f;
 
     [Header("Projectile")]
     public GameObject firePoint;
     public GameObject projectile1;
     public float fireRateP1 = 10f;
+    public float fireDrawbackP1 = 2f;
     public GameObject projectile2;
     public float fireRateP2 = 0.5f;
+    public float fireDrawbackP2 = 30f;
 
     [Header("Attack Boost")]
     public float damageMultiplier = 1.5f;
@@ -107,11 +109,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
         {
             // Fire projectile 1
-            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, 2.0f);
+            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
         }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
         {
             // Fire projectile 2
-            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, 2.0f);
+            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
 
             // Increase all proba
             gameController.IncreaseAllMutationProba();
@@ -192,8 +194,11 @@ public class PlayerController : MonoBehaviour
             hitPoint.y = 0.0f;
 
             // Determine new player rotation
-            Quaternion rotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
-            transform.rotation = rotation;
+            Quaternion desiredRotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
+
+            // Lerp the rotation to make it smoother
+            //Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, desiredRotation, smoothRotationSpeed * Time.deltaTime);
+            transform.rotation = desiredRotation;
         }
     }
 
