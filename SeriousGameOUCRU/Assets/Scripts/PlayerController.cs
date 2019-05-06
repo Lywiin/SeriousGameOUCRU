@@ -77,20 +77,20 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // If game not paused
-        if (!gameController.IsGamePaused() && canMove)
-        {
-            if (gameController.CanPlayerShoot())
-            {
-                // Check if player is firing
-                CheckFire();
-            }
+        // if (!gameController.IsGamePaused() && canMove)
+        // {
+        //     if (gameController.CanPlayerShoot())
+        //     {
+        //         // Check if player is firing
+        //         CheckFire();
+        //     }
 
-            if (gameController.CanPlayerMoveCamera())
-            {
-                // Update player rotation
-                UpdateRotation();
-            }
-        }
+        //     if (gameController.CanPlayerMoveCamera())
+        //     {
+        //         // Update player rotation
+        //         UpdateRotation();
+        //     }
+        // }
     }
 
     void FixedUpdate()
@@ -165,27 +165,51 @@ public class PlayerController : MonoBehaviour
     // Move the player from input
     private void MovePlayer()
     {
-        // Get player inputs
-        float moveHor = 0f;
-        float moveVer = 0f;
+        // Init movement direction vector
+        Vector3 movement = Vector3.zero;
 
-        // Get inputs from joystick if on Android or IOS
+        // Get movement direction according to platform
         if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
-            moveHor = joystick.Horizontal;
-            moveVer = joystick.Vertical;
+            movement = GetMoveDirectionMobile();
         }else
         {
-            moveHor = Input.GetAxis("Horizontal");
-            moveVer = Input.GetAxis("Vertical");
+            movement = GetMoveDirectionDesktop();
         }
-
-        // Create movement vector
-        Vector3 movement = new Vector3(moveHor, 0.0f, moveVer);
 
         // Apply a force to move the player
         rb.AddForce(movement * speed, ForceMode.Impulse);
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+    }
+
+    // Compute the movement direction with Desktop inputs
+    private Vector3 GetMoveDirectionDesktop()
+    {
+        float moveHor = Input.GetAxis("Horizontal");
+        float moveVer = Input.GetAxis("Vertical");
+
+        return new Vector3(moveHor, 0.0f, moveVer); 
+    }
+
+    // Compute the movement direction with mobile inputs
+    private Vector3 GetMoveDirectionMobile()
+    {
+        if (Input.touchCount > 0)
+        {
+            // Get touch position on screen
+            Vector2 touchPosition = Input.GetTouch(0).position;
+
+            // Convert it to world position and keep Y always at player level (0)
+            Vector3 touchWorldPosition = CameraController.Instance.GetCamera().ScreenToWorldPoint(touchPosition);
+            touchWorldPosition.y = 0;
+
+            // Compute movementDirection and normalize it
+            Vector3 moveDirection = touchWorldPosition - transform.position;
+            moveDirection.Normalize();
+            return moveDirection;
+        }
+        // If no touch we don't add movement
+        return Vector3.zero;
     }
 
     // Apply a drawback force to the player when firing

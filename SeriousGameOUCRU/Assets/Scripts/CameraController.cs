@@ -190,4 +190,12 @@ public class CameraController : MonoBehaviour
         followProjectile = false;
         projectile = null;
     }
+
+
+    /***** GETTERS *****/
+
+    public Camera GetCamera()
+    {
+        return cam;
+    }
 }
