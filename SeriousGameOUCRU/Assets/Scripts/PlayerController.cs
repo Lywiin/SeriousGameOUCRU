@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
     // Can player interact
     private bool canMove = false;
 
+    // Move direction
+    Vector3 moveDirection = Vector3.zero;
+
 
     /*** INSTANCE ***/
 
@@ -191,8 +194,11 @@ public class PlayerController : MonoBehaviour
         float moveHor = Input.GetAxis("Horizontal");
         float moveVer = Input.GetAxis("Vertical");
 
+        // COmpute moveDirection
+        moveDirection = new Vector3(moveHor, 0.0f, moveVer);
+
         // Move the player in axis direction
-        MovePlayer(new Vector3(moveHor, 0.0f, moveVer));
+        MovePlayer(moveDirection);
 
         // Rotate the player toward mouse position
         RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition));
@@ -210,8 +216,8 @@ public class PlayerController : MonoBehaviour
             Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
             touchWorldPosition.y = 0;
 
-            // Compute movementDirection and normalize it
-            Vector3 moveDirection = touchWorldPosition - transform.position;
+            // Compute moveDirection and normalize it
+            moveDirection = touchWorldPosition - transform.position;
             moveDirection.Normalize();
 
             // Move and rotate player toward moveDirection
@@ -279,6 +285,14 @@ public class PlayerController : MonoBehaviour
         isBoosted = true;
         yield return new WaitForSeconds(boostDuration);
         isBoosted = false;
+    }
+
+
+    /*** GETTERS ***/
+
+    public Vector3 GetMoveDirection()
+    {
+        return moveDirection;
     }
 }
 

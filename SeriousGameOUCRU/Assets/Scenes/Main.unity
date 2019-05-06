@@ -1334,7 +1334,8 @@ MonoBehaviour:
   offset: {x: 0, y: 60, z: 0}
   smoothSpeed: 12
   lookAtSpeed: 1.5
-  cameraSizingSpeed: 2.5
+  lookAtFactor: 3.5
+  cameraSizingSpeed: 2
   cameraSizingFactor: 1.1
   cameraSmoothSpeed: 6
   projectileFollowFactor: 0.1

@@ -10,11 +10,14 @@ public class CameraController : MonoBehaviour
     public Transform target;
     public Vector3 offset;
     public float smoothSpeed = 12f;
+    
+    [Header("Camera Look At")]
     public float lookAtSpeed = 1.5f;
+    public float lookAtFactor = 3.5f;
 
     [Header("Camera Size")]
-    public float cameraSizingSpeed = 2.5f;
-    public float cameraSizingFactor = 1.2f;
+    public float cameraSizingSpeed = 2f;
+    public float cameraSizingFactor = 1.1f;
     public float cameraSmoothSpeed = 6f;
 
     [Header("Projectile")]
@@ -36,6 +39,9 @@ public class CameraController : MonoBehaviour
     private bool followProjectile = false;
     private ProjectileHeavy projectile;
     private Vector3 projectileOffset = Vector3.zero;
+
+    // Look at offset
+    Vector3 lookAtOffset = Vector3.zero;
 
 
     /*** INSTANCE ***/
@@ -61,7 +67,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        plane = new Plane(Vector3.up, Vector3.zero);
+        plane = new Plane(Vector3.up, 0);
         cam = transform.GetComponentInChildren<Camera>();
         cameraBaseSize = cam.fieldOfView;
 
@@ -89,7 +95,7 @@ public class CameraController : MonoBehaviour
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
             // Get look at offset
-            Vector3 lookAtOffset = GetLookAtOffset();
+            ComputeLookAtOffset();
 
             if (GameController.Instance.CanPlayerMoveCamera())
             {
@@ -134,27 +140,19 @@ public class CameraController : MonoBehaviour
     }
 
     // Return offset position from difference between player and mouse position
-    private Vector3 GetLookAtOffset()
+    private void ComputeLookAtOffset()
     {
-        //Debug.Log(Input.mousePosition);
-        // Create a raycast to get mouse position in world
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        float enter = 0.0f;
-        Vector3 lookAtOffset = Vector3.zero;
+        // Init direction for the offset
+        Vector3 offsetDirection = Vector3.zero;
 
-        if (plane.Raycast(ray, out enter))
+        // Compute offsetDirection if we are on mobile and touch the screen or anything else
+        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android))
         {
-            // Get the point that was touched
-            Vector3 hitPoint = ray.GetPoint(enter);
-
-            // Compute offset position and clamp it to have the same max distance everywhere on the screen
-            Vector3 direction = hitPoint - target.position;
-            direction.Normalize();
-            direction *= cam.fieldOfView;
-            lookAtOffset = direction * Time.deltaTime * lookAtSpeed;
+            offsetDirection = PlayerController.Instance.GetMoveDirection() * lookAtFactor;
         }
 
-        return lookAtOffset;
+        // Smooth the offset to be applied
+        lookAtOffset = Vector3.Lerp(lookAtOffset, offsetDirection, Time.deltaTime * lookAtSpeed);
     }
 
     // Zoom the camera when player fires
