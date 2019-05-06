@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float speed = 8f;
     public float maxVelocity = 20f;
-    //public float smoothRotationSpeed = 10f;
+    public Joystick joystick;
+    public bool androidDebug = false;
 
     [Header("Projectile")]
     public GameObject firePoint;
@@ -106,17 +107,24 @@ public class PlayerController : MonoBehaviour
     // Check if player is firing
     private void CheckFire()
     {
-        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        if (Input.touchCount > 0)
         {
-            // Fire projectile 1
-            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
-        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
-        {
-            // Fire projectile 2
-            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
 
-            // Increase all proba
-            gameController.IncreaseAllMutationProba();
+        }else
+        {
+            if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+            {
+                // Fire projectile 1
+                Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
+            }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
+            {
+                // Fire projectile 2
+                Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
+
+                // Increase all proba
+                gameController.IncreaseAllMutationProba();
+            }
+
         }
     }
 
@@ -158,8 +166,19 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         // Get player inputs
-        float moveHor = Input.GetAxis("Horizontal");
-        float moveVer = Input.GetAxis("Vertical");
+        float moveHor = 0f;
+        float moveVer = 0f;
+
+        // Get inputs from joystick if on Android or IOS
+        if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            moveHor = joystick.Horizontal;
+            moveVer = joystick.Vertical;
+        }else
+        {
+            moveHor = Input.GetAxis("Horizontal");
+            moveVer = Input.GetAxis("Vertical");
+        }
 
         // Create movement vector
         Vector3 movement = new Vector3(moveHor, 0.0f, moveVer);
@@ -183,8 +202,8 @@ public class PlayerController : MonoBehaviour
     // Update the rotation of the player toward aiming direction
     public void UpdateRotation()
     {
-        // Create a ray from the Mouse click position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // Create a ray from the aim position
+        Ray ray = Camera.main.ScreenPointToRay(GetAimScreenPosition());
         float enter = 0.0f;
 
         if (plane.Raycast(ray, out enter))
@@ -196,10 +215,30 @@ public class PlayerController : MonoBehaviour
             // Determine new player rotation
             Quaternion desiredRotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
 
-            // Lerp the rotation to make it smoother
-            //Quaternion smoothedRotation = Quaternion.Lerp(transform.rotation, desiredRotation, smoothRotationSpeed * Time.deltaTime);
             transform.rotation = desiredRotation;
         }
+    }
+
+    // Get screen position of the aim direction
+    private Vector3 GetAimScreenPosition()
+    {
+        Vector3 screenPos = Vector3.zero;
+
+        // Check if we are on mobile device
+        if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            if (Input.touchCount > 0)
+            {
+                // From mobile input
+                screenPos = Input.GetTouch(Input.touchCount - 1).position;
+            }
+        }else
+        {
+            // From desktop input
+            screenPos = Input.mousePosition;
+        }
+
+        return screenPos;
     }
 
 
