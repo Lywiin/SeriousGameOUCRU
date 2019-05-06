@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         // Initialize components
         rb = GetComponent<Rigidbody>();
         gameController = GameController.Instance;
-        plane = new Plane(Vector3.up, Camera.main.transform.position.y);
+        plane = new Plane(Vector3.up, 0);
 
         // Prevent player movement from start
         canMove = false;
@@ -77,27 +77,34 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // If game not paused
-        // if (!gameController.IsGamePaused() && canMove)
-        // {
-        //     if (gameController.CanPlayerShoot())
-        //     {
-        //         // Check if player is firing
-        //         CheckFire();
-        //     }
+        if (!gameController.IsGamePaused() && canMove)
+        {
+            // if (gameController.CanPlayerShoot())
+            // {
+            //     // Check if player is firing
+            //     CheckFire();
+            // }
 
-        //     if (gameController.CanPlayerMoveCamera())
-        //     {
-        //         // Update player rotation
-        //         UpdateRotation();
-        //     }
-        // }
+        }
+
+        // if (Input.touchCount > 0)
+        //     Debug.Log("TOUCH 0: " + Input.GetTouch(0).position);
+        // if (Input.touchCount > 1)
+        //     Debug.Log("TOUCH 1: " + Input.GetTouch(1).position);
     }
 
     void FixedUpdate()
     {
-        if (!gameController.IsGamePaused() && canMove && gameController.CanPlayerMove())
+        if (!gameController.IsGamePaused() && canMove && gameController.CanPlayerMove() /*&& gameController.CanPlayerMoveCamera()*/)
         {
-            MovePlayer();
+            // Move and rotate player every frame according to platform
+            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                MoveAndRotatePlayerMobile();
+            }else
+            {
+                MoveAndRotatePlayerDesktop();
+            }
         }
     }
 
@@ -163,36 +170,36 @@ public class PlayerController : MonoBehaviour
     }
 
     // Move the player from input
-    private void MovePlayer()
+    private void MovePlayer(Vector3 movementDirection)
     {
-        // Init movement direction vector
-        Vector3 movement = Vector3.zero;
+        // Apply a force to move the player in movementDirection
+        rb.AddForce(movementDirection * speed, ForceMode.Impulse);
 
-        // Get movement direction according to platform
-        if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            movement = GetMoveDirectionMobile();
-        }else
-        {
-            movement = GetMoveDirectionDesktop();
-        }
-
-        // Apply a force to move the player
-        rb.AddForce(movement * speed, ForceMode.Impulse);
+        // Clamp the player velocity to not go too fast
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
-    // Compute the movement direction with Desktop inputs
-    private Vector3 GetMoveDirectionDesktop()
+    private void RotatePlayer(Vector3 lookAtPosition)
     {
+        transform.rotation = Quaternion.LookRotation(lookAtPosition, Vector3.up);
+    }
+
+    // Handle player movement and rotation for desktop
+    private void MoveAndRotatePlayerDesktop()
+    {
+        // Get input axes
         float moveHor = Input.GetAxis("Horizontal");
         float moveVer = Input.GetAxis("Vertical");
 
-        return new Vector3(moveHor, 0.0f, moveVer); 
+        // Move the player in axis direction
+        MovePlayer(new Vector3(moveHor, 0.0f, moveVer));
+
+        // Rotate the player toward mouse position
+        RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition));
     }
 
-    // Compute the movement direction with mobile inputs
-    private Vector3 GetMoveDirectionMobile()
+    // Handle player movement and rotation for mobile
+    private void MoveAndRotatePlayerMobile()
     {
         if (Input.touchCount > 0)
         {
@@ -200,15 +207,35 @@ public class PlayerController : MonoBehaviour
             Vector2 touchPosition = Input.GetTouch(0).position;
 
             // Convert it to world position and keep Y always at player level (0)
-            Vector3 touchWorldPosition = CameraController.Instance.GetCamera().ScreenToWorldPoint(touchPosition);
+            Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
             touchWorldPosition.y = 0;
 
             // Compute movementDirection and normalize it
             Vector3 moveDirection = touchWorldPosition - transform.position;
             moveDirection.Normalize();
-            return moveDirection;
+
+            // Move and rotate player toward moveDirection
+            MovePlayer(moveDirection);
+            RotatePlayer(moveDirection);
         }
-        // If no touch we don't add movement
+    }
+
+    // Convert properly a screen position to a world position with raycasting
+    private Vector3 ScreenPositionToWorldPosition(Vector2 screenPosition)
+    {
+        // Create a ray from screen point in world
+        Ray ray = CameraController.Instance.GetCamera().ScreenPointToRay(screenPosition);
+        float enter = 0.0f;
+
+        // Get the point that intersect the plane at height 0
+        if (plane.Raycast(ray, out enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter);
+            hitPoint.y = 0.0f;
+            return hitPoint;
+        }
+        
+        // Return vector by default
         return Vector3.zero;
     }
 
@@ -221,48 +248,6 @@ public class PlayerController : MonoBehaviour
 
         // Apply force
         rb.AddForce(drawbackDirection * drawbackForce, ForceMode.Impulse);
-    }
-
-    // Update the rotation of the player toward aiming direction
-    public void UpdateRotation()
-    {
-        // Create a ray from the aim position
-        Ray ray = Camera.main.ScreenPointToRay(GetAimScreenPosition());
-        float enter = 0.0f;
-
-        if (plane.Raycast(ray, out enter))
-        {
-            // Get the point that was touched
-            Vector3 hitPoint = ray.GetPoint(enter);
-            hitPoint.y = 0.0f;
-
-            // Determine new player rotation
-            Quaternion desiredRotation = Quaternion.LookRotation(hitPoint - transform.position, Vector3.up);
-
-            transform.rotation = desiredRotation;
-        }
-    }
-
-    // Get screen position of the aim direction
-    private Vector3 GetAimScreenPosition()
-    {
-        Vector3 screenPos = Vector3.zero;
-
-        // Check if we are on mobile device
-        if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            if (Input.touchCount > 0)
-            {
-                // From mobile input
-                screenPos = Input.GetTouch(Input.touchCount - 1).position;
-            }
-        }else
-        {
-            // From desktop input
-            screenPos = Input.mousePosition;
-        }
-
-        return screenPos;
     }
 
 
