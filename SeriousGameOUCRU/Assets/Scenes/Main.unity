@@ -1600,7 +1600,7 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: badBacteriaCount
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}

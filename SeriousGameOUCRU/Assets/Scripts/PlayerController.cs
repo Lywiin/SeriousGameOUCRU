@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     public float damageMultiplier = 1.5f;
     public float boostDuration = 5f;
 
+    [Header("Attack Range")]
+    public float minRange = 15f;
+    public float maxRange = 50f;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -36,6 +40,8 @@ public class PlayerController : MonoBehaviour
     // Fire time buffer
     private float timeToFireP1 = 0f;
     private float timeToFireP2 = 0f;
+    private bool isFiring = false;
+    private GameObject fireTarget;
 
     // Status
     private bool dead = false;
@@ -87,7 +93,13 @@ public class PlayerController : MonoBehaviour
             //     // Check if player is firing
             //     CheckFire();
             // }
-
+            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                CheckFireMobile();
+            }else
+            {
+                CheckFireDesktop();
+            }
         }
 
         // if (Input.touchCount > 0)
@@ -114,28 +126,66 @@ public class PlayerController : MonoBehaviour
 
     /*** FIRE FUNCTIONS ***/
 
-    // Check if player is firing
-    private void CheckFire()
+    private void CheckFireMobile()
     {
-        if (Input.touchCount > 0)
+        // Check if player touch the screen and if touch began
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            // Get touched world position
+            Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(0).position);
 
-        }else
-        {
-            if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
-            {
-                // Fire projectile 1
-                Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
-            }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
-            {
-                // Fire projectile 2
-                Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
+            // Check if the touch collide with objects in the world
+            Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
 
-                // Increase all proba
-                gameController.IncreaseAllMutationProba();
+            foreach (Collider c in hitColliders)
+            {
+                // If we touched a bacteria
+                if (c.CompareTag("BadBacteria") || c.CompareTag("GoodBacteria"))
+                {
+                    StartCoroutine(RepeatFire(1f, c.gameObject));
+                    break;
+                }
             }
-
         }
+    }
+
+    private void CheckFireDesktop()
+    {
+        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        {
+            // Fire projectile 1
+            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
+        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
+        {
+            // Fire projectile 2
+            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
+
+            // Increase all proba
+            gameController.IncreaseAllMutationProba();
+        }
+    }
+
+    // Fire projectile over time
+    private IEnumerator RepeatFire(float time, GameObject target)
+    {
+        isFiring = true;
+        fireTarget = target;
+
+        // Keep firing until bacteria die or get out of range
+        while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange)
+        {
+            // Keep the player rotated toward the target
+            RotatePlayer(fireTarget.transform.position - transform.position);
+
+            // Fire projectile as normal
+            if (Time.time >= timeToFireP1)
+                Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
+
+            yield return null;
+        }
+
+        isFiring = false;
+        fireTarget = null;
     }
 
     // Fire a projectile
@@ -164,6 +214,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     /*** MOVEMENTS FUNCTIONS ***/
 
     // Toggle player movement
@@ -177,14 +228,26 @@ public class PlayerController : MonoBehaviour
     {
         // Apply a force to move the player in movementDirection
         rb.AddForce(movementDirection * speed, ForceMode.Impulse);
+        
+        // If player is firing and too close from a bacteria it gets repulsed from it
+        if (isFiring && fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < minRange)
+        {
+            // Get the opposite force direction
+            Vector3 forceDirection = transform.position - fireTarget.transform.position;
+            forceDirection.Normalize();
+
+            // Apply the opposite force
+            rb.AddForce(forceDirection * speed, ForceMode.Impulse);
+        }
 
         // Clamp the player velocity to not go too fast
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
-    private void RotatePlayer(Vector3 lookAtPosition)
+    private void RotatePlayer(Vector3 lookAtDirection)
     {
-        transform.rotation = Quaternion.LookRotation(lookAtPosition, Vector3.up);
+        // Rotate player toward a direction
+        transform.rotation = Quaternion.LookRotation(lookAtDirection, Vector3.up);
     }
 
     // Handle player movement and rotation for desktop
@@ -207,7 +270,7 @@ public class PlayerController : MonoBehaviour
     // Handle player movement and rotation for mobile
     private void MoveAndRotatePlayerMobile()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Began)
         {
             // Get touch position on screen
             Vector2 touchPosition = Input.GetTouch(0).position;
@@ -220,9 +283,12 @@ public class PlayerController : MonoBehaviour
             moveDirection = touchWorldPosition - transform.position;
             moveDirection.Normalize();
 
-            // Move and rotate player toward moveDirection
+            // Move player toward moveDirection
             MovePlayer(moveDirection);
-            RotatePlayer(moveDirection);
+
+            // Rotate player toward moveDirection if not firing
+            if (!isFiring)
+                RotatePlayer(moveDirection);
         }
     }
 
