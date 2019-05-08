@@ -38,10 +38,15 @@ public class PlayerController : MonoBehaviour
     private Plane plane;
 
     // Fire time buffer
-    private float timeToFireP1 = 0f;
-    private float timeToFireP2 = 0f;
+    private float timeToFire;
     private bool isFiring = false;
     private GameObject fireTarget;
+    private bool heavyWeaponSelected = false;
+
+    // Intermediate fire variables
+    private GameObject currentProjectile;
+    private float currentFireRate;
+    private float currentFireDrawback;
 
     // Status
     private bool dead = false;
@@ -81,6 +86,11 @@ public class PlayerController : MonoBehaviour
 
         // Prevent player movement from start
         canMove = false;
+
+        // Init projectile
+        currentProjectile = projectile1;
+        currentFireRate = fireRateP1;
+        currentFireDrawback = fireDrawbackP1;
     }
 
     void Update()
@@ -88,11 +98,6 @@ public class PlayerController : MonoBehaviour
         // If game not paused
         if (!gameController.IsGamePaused() && canMove)
         {
-            // if (gameController.CanPlayerShoot())
-            // {
-            //     // Check if player is firing
-            //     CheckFire();
-            // }
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
                 CheckFireMobile();
@@ -101,11 +106,6 @@ public class PlayerController : MonoBehaviour
                 CheckFireDesktop();
             }
         }
-
-        // if (Input.touchCount > 0)
-        //     Debug.Log("TOUCH 0: " + Input.GetTouch(0).position);
-        // if (Input.touchCount > 1)
-        //     Debug.Log("TOUCH 1: " + Input.GetTouch(1).position);
     }
 
     void FixedUpdate()
@@ -151,17 +151,21 @@ public class PlayerController : MonoBehaviour
 
     private void CheckFireDesktop()
     {
-        if (Input.GetButton("Fire1") && Time.time >= timeToFireP1)
+        if (Time.time >= timeToFire)
         {
-            // Fire projectile 1
-            Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
-        }else if (Input.GetButton("Fire2") && Time.time >= timeToFireP2)
-        {
-            // Fire projectile 2
-            Fire(ref timeToFireP2, ref fireRateP2, ref projectile2, fireDrawbackP2);
+            if (Input.GetButton("Fire1"))
+            {
+                // Switch to light weapon if heavy selected
+                if (heavyWeaponSelected)
+                    ChangeWeapon();
 
-            // Increase all proba
-            gameController.IncreaseAllMutationProba();
+            }else if (Input.GetButton("Fire2"))
+            {
+                // Switch to heavy weapon if light selected
+                if (!heavyWeaponSelected)
+                    ChangeWeapon();
+            }
+            Fire();
         }
     }
 
@@ -171,34 +175,39 @@ public class PlayerController : MonoBehaviour
         isFiring = true;
         fireTarget = target;
 
-        // Keep firing until bacteria die or get out of range
-        while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange)
+        do
         {
             // Keep the player rotated toward the target
             RotatePlayer(fireTarget.transform.position - transform.position);
 
             // Fire projectile as normal
-            if (Time.time >= timeToFireP1)
-                Fire(ref timeToFireP1, ref fireRateP1, ref projectile1, fireDrawbackP1);
+            if (Time.time >= timeToFire)
+                Fire();
 
             yield return null;
-        }
+
+        // Keep firing until bacteria die or get out of range
+        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
         isFiring = false;
         fireTarget = null;
     }
 
     // Fire a projectile
-    private void Fire(ref float timeToFire, ref float fireRate, ref GameObject projectile, float fireDrawback)
+    private void Fire()
     {
         // Update next time to fire
-        timeToFire = Time.time + 1 / fireRate;
+        timeToFire = Time.time + 1 / currentFireRate;
 
         // Spawn the projectile
-        SpawnProjectile(projectile);
+        SpawnProjectile(currentProjectile);
 
         // Apply a drawback force
-        ApplyFireDrawback(fireDrawback);
+        ApplyFireDrawback(currentFireDrawback);
+
+        // Increase mutation proba if heavy projectile is fired
+        if (heavyWeaponSelected)
+            GameController.Instance.IncreaseAllMutationProba();
     }
 
     // Spawn the desired projectile
@@ -211,6 +220,28 @@ public class PlayerController : MonoBehaviour
         if (isBoosted)
         {
             p.GetComponent<Projectile>().MultiplyDamage(damageMultiplier);            
+        }
+    }
+
+    // Called by UI to change current weapon
+    public void ChangeWeapon()
+    {
+        // Switch weapon 
+        heavyWeaponSelected = !heavyWeaponSelected;
+
+        // Switch to heavy weapon
+        if (heavyWeaponSelected)
+        {
+            currentProjectile = projectile2;
+            currentFireRate = fireRateP2;
+            currentFireDrawback = fireDrawbackP2;
+        }
+        // Else switch to light weapon
+        else
+        {
+            currentProjectile = projectile1;
+            currentFireRate = fireRateP1;
+            currentFireDrawback = fireDrawbackP1;
         }
     }
 

@@ -146,7 +146,7 @@ public class CameraController : MonoBehaviour
         Vector3 offsetDirection = Vector3.zero;
 
         // Compute offsetDirection if we are on mobile and touch the screen or anything else
-        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android))
+        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android && !PlayerController.Instance.androidDebug))
         {
             offsetDirection = PlayerController.Instance.GetMoveDirection() * lookAtFactor;
         }
