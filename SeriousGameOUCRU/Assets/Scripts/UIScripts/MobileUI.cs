@@ -7,37 +7,46 @@ public class MobileUI : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
-    public GameObject weaponToggleButton;
+    public Image weaponTempImage;
 
 
     /*** PRIVATE VARIABLES ***/
 
-    private Image buttonSprite;
-    private bool displayHeavyWeaponColor = false;
+
+    /*** INSTANCE ***/
+
+    private static MobileUI _instance;
+    public static MobileUI Instance { get { return _instance; } }
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    void Start()
+    private void Awake()
     {
-        // Init of the sprite
-        buttonSprite = weaponToggleButton.GetComponent<Image>();
-        buttonSprite.color = Color.magenta;
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        weaponTempImage.color = Color.green;
     }
 
     
     /***** COLOR CHANGE FUNCTIONS *****/
 
-    public void ToggleHeavyWeaponSprite()
+    public void ToggleImageColor(bool displayHeavyWeaponColor)
     {
-        displayHeavyWeaponColor = !displayHeavyWeaponColor;
-
         if (displayHeavyWeaponColor)
         {
-            buttonSprite.color = Color.magenta;
+            weaponTempImage.color = Color.magenta;
         }else
         {
-            buttonSprite.color = Color.green;
+            weaponTempImage.color = Color.green;
         }
     }
 }

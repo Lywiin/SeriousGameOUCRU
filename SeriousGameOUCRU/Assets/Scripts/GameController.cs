@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
     }
 
     private IEnumerator DelaySpawnBadBacteria()
-    {
+    {        
         // Spawn some bacterias
         for (int i = 0; i < badBacteriaCount; i++)
         {

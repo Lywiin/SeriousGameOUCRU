@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     public float fireRateP2 = 0.5f;
     public float fireDrawbackP2 = 30f;
 
+    [Header("Weapon Change")]
+    public float weaponChangeDuration = 0.5f;
+    public float weaponChangeCooldown = 0.5f;
+
     [Header("Attack Boost")]
     public float damageMultiplier = 1.5f;
     public float boostDuration = 5f;
@@ -41,7 +45,11 @@ public class PlayerController : MonoBehaviour
     private float timeToFire;
     private bool isFiring = false;
     private GameObject fireTarget;
+
+    // Weapon change
     private bool heavyWeaponSelected = false;
+    private bool canChangeWeapon = true;
+    private float weaponChangeTimer = 0f;
 
     // Intermediate fire variables
     private GameObject currentProjectile;
@@ -104,10 +112,10 @@ public class PlayerController : MonoBehaviour
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                CheckFireMobile();
+                HandleFireMobile();
             }else
             {
-                CheckFireDesktop();
+                HandleFireDesktop();
             }
         }
     }
@@ -119,10 +127,10 @@ public class PlayerController : MonoBehaviour
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                MoveAndRotatePlayerMobile();
+                HandlePlayerControlsMobile();
             }else
             {
-                MoveAndRotatePlayerDesktop();
+                HandlePlayerControlsDesktop();
             }
         }
     }
@@ -130,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     /*** FIRE FUNCTIONS ***/
 
-    private void CheckFireMobile()
+    private void HandleFireMobile()
     {
         // Check if player touch the screen and if touch began
         if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
@@ -153,7 +161,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void CheckFireDesktop()
+    private void HandleFireDesktop()
     {
         if (Time.time >= timeToFire)
         {
@@ -242,10 +250,14 @@ public class PlayerController : MonoBehaviour
     }
 
     // Called by UI to change current weapon
-    public void ChangeWeapon()
+    public IEnumerator ChangeWeapon()
     {
+        canChangeWeapon = false;
+        
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
+
+        MobileUI.Instance.ToggleImageColor(heavyWeaponSelected);
 
         // Switch to heavy weapon
         if (heavyWeaponSelected)
@@ -261,7 +273,11 @@ public class PlayerController : MonoBehaviour
             currentFireRate = fireRateP1;
             currentFireDrawback = fireDrawbackP1;
         }
+
+        yield return new WaitForSeconds(weaponChangeCooldown);
+        canChangeWeapon = true;
     }
+
 
 
     /*** MOVEMENTS FUNCTIONS ***/
@@ -300,7 +316,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Handle player movement and rotation for desktop
-    private void MoveAndRotatePlayerDesktop()
+    private void HandlePlayerControlsDesktop()
     {
         // Get input axes
         float moveHor = Input.GetAxis("Horizontal");
@@ -317,28 +333,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // Handle player movement and rotation for mobile
-    private void MoveAndRotatePlayerMobile()
+    private void HandlePlayerControlsMobile()
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Began)
         {
-            // Get touch position on screen
-            Vector2 touchPosition = Input.GetTouch(0).position;
-
-            // Convert it to world position and keep Y always at player level (0)
-            Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
-            touchWorldPosition.y = 0;
-
             // Compute moveDirection
-            moveDirection = touchWorldPosition - transform.position;
+            moveDirection = ComputeMoveDirection();
 
             // Compute new max velocity
             ComputeCurrentMaxVelocity(moveDirection);
 
-            moveDirection.Normalize();
-
             // Only move and rotate if player clock away from the player
-            if ((touchWorldPosition - transform.position).magnitude > 10f)
+            if (moveDirection.magnitude > 10f)
             {
+                // Reset timer
+                ResetWeaponChangeTimer();
+
+                moveDirection.Normalize();
+
                 // Move player toward moveDirection
                 MovePlayer(moveDirection);
 
@@ -349,9 +361,44 @@ public class PlayerController : MonoBehaviour
             {
                 // if touch on the player, doesn't move or rotate
                 moveDirection = Vector3.zero;
-            }
+                
+                // Condition needed to change weapon
+                if (canChangeWeapon)
+                {
+                    // Increase timer every frame
+                    weaponChangeTimer += Time.deltaTime;
 
+                    // When timer over weapon changing duration trigger the weapon changing procedure
+                    if (weaponChangeTimer > weaponChangeDuration)
+                    {
+                        ResetWeaponChangeTimer();
+                        StartCoroutine(ChangeWeapon());
+                    }
+                }
+            }
+        }else
+        {
+            // Reset timer
+            ResetWeaponChangeTimer();
         }
+    }
+
+    private void ResetWeaponChangeTimer()
+    {
+        weaponChangeTimer = 0f;
+    }
+
+    private Vector3 ComputeMoveDirection()
+    {
+        // Get touch position on screen
+            Vector2 touchPosition = Input.GetTouch(0).position;
+
+            // Convert it to world position and keep Y always at player level (0)
+            Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
+            touchWorldPosition.y = 0;
+
+            // Compute moveDirection
+            return touchWorldPosition - transform.position;
     }
 
     // Change max velocity according to input distance from the player
