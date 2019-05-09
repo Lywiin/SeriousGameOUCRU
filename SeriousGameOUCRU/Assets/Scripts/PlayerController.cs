@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     // Move direction
     Vector3 moveDirection = Vector3.zero;
     private bool keepDistance = false;
+    private float currentMaxVelocity;
 
 
     /*** INSTANCE ***/
@@ -92,6 +93,8 @@ public class PlayerController : MonoBehaviour
         currentProjectile = projectile1;
         currentFireRate = fireRateP1;
         currentFireDrawback = fireDrawbackP1;
+
+        currentMaxVelocity = maxVelocity;
     }
 
     void Update()
@@ -287,7 +290,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Clamp the player velocity to not go too fast
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, currentMaxVelocity);
     }
 
     private void RotatePlayer(Vector3 lookAtDirection)
@@ -325,17 +328,41 @@ public class PlayerController : MonoBehaviour
             Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
             touchWorldPosition.y = 0;
 
-            // Compute moveDirection and normalize it
+            // Compute moveDirection
             moveDirection = touchWorldPosition - transform.position;
+
+            // Compute new max velocity
+            ComputeCurrentMaxVelocity(moveDirection);
+
             moveDirection.Normalize();
 
-            // Move player toward moveDirection
-            MovePlayer(moveDirection);
+            // Only move and rotate if player clock away from the player
+            if ((touchWorldPosition - transform.position).magnitude > 10f)
+            {
+                // Move player toward moveDirection
+                MovePlayer(moveDirection);
 
-            // Rotate player toward moveDirection if not firing
-            if (!isFiring)
-                RotatePlayer(moveDirection);
+                // Rotate player toward moveDirection if not firing
+                if (!isFiring)
+                    RotatePlayer(moveDirection);
+            }else
+            {
+                // if touch on the player, doesn't move or rotate
+                moveDirection = Vector3.zero;
+            }
+
         }
+    }
+
+    // Change max velocity according to input distance from the player
+    private void ComputeCurrentMaxVelocity(Vector3 inputDistance)
+    {
+        // Compute a multiplier
+        float velocityMultiplier = inputDistance.magnitude / 60f + 0.5f;
+
+        // apply this multiplier on base velocity
+        currentMaxVelocity = maxVelocity * velocityMultiplier;
+
     }
 
     // Convert properly a screen position to a world position with raycasting
