@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
     // Move direction
     Vector3 moveDirection = Vector3.zero;
+    private bool keepDistance = false;
 
 
     /*** INSTANCE ***/
@@ -129,10 +130,10 @@ public class PlayerController : MonoBehaviour
     private void CheckFireMobile()
     {
         // Check if player touch the screen and if touch began
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
         {
             // Get touched world position
-            Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(0).position);
+            Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
 
             // Check if the touch collide with objects in the world
             Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
@@ -173,6 +174,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator RepeatFire(float time, GameObject target)
     {
         isFiring = true;
+        keepDistance = true;
         fireTarget = target;
 
         do
@@ -190,6 +192,19 @@ public class PlayerController : MonoBehaviour
         }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
         isFiring = false;
+
+        // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the bacteria
+        if (heavyWeaponSelected)
+            StartCoroutine(UnkeepDistance(2f));
+        else
+            StartCoroutine(UnkeepDistance(0f));
+    }
+
+    // Stop keeping distance with bacteria after some time
+    private IEnumerator UnkeepDistance(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        keepDistance = false;
         fireTarget = null;
     }
 
@@ -261,7 +276,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movementDirection * speed, ForceMode.Impulse);
         
         // If player is firing and too close from a bacteria it gets repulsed from it
-        if (isFiring && fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < minRange)
+        if (keepDistance && fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < minRange)
         {
             // Get the opposite force direction
             Vector3 forceDirection = transform.position - fireTarget.transform.position;
