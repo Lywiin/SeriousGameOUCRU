@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bacteriaPrefab: {fileID: 8769615520535589609}
   moveForce: 200
   moveAwayForce: 50
   moveRate: 2
@@ -131,3 +132,4 @@ MonoBehaviour:
   mutationProba: 0.0005
   duplicationProba: 0.0001
   duplicationRecallTime: 3
+  disolveSpeed: 2

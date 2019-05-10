@@ -27,9 +27,9 @@ public class BadBacteria : Bacteria
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         // Add to list
         badBacteriaList.Add(this);
@@ -40,6 +40,11 @@ public class BadBacteria : Bacteria
 
         // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
 
         // To avoid conjugaison on spawn
         StartCoroutine(CollidingRecall());

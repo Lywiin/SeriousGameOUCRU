@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float speed = 8f;
     public float maxVelocity = 20f;
-    public Joystick joystick;
     public bool androidDebug = false;
 
     [Header("Projectile")]
@@ -215,8 +214,11 @@ public class PlayerController : MonoBehaviour
     private IEnumerator UnkeepDistance(float delay)
     {
         yield return new WaitForSeconds(delay);
-        keepDistance = false;
-        fireTarget = null;
+        if (!isFiring)
+        {
+            keepDistance = false;
+            fireTarget = null;
+        }
     }
 
     // Fire a projectile

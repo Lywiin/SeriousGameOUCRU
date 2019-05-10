@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 8631826516651307087}
   - component: {fileID: 6495428492473414401}
   m_Layer: 0
-  m_Name: NewBadBacteria
+  m_Name: BadBacteria
   m_TagString: BadBacteria
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bacteriaPrefab: {fileID: 6375226934681378963}
   moveForce: 200
   moveAwayForce: 75
   moveRate: 2

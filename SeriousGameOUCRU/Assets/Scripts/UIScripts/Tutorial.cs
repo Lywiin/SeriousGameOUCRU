@@ -41,6 +41,9 @@ public class Tutorial : MonoBehaviour
             _instance = this;
         }
 
+        //TEMPORARY DESACTIVATED
+        PlayerPrefs.SetInt("Tutorial", 0);
+
         if (!PlayerPrefs.HasKey("Tutorial"))
         {
             PlayerPrefs.SetInt("Tutorial", 1);

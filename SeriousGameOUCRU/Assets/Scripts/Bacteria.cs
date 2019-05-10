@@ -5,7 +5,9 @@ using UnityEngine;
 public abstract class Bacteria : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
-    
+    [Header("Movement")]
+    public GameObject bacteriaPrefab;
+
     [Header("Movement")]
     public float moveForce = 200;
     public float moveAwayForce = 20;
@@ -54,8 +56,8 @@ public abstract class Bacteria : MonoBehaviour
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
-
-    protected virtual void Start()
+    
+    protected virtual void Awake()
     {
         InitComponents();
 
@@ -64,7 +66,10 @@ public abstract class Bacteria : MonoBehaviour
 
         // Initialize bacteria size
         bacteriaSize = render.bounds.size.x;
+    }
 
+    protected virtual void Start()
+    {
         // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
     }
@@ -80,7 +85,7 @@ public abstract class Bacteria : MonoBehaviour
     protected virtual void Update()
     {
         // Check is game is not currently paused
-        if (!GameController.Instance.IsGamePaused())
+        if (!GameController.Instance.IsGamePaused() && !disolve)
         {
             // Attempt to move bacteria every frame
             TryToMoveBacteria();
@@ -201,11 +206,20 @@ public abstract class Bacteria : MonoBehaviour
     // Instantiate bacteria at given position and add it to gameController list
     protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
     {
-        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+        // Instantiate new bacteria
+        GameObject b = Instantiate(bacteriaPrefab, randomPos, Quaternion.identity);
 
-        // Activate the resistance on duplicated bacteria is already resistant
-        // if(isResistant)
-        //     b.GetComponent<Bacteria>().ActivateResistance();
+        // Get the reference to the bacteria script
+        Bacteria duplicatedBacteria = b.GetComponent<Bacteria>();
+
+        // Set the health of the new becteria to the health of the parent one
+        duplicatedBacteria.SetBacteriaHealth(health);
+
+        if (isResistant)
+        {
+            // If parent is resistant, transmit resistance to the child
+            duplicatedBacteria.ActivateResistance();
+        }
 
         return b;
     }
@@ -213,6 +227,13 @@ public abstract class Bacteria : MonoBehaviour
 
     /***** HEALTH FUNCTIONS *****/
     
+    // Set the health of the bacteria to a new value
+    public void SetBacteriaHealth(int newHealth)
+    {
+        health = newHealth;
+        UpdateHealthColor();
+    }
+
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
