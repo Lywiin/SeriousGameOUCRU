@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   maxVelocity: 20
+  androidDebug: 1
   firePoint: {fileID: 8795248466062620653}
   projectile1: {fileID: 6379939513572856885, guid: 440095619b5297c40bc3d4487bc02019,
     type: 3}
@@ -119,10 +120,14 @@ MonoBehaviour:
   fireDrawbackP1: 2
   projectile2: {fileID: 6379939513572856885, guid: f801e83e6af419e4ea4ab59c642b9eef,
     type: 3}
-  fireRateP2: 1
+  fireRateP2: 2
   fireDrawbackP2: 30
+  weaponChangeDuration: 0.5
+  weaponChangeCooldown: 0.5
   damageMultiplier: 1.5
   boostDuration: 5
+  minRange: 15
+  maxRange: 60
 --- !u!54 &5735719035098886769
 Rigidbody:
   m_ObjectHideFlags: 0
