@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public float speed = 8f;
     public float maxVelocity = 20f;
     public bool androidDebug = false;
+    public Joystick movementJoystick;
+    public Joystick fireJoystick;
 
     [Header("Projectile")]
     public GameObject firePoint;
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
     private float timeToFire;
     private bool isFiring = false;
     private GameObject fireTarget;
+    //private bool canRepeatFire = true;
+    private float repeatFireTimer = 0f;
 
     // Weapon change
     private bool heavyWeaponSelected = false;
@@ -66,6 +70,11 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
     private bool keepDistance = false;
     private float currentMaxVelocity;
+
+
+    [HideInInspector]
+    public bool switchInput = false;
+    private bool canSwitch = true;
 
 
     /*** INSTANCE ***/
@@ -104,14 +113,40 @@ public class PlayerController : MonoBehaviour
         currentMaxVelocity = maxVelocity;
     }
 
+    // Add a buffer between input change
+    private IEnumerator InputSwitchBuffer()
+    {
+        canSwitch = false;
+        SwitchInput();
+        yield return new WaitForSeconds(1f);
+        canSwitch = true;
+    }
+
+    // Change the input mode on mobile
+    private void SwitchInput()
+    {
+        movementJoystick.gameObject.SetActive(switchInput);
+        fireJoystick.gameObject.SetActive(switchInput);
+
+        switchInput = !switchInput;
+    }
+
     void Update()
     {
+        // TEMPORARY FOR TESTING PURPOSE
+        if (Input.touchCount > 3 && canSwitch)
+            StartCoroutine(InputSwitchBuffer());
+
+
         // If game not paused
         if (!gameController.IsGamePaused() && canMove)
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                HandleFireMobile();
+                if (switchInput)
+                    HandleFireMobile();
+                else
+                    HandleFireMobile2();
             }else
             {
                 HandleFireDesktop();
@@ -126,7 +161,10 @@ public class PlayerController : MonoBehaviour
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                HandlePlayerControlsMobile();
+                if (switchInput)
+                    HandlePlayerControlsMobile();
+                else
+                    HandlePlayerControlsMobile2();
             }else
             {
                 HandlePlayerControlsDesktop();
@@ -140,23 +178,69 @@ public class PlayerController : MonoBehaviour
     private void HandleFireMobile()
     {
         // Check if player touch the screen and if touch began
-        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 /*&& Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began*/)
         {
-            // Get touched world position
-            Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
+            // Increase timer every frame
+            repeatFireTimer += Time.deltaTime;
 
-            // Check if the touch collide with objects in the world
-            Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
-
-            foreach (Collider c in hitColliders)
+            if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
             {
-                // If we touched a bacteria
-                if (c.CompareTag("BadBacteria") || c.CompareTag("GoodBacteria"))
+                // When touch end we check if the input last for less than some time
+                if (repeatFireTimer < 0.3f)
                 {
-                    StartCoroutine(RepeatFire(1f, c.gameObject));
-                    break;
+                    // If so if try to fire
+                    CheckRepeatFireTouch();
                 }
+
+                // After every end of touch we reset the timer
+                repeatFireTimer = 0f;
             }
+        }
+    }
+
+    // Check the touch of the player to see if it trigger the repeat fire
+    private void CheckRepeatFireTouch()
+    {
+        // Get touched world position
+        Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
+
+        // Check if the touch collide with objects in the world
+        Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
+
+        foreach (Collider c in hitColliders)
+        {
+            // If we touched a bacteria
+            if (c.CompareTag("BadBacteria") || c.CompareTag("GoodBacteria"))
+            {
+                StartCoroutine(RepeatFire(1f, c.gameObject));
+                break;
+            }
+        }
+    }
+
+    private void HandleFireMobile2()
+    {
+        // Get input axes
+        float fireHor = fireJoystick.Horizontal;
+        float fireVer = fireJoystick.Vertical;
+
+        // Temporary name
+        Vector3 fireDirection = new Vector3(fireHor, 0.0f, fireVer);
+
+        if (Mathf.Abs(fireHor) > 0.2f || Mathf.Abs(fireVer) > 0.2f)
+        {
+            isFiring = true;
+
+            // Rotate player in firing direction
+            RotatePlayer(fireDirection);
+
+            if (Time.time >= timeToFire)
+            {
+                Fire();
+            }
+        }else
+        {
+            isFiring = false;
         }
     }
 
@@ -325,10 +409,10 @@ public class PlayerController : MonoBehaviour
         float moveVer = Input.GetAxis("Vertical");
 
         // COmpute moveDirection
-        moveDirection = new Vector3(moveHor, 0.0f, moveVer);
+        Vector3 moveDir = new Vector3(moveHor, 0.0f, moveVer);
 
         // Move the player in axis direction
-        MovePlayer(moveDirection);
+        MovePlayer(moveDir);
 
         // Rotate the player toward mouse position
         RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition));
@@ -345,7 +429,7 @@ public class PlayerController : MonoBehaviour
             // Compute new max velocity
             ComputeCurrentMaxVelocity(moveDirection);
 
-            // Only move and rotate if player clock away from the player
+            // Only move and rotate if player click away from the player
             if (moveDirection.magnitude > 10f)
             {
                 // Reset timer
@@ -364,6 +448,52 @@ public class PlayerController : MonoBehaviour
                 // if touch on the player, doesn't move or rotate
                 moveDirection = Vector3.zero;
                 
+                // Condition needed to change weapon
+                if (canChangeWeapon)
+                {
+                    // Increase timer every frame
+                    weaponChangeTimer += Time.deltaTime;
+
+                    // When timer over weapon changing duration trigger the weapon changing procedure
+                    if (weaponChangeTimer > weaponChangeDuration)
+                    {
+                        ResetWeaponChangeTimer();
+                        StartCoroutine(ChangeWeapon());
+                    }
+                }
+            }
+        }else
+        {
+            // Reset timer
+            ResetWeaponChangeTimer();
+        }
+    }
+
+    private void HandlePlayerControlsMobile2()
+    {
+        // Get input axes
+        float moveHor = movementJoystick.Horizontal;
+        float moveVer = movementJoystick.Vertical;
+
+        // COmpute moveDirection
+        moveDirection = new Vector3(moveHor, 0.0f, moveVer);
+
+        // Move the player in axis direction
+        MovePlayer(moveDirection);
+
+        // Rotate player in moving direction if not firing
+        if (!isFiring)
+            RotatePlayer(moveDirection);
+
+        // Handle player weapon changing
+        if (Input.touchCount > 0)
+        {
+            // Compute temp moveDirection only use for here
+            Vector3 tempMoveDirection = ComputeMoveDirection();
+
+            // Only change if click is close to the player
+            if (tempMoveDirection.magnitude < 10f)
+            {
                 // Condition needed to change weapon
                 if (canChangeWeapon)
                 {

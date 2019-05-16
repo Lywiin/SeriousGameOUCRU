@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4238753236924817854}
   - component: {fileID: 7207314438672169956}
   - component: {fileID: 6389900593378594400}
+  - component: {fileID: 6075682478110827732}
   m_Layer: 0
   m_Name: ProjectileLight
   m_TagString: Projectile
@@ -105,7 +106,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6379939513572856885}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.49
   m_Height: 1.4
@@ -125,6 +126,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxVelocity: 100
-  lifeTime: 0.3
+  lifeTime: 0.5
   damage: 10
   boostedColor: {r: 0.70462185, g: 0, b: 0.8207547, a: 0}
+--- !u!135 &6075682478110827732
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379939513572856885}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0.0000064373016, y: 0.007646367, z: 30}

@@ -6,7 +6,7 @@ public class ProjectileLight: Projectile
 {
     /***** TRIGGER FUNCTIONS *****/
 
-    protected override void OnTriggerEnter(Collider c)
+    private void OnCollisionEnter(Collision c)
     {
         if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
         {
@@ -16,6 +16,15 @@ public class ProjectileLight: Projectile
             ApplyDamage(c.gameObject);
 
             Destroy(gameObject);
+        }
+    }
+
+    protected override void OnTriggerEnter(Collider c)
+    {
+        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
+        {
+            // Change target if a bacteria enter the detection collider
+            target = c.gameObject;
         }
     }
 

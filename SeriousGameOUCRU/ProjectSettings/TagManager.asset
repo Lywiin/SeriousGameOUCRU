@@ -8,6 +8,7 @@ TagManager:
   - GoodBacteria
   - ResistantGene
   - Projectile
+  - Level
   layers:
   - Default
   - TransparentFX

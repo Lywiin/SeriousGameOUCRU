@@ -28,6 +28,10 @@ public class Projectile : MonoBehaviour
     // Collision
     protected bool canCollide = true;
 
+    // Movement
+    protected Vector3 moveDirection;
+    protected GameObject target;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -38,12 +42,21 @@ public class Projectile : MonoBehaviour
 
         // Trigger destroy countdown
         StartCoroutine(KillProjectile());
+
+        moveDirection = transform.forward;
     }
 
     protected void FixedUpdate()
     {
+        // Only change moveDirection if a bacteria is targeted
+        if (target)
+        {
+            moveDirection = target.transform.position - transform.position;
+            moveDirection.Normalize();
+        }
+
         //Add force to the projectile
-        rb.AddForce(transform.forward * speed, ForceMode.Impulse);
+        rb.AddForce(moveDirection * speed, ForceMode.Impulse);
 
         //Clamp max velocity
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
