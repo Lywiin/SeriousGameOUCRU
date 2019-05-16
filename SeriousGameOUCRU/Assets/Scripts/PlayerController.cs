@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
             {
                 // When touch end we check if the input last for less than some time
-                if (repeatFireTimer < 0.3f)
+                if (repeatFireTimer < 0.4f)
                 {
                     // If so if try to fire
                     CheckRepeatFireTouch();
@@ -482,7 +482,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer(moveDirection);
 
         // Rotate player in moving direction if not firing
-        if (!isFiring)
+        if (!isFiring && moveDirection.magnitude > 0.2f)
             RotatePlayer(moveDirection);
 
         // Handle player weapon changing
