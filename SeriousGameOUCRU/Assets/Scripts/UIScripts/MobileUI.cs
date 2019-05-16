@@ -7,8 +7,13 @@ public class MobileUI : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
-    public Image weaponTempImage;
+    [Header("Current Weapon")]
+    public Image currentWeaponImage;
+    public Sprite antibodySprite;
+    public Sprite antibioticSprite;
 
+    [Header("Weapon Change Slider")]
+    public Image weaponChangeSlider;
 
     /*** PRIVATE VARIABLES ***/
 
@@ -31,22 +36,30 @@ public class MobileUI : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        weaponTempImage.color = Color.green;
-    }
 
-    
     /***** COLOR CHANGE FUNCTIONS *****/
 
-    public void ToggleImageColor(bool displayHeavyWeaponColor)
+    public void ToggleCurrentWeaponImage(bool displayHeavyWeapon)
     {
-        if (displayHeavyWeaponColor)
+        if (displayHeavyWeapon)
         {
-            weaponTempImage.color = Color.magenta;
+            currentWeaponImage.sprite = antibioticSprite;
         }else
         {
-            weaponTempImage.color = Color.green;
+            currentWeaponImage.sprite = antibodySprite;
         }
+    }
+
+    /***** WEAPON SLIDER FUNCTIONS *****/
+
+    public void FillWeaponChangeSlider(float amount)
+    {
+        weaponChangeSlider.transform.position = CameraController.Instance.GetCamera().WorldToScreenPoint(PlayerController.Instance.gameObject.transform.position);
+
+        // Activate slider if amount different from 0
+        weaponChangeSlider.gameObject.SetActive(amount == 0f? false: true);
+
+        // Update slider amount
+        weaponChangeSlider.fillAmount = amount;
     }
 }

@@ -94,6 +94,9 @@ public class UIController : MonoBehaviour
 
     private void DisplayEndGamePanel()
     {
+        //Hide Mobile UI
+        MobileUI.Instance.gameObject.SetActive(false);
+
         // Hide info panel
         infoPanel.SetActive(false);
 

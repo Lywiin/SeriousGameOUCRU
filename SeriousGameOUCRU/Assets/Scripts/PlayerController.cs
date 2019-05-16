@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
 
-        MobileUI.Instance.ToggleImageColor(heavyWeaponSelected);
+        MobileUI.Instance.ToggleCurrentWeaponImage(heavyWeaponSelected);
 
         // Switch to heavy weapon
         if (heavyWeaponSelected)
@@ -424,7 +424,7 @@ public class PlayerController : MonoBehaviour
         if (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Began)
         {
             // Compute moveDirection
-            moveDirection = ComputeMoveDirection();
+            moveDirection = ComputeMoveDirection(0);
 
             // Compute new max velocity
             ComputeCurrentMaxVelocity(moveDirection);
@@ -448,19 +448,8 @@ public class PlayerController : MonoBehaviour
                 // if touch on the player, doesn't move or rotate
                 moveDirection = Vector3.zero;
                 
-                // Condition needed to change weapon
-                if (canChangeWeapon)
-                {
-                    // Increase timer every frame
-                    weaponChangeTimer += Time.deltaTime;
-
-                    // When timer over weapon changing duration trigger the weapon changing procedure
-                    if (weaponChangeTimer > weaponChangeDuration)
-                    {
-                        ResetWeaponChangeTimer();
-                        StartCoroutine(ChangeWeapon());
-                    }
-                }
+                // Increase timer to change weapon
+                IncreaseWeaponChangeTimer();
             }
         }else
         {
@@ -489,24 +478,17 @@ public class PlayerController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             // Compute temp moveDirection only use for here
-            Vector3 tempMoveDirection = ComputeMoveDirection();
+            Vector3 tempMoveDirection = ComputeMoveDirection(Input.touchCount - 1);
 
             // Only change if click is close to the player
             if (tempMoveDirection.magnitude < 10f)
             {
-                // Condition needed to change weapon
-                if (canChangeWeapon)
-                {
-                    // Increase timer every frame
-                    weaponChangeTimer += Time.deltaTime;
-
-                    // When timer over weapon changing duration trigger the weapon changing procedure
-                    if (weaponChangeTimer > weaponChangeDuration)
-                    {
-                        ResetWeaponChangeTimer();
-                        StartCoroutine(ChangeWeapon());
-                    }
-                }
+                // Increase timer to change weapon
+                IncreaseWeaponChangeTimer();
+            }else
+            {
+                // Reset if touch too far from the player
+                ResetWeaponChangeTimer();
             }
         }else
         {
@@ -515,15 +497,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ResetWeaponChangeTimer()
+    private void IncreaseWeaponChangeTimer()
     {
-        weaponChangeTimer = 0f;
+        // Condition needed to change weapon
+        if (canChangeWeapon)
+        {
+            // Increase timer every frame
+            weaponChangeTimer += Time.deltaTime;
+
+            // Update UI slider
+            MobileUI.Instance.FillWeaponChangeSlider(weaponChangeTimer / weaponChangeDuration);
+
+            // When timer over weapon changing duration trigger the weapon changing procedure
+            if (weaponChangeTimer > weaponChangeDuration)
+            {
+                ResetWeaponChangeTimer();
+                StartCoroutine(ChangeWeapon());
+            }
+        }
     }
 
-    private Vector3 ComputeMoveDirection()
+    private void ResetWeaponChangeTimer()
+    {
+        // Reset timer
+        weaponChangeTimer = 0f;
+
+        // Reset UI slider
+        MobileUI.Instance.FillWeaponChangeSlider(0f);
+    }
+
+    private Vector3 ComputeMoveDirection(int touchIndex)
     {
         // Get touch position on screen
-            Vector2 touchPosition = Input.GetTouch(0).position;
+            Vector2 touchPosition = Input.GetTouch(touchIndex).position;
 
             // Convert it to world position and keep Y always at player level (0)
             Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
