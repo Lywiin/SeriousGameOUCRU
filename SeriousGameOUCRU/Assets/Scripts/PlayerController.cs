@@ -111,6 +111,8 @@ public class PlayerController : MonoBehaviour
         currentFireDrawback = fireDrawbackP1;
 
         currentMaxVelocity = maxVelocity;
+
+        SwitchInput();
     }
 
     // Add a buffer between input change
