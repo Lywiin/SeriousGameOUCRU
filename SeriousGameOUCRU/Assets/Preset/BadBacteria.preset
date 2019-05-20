@@ -26,6 +26,10 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: bacteriaPrefab
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: moveForce
     value: 200
     objectReference: {fileID: 0}
@@ -88,6 +92,14 @@ Preset:
   - target: {fileID: 0}
     propertyPath: duplicationRecallTime
     value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: disolveSpeed
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: explosionParticle
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: conjugaisonProba

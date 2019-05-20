@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1326517466582487564}
   - component: {fileID: 6473381919560323009}
   m_Layer: 0
-  m_Name: SmokeParticleSystem
+  m_Name: SmokeParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

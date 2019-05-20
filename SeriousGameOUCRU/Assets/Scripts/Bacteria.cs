@@ -26,6 +26,7 @@ public abstract class Bacteria : MonoBehaviour
 
     [Header("Disolve")]
     public float disolveSpeed = 2f;
+    public ParticleSystem explosionParticle;
 
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
@@ -259,6 +260,10 @@ public abstract class Bacteria : MonoBehaviour
     // Called when the bacteria has to die
     public virtual void KillBacteria()
     {
+        // Trigger particle effect
+        explosionParticle.gameObject.SetActive(true);
+        explosionParticle.Play();
+
         // Trigger disolve anim in update
         disolve = true;
 
