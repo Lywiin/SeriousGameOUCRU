@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bacteriaPrefab: {fileID: 8769615520535589609}
+  rb: {fileID: 8769615520535589608}
   moveForce: 200
   moveAwayForce: 50
   moveRate: 2
