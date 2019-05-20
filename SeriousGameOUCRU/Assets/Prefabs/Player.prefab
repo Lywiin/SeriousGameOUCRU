@@ -191,11 +191,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmokeParticleSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,11 +265,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmokeParticleSystem (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}

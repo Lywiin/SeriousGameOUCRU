@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float fireRateP1 = 10f;
     public float fireDrawbackP1 = 2f;
     public GameObject projectile2;
-    public float fireRateP2 = 0.5f;
+    public float fireRateP2 = 2f;
     public float fireDrawbackP2 = 30f;
 
     [Header("Weapon Change")]
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Attack Range")]
     public float minRange = 15f;
-    public float maxRange = 50f;
+    public float maxRange = 60f;
 
 
     /*** PRIVATE VARIABLES ***/

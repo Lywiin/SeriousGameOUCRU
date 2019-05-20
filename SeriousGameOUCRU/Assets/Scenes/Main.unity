@@ -2415,11 +2415,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
         type: 3}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 1033106537}
-    - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
       propertyPath: movementJoystick
       value: 
       objectReference: {fileID: 1033106537}
@@ -2428,21 +2423,6 @@ PrefabInstance:
       propertyPath: fireJoystick
       value: 
       objectReference: {fileID: 1141103782}
-    - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: fireRateP1
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 679056440455507424, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5439212055682681158, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b847c48398719ea4598e2e2094d0508c, type: 3}
 --- !u!1001 &4006486504312096300
