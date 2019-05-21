@@ -18,11 +18,6 @@ public class GoodBacteria : Bacteria
         goodBacteriaList.Add(this);
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
 
     /***** HEALTH FUNCTIONS *****/
 

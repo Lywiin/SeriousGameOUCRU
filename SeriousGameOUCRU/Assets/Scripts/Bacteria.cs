@@ -10,7 +10,6 @@ public abstract class Bacteria : MonoBehaviour
 
     [Header("Movement")]
     public float moveForce = 200;
-    public float moveAwayForce = 20;
     public float moveRate = 2f;
     public float moveRateVariance = 1f;
 
@@ -88,9 +87,6 @@ public abstract class Bacteria : MonoBehaviour
         // Check is game is not currently paused
         if (!GameController.Instance.IsGamePaused() && !disolve)
         {
-            // Attempt to move bacteria every frame
-            TryToMoveBacteria();
-
             // Attempt to duplicate bacteria every frame
             TryToDuplicateBacteria();
 
@@ -102,6 +98,15 @@ public abstract class Bacteria : MonoBehaviour
         if (disolve)
         {
             DisolveOverTime();
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (!GameController.Instance.IsGamePaused() && !disolve)
+        {
+            // Attempt to move bacteria every frame
+            TryToMoveBacteria();
         }
     }
 
