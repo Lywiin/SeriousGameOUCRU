@@ -83,16 +83,19 @@ public class Projectile : MonoBehaviour
     protected virtual void ApplyDamage(GameObject g)
     {
         // Check if collided object is a bacteria
-        Bacteria bacteriaScript = g.transform.GetComponentInParent<Bacteria>();
-        if (bacteriaScript)
+        if (g.transform.GetComponentInParent<Bacteria>())
         {
-            // If so damage bacteria
-            bacteriaScript.DamageBacteria(damage);
+            g.transform.GetComponentInParent<Bacteria>().DamageBacteria(damage);
         }
-        else if (g.gameObject.CompareTag("ResistantGene"))
+        // Check if collided object is a resistant gene
+        else if (g.gameObject.GetComponent<ResistantGene>())
         {
-            // Otherwise if gene, damage gene
             g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
+        }
+        // Check if collided object is a virus symptom
+        else if (g.gameObject.GetComponent<Symptom>())
+        {
+            g.gameObject.GetComponent<Symptom>().DamageSymptom(damage);
         }
 
     }

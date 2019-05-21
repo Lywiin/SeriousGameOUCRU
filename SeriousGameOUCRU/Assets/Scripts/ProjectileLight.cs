@@ -8,12 +8,12 @@ public class ProjectileLight: Projectile
 
     private void OnCollisionEnter(Collision c)
     {
-        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
+        if (c.collider.gameObject.CompareTag("Damageable"))
         {
             Hide();
 
             // Apply damage on the collided object
-            ApplyDamage(c.gameObject);
+            ApplyDamage(c.collider.gameObject);
 
             Destroy(gameObject);
         }
@@ -21,7 +21,7 @@ public class ProjectileLight: Projectile
 
     protected override void OnTriggerEnter(Collider c)
     {
-        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
+        if (!c.gameObject.CompareTag("NotDamageable") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
         {
             // Change target if a bacteria enter the detection collider
             target = c.gameObject;
@@ -33,7 +33,7 @@ public class ProjectileLight: Projectile
         base.ApplyDamage(g);
 
         // Add screen shake if touch an ennemy
-        if (g.transform.GetComponentInParent<Bacteria>() || g.gameObject.CompareTag("ResistantGene"))
+        if (g.CompareTag("Damageable"))
         {
             CameraShake.Instance.LightScreenShake();
         }

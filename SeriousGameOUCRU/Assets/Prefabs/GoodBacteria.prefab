@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6064827100080528097}
   m_Layer: 0
   m_Name: GoodBacteria
-  m_TagString: GoodBacteria
+  m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,9 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bacteriaPrefab: {fileID: 8769615520535589609}
-  rb: {fileID: 8769615520535589608}
   moveForce: 200
-  moveAwayForce: 50
   moveRate: 2
   moveRateVariance: 1
   maxHealth: 50

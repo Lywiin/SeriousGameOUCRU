@@ -4,11 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BadBacteria
-  - GoodBacteria
-  - ResistantGene
-  - Projectile
   - Level
+  - Damageable
+  - NotDamageable
   layers:
   - Default
   - TransparentFX

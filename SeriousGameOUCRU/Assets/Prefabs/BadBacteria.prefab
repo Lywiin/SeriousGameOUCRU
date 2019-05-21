@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6008063279987155023}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: BadBacteria
+  m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,7 +227,7 @@ GameObject:
   - component: {fileID: 3723424128859727507}
   m_Layer: 0
   m_Name: BadBacteria
-  m_TagString: BadBacteria
+  m_TagString: Damageable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,7 +263,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bacteriaPrefab: {fileID: 6375226934681378963}
   moveForce: 200
-  moveAwayForce: 75
   moveRate: 2
   moveRateVariance: 1
   maxHealth: 100

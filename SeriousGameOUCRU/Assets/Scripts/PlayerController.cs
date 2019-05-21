@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
         foreach (Collider c in hitColliders)
         {
             // If we touched a bacteria
-            if (c.CompareTag("BadBacteria") || c.CompareTag("GoodBacteria"))
+            if (c.CompareTag("Damageable"))
             {
                 StartCoroutine(RepeatFire(1f, c.gameObject));
                 break;
@@ -588,11 +588,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player dies on collision with bacteria
-        if (!dead && (collision.gameObject.CompareTag("BadBacteria")))
+        if (!dead && (collision.gameObject.GetComponentInParent<BadBacteria>()))
         {
             dead = true;
             gameController.PlayerDied();
-        } else if (collision.gameObject.CompareTag("GoodBacteria"))
+        } else if (collision.gameObject.GetComponentInParent<GoodBacteria>())
         {
             // Boost player when hit good bacteria
             if (!isBoosted)

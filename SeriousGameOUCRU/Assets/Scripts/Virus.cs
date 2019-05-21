@@ -22,6 +22,9 @@ public class Virus : MonoBehaviour
     private float currentAngle;
     private Quaternion currentRotation;
 
+    // Symptoms
+    private int nbSymptomsLeft = 2;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -74,8 +77,10 @@ public class Virus : MonoBehaviour
         currentAngle += amount;
 
         // Clamp angle between 0 and 360
-        if (currentAngle > 360f || currentAngle < 0)
-            currentAngle = 360f - currentAngle;
+        if (currentAngle >= 360f)
+            currentAngle = 0f;
+        else if (currentAngle < 0)
+            currentAngle = 360f;
     }
 
 
@@ -83,10 +88,25 @@ public class Virus : MonoBehaviour
 
     private void OnCollisionEnter(Collision c)
     {
-        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
+        if (!c.gameObject.CompareTag("NotDamageable"))
         {
             // Reserve angle to go in opposition direction when hitting any non-player object
             AddAngle(180f);
         }
     }
+
+
+    /***** SYMPTOMS FUNCTIONS *****/
+
+    // Called by a symptom on it's death
+    public void NotifySymptomDeath()
+    {
+        nbSymptomsLeft--;
+
+        if (nbSymptomsLeft == 0)
+        {
+            // Trigger the death of the virus
+        }
+    }
+
 }

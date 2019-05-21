@@ -2358,6 +2358,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2008463050521556422, guid: b847c48398719ea4598e2e2094d0508c,
+        type: 3}
+      propertyPath: m_TagString
+      value: NotDamageable
+      objectReference: {fileID: 0}
     - target: {fileID: 2008463050521556426, guid: b847c48398719ea4598e2e2094d0508c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2916,9 +2921,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2006459311, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
-      propertyPath: maxVelocity
-      value: 8
+    - target: {fileID: 8319302658783985217, guid: 05455d3e9428e564188febeb36d862ad,
+        type: 3}
+      propertyPath: m_TagString
+      value: Damageable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8319302659064965913, guid: 05455d3e9428e564188febeb36d862ad,
+        type: 3}
+      propertyPath: m_TagString
+      value: Damageable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05455d3e9428e564188febeb36d862ad, type: 3}

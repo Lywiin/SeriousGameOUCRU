@@ -47,7 +47,7 @@ public class ProjectileHeavy : Projectile
     protected override void OnTriggerEnter(Collider c)
     {
         // Prevent projectile to interact with player and other projectile
-        if (!c.gameObject.CompareTag("Player") && !c.gameObject.CompareTag("Projectile"))
+        if (!c.gameObject.CompareTag("NotDamageable"))
         {
             Hide();
             Explode();
@@ -77,10 +77,7 @@ public class ProjectileHeavy : Projectile
         // Apply damage to each object
         foreach(Collider c in hitColliders)
         {
-            if (c.gameObject.CompareTag("BadBacteria") || c.gameObject.CompareTag("GoodBacteria") || c.gameObject.CompareTag("ResistantGene"))
-            {
-                ApplyDamage(c.gameObject);
-            }
+            ApplyDamage(c.gameObject);
         }
     }
 
