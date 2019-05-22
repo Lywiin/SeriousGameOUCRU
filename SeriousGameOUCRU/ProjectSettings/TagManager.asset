@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Level
-  - Damageable
-  - NotDamageable
+  - Targetable
+  - NotTargetable
   layers:
   - Default
   - TransparentFX

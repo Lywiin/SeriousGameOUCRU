@@ -2856,11 +2856,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Virus
       objectReference: {fileID: 0}
-    - target: {fileID: 8319302658690431141, guid: 05455d3e9428e564188febeb36d862ad,
-        type: 3}
-      propertyPath: m_TagString
-      value: Damageable
-      objectReference: {fileID: 0}
     - target: {fileID: 8319302658690431140, guid: 05455d3e9428e564188febeb36d862ad,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2915,10 +2910,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2006459311, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
-      propertyPath: disolveSpeed
-      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05455d3e9428e564188febeb36d862ad, type: 3}

@@ -108,7 +108,7 @@ public class Virus : MonoBehaviour
 
     private void OnCollisionEnter(Collision c)
     {
-        if (!c.gameObject.CompareTag("NotDamageable"))
+        if (!c.gameObject.CompareTag("NotTargetable"))
         {
             // Reserve angle to go in opposition direction when hitting any non-player object
             AddAngle(180f);

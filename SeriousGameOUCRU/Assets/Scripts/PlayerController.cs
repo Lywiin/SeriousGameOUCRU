@@ -209,15 +209,52 @@ public class PlayerController : MonoBehaviour
         // Check if the touch collide with objects in the world
         Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
 
+        // Get the futur target
+        GameObject bestTarget = GetBestTarget(hitColliders);
+        
+        // If this target exist, start to fire at it
+        if (bestTarget)
+            StartCoroutine(RepeatFire(1f, bestTarget));
+    }
+
+    // Return the object to target which has the higher priority
+    private GameObject GetBestTarget(Collider[] hitColliders)
+    {
+        GameObject bestTarget = null;
+        int bestPriority = 99;  // The lower has the most priority
+
+        // Go through all object to find the one with the higher priority
         foreach (Collider c in hitColliders)
         {
-            // If we touched a bacteria
-            if (c.CompareTag("Damageable"))
+            // If the object touched is targetable we add it to a temporary list
+            if (c.CompareTag("Targetable"))
             {
-                StartCoroutine(RepeatFire(1f, c.gameObject));
-                break;
+                // Gives a priority according to the object type
+                if (c.gameObject.GetComponentInParent<BadBacteria>() && bestPriority > 0)
+                {
+                    bestPriority = 0;
+                    bestTarget = c.gameObject;
+                } else if (c.gameObject.GetComponentInParent<GoodBacteria>() && bestPriority > 1)
+                {
+                    bestPriority = 1;
+                    bestTarget = c.gameObject;
+                } else if (c.gameObject.GetComponentInParent<ResistantGene>() && bestPriority > 2)
+                {
+                    bestPriority = 2;
+                    bestTarget = c.gameObject;
+                } else if (c.gameObject.GetComponent<Symptom>() && bestPriority > 3)
+                {
+                    bestPriority = 3;
+                    bestTarget = c.gameObject;
+                } else if (c.gameObject.GetComponent<Virus>() && bestPriority > 4)
+                {
+                    bestPriority = 4;
+                    bestTarget = c.gameObject;
+                }
             }
         }
+
+        return bestTarget;
     }
 
     private void HandleFireMobile2()

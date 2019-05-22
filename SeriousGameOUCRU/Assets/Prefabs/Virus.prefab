@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2006459311}
   m_Layer: 0
   m_Name: Virus
-  m_TagString: Damageable
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 199215584}
   m_Layer: 0
   m_Name: Symptom (0)
-  m_TagString: Damageable
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 2102464241}
   m_Layer: 0
   m_Name: Symptom (1)
-  m_TagString: Damageable
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
