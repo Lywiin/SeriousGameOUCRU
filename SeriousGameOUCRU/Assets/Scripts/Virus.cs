@@ -7,9 +7,12 @@ public class Virus : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Movement")]
-    public float moveForce = 200f;
-    public float moveChangeAngle = 1f;
-    public float maxVelocity = 10f;
+    public float moveForce = 50f;
+    public float moveChangeAngle = 12f;
+    public float maxVelocity = 8f;
+
+    [Header("Disolve")]
+    public float disolveSpeed = 0.1f;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -25,13 +28,18 @@ public class Virus : MonoBehaviour
     // Symptoms
     private int nbSymptomsLeft = 2;
 
+    // Death
+    private bool dead = false;
+    private Renderer render;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     private void Awake()
     {
-        // Init rigidbody
+        // Init components
         rb = GetComponent<Rigidbody>();
+        render = transform.GetChild(0).GetComponent<Renderer>();
 
         // Init starting direction
         currentAngle = 0f;
@@ -39,10 +47,22 @@ public class Virus : MonoBehaviour
         moveDirection = Vector3.zero;
     }
 
+    private void Update()
+    {
+        if (dead)
+        {
+            // Animate disolve of the virus
+            AnimateDeath();
+        }
+    }
 
     private void FixedUpdate()
     {
-        MoveVirus();
+        if (!dead)
+        {
+            // Move virus while it's not dead
+            MoveVirus();
+        }
     }
 
 
@@ -96,7 +116,7 @@ public class Virus : MonoBehaviour
     }
 
 
-    /***** SYMPTOMS FUNCTIONS *****/
+    /***** DEATH FUNCTIONS *****/
 
     // Called by a symptom on it's death
     public void NotifySymptomDeath()
@@ -106,6 +126,34 @@ public class Virus : MonoBehaviour
         if (nbSymptomsLeft == 0)
         {
             // Trigger the death of the virus
+            KillVirus();
+        }
+    }
+
+    // Trigger the virus death procedure
+    private void KillVirus()
+    {
+        dead = true;
+        //rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+    }
+
+    // Disolve the bacteria according to deltaTime
+    protected virtual void AnimateDeath()
+    {
+        //Compute new disolve value
+        float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
+
+        // Animate the disolve of the virus
+        render.material.SetFloat("_DisolveValue", newDisolveValue);
+
+        // Animate the color of the virus as the opposite
+        render.material.SetFloat("_LerpValue", 1 - newDisolveValue);
+
+        if (newDisolveValue == 1f)
+        {
+            // GameObject is destroyed after disolve
+            Destroy(gameObject);
         }
     }
 

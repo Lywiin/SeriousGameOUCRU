@@ -16,15 +16,7 @@ public class Symptom : MonoBehaviour
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    void Start()
-    {
-        
-    }
 
-    void Update()
-    {
-        
-    }
 
 
     /***** HEALTH FUNCTIONS *****/
