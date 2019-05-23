@@ -33,12 +33,6 @@ public class GoodBacteria : Bacteria
             GameController.Instance.GameOver();
         }
 
-        // Check if parent still has children (except current one), if not destroy parent
-        if (transform.parent.childCount <= 1)
-        {
-            Destroy(transform.parent.gameObject);
-        }
-
         base.KillBacteria();
     }
 }
