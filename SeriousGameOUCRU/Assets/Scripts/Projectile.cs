@@ -16,9 +16,6 @@ public class Projectile : MonoBehaviour
     // Damage
     public int damage = 10;
 
-    // Color when boosted
-    public Color boostedColor;
-
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
@@ -109,18 +106,5 @@ public class Projectile : MonoBehaviour
 
         // Freeze the projectile before playing the effect
         rb.constraints = RigidbodyConstraints.FreezeAll;
-    }
-
-
-    /***** BOOST FUNCTIONS *****/
-
-    // Multiply damage of the current projectile
-    public void MultiplyDamage(float multiplier)
-    {
-        // Compute new damage
-        damage = (int)(damage * multiplier);
-
-        // Apply new color
-        GetComponent<Renderer>().materials[0].SetColor("_Color", boostedColor);
     }
 }

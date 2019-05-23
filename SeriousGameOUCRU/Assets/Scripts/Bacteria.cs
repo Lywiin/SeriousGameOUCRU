@@ -8,11 +8,6 @@ public abstract class Bacteria : MonoBehaviour
     [Header("Prefab")]
     public GameObject bacteriaPrefab;
 
-    // [Header("Movement")]
-    // public float moveForce = 200;
-    // public float moveRate = 2f;
-    // public float moveRateVariance = 1f;
-
     [Header("Health")]
     public int maxHealth = 100;
     public Color fullHealthColor;
@@ -34,10 +29,6 @@ public abstract class Bacteria : MonoBehaviour
     protected Rigidbody rb;
     protected Renderer render;
     protected Collider coll;
-
-    // // Movement
-    // protected float timeToMove = 0f;
-    // protected float randomMoveRate;
 
     // Health
     protected int health;
@@ -100,32 +91,6 @@ public abstract class Bacteria : MonoBehaviour
             DisolveOverTime();
         }
     }
-
-    // protected virtual void FixedUpdate()
-    // {
-    //     if (!GameController.Instance.IsGamePaused() && !disolve)
-    //     {
-    //         // Attempt to move bacteria every frame
-    //         TryToMoveBacteria();
-    //     }
-    // }
-
-
-    /***** MOVEMENTS FUNCTIONS *****/
-
-    // private void TryToMoveBacteria()
-    // {
-    //     // Randomly moves the bacteria across the level
-    //     if (Time.time >= timeToMove)
-    //     {
-    //         // Computer next time bacteria should move
-    //         randomMoveRate = Random.Range(moveRate - moveRateVariance, moveRate + moveRateVariance);
-    //         timeToMove = Time.time + 1 / randomMoveRate;
-
-    //         // Add force to the current bacteria velocity
-    //         rb.AddForce(new Vector3(Random.Range(-moveForce, moveForce), 0f, Random.Range(-moveForce, moveForce)), ForceMode.Impulse);
-    //     }
-    // }
 
 
     /***** MUTATION FUNCTIONS *****/

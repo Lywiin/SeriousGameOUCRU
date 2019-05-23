@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
 
     // Status
     private bool dead = false;
-    private bool isBoosted = false;
 
     // Can player interact
     private bool canMove = false;
@@ -366,12 +365,6 @@ public class PlayerController : MonoBehaviour
     {
         // Instantiate projectile at player position and rotation
         GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
-
-        // If boosted, multiply projectile damage
-        if (isBoosted)
-        {
-            p.GetComponent<Projectile>().MultiplyDamage(damageMultiplier);            
-        }
     }
 
     // Called by UI to change current weapon
@@ -631,23 +624,9 @@ public class PlayerController : MonoBehaviour
             gameController.GameOver();
         } else if (collision.gameObject.GetComponentInParent<GoodBacteria>())
         {
-            // Boost player when hit good bacteria
-            if (!isBoosted)
-            {
-                StartCoroutine(TriggerAttackBoost());
-            }
-
             // Kill the good bacteria afterwards
             collision.gameObject.GetComponent<GoodBacteria>().KillBacteria();
         }
-    }
-
-    // Buffer for boost duration
-    private IEnumerator TriggerAttackBoost()
-    {
-        isBoosted = true;
-        yield return new WaitForSeconds(boostDuration);
-        isBoosted = false;
     }
 
 
