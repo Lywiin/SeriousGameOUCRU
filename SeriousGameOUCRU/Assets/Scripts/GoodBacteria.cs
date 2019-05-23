@@ -35,4 +35,20 @@ public class GoodBacteria : Bacteria
 
         base.KillBacteria();
     }
+
+
+    /***** DUPLICATION FUNCTIONS *****/
+
+    protected override GameObject InstantiateBacteria(Vector3 randomPos)
+    {
+        GameObject spawnedCell = base.InstantiateBacteria(randomPos);
+        
+        // If cell is spawned set her parent to the current cell
+        if (spawnedCell)
+        {
+            spawnedCell.transform.parent = transform.parent;
+        }
+
+        return spawnedCell;
+    }
 }

@@ -129,8 +129,8 @@ public abstract class Bacteria : MonoBehaviour
         canDuplicate = true;
     }
     
-    //Spawn a new bacteria around the current one
-    private void SpawnDuplicatedBacteria()
+    //Spawn a new bacteria around the current one and return a bool if did so
+    private bool SpawnDuplicatedBacteria()
     {
         //Check if there is no object at position before spawing, if yes find a new position
         Vector3 randomPos = new Vector3();
@@ -148,8 +148,9 @@ public abstract class Bacteria : MonoBehaviour
             }
 
             InstantiateBacteria(randomPos);
-            break;
+            return true;
         }
+        return false;
     }
 
     //Compute a random spawn position around bacteria
@@ -208,7 +209,7 @@ public abstract class Bacteria : MonoBehaviour
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
-        render.material.SetFloat("_LerpValue", (float)health / 100f);
+        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
     }
 
     // Apply damage to bacteria, update color and kill it if needed
