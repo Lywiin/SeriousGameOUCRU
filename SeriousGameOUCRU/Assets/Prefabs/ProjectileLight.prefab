@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7207314438672169956}
   - component: {fileID: 6389900593378594400}
   - component: {fileID: 6075682478110827732}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ProjectileLight
   m_TagString: NotTargetable
   m_Icon: {fileID: 0}
@@ -128,7 +128,6 @@ MonoBehaviour:
   maxVelocity: 100
   lifeTime: 0.5
   damage: 10
-  boostedColor: {r: 0.70462185, g: 0, b: 0.8207547, a: 0}
 --- !u!135 &6075682478110827732
 SphereCollider:
   m_ObjectHideFlags: 0

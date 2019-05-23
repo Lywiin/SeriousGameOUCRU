@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6568450086994488695}
   - component: {fileID: 4684963551950820430}
   - component: {fileID: 5573260298962930565}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BadBacteria
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1319783009016777816}
   - component: {fileID: 6156629756879889216}
   - component: {fileID: 6008063279987155023}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Shield
   m_TagString: Targetable
   m_Icon: {fileID: 0}
@@ -226,9 +226,9 @@ GameObject:
   - component: {fileID: 3123446490448591262}
   - component: {fileID: 3123446490448591263}
   - component: {fileID: 923662352682401394}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BadBacteria
-  m_TagString: Targetable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,6 +338,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}

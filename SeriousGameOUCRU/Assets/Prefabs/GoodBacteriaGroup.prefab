@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7985167075046369645}
   - component: {fileID: 7985167075046369619}
   - component: {fileID: 7035300753486250961}
-  m_Layer: 0
+  - component: {fileID: 3978607132230914321}
+  m_Layer: 10
   m_Name: GoodBacteriaGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,3 +78,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3965d064cd20ca542adec2a6f30bf453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3978607132230914321
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7985167075046369646}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

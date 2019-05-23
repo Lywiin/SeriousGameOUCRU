@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8319302657806582392}
   - component: {fileID: 8319302657806582398}
   - component: {fileID: 8319302657806582399}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VirusBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8319302658032697613}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Symptoms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 1218569028528598452}
   - component: {fileID: 2006459312}
   - component: {fileID: 2006459311}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Virus
   m_TagString: Targetable
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 8319302658783985223}
   - component: {fileID: 199215585}
   - component: {fileID: 199215584}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Symptom (0)
   m_TagString: Targetable
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 8319302659064965919}
   - component: {fileID: 2102464242}
   - component: {fileID: 2102464241}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Symptom (1)
   m_TagString: Targetable
   m_Icon: {fileID: 0}

@@ -72,11 +72,6 @@ public class Projectile : MonoBehaviour
 
     /***** COLLISION FUNCTIONS *****/
 
-    protected virtual void OnTriggerEnter(Collider c)
-    {
-        Destroy(gameObject);
-    }
-
     protected virtual void ApplyDamage(GameObject g)
     {
         // Check if collided object is a bacteria

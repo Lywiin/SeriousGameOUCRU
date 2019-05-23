@@ -44,14 +44,11 @@ public class ProjectileHeavy : Projectile
 
     /***** TRIGGER FUNCTIONS *****/
 
-    protected override void OnTriggerEnter(Collider c)
+    private void OnTriggerEnter(Collider c)
     {
-        // Prevent projectile to interact with player and other projectile
-        if (!c.gameObject.CompareTag("NotTargetable"))
-        {
-            Hide();
-            Explode();
-        }
+        // Explode on impact
+        Hide();
+        Explode();
     }
 
     private void Explode()

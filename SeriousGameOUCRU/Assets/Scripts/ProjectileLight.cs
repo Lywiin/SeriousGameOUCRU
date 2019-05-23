@@ -8,18 +8,15 @@ public class ProjectileLight: Projectile
 
     private void OnCollisionEnter(Collision c)
     {
-        if (c.collider.gameObject.CompareTag("Targetable"))
-        {
-            Hide();
+        Hide();
 
-            // Apply damage on the collided object
-            ApplyDamage(c.collider.gameObject);
+        // Apply damage on the collided object
+        ApplyDamage(c.collider.gameObject);
 
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 
-    protected override void OnTriggerEnter(Collider c)
+    private void OnTriggerEnter(Collider c)
     {
         if (!c.gameObject.CompareTag("NotTargetable") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
         {
@@ -32,10 +29,7 @@ public class ProjectileLight: Projectile
     {
         base.ApplyDamage(g);
 
-        // Add screen shake if touch an ennemy
-        if (g.CompareTag("Targetable"))
-        {
-            CameraShake.Instance.LightScreenShake();
-        }
+        // Add screen shake when touch an ennemy
+        CameraShake.Instance.LightScreenShake();
     }
 }

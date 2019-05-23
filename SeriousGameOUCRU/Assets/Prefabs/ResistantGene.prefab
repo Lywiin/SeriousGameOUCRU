@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3885464220961194482}
   - component: {fileID: 5453884476071706474}
   - component: {fileID: 4595111509686272398}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ResistantGene
   m_TagString: Targetable
   m_Icon: {fileID: 0}
