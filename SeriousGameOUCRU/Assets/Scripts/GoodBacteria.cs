@@ -27,6 +27,18 @@ public class GoodBacteria : Bacteria
         // Remove from list
         goodBacteriaList.Remove(this);
 
+        // If no good bacteria left it's game over
+        if (goodBacteriaList.Count == 0)
+        {
+            GameController.Instance.GameOver();
+        }
+
+        // Check if parent still has children (except current one), if not destroy parent
+        if (transform.parent.childCount <= 1)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+
         base.KillBacteria();
     }
 }

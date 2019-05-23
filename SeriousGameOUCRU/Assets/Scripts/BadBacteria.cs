@@ -18,6 +18,9 @@ public class BadBacteria : Bacteria
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
+    // Movement
+    private RandomMovement rm;
+
     // Conjugaison
     private bool canCollide = false;
 
@@ -37,6 +40,9 @@ public class BadBacteria : Bacteria
         // TEMP to get initial proba
         if (BadBacteria.badBacteriaList.Count == 1)
             GameController.Instance.globalMutationProba = mutationProba;
+
+        // Init movement component
+        rm = GetComponent<RandomMovement>();
 
         // Initialize shield script component
         shieldScript = transform.GetComponent<Shield>();
@@ -183,6 +189,9 @@ public class BadBacteria : Bacteria
     // Called when the bacteria has to die
     public override void KillBacteria()
     {
+        // Stop moving
+        rm.SetCanMove(false);
+
         // Increase killed count
         GameController.Instance.IncrementBadBacteriaKillCount();
 

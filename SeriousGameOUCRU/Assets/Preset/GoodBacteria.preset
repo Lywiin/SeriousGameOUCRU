@@ -26,20 +26,8 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: moveForce
-    value: 200
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: moveAwayForce
-    value: 50
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: moveRate
-    value: 2
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: moveRateVariance
-    value: 1
+    propertyPath: bacteriaPrefab
+    value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: maxHealth
@@ -88,4 +76,12 @@ Preset:
   - target: {fileID: 0}
     propertyPath: duplicationRecallTime
     value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: disolveSpeed
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: explosionParticle
+    value: 
     objectReference: {fileID: 0}

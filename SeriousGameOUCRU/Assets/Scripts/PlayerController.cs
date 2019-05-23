@@ -628,7 +628,7 @@ public class PlayerController : MonoBehaviour
         if (!dead && (collision.gameObject.GetComponentInParent<BadBacteria>()))
         {
             dead = true;
-            gameController.PlayerDied();
+            gameController.GameOver();
         } else if (collision.gameObject.GetComponentInParent<GoodBacteria>())
         {
             // Boost player when hit good bacteria

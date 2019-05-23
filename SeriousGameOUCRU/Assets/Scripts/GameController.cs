@@ -11,11 +11,12 @@ public class GameController : MonoBehaviour
     public GameObject player;
     public GameObject badBacteria;
     public GameObject goodBacteria;
+    public GameObject goodBacteriaGroup;
 
     [Header("Spawn")]
     public Vector2 gameZoneRadius;
     public int badBacteriaCount;
-    public int goodBacteriaCount;
+    public int goodBacteriaGroupCount;
     public float bacteriaInitSize;
     public float playerSpawnSafeRadius = 15f;
 
@@ -94,7 +95,7 @@ public class GameController : MonoBehaviour
 
         // Spawn some bacterias
         StartCoroutine(DelaySpawnBadBacteria());
-        StartCoroutine(DelaySpawnGoodBacteria());
+        StartCoroutine(DelaySpawnGoodBacteriaGroup());
     }
 
     private IEnumerator DelaySpawnBadBacteria()
@@ -107,12 +108,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private IEnumerator DelaySpawnGoodBacteria()
+    private IEnumerator DelaySpawnGoodBacteriaGroup()
     {
         // Spawn some bacterias
-        for (int i = 0; i < goodBacteriaCount; i++)
+        for (int i = 0; i < goodBacteriaGroupCount; i++)
         {
-            SpawnBacteria(goodBacteria);
+            SpawnGoodBacteriaGroup();
             yield return new WaitForEndOfFrame();
         }
     }
@@ -120,18 +121,38 @@ public class GameController : MonoBehaviour
     //Spawn a new bacteria
     private void SpawnBacteria(GameObject bacteria)
     {
-        //Check if there is no object at position before spawing, if yes find a new position
-            int nbHit = 0;
-            Vector3 randomPos = new Vector3();
-            do
-            {
-                randomPos = ComputeRandomSpawnPos();
-                Collider[] hitColliders = Physics.OverlapSphere(randomPos, bacteriaInitSize);
-                nbHit = hitColliders.Length;
-            } while (nbHit != 0);
-            
-            //Instantiate bacteria at position and add it to the list
-            GameObject b = Instantiate(bacteria, randomPos, Quaternion.identity);
+        Vector3 validPos = GetAValidPos(bacteriaInitSize);
+        
+        //Instantiate bacteria at position and add it to the list
+        GameObject b = Instantiate(bacteria, validPos, Quaternion.identity);
+    }
+
+    // Spawn a new bacteria group
+    private void SpawnGoodBacteriaGroup()
+    {
+        // We take a larger space since the group will be larger than a normal cell
+        Vector3 validPos = GetAValidPos(bacteriaInitSize * 4);
+
+        // Spawn the root of the group
+        GameObject root = Instantiate(goodBacteriaGroup, validPos, Quaternion.identity);
+
+        // Compute a random number of cell to spawn
+        int nbCellToSpawn = Random.Range(3, 6);
+
+        // Spawn each cell and attach them to the root
+        for (int i = 0; i < nbCellToSpawn; i++)
+        {
+            // Compute an offset to spawn cell
+            Vector3 posOffset = new Vector3(Random.Range(-10, 10), 0f, Random.Range(-10, 10));
+
+            // Spawn cell
+            GameObject cell = Instantiate(goodBacteria, validPos + posOffset, Quaternion.identity);
+
+            // Attach the joint to the root rigidbody
+            cell.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();
+
+            cell.transform.parent = root.transform;
+        }
     }
 
     //Compute a random spawn position from gameZoneRadius and bacteriaSize
@@ -154,6 +175,21 @@ public class GameController : MonoBehaviour
         }
 
         return pos;
+    }
+
+    // Return a valid random position for a certain radius
+    private Vector3 GetAValidPos(float radiusSize)
+    {
+        int nbHit = 0;
+        Vector3 randomPos = new Vector3();
+        do
+        {
+            randomPos = ComputeRandomSpawnPos();
+            Collider[] hitColliders = Physics.OverlapSphere(randomPos, radiusSize);
+            nbHit = hitColliders.Length;
+        } while (nbHit != 0);
+
+        return randomPos;
     }
 
     // Restart the game
@@ -189,7 +225,7 @@ public class GameController : MonoBehaviour
     /***** OUTCOME FUNCTIONS *****/
 
     //Called by player when he dies
-    public void PlayerDied()
+    public void GameOver()
     {
         // Hide the minimap
         Minimap.Instance.HideMinimap();

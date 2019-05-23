@@ -48,6 +48,8 @@ MonoBehaviour:
     type: 3}
   goodBacteria: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
     type: 3}
+  goodBacteriaGroup: {fileID: 7985167075046369646, guid: 8e9f36b26ee39ee42906b20fa9bee7e6,
+    type: 3}
   gameZoneRadius: {x: 100, y: 100}
   badBacteriaCount: 15
   goodBacteriaCount: 3

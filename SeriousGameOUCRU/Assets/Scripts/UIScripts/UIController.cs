@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
 
     [Header("Info Panel")]
     public GameObject infoPanel;
+    public TextMeshProUGUI goodBacteriaCountText;
     public TextMeshProUGUI badBacteriaCountText;
     public Slider resistanceSlider;
 
@@ -64,6 +65,7 @@ public class UIController : MonoBehaviour
     {
         // Update bacteria count text
         badBacteriaCountText.text = BadBacteria.badBacteriaList.Count.ToString();
+        goodBacteriaCountText.text = GoodBacteria.goodBacteriaList.Count.ToString();
 
         // Update global mutation probability slider
         float globalProba = GameController.Instance.GetGlobalMutationGlobalProba();
