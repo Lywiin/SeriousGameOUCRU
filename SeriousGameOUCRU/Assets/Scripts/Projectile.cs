@@ -75,7 +75,7 @@ public class Projectile : MonoBehaviour
     protected virtual void ApplyDamage(GameObject g)
     {
         // Check if collided object is a bacteria
-        if (g.transform.GetComponentInParent<Bacteria>())
+        if (g.transform.GetComponentInParent<BadBacteria>())
         {
             g.transform.GetComponentInParent<Bacteria>().DamageBacteria(damage);
         }

@@ -14,6 +14,10 @@ public class BadBacteria : Bacteria
     public float transformationProbability = 0.5f;
     public GameObject resistantGene;
 
+    [Header("Attack")]
+    public float rushForce = 10f;
+    public float detectionRange = 7f;
+
     public static List<BadBacteria> badBacteriaList = new List<BadBacteria>();
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
@@ -26,6 +30,9 @@ public class BadBacteria : Bacteria
 
     // Shield
     private Shield shieldScript;
+
+    // Cell attack
+    private GameObject targetCell = null;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -82,6 +89,10 @@ public class BadBacteria : Bacteria
     {
         // Update size for spawning purposes
         bacteriaSize = shieldScript.GetShieldSize().x;
+        
+        
+        // Update colldier size
+        GetComponent<SphereCollider>().radius = bacteriaSize / 2 + detectionRange;
     }
 
 
@@ -231,5 +242,43 @@ public class BadBacteria : Bacteria
         {
             GameController.Instance.PlayerWon();
         }
+    }
+
+
+    /***** TRIGGER FUNCTIONS *****/
+
+    private void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject.GetComponent<GoodBacteria>() && !targetCell)
+        {
+            // Set cell as target when trigger detect one
+            targetCell = c.gameObject;
+
+            // Move toward cell to kill it
+            StartCoroutine(MoveTowardTarget());
+        }
+    }
+
+    private IEnumerator MoveTowardTarget()
+    {
+        // Stop random movement
+        rm.SetCanMove(false);
+
+        while (targetCell)
+        {
+            // Compute movement direction
+            Vector3 moveDirection = targetCell.transform.position - transform.position;
+            moveDirection.Normalize();
+
+            // Move toward target while it's still alive
+            rb.AddForce(moveDirection * rushForce, ForceMode.Impulse);
+            
+            // Wait for next frame to continue
+            yield return new WaitForEndOfFrame();
+        }
+
+        // Start to move again if didn't target any other cell
+        if (!targetCell)
+            rm.SetCanMove(true);
     }
 }
