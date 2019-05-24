@@ -77,7 +77,7 @@ public class Projectile : MonoBehaviour
         // Check if collided object is a bacteria
         if (g.transform.GetComponentInParent<BadBacteria>())
         {
-            g.transform.GetComponentInParent<Bacteria>().DamageBacteria(damage);
+            g.transform.GetComponentInParent<BadBacteria>().DamageBacteria(damage);
         }
         // Check if collided object is a resistant gene
         else if (g.gameObject.GetComponent<ResistantGene>())

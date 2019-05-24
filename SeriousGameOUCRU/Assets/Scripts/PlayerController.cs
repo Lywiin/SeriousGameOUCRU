@@ -622,10 +622,6 @@ public class PlayerController : MonoBehaviour
         {
             dead = true;
             gameController.GameOver();
-        } else if (collision.gameObject.GetComponentInParent<GoodBacteria>())
-        {
-            // Kill the good bacteria afterwards
-            collision.gameObject.GetComponent<GoodBacteria>().KillBacteria();
         }
     }
 

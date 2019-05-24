@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 151935942}
   m_Layer: 13
   m_Name: GoodBacteria
-  m_TagString: Targetable
+  m_TagString: NotTargetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
