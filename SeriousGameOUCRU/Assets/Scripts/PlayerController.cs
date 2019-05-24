@@ -229,11 +229,11 @@ public class PlayerController : MonoBehaviour
             if (c.CompareTag("Targetable"))
             {
                 // Gives a priority according to the object type
-                if (c.gameObject.GetComponentInParent<BadBacteria>() && bestPriority > 0)
+                if (c.gameObject.GetComponentInParent<BacteriaCell>() && bestPriority > 0)
                 {
                     bestPriority = 0;
                     bestTarget = c.gameObject;
-                } else if (c.gameObject.GetComponentInParent<GoodBacteria>() && bestPriority > 1)
+                } else if (c.gameObject.GetComponentInParent<HumanCell>() && bestPriority > 1)
                 {
                     bestPriority = 1;
                     bestTarget = c.gameObject;
@@ -320,19 +320,19 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
 
-        // Keep firing until bacteria die or get out of range
+        // Keep firing until cell die or get out of range
         }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
         isFiring = false;
 
-        // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the bacteria
+        // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
         if (heavyWeaponSelected)
             StartCoroutine(UnkeepDistance(2f));
         else
             StartCoroutine(UnkeepDistance(0f));
     }
 
-    // Stop keeping distance with bacteria after some time
+    // Stop keeping distance with cell after some time
     private IEnumerator UnkeepDistance(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
         // Apply a force to move the player in movementDirection
         rb.AddForce(movementDirection * speed, ForceMode.Impulse);
         
-        // If player is firing and too close from a bacteria it gets repulsed from it
+        // If player is firing and too close from a cell it gets repulsed from it
         if (keepDistance && fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < minRange)
         {
             // Get the opposite force direction
@@ -617,8 +617,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Player dies on collision with bacteria
-        if (!dead && (collision.gameObject.GetComponentInParent<BadBacteria>()))
+        // Player dies on collision with cell
+        if (!dead && (collision.gameObject.GetComponentInParent<BacteriaCell>()))
         {
             dead = true;
             gameController.GameOver();

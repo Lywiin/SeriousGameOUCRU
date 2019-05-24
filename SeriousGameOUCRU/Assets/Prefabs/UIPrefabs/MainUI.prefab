@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 525369604}
   - component: {fileID: 525369605}
   m_Layer: 5
-  m_Name: GoodBacteriaText
+  m_Name: HumanCellText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 969022540}
   - component: {fileID: 969022541}
   m_Layer: 5
-  m_Name: GoodBacteriaInfo
+  m_Name: HumanCellInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 1085589210}
   - component: {fileID: 1085589209}
   m_Layer: 5
-  m_Name: GoodBacteriaCountText
+  m_Name: HumanCellCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1435,7 +1435,7 @@ GameObject:
   - component: {fileID: 4006486504385111276}
   - component: {fileID: 4006486504385111277}
   m_Layer: 5
-  m_Name: BadBacteriaInfo
+  m_Name: BacteriaCellInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3016,7 +3016,7 @@ GameObject:
   - component: {fileID: 4006486505426411481}
   - component: {fileID: 4006486505426411480}
   m_Layer: 5
-  m_Name: BadBacteriaCountText
+  m_Name: BacteriaCellCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3280,8 +3280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoPanel: {fileID: 4006486504317123639}
-  goodBacteriaCountText: {fileID: 1085589209}
-  badBacteriaCountText: {fileID: 4006486505426411480}
+  humanCellCountText: {fileID: 1085589209}
+  bacteriaCellCountText: {fileID: 4006486505426411480}
   resistanceSlider: {fileID: 4006486504267987589}
   endGamePanel: {fileID: 4006486505623650201}
   victoryText: {fileID: 4006486506040844102}
@@ -4063,7 +4063,7 @@ GameObject:
   - component: {fileID: 4006486505912503890}
   - component: {fileID: 4006486505912503980}
   m_Layer: 5
-  m_Name: BadBacteriaText
+  m_Name: BacteriaCellText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

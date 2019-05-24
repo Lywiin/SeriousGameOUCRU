@@ -91,11 +91,11 @@ public class ResistantGene : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        // If hit a bacteria
-        Bacteria bacteriaScript = collision.gameObject.GetComponent<Bacteria>();
-        if (bacteriaScript)
+        // If hit a cell
+        Cell cellScript = collision.gameObject.GetComponent<Cell>();
+        if (cellScript)
         {
-            bacteriaScript.ActivateResistance();
+            cellScript.ActivateResistance();
         }
 
         // If hit a shield
@@ -106,7 +106,7 @@ public class ResistantGene : MonoBehaviour
         }
 
         // If gave his resistant gene it can be destroyed
-        if (bacteriaScript || shieldScript)
+        if (cellScript || shieldScript)
             KillGene();
     }
 }

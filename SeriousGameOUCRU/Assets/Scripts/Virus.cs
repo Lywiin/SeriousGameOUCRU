@@ -138,7 +138,7 @@ public class Virus : MonoBehaviour
         GetComponent<Collider>().enabled = false;
     }
 
-    // Disolve the bacteria according to deltaTime
+    // Disolve the cell according to deltaTime
     protected virtual void AnimateDeath()
     {
         //Compute new disolve value

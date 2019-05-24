@@ -10,8 +10,8 @@ public class UIController : MonoBehaviour
 
     [Header("Info Panel")]
     public GameObject infoPanel;
-    public TextMeshProUGUI goodBacteriaCountText;
-    public TextMeshProUGUI badBacteriaCountText;
+    public TextMeshProUGUI humanCellCountText;
+    public TextMeshProUGUI bacteriaCellCountText;
     public Slider resistanceSlider;
 
     [Header("End Panel")]
@@ -63,9 +63,9 @@ public class UIController : MonoBehaviour
 
     void Update()
     {
-        // Update bacteria count text
-        badBacteriaCountText.text = BadBacteria.badBacteriaList.Count.ToString();
-        goodBacteriaCountText.text = GoodBacteria.goodBacteriaList.Count.ToString();
+        // Update cell count text
+        bacteriaCellCountText.text = BacteriaCell.bacteriaCellList.Count.ToString();
+        humanCellCountText.text = HumanCell.humanCellList.Count.ToString();
 
         // Update global mutation probability slider
         float globalProba = GameController.Instance.GetGlobalMutationGlobalProba();
@@ -108,7 +108,7 @@ public class UIController : MonoBehaviour
         timeTextValue.text = minutes.ToString() + "m " + seconds.ToString() + "s";
 
         // Update killed count text
-        killedCountTextValue.text = GameController.Instance.GetBadBacteriaKillCount().ToString();
+        killedCountTextValue.text = GameController.Instance.GetBacteriaCellKillCount().ToString();
 
         // Display panel
         endGamePanel.SetActive(true);

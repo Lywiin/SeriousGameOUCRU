@@ -7,13 +7,13 @@ public class ShieldCollision : MonoBehaviour
     // When collide calls parent event
     private void OnCollisionEnter(Collision collision)
     {
-        // Handle conjugaison of bacteria
-        transform.parent.GetComponent<BadBacteria>().CollisionEvent(collision);
+        // Handle conjugaison of cell
+        transform.parent.GetComponent<BacteriaCell>().CollisionEvent(collision);
 
         // Kill cell on touch
-        if (collision.gameObject.GetComponent<GoodBacteria>())
+        if (collision.gameObject.GetComponent<HumanCell>())
         {
-            collision.gameObject.GetComponent<GoodBacteria>().KillBacteria();
+            collision.gameObject.GetComponent<HumanCell>().KillCell();
         }
     }
 }

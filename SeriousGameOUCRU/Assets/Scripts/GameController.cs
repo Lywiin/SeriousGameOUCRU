@@ -9,15 +9,15 @@ public class GameController : MonoBehaviour
 
     [Header("Prefabs")]
     public GameObject player;
-    public GameObject badBacteria;
-    public GameObject goodBacteria;
-    public GameObject goodBacteriaGroup;
+    public GameObject bacteriaCell;
+    public GameObject humanCell;
+    public GameObject humanCellGroup;
 
     [Header("Spawn")]
     public Vector2 gameZoneRadius;
-    public int badBacteriaCount;
-    public int goodBacteriaGroupCount;
-    public float bacteriaInitSize;
+    public int bacteriaCellCount;
+    public int humanCellGroupCount;
+    public float cellInitSize;
     public float playerSpawnSafeRadius = 15f;
 
     [Header("Mutation")]
@@ -38,8 +38,8 @@ public class GameController : MonoBehaviour
     private bool canPlayerMoveCamera = true;
     private bool canPlayerShoot = true;
 
-    // Keep track of number of killed bad bacteria
-    private int badBacteriaKillCount = 0;
+    // Keep track of number of killed bacteria cell
+    private int bacteriaCellKillCount = 0;
 
     /*** INSTANCE ***/
 
@@ -62,11 +62,11 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        // Initialize bacteria lists
-        GoodBacteria.goodBacteriaList.Clear();
-        BadBacteria.badBacteriaList.Clear();
+        // Initialize cell lists
+        HumanCell.humanCellList.Clear();
+        BacteriaCell.bacteriaCellList.Clear();
 
-        // // Setup the game and spawn bacterias
+        // // Setup the game and spawn cells
         // SetupGame();
     }
 
@@ -87,54 +87,54 @@ public class GameController : MonoBehaviour
 
     /***** START FUNCTIONS *****/
 
-    // Setup the game and spawn bacterias
+    // Setup the game and spawn cells
     public void SetupGame()
     {
         // Fade info UI in
         UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
 
-        // Spawn some bacterias
-        StartCoroutine(DelaySpawnBadBacteria());
-        StartCoroutine(DelaySpawnGoodBacteriaGroup());
+        // Spawn some cells
+        StartCoroutine(DelaySpawnBacteriaCell());
+        StartCoroutine(DelaySpawnHumanCellGroup());
     }
 
-    private IEnumerator DelaySpawnBadBacteria()
+    private IEnumerator DelaySpawnBacteriaCell()
     {        
-        // Spawn some bacterias
-        for (int i = 0; i < badBacteriaCount; i++)
+        // Spawn some cells
+        for (int i = 0; i < bacteriaCellCount; i++)
         {
-            SpawnBacteria(badBacteria);
+            SpawnCell(bacteriaCell);
             yield return new WaitForEndOfFrame();
         }
     }
 
-    private IEnumerator DelaySpawnGoodBacteriaGroup()
+    private IEnumerator DelaySpawnHumanCellGroup()
     {
-        // Spawn some bacterias
-        for (int i = 0; i < goodBacteriaGroupCount; i++)
+        // Spawn some cells
+        for (int i = 0; i < humanCellGroupCount; i++)
         {
-            SpawnGoodBacteriaGroup();
+            SpawnHumanCellGroup();
             yield return new WaitForEndOfFrame();
         }
     }
 
-    //Spawn a new bacteria
-    private void SpawnBacteria(GameObject bacteria)
+    //Spawn a new cell
+    private void SpawnCell(GameObject cell)
     {
-        Vector3 validPos = GetAValidPos(bacteriaInitSize);
+        Vector3 validPos = GetAValidPos(cellInitSize);
         
-        //Instantiate bacteria at position and add it to the list
-        GameObject b = Instantiate(bacteria, validPos, Quaternion.identity);
+        //Instantiate cell at position and add it to the list
+        GameObject b = Instantiate(cell, validPos, Quaternion.identity);
     }
 
-    // Spawn a new bacteria group
-    private void SpawnGoodBacteriaGroup()
+    // Spawn a new cell group
+    private void SpawnHumanCellGroup()
     {
         // We take a larger space since the group will be larger than a normal cell
-        Vector3 validPos = GetAValidPos(bacteriaInitSize * 4);
+        Vector3 validPos = GetAValidPos(cellInitSize * 4);
 
         // Spawn the root of the group
-        GameObject root = Instantiate(goodBacteriaGroup, validPos, Quaternion.identity);
+        GameObject root = Instantiate(humanCellGroup, validPos, Quaternion.identity);
 
         // Compute a random number of cell to spawn
         int nbCellToSpawn = Random.Range(3, 6);
@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
             Vector3 posOffset = new Vector3(Random.Range(-10, 10), 0f, Random.Range(-10, 10));
 
             // Spawn cell
-            GameObject cell = Instantiate(goodBacteria, validPos + posOffset, Quaternion.identity);
+            GameObject cell = Instantiate(humanCell, validPos + posOffset, Quaternion.identity);
 
             // Attach the joint to the root rigidbody
             cell.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();
@@ -155,11 +155,11 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //Compute a random spawn position from gameZoneRadius and bacteriaSize
+    //Compute a random spawn position from gameZoneRadius and cellSize
     private Vector3 ComputeRandomSpawnPos()
     {
-        Vector3 pos = new Vector3(Random.Range(-gameZoneRadius.x + bacteriaInitSize, gameZoneRadius.x - bacteriaInitSize), 
-                        0.0f, Random.Range(-gameZoneRadius.y + bacteriaInitSize, gameZoneRadius.y - bacteriaInitSize));
+        Vector3 pos = new Vector3(Random.Range(-gameZoneRadius.x + cellInitSize, gameZoneRadius.x - cellInitSize), 
+                        0.0f, Random.Range(-gameZoneRadius.y + cellInitSize, gameZoneRadius.y - cellInitSize));
 
         float playerX = player.transform.position.x;
         float playerZ = player.transform.position.z;
@@ -260,7 +260,7 @@ public class GameController : MonoBehaviour
         globalMutationProba += mutationProbaIncrease;
 
         // Update bacteria mutation rate
-        foreach (BadBacteria b in BadBacteria.badBacteriaList)
+        foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
         {
             b.IncreaseMutationProba(mutationProbaIncrease);
         }
@@ -287,9 +287,9 @@ public class GameController : MonoBehaviour
         return canPlayerShoot;
     }
 
-    public int GetBadBacteriaKillCount()
+    public int GetBacteriaCellKillCount()
     {
-        return badBacteriaKillCount;
+        return bacteriaCellKillCount;
     }
 
 
@@ -315,8 +315,8 @@ public class GameController : MonoBehaviour
         canPlayerShoot = b;
     }
 
-    public void IncrementBadBacteriaKillCount()
+    public void IncrementBacteriaCellKillCount()
     {
-        badBacteriaKillCount++;
+        bacteriaCellKillCount++;
     }
 }

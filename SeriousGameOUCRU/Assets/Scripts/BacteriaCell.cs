@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BadBacteria : Bacteria
+public class BacteriaCell : Cell
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -18,7 +18,7 @@ public class BadBacteria : Bacteria
     public float rushForce = 10f;
     public float detectionRange = 7f;
 
-    public static List<BadBacteria> badBacteriaList = new List<BadBacteria>();
+    public static List<BacteriaCell> bacteriaCellList = new List<BacteriaCell>();
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
@@ -42,10 +42,10 @@ public class BadBacteria : Bacteria
         base.Awake();
 
         // Add to list
-        badBacteriaList.Add(this);
+        bacteriaCellList.Add(this);
 
         // TEMP to get initial proba
-        if (BadBacteria.badBacteriaList.Count == 1)
+        if (BacteriaCell.bacteriaCellList.Count == 1)
             GameController.Instance.globalMutationProba = mutationProba;
 
         // Init movement component
@@ -77,28 +77,28 @@ public class BadBacteria : Bacteria
         // Check is game is not currently paused
         if (!GameController.Instance.IsGamePaused())
         {
-            // Attempt to mutate bacteria every frame
-            TryToMutateBacteria();
+            // Attempt to mutate cell every frame
+            TryToMutateCell();
         }
     }
 
 
     /***** SIZE FUNCTIONS *****/
 
-    public void UpdateBacteriaSize()
+    public void UpdateCellSize()
     {
         // Update size for spawning purposes
-        bacteriaSize = shieldScript.GetShieldSize().x;
+        cellSize = shieldScript.GetShieldSize().x;
         
         
         // Update colldier size
-        GetComponent<SphereCollider>().radius = bacteriaSize / 2 + detectionRange;
+        GetComponent<SphereCollider>().radius = cellSize / 2 + detectionRange;
     }
 
 
     /***** MUTATION FUNCTIONS *****/
 
-    protected override void TryToMutateBacteria()
+    protected override void TryToMutateCell()
     {
         // If mutation is triggered
         if (Random.Range(0f, 1f) < mutationProba)
@@ -112,7 +112,7 @@ public class BadBacteria : Bacteria
                 // Activate shield for the first time
                 ActivateResistance();
             }
-            UpdateBacteriaSize();
+            UpdateCellSize();
         }
     }
 
@@ -124,11 +124,11 @@ public class BadBacteria : Bacteria
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateBacteria(Vector3 randomPos)
+    protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        GameObject b = base.InstantiateBacteria(randomPos);
+        GameObject b = base.InstantiateCell(randomPos);
         
-        // Set shield health if bacteria is resistant
+        // Set shield health if cell is resistant
         if(isResistant)
             b.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
 
@@ -138,7 +138,7 @@ public class BadBacteria : Bacteria
     
     /***** CONJUGAISON FUNCTIONS *****/
 
-    // Collision event called by both bacteria and shield on collision
+    // Collision event called by both cell and shield on collision
     public void CollisionEvent(Collision collision)
     {
         if (canCollide)
@@ -147,7 +147,7 @@ public class BadBacteria : Bacteria
             StartCoroutine(CollidingRecall());
             
             // Try to trigger the conjugaison
-            TryToConjugateBacteria(collision.gameObject.GetComponentInParent<Shield>());
+            TryToConjugateCell(collision.gameObject.GetComponentInParent<Shield>());
         }
     }
 
@@ -160,7 +160,7 @@ public class BadBacteria : Bacteria
     }
 
     // Process to trigger the conjugaison
-    private void TryToConjugateBacteria(Shield s)
+    private void TryToConjugateCell(Shield s)
     {
         // If collided object is a shield and conjugaison chance is triggered
         if (s && Random.Range(0, 1) < conjugaisonProba)
@@ -185,26 +185,26 @@ public class BadBacteria : Bacteria
 
     /***** HEALTH FUNCTIONS *****/
 
-    // Apply damage to bacteria if shield health is at 0, otherwise damage the shield
-    public override void DamageBacteria(int dmg)
+    // Apply damage to cell if shield health is at 0, otherwise damage the shield
+    public override void DamageCell(int dmg)
     {
         if (shieldScript.GetShieldHealth() == 0)
         {
-            base.DamageBacteria(dmg);
+            base.DamageCell(dmg);
         }else
         {
             shieldScript.DamageShield(dmg);
         }
     }
 
-    // Called when the bacteria has to die
-    public override void KillBacteria()
+    // Called when the cell has to die
+    public override void KillCell()
     {
         // Stop moving
         rm.SetCanMove(false);
 
         // Increase killed count
-        GameController.Instance.IncrementBadBacteriaKillCount();
+        GameController.Instance.IncrementBacteriaCellKillCount();
 
         // Try to transform and leave resistant gene behind
         if (isResistant && Random.Range(0f, 1f) < transformationProbability)
@@ -220,7 +220,7 @@ public class BadBacteria : Bacteria
         transform.GetChild(1).GetComponent<Collider>().enabled = false;
         transform.GetChild(1).GetComponent<Rigidbody>().Sleep();
 
-        base.KillBacteria();
+        base.KillCell();
     }
 
     protected override void DisolveOverTime()
@@ -236,9 +236,9 @@ public class BadBacteria : Bacteria
     
     private void RemoveFromList()
     {
-        badBacteriaList.Remove(this);
+        bacteriaCellList.Remove(this);
 
-        if (BadBacteria.badBacteriaList.Count == 0)
+        if (BacteriaCell.bacteriaCellList.Count == 0)
         {
             GameController.Instance.PlayerWon();
         }
@@ -249,7 +249,7 @@ public class BadBacteria : Bacteria
 
     private void OnTriggerEnter(Collider c)
     {
-        if (c.gameObject.GetComponent<GoodBacteria>() && !targetCell)
+        if (c.gameObject.GetComponent<HumanCell>() && !targetCell)
         {
             // Set cell as target when trigger detect one
             targetCell = c.gameObject;

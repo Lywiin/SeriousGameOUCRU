@@ -20,7 +20,7 @@ public class ProjectileLight: Projectile
     {
         if (!c.gameObject.CompareTag("NotTargetable") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
         {
-            // Change target if a bacteria enter the detection collider
+            // Change target if a cell enter the detection collider
             target = c.gameObject;
         }
     }

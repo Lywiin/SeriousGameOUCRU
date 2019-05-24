@@ -42,26 +42,11 @@ Preset:
     value: 80
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: boostedColor.r
-    value: 0.7058824
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: boostedColor.g
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: boostedColor.b
-    value: 0.8235294
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: boostedColor.a
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
     propertyPath: explosionRadius
     value: 30
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: particle
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 7326478590060991107, guid: f801e83e6af419e4ea4ab59c642b9eef,
+      type: 3}

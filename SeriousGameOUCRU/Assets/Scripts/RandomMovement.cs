@@ -39,14 +39,14 @@ public class RandomMovement : MonoBehaviour
 
     private void TryToMove()
     {
-        // Randomly moves the bacteria across the level
+        // Randomly moves the cell across the level
         if (Time.time >= timeToMove)
         {
-            // Computer next time bacteria should move
+            // Computer next time cell should move
             randomMoveRate = Random.Range(moveRate - moveRateVariance, moveRate + moveRateVariance);
             timeToMove = Time.time + 1 / randomMoveRate;
 
-            // Add force to the current bacteria velocity
+            // Add force to the current cell velocity
             rb.AddForce(new Vector3(Random.Range(-moveForce, moveForce), 0f, Random.Range(-moveForce, moveForce)), ForceMode.Impulse);
         }
     }

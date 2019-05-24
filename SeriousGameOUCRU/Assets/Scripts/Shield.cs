@@ -16,7 +16,7 @@ public class Shield : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     // Components
-    private BadBacteria bacteriaScript;
+    private BacteriaCell cellScript;
 
     // Health
     private int shieldHealth = 0;
@@ -33,7 +33,7 @@ public class Shield : MonoBehaviour
         // Initialize components
         shield = transform.GetChild(1).gameObject;
         render = transform.GetChild(1).GetComponent<Renderer>();
-        bacteriaScript = transform.GetComponent<BadBacteria>();
+        cellScript = transform.GetComponent<BacteriaCell>();
     }
     
 
@@ -64,13 +64,13 @@ public class Shield : MonoBehaviour
             shield.transform.localScale = Vector3.Lerp(a, b, i);
             yield return null;
         }
-        bacteriaScript.UpdateBacteriaSize();
+        cellScript.UpdateCellSize();
     }
 
 
     /***** HEALTH FUNCTIONS *****/
 
-    // Called by bacteria when it mutate stronger
+    // Called by cell when it mutate stronger
     public void DuplicateShield()
     {
         shieldHealth += oneShieldHealth;
@@ -89,8 +89,8 @@ public class Shield : MonoBehaviour
             //If shield health is below 0 we set is back to 0
             shieldHealth = 0;
 
-            // Apply remaining damages to bacteria
-            bacteriaScript.DamageBacteria(Mathf.Abs(dmgLeft));
+            // Apply remaining damages to cell
+            cellScript.DamageCell(Mathf.Abs(dmgLeft));
         }
 
         //Change shield size according to health

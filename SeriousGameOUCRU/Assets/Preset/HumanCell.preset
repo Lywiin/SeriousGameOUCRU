@@ -6,7 +6,7 @@ Preset:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GoodBacteria
+  m_Name: HumanCell
   m_TargetType:
     m_NativeTypeID: 114
     m_ManagedTypePPtr: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67,
@@ -26,9 +26,10 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: bacteriaPrefab
+    propertyPath: cellPrefab
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
+      type: 3}
   - target: {fileID: 0}
     propertyPath: maxHealth
     value: 50
@@ -71,7 +72,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: duplicationProba
-    value: 0.0002
+    value: 0.0001
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: duplicationRecallTime
@@ -84,4 +85,5 @@ Preset:
   - target: {fileID: 0}
     propertyPath: explosionParticle
     value: 
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 6555261498260236508, guid: c9f726c94a475f44e9bfd1acc2dfca41,
+      type: 3}

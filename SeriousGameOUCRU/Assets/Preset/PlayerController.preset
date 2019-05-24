@@ -97,7 +97,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: maxRange
-    value: 50
+    value: 60
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: switchInput

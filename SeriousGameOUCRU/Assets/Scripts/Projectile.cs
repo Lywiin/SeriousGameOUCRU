@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        // Only change moveDirection if a bacteria is targeted
+        // Only change moveDirection if a cell is targeted
         if (target)
         {
             moveDirection = target.transform.position - transform.position;
@@ -74,10 +74,10 @@ public class Projectile : MonoBehaviour
 
     protected virtual void ApplyDamage(GameObject g)
     {
-        // Check if collided object is a bacteria
-        if (g.transform.GetComponentInParent<BadBacteria>())
+        // Check if collided object is a cell
+        if (g.transform.GetComponentInParent<BacteriaCell>())
         {
-            g.transform.GetComponentInParent<BadBacteria>().DamageBacteria(damage);
+            g.transform.GetComponentInParent<BacteriaCell>().DamageCell(damage);
         }
         // Check if collided object is a resistant gene
         else if (g.gameObject.GetComponent<ResistantGene>())

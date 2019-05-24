@@ -30,12 +30,12 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: badBacteria
+    propertyPath: bacteriaCell
     value: 
     objectReference: {fileID: 6255904132152021855, guid: 7ee60a98349733440b052616c031c7e1,
       type: 3}
   - target: {fileID: 0}
-    propertyPath: goodBacteria
+    propertyPath: humanCell
     value: 
     objectReference: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
       type: 3}
@@ -48,15 +48,15 @@ Preset:
     value: 100
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: badBacteriaCount
+    propertyPath: bacteriaCellCount
     value: 15
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: goodBacteriaCount
+    propertyPath: humanCellCount
     value: 3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: bacteriaInitSize
+    propertyPath: cellInitSize
     value: 6
     objectReference: {fileID: 0}
   - target: {fileID: 0}

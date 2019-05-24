@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoodBacteriaGroup : MonoBehaviour
+public class HumanCellGroup : MonoBehaviour
 {
     void Update()
     {

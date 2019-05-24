@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Bacteria : MonoBehaviour
+public abstract class Cell : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
     [Header("Prefab")]
-    public GameObject bacteriaPrefab;
+    public GameObject cellPrefab;
 
     [Header("Health")]
     public int maxHealth = 100;
@@ -40,7 +40,7 @@ public abstract class Bacteria : MonoBehaviour
     protected bool isResistant = false;
 
     // Size
-    protected float bacteriaSize;
+    protected float cellSize;
 
     // Disolve
     protected bool disolve = false;
@@ -55,8 +55,8 @@ public abstract class Bacteria : MonoBehaviour
         // Initialize Health
         health = maxHealth;
 
-        // Initialize bacteria size
-        bacteriaSize = render.bounds.size.x;
+        // Initialize cell size
+        cellSize = render.bounds.size.x;
     }
 
     protected virtual void Start()
@@ -78,14 +78,14 @@ public abstract class Bacteria : MonoBehaviour
         // Check is game is not currently paused
         if (!GameController.Instance.IsGamePaused() && !disolve)
         {
-            // Attempt to duplicate bacteria every frame
-            TryToDuplicateBacteria();
+            // Attempt to duplicate cell every frame
+            TryToDuplicateCell();
 
-            // Attempt to mutate bacteria every frame
-            TryToMutateBacteria();
+            // Attempt to mutate cell every frame
+            TryToMutateCell();
         }
 
-        // Animate disolve of the bacteria
+        // Animate disolve of the cell
         if (disolve)
         {
             DisolveOverTime();
@@ -95,9 +95,9 @@ public abstract class Bacteria : MonoBehaviour
 
     /***** MUTATION FUNCTIONS *****/
 
-    protected virtual void TryToMutateBacteria()
+    protected virtual void TryToMutateCell()
     {
-        // If bacteria not already resistant and mutation is triggered
+        // If cell not already resistant and mutation is triggered
         if (!isResistant && Random.Range(0f, 1f) < mutationProba)
         {
             ActivateResistance();
@@ -107,17 +107,16 @@ public abstract class Bacteria : MonoBehaviour
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    private void TryToDuplicateBacteria()
+    private void TryToDuplicateCell()
     {
-
         // If duplication is triggered
         if (canDuplicate && Random.Range(0f, 1f) < duplicationProba)
         {
             // Buffer to prevent quick duplication
             StartCoroutine(DuplicationRecall());
 
-            // Spawn new bacteria
-            SpawnDuplicatedBacteria();
+            // Spawn new cell
+            SpawnDuplicatedCell();
         }
     }
 
@@ -129,8 +128,8 @@ public abstract class Bacteria : MonoBehaviour
         canDuplicate = true;
     }
     
-    //Spawn a new bacteria around the current one and return a bool if did so
-    private bool SpawnDuplicatedBacteria()
+    //Spawn a new cell around the current one and return a bool if did so
+    private bool SpawnDuplicatedCell()
     {
         //Check if there is no object at position before spawing, if yes find a new position
         Vector3 randomPos = new Vector3();
@@ -141,56 +140,58 @@ public abstract class Bacteria : MonoBehaviour
             randomPos = ComputeRandomSpawnPosAround();
             Collider[] hitColliders = TestPosition(randomPos);
 
-            // If touch something doesn't duplicate (avoid bacteria spawning on top of each other)
+            // If touch something doesn't duplicate (avoid cell spawning on top of each other)
             if (hitColliders.Length > 0)
             {
                 continue;
             }
 
-            InstantiateBacteria(randomPos);
+            InstantiateCell(randomPos);
             return true;
         }
         return false;
     }
 
-    //Compute a random spawn position around bacteria
+    //Compute a random spawn position around cell
     protected virtual Vector3 ComputeRandomSpawnPosAround()
     {
         Transform newTrans = transform;
         newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
 
         // Compute new spawning position
-        Vector3 spawnPos = transform.position + newTrans.forward * bacteriaSize * 1.5f;
+        Vector3 spawnPos = transform.position + newTrans.forward * cellSize * 1.5f;
 
         // Clamp spawning position inside the game zone
         spawnPos.x = Mathf.Clamp(spawnPos.x, -GameController.Instance.gameZoneRadius.x, GameController.Instance.gameZoneRadius.x);
         spawnPos.z = Mathf.Clamp(spawnPos.z, -GameController.Instance.gameZoneRadius.y, GameController.Instance.gameZoneRadius.y);
 
-        return spawnPos; // Add a little gap with *1.5f
+        return spawnPos;
     }
 
-    // Test an overlap at position with size of the bacteria
+    // Test an overlap at position with size of the cell
     protected virtual Collider[] TestPosition(Vector3 randomPos)
     {
-        return Physics.OverlapSphere(randomPos, bacteriaSize / 2 * 1.1f); // Test 1.1 times bigger
+        // Test a sphere slightly bigger to keep some space between bacteria
+        // Only testing on Ennemy layer mask and ignoring trigger
+        return Physics.OverlapSphere(randomPos, cellSize / 2 * 1.1f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
     }
 
-    // Instantiate bacteria at given position and add it to gameController list
-    protected virtual GameObject InstantiateBacteria(Vector3 randomPos)
+    // Instantiate cell at given position and add it to gameController list
+    protected virtual GameObject InstantiateCell(Vector3 randomPos)
     {
-        // Instantiate new bacteria
-        GameObject b = Instantiate(bacteriaPrefab, randomPos, Quaternion.identity);
+        // Instantiate new cell
+        GameObject b = Instantiate(cellPrefab, randomPos, Quaternion.identity);
 
-        // Get the reference to the bacteria script
-        Bacteria duplicatedBacteria = b.GetComponent<Bacteria>();
+        // Get the reference to the cell script
+        Cell duplicatedCell = b.GetComponent<Cell>();
 
         // Set the health of the new becteria to the health of the parent one
-        duplicatedBacteria.SetBacteriaHealth(health);
+        duplicatedCell.SetCellHealth(health);
 
         if (isResistant)
         {
             // If parent is resistant, transmit resistance to the child
-            duplicatedBacteria.ActivateResistance();
+            duplicatedCell.ActivateResistance();
         }
 
         return b;
@@ -199,8 +200,8 @@ public abstract class Bacteria : MonoBehaviour
 
     /***** HEALTH FUNCTIONS *****/
     
-    // Set the health of the bacteria to a new value
-    public void SetBacteriaHealth(int newHealth)
+    // Set the health of the cell to a new value
+    public void SetCellHealth(int newHealth)
     {
         health = newHealth;
         UpdateHealthColor();
@@ -212,24 +213,24 @@ public abstract class Bacteria : MonoBehaviour
         render.material.SetFloat("_LerpValue", (float)health / maxHealth);
     }
 
-    // Apply damage to bacteria, update color and kill it if needed
-    public virtual void DamageBacteria(int dmg)
+    // Apply damage to cell, update color and kill it if needed
+    public virtual void DamageCell(int dmg)
     {
-        //Apply damage to bacteria's health
+        //Apply damage to cell's health
         health -= dmg;
 
         //Change material color according to health
         UpdateHealthColor();
 
-        //If health is below 0, the bacteria dies
+        //If health is below 0, the cell dies
         if (health <= 0)
         {
-            KillBacteria();
+            KillCell();
         }
     }
 
-    // Called when the bacteria has to die
-    public virtual void KillBacteria()
+    // Called when the cell has to die
+    public virtual void KillCell()
     {
         // Trigger particle effect
         explosionParticle.gameObject.SetActive(true);
@@ -243,13 +244,13 @@ public abstract class Bacteria : MonoBehaviour
         rb.Sleep();
     }
 
-    // Disolve the bacteria according to deltaTime
+    // Disolve the cell according to deltaTime
     protected virtual void DisolveOverTime()
     {
         //Compute new value
         float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
 
-        // Animate the disolve of the bacteria
+        // Animate the disolve of the cell
         render.material.SetFloat("_DisolveValue", newDisolveValue);
 
         if (newDisolveValue == 1f)

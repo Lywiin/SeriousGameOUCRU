@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoodBacteria : Bacteria
+public class HumanCell : Cell
 {
     /*** PUBLIC VARIABLES ***/
 
-    public static List<GoodBacteria> goodBacteriaList = new List<GoodBacteria>();
+    public static List<HumanCell> humanCellList = new List<HumanCell>();
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -15,33 +15,33 @@ public class GoodBacteria : Bacteria
     {
         base.Awake();
 
-        goodBacteriaList.Add(this);
+        humanCellList.Add(this);
     }
 
 
     /***** HEALTH FUNCTIONS *****/
 
-    // Called when the bacteria has to die
-    public override void KillBacteria()
+    // Called when the cell has to die
+    public override void KillCell()
     {
         // Remove from list
-        goodBacteriaList.Remove(this);
+        humanCellList.Remove(this);
 
-        // If no good bacteria left it's game over
-        if (goodBacteriaList.Count == 0)
+        // If no human cell left it's game over
+        if (humanCellList.Count == 0)
         {
             GameController.Instance.GameOver();
         }
 
-        base.KillBacteria();
+        base.KillCell();
     }
 
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateBacteria(Vector3 randomPos)
+    protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        GameObject spawnedCell = base.InstantiateBacteria(randomPos);
+        GameObject spawnedCell = base.InstantiateCell(randomPos);
         
         // If cell is spawned set her parent to the current cell
         if (spawnedCell)

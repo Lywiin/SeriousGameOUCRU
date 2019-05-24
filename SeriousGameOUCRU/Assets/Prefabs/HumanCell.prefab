@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6064827100080528097}
   - component: {fileID: 151935942}
   m_Layer: 13
-  m_Name: GoodBacteria
+  m_Name: HumanCell
   m_TagString: NotTargetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bacteriaPrefab: {fileID: 8769615520535589609}
+  cellPrefab: {fileID: 8769615520535589609}
   maxHealth: 50
   fullHealthColor: {r: 0.07058824, g: 0.78431374, b: 0.21568628, a: 0.39215687}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0.39215687}

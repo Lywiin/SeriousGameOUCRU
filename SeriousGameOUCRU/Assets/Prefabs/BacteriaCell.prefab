@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 923662352682401394}
   - component: {fileID: 1398050123447265884}
   m_Layer: 13
-  m_Name: BadBacteria
+  m_Name: BacteriaCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bacteriaPrefab: {fileID: 6375226934681378963}
+  cellPrefab: {fileID: 6375226934681378963}
   maxHealth: 100
   fullHealthColor: {r: 0.7294118, g: 0, b: 0, a: 0}
   lowHealthColor: {r: 0, g: 0, b: 0, a: 0}
@@ -294,6 +294,7 @@ MonoBehaviour:
   resistantGene: {fileID: 3885464220961194481, guid: 0d0f29dff988bd949a8778773a6d10f3,
     type: 3}
   rushForce: 10
+  detectionRange: 7
 --- !u!114 &3123446490448591263
 MonoBehaviour:
   m_ObjectHideFlags: 0
