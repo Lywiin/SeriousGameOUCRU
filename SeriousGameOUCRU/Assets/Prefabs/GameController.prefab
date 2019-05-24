@@ -52,7 +52,7 @@ MonoBehaviour:
     type: 3}
   gameZoneRadius: {x: 100, y: 100}
   badBacteriaCount: 15
-  goodBacteriaCount: 3
+  goodBacteriaGroupCount: 3
   bacteriaInitSize: 6
   playerSpawnSafeRadius: 15
   mutationProbaIncrease: 0.00075
