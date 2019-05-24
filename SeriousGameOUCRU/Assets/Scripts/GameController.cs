@@ -95,26 +95,28 @@ public class GameController : MonoBehaviour
 
         // Spawn some cells
         StartCoroutine(DelaySpawnBacteriaCell());
-        StartCoroutine(DelaySpawnHumanCellGroup());
     }
 
     private IEnumerator DelaySpawnBacteriaCell()
     {        
-        // Spawn some cells
+        // Spawn some bacteria cells
         for (int i = 0; i < bacteriaCellCount; i++)
         {
-            SpawnCell(bacteriaCell);
             yield return new WaitForEndOfFrame();
+            SpawnCell(bacteriaCell);
         }
+
+        // When all bacteria are spawn we spawn the human cells
+        StartCoroutine(DelaySpawnHumanCellGroup());
     }
 
     private IEnumerator DelaySpawnHumanCellGroup()
     {
-        // Spawn some cells
+        // Spawn some human cell groups
         for (int i = 0; i < humanCellGroupCount; i++)
         {
-            SpawnHumanCellGroup();
             yield return new WaitForEndOfFrame();
+            SpawnHumanCellGroup();
         }
     }
 
@@ -131,19 +133,19 @@ public class GameController : MonoBehaviour
     private void SpawnHumanCellGroup()
     {
         // We take a larger space since the group will be larger than a normal cell
-        Vector3 validPos = GetAValidPos(cellInitSize * 4);
+        Vector3 validPos = GetAValidPos(cellInitSize * 3);
 
         // Spawn the root of the group
         GameObject root = Instantiate(humanCellGroup, validPos, Quaternion.identity);
 
         // Compute a random number of cell to spawn
-        int nbCellToSpawn = Random.Range(3, 6);
+        int nbCellToSpawn = Random.Range(1, 3);
 
         // Spawn each cell and attach them to the root
         for (int i = 0; i < nbCellToSpawn; i++)
         {
             // Compute an offset to spawn cell
-            Vector3 posOffset = new Vector3(Random.Range(-10, 10), 0f, Random.Range(-10, 10));
+            Vector3 posOffset = new Vector3(Random.Range(-4, 4), 0f, Random.Range(-4, 4));
 
             // Spawn cell
             GameObject cell = Instantiate(humanCell, validPos + posOffset, Quaternion.identity);
@@ -182,11 +184,17 @@ public class GameController : MonoBehaviour
     {
         int nbHit = 0;
         Vector3 randomPos = new Vector3();
+
         do
         {
+            // Get a new random position
             randomPos = ComputeRandomSpawnPos();
+
+            // Test to see if any object is near that position
             Collider[] hitColliders = Physics.OverlapSphere(randomPos, radiusSize);
             nbHit = hitColliders.Length;
+
+            // if there is any we try again until we find an empty position
         } while (nbHit != 0);
 
         return randomPos;

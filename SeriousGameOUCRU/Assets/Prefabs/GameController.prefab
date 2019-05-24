@@ -52,8 +52,8 @@ MonoBehaviour:
     type: 3}
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCellCount: 15
-  humanCellGroupCount: 3
-  bacteriaInitSize: 6
+  humanCellGroupCount: 10
+  cellInitSize: 6
   playerSpawnSafeRadius: 15
   mutationProbaIncrease: 0.00075
   globalMutationProba: 0
