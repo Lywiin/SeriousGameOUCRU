@@ -79,11 +79,6 @@ public class Projectile : MonoBehaviour
         {
             g.transform.GetComponentInParent<Organism>().DamageOrganism(damage);
         }
-        // Check if collided object is a resistant gene
-        else if (g.gameObject.GetComponent<ResistantGene>())
-        {
-            g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
-        }
     }
 
     // Hide projectile, freeze it and prevent it from colliding again

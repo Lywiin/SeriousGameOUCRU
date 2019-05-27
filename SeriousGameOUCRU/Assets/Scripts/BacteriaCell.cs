@@ -208,19 +208,8 @@ public class BacteriaCell : Cell
         // Increase killed count
         GameController.Instance.IncrementBacteriaCellKillCount();
 
-        // Try to transform and leave resistant gene behind
-        if (isResistant && Random.Range(0f, 1f) < transformationProbability)
-        {
-            GameObject g = Instantiate(resistantGene, transform.position, Quaternion.identity);
-            g.GetComponent<ResistantGene>().SetOldShieldMaxHealth(shieldScript.GetShieldMaxHealth());
-        }
-
         // Remove from list
         RemoveFromList();
-
-        // Prevent shield to collide again during animation
-        transform.GetChild(1).GetComponent<Collider>().enabled = false;
-        transform.GetChild(1).GetComponent<Rigidbody>().Sleep();
 
         base.KillOrganism();
     }
