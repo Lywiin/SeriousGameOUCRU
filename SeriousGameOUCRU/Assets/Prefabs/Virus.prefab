@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 04567e223c22bf047bbedc292e748cfb, type: 2}
+  - {fileID: 2100000, guid: 305750844052b8049957edab89c93a4e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -170,6 +170,6 @@ MonoBehaviour:
   moveForce: 60
   moveChangeAngle: 12
   maxVelocity: 8
-  disolveSpeed: 0.1
+  disolveSpeed: 0.2
   infectionTime: 10
   infectionRecallTime: 5

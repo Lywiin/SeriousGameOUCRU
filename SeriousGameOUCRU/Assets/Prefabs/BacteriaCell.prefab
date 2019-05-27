@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4684963551950820430}
   - component: {fileID: 5573260298962930565}
   m_Layer: 13
-  m_Name: BadBacteria
+  m_Name: BacteriaCellBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
