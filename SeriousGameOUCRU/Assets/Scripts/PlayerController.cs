@@ -71,11 +71,6 @@ public class PlayerController : MonoBehaviour
     private float currentMaxVelocity;
 
 
-    [HideInInspector]
-    public bool switchInput = false;
-    private bool canSwitch = true;
-
-
     /*** INSTANCE ***/
 
     private static PlayerController _instance;
@@ -110,44 +105,16 @@ public class PlayerController : MonoBehaviour
         currentFireDrawback = fireDrawbackP1;
 
         currentMaxVelocity = maxVelocity;
-
-        SwitchInput();
-    }
-
-    // Add a buffer between input change
-    private IEnumerator InputSwitchBuffer()
-    {
-        canSwitch = false;
-        SwitchInput();
-        yield return new WaitForSeconds(1f);
-        canSwitch = true;
-    }
-
-    // Change the input mode on mobile
-    private void SwitchInput()
-    {
-        movementJoystick.gameObject.SetActive(switchInput);
-        fireJoystick.gameObject.SetActive(switchInput);
-
-        switchInput = !switchInput;
     }
 
     void Update()
     {
-        // TEMPORARY FOR TESTING PURPOSE
-        if (Input.touchCount > 3 && canSwitch)
-            StartCoroutine(InputSwitchBuffer());
-
-
         // If game not paused
         if (!gameController.IsGamePaused() && canMove)
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                if (switchInput)
-                    HandleFireMobile();
-                else
-                    HandleFireMobile2();
+                HandleFireMobile();
             }else
             {
                 HandleFireDesktop();
@@ -162,10 +129,7 @@ public class PlayerController : MonoBehaviour
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
-                if (switchInput)
-                    HandlePlayerControlsMobile();
-                else
-                    HandlePlayerControlsMobile2();
+                HandlePlayerControlsMobile();
             }else
             {
                 HandlePlayerControlsDesktop();
@@ -179,7 +143,7 @@ public class PlayerController : MonoBehaviour
     private void HandleFireMobile()
     {
         // Check if player touch the screen and if touch began
-        if (Input.touchCount > 0 /*&& Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began*/)
+        if (Input.touchCount > 0)
         {
             // Increase timer every frame
             repeatFireTimer += Time.deltaTime;
@@ -240,32 +204,6 @@ public class PlayerController : MonoBehaviour
         }
 
         return bestTarget;
-    }
-
-    private void HandleFireMobile2()
-    {
-        // Get input axes
-        float fireHor = fireJoystick.Horizontal;
-        float fireVer = fireJoystick.Vertical;
-
-        // Temporary name
-        Vector3 fireDirection = new Vector3(fireHor, 0.0f, fireVer);
-
-        if (Mathf.Abs(fireHor) > 0.2f || Mathf.Abs(fireVer) > 0.2f)
-        {
-            isFiring = true;
-
-            // Rotate player in firing direction
-            RotatePlayer(fireDirection);
-
-            if (Time.time >= timeToFire)
-            {
-                Fire();
-            }
-        }else
-        {
-            isFiring = false;
-        }
     }
 
     private void HandleFireDesktop()
@@ -468,45 +406,6 @@ public class PlayerController : MonoBehaviour
                 
                 // Increase timer to change weapon
                 IncreaseWeaponChangeTimer();
-            }
-        }else
-        {
-            // Reset timer
-            ResetWeaponChangeTimer();
-        }
-    }
-
-    private void HandlePlayerControlsMobile2()
-    {
-        // Get input axes
-        float moveHor = movementJoystick.Horizontal;
-        float moveVer = movementJoystick.Vertical;
-
-        // COmpute moveDirection
-        moveDirection = new Vector3(moveHor, 0.0f, moveVer);
-
-        // Move the player in axis direction
-        MovePlayer(moveDirection);
-
-        // Rotate player in moving direction if not firing
-        if (!isFiring && moveDirection.magnitude > 0.2f)
-            RotatePlayer(moveDirection);
-
-        // Handle player weapon changing
-        if (Input.touchCount > 0)
-        {
-            // Compute temp moveDirection only use for here
-            Vector3 tempMoveDirection = ComputeMoveDirection(Input.touchCount - 1);
-
-            // Only change if click is close to the player
-            if (tempMoveDirection.magnitude < 10f)
-            {
-                // Increase timer to change weapon
-                IncreaseWeaponChangeTimer();
-            }else
-            {
-                // Reset if touch too far from the player
-                ResetWeaponChangeTimer();
             }
         }else
         {

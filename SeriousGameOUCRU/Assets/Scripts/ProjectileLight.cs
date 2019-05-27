@@ -16,15 +16,6 @@ public class ProjectileLight: Projectile
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider c)
-    {
-        if (!c.gameObject.CompareTag("NotTargetable") && !c.gameObject.CompareTag("Level") && !PlayerController.Instance.switchInput)
-        {
-            // Change target if a cell enter the detection collider
-            target = c.gameObject;
-        }
-    }
-
     protected override void ApplyDamage(GameObject g)
     {
         base.ApplyDamage(g);

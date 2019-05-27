@@ -50,9 +50,11 @@ MonoBehaviour:
     type: 3}
   humanCellGroup: {fileID: 7985167075046369646, guid: 8e9f36b26ee39ee42906b20fa9bee7e6,
     type: 3}
+  virus: {fileID: 8319302658690431141, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCellCount: 15
   humanCellGroupCount: 10
+  virusCount: 1
   cellInitSize: 6
   playerSpawnSafeRadius: 15
   mutationProbaIncrease: 0.00075
