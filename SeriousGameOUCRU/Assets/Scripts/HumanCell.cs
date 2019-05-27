@@ -22,7 +22,7 @@ public class HumanCell : Cell
     /***** HEALTH FUNCTIONS *****/
 
     // Called when the cell has to die
-    public override void KillCell()
+    public override void KillOrganism()
     {
         // Remove from list
         humanCellList.Remove(this);
@@ -33,7 +33,7 @@ public class HumanCell : Cell
             GameController.Instance.GameOver();
         }
 
-        base.KillCell();
+        base.KillOrganism();
     }
 
 

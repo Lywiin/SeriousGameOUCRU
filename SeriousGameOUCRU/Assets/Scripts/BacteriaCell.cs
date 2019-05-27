@@ -65,15 +65,17 @@ public class BacteriaCell : Cell
 
     protected override void InitComponents()
     {
+        base.InitComponents();
+
         // Initialize components
         rb = transform.GetChild(1).GetComponent<Rigidbody>();
-        render = transform.GetChild(0).GetComponent<Renderer>();
         coll = transform.GetChild(1).GetComponent<Collider>();
     }
 
     protected override void Update()
     {
         base.Update();
+        
         // Check is game is not currently paused
         if (!GameController.Instance.IsGamePaused())
         {
@@ -186,11 +188,11 @@ public class BacteriaCell : Cell
     /***** HEALTH FUNCTIONS *****/
 
     // Apply damage to cell if shield health is at 0, otherwise damage the shield
-    public override void DamageCell(int dmg)
+    public override void DamageOrganism(int dmg)
     {
         if (shieldScript.GetShieldHealth() == 0)
         {
-            base.DamageCell(dmg);
+            base.DamageOrganism(dmg);
         }else
         {
             shieldScript.DamageShield(dmg);
@@ -198,7 +200,7 @@ public class BacteriaCell : Cell
     }
 
     // Called when the cell has to die
-    public override void KillCell()
+    public override void KillOrganism()
     {
         // Stop moving
         rm.SetCanMove(false);
@@ -220,7 +222,7 @@ public class BacteriaCell : Cell
         transform.GetChild(1).GetComponent<Collider>().enabled = false;
         transform.GetChild(1).GetComponent<Rigidbody>().Sleep();
 
-        base.KillCell();
+        base.KillOrganism();
     }
 
     protected override void DisolveOverTime()

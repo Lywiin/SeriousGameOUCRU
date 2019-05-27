@@ -2,34 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Cell : MonoBehaviour
+public abstract class Cell : Organism
 {
     /*** PUBLIC VARIABLES ***/
-    [Header("Prefab")]
-    public GameObject cellPrefab;
-
-    [Header("Health")]
-    public int maxHealth = 100;
 
     [Header("Replication")]
-    public float mutationProba = 0.001f;
+    public float mutationProba = 0.0005f;
     public float duplicationProba = 0.0002f;
-    public float duplicationRecallTime = 5f;
+    public float duplicationRecallTime = 1f;
 
-    [Header("Disolve")]
-    public float disolveSpeed = 2f;
+    [Header("Particles")]
     public ParticleSystem explosionParticle;
 
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
-
-    // Components
-    protected Rigidbody rb;
-    protected Renderer render;
-    protected Collider coll;
-
-    // Health
-    protected int health;
 
     // Replication
     protected bool canDuplicate = false;
@@ -40,39 +26,28 @@ public abstract class Cell : MonoBehaviour
     // Size
     protected float cellSize;
 
-    // Disolve
-    protected bool disolve = false;
-
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
     
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        InitComponents();
-
-        // Initialize Health
-        health = maxHealth;
+        base.Awake();
 
         // Initialize cell size
         cellSize = render.bounds.size.x;
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         // To avoid duplication on spawn
         StartCoroutine(DuplicationRecall());
     }
 
-    protected virtual void InitComponents()
+    protected override void Update()
     {
-        // Initialize components
-        rb = GetComponent<Rigidbody>();
-        render = GetComponentInChildren<Renderer>();
-        coll = GetComponent<Collider>();
-    }
-
-    protected virtual void Update()
-    {
+        base.Update();
+        
         // Check is game is not currently paused
         if (!GameController.Instance.IsGamePaused() && !disolve)
         {
@@ -81,12 +56,6 @@ public abstract class Cell : MonoBehaviour
 
             // Attempt to mutate cell every frame
             TryToMutateCell();
-        }
-
-        // Animate disolve of the cell
-        if (disolve)
-        {
-            DisolveOverTime();
         }
     }
 
@@ -178,13 +147,13 @@ public abstract class Cell : MonoBehaviour
     protected virtual GameObject InstantiateCell(Vector3 randomPos)
     {
         // Instantiate new cell
-        GameObject b = Instantiate(cellPrefab, randomPos, Quaternion.identity);
+        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
 
         // Get the reference to the cell script
         Cell duplicatedCell = b.GetComponent<Cell>();
 
         // Set the health of the new becteria to the health of the parent one
-        duplicatedCell.SetCellHealth(health);
+        duplicatedCell.SetOrganismHealth(health);
 
         if (isResistant)
         {
@@ -197,65 +166,15 @@ public abstract class Cell : MonoBehaviour
 
 
     /***** HEALTH FUNCTIONS *****/
-    
-    // Set the health of the cell to a new value
-    public void SetCellHealth(int newHealth)
-    {
-        health = newHealth;
-        UpdateHealthColor();
-    }
-
-    // Change color of the material according to health
-    protected void UpdateHealthColor()
-    {
-        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
-    }
-
-    // Apply damage to cell, update color and kill it if needed
-    public virtual void DamageCell(int dmg)
-    {
-        //Apply damage to cell's health
-        health -= dmg;
-
-        //Change material color according to health
-        UpdateHealthColor();
-
-        //If health is below 0, the cell dies
-        if (health <= 0)
-        {
-            KillCell();
-        }
-    }
 
     // Called when the cell has to die
-    public virtual void KillCell()
+    public override void KillOrganism()
     {
+        base.KillOrganism();
+
         // Trigger particle effect
         explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
-
-        // Trigger disolve anim in update
-        disolve = true;
-
-        // Prevent colliding again during animation
-        coll.enabled = false;
-        rb.Sleep();
-    }
-
-    // Disolve the cell according to deltaTime
-    protected virtual void DisolveOverTime()
-    {
-        //Compute new value
-        float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
-
-        // Animate the disolve of the cell
-        render.material.SetFloat("_DisolveValue", newDisolveValue);
-
-        if (newDisolveValue >= 0.75f)
-        {
-            // GameObject is destroyed after disolve
-            Destroy(gameObject);
-        }
     }
 
 

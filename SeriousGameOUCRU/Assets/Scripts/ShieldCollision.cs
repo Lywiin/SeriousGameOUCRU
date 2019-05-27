@@ -13,7 +13,7 @@ public class ShieldCollision : MonoBehaviour
         // Kill cell on touch
         if (collision.gameObject.GetComponent<HumanCell>())
         {
-            collision.gameObject.GetComponent<HumanCell>().KillCell();
+            collision.gameObject.GetComponent<HumanCell>().KillOrganism();
 
             // Notify parent from cell killed
             transform.parent.GetComponent<BacteriaCell>().UnTargetCell();

@@ -90,7 +90,7 @@ public class Shield : MonoBehaviour
             shieldHealth = 0;
 
             // Apply remaining damages to cell
-            cellScript.DamageCell(Mathf.Abs(dmgLeft));
+            cellScript.DamageOrganism(Mathf.Abs(dmgLeft));
         }
 
         //Change shield size according to health

@@ -604,7 +604,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player dies on collision with cell
-        if (!dead && (collision.gameObject.GetComponentInParent<BacteriaCell>() || (collision.gameObject.GetComponentInParent<Virus>())))
+        if (!dead && collision.gameObject.CompareTag("Targetable"))
         {
             dead = true;
             gameController.GameOver();

@@ -44,8 +44,9 @@ public class ProjectileHeavy : Projectile
 
     /***** TRIGGER FUNCTIONS *****/
 
-    private void OnTriggerEnter(Collider c)
+    private void OnCollisionEnter(Collision c)
     {
+        Debug.Log(c.gameObject);
         // Explode on impact
         Hide();
         Explode();

@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Virus : MonoBehaviour
+public class Virus : Organism
 {
     /*** PUBLIC VARIABLES ***/
-
-    [Header("Health")]
-    public int maxHealth = 300;
 
     [Header("Movement")]
     public float moveForce = 60f;
     public float moveChangeAngle = 12f;
     public float maxVelocity = 8f;
-
-    [Header("Disolve")]
-    public float disolveSpeed = 0.1f;
 
     [Header("Infection")]
     public float infectionTime = 10f;
@@ -24,12 +18,6 @@ public class Virus : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
-    // Component
-    private Rigidbody rb;
-
-    // Health
-    private int health;
-
     // Movement
     private Vector3 moveDirection;
     private float currentAngle;
@@ -37,7 +25,6 @@ public class Virus : MonoBehaviour
 
     // Death
     private bool dead = false;
-    private Renderer render;
 
     // Attack
     private GameObject target;
@@ -46,14 +33,9 @@ public class Virus : MonoBehaviour
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    private void Awake()
+    protected override void Awake()
     {
-        // Init components
-        rb = GetComponent<Rigidbody>();
-        render = transform.GetChild(0).GetComponent<Renderer>();
-
-        // Init health
-        health = maxHealth;
+        base.Awake();
 
         // Init starting direction
         currentAngle = 0f;
@@ -64,19 +46,10 @@ public class Virus : MonoBehaviour
         StartCoroutine(InfectionRecall());
     }
 
-    private void Update()
-    {
-        if (dead)
-        {
-            // Animate disolve of the virus
-            AnimateDeath();
-        }
-    }
-
     private void FixedUpdate()
     {
-        // Move virus while it's not dead
-        if (!dead)
+        // Move virus while do not disolve so it's not dead
+        if (!disolve)
         {
             // If virus has a target move towards it, otherwise move normally
             if (target)
@@ -154,9 +127,6 @@ public class Virus : MonoBehaviour
         {
             // Reserve angle to go in opposition direction when hitting  a bacteria
             AddAngle(180f);
-        } else if (c.gameObject.GetComponent<HumanCell>())
-        {
-            // STICK TO CELL
         }
     }
 
@@ -173,52 +143,6 @@ public class Virus : MonoBehaviour
     }
 
 
-    /***** HEALTH FUNCTIONS *****/
-
-    public void DamageVirus(int dmg)
-    {
-        // Apply damage and update color
-        health -= dmg;
-        UpdateHealthColor();
-
-        if (health <= 0)
-        {
-            KillVirus();
-        }
-    }
-
-    // Change color of the material according to health
-    protected void UpdateHealthColor()
-    {
-        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
-    }
-
-    // Trigger the virus death procedure
-    private void KillVirus()
-    {
-        // Stop virus from moving and interacting
-        dead = true;
-        //rb.isKinematic = true;
-        GetComponent<Collider>().enabled = false;
-    }
-
-    // Disolve the cell according to deltaTime
-    protected virtual void AnimateDeath()
-    {
-        //Compute new disolve value
-        float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
-
-        // Animate the disolve of the virus
-        render.material.SetFloat("_DisolveValue", newDisolveValue);
-
-        if (newDisolveValue >= 0.75f)
-        {
-            // GameObject is destroyed after disolve
-            Destroy(gameObject);
-        }
-    }
-
-
     /***** INFECTION FUNCTIONS *****/
 
     private IEnumerator StartInfection()
@@ -231,7 +155,7 @@ public class Virus : MonoBehaviour
         if (target)
         {
             // Get rid of cell after infection time
-            target.GetComponent<HumanCell>().KillCell();
+            target.GetComponent<HumanCell>().KillOrganism();
 
             // Instantiate a new virus instead of cell
             Instantiate(gameObject, target.transform.position, Quaternion.identity);
