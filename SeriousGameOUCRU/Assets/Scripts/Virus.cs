@@ -23,9 +23,6 @@ public class Virus : Organism
     private float currentAngle;
     private Quaternion currentRotation;
 
-    // Death
-    private bool dead = false;
-
     // Attack
     private GameObject target;
     private bool canInfect = false;

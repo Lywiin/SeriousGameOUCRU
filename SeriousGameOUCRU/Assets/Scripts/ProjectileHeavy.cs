@@ -46,7 +46,6 @@ public class ProjectileHeavy : Projectile
 
     private void OnCollisionEnter(Collision c)
     {
-        Debug.Log(c.gameObject);
         // Explode on impact
         Hide();
         Explode();
@@ -75,7 +74,9 @@ public class ProjectileHeavy : Projectile
         // Apply damage to each object
         foreach(Collider c in hitColliders)
         {
-            ApplyDamage(c.gameObject);
+            // Antibiotic doesn't damage virus
+            if (!c.gameObject.GetComponent<Virus>())
+                ApplyDamage(c.gameObject);
         }
     }
 

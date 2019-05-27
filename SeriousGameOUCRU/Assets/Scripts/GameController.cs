@@ -207,7 +207,7 @@ public class GameController : MonoBehaviour
             randomPos = ComputeRandomSpawnPos();
 
             // Test to see if any object is near that position
-            Collider[] hitColliders = Physics.OverlapSphere(randomPos, radiusSize);
+            Collider[] hitColliders = Physics.OverlapSphere(randomPos, radiusSize, ~(1 << 1), QueryTriggerInteraction.Ignore);
             nbHit = hitColliders.Length;
 
             // if there is any we try again until we find an empty position

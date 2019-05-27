@@ -139,8 +139,8 @@ public abstract class Cell : Organism
     protected virtual Collider[] TestPosition(Vector3 randomPos)
     {
         // Test a sphere slightly bigger to keep some space between bacteria
-        // Only testing on Ennemy layer mask and ignoring trigger
-        return Physics.OverlapSphere(randomPos, cellSize / 2 * 1.1f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
+        // Testing on everything except first layer
+        return Physics.OverlapSphere(randomPos, cellSize / 2 * 1.2f, ~(1 << 1), QueryTriggerInteraction.Ignore);
     }
 
     // Instantiate cell at given position and add it to gameController list
