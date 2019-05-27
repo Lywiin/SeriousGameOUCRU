@@ -220,31 +220,21 @@ public class PlayerController : MonoBehaviour
     private GameObject GetBestTarget(Collider[] hitColliders)
     {
         GameObject bestTarget = null;
-        int bestPriority = 99;  // The lower has the most priority
+        float bestDistance = 999999f;  // Init with a high distance
 
-        // Go through all object to find the one with the higher priority
+        // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
-            // If the object touched is targetable we add it to a temporary list
+            // If the object touched is targetable we compute his distance to the player
             if (c.CompareTag("Targetable"))
             {
-                // Gives a priority according to the object type
-                if (c.gameObject.GetComponentInParent<BacteriaCell>() && bestPriority > 0)
+                float distance = Vector3.Distance(transform.position, c.transform.position);
+
+                // If distance is the lowest, the gameObject become the target
+                if (distance < bestDistance)
                 {
-                    bestPriority = 0;
                     bestTarget = c.gameObject;
-                } else if (c.gameObject.GetComponentInParent<HumanCell>() && bestPriority > 1)
-                {
-                    bestPriority = 1;
-                    bestTarget = c.gameObject;
-                } else if (c.gameObject.GetComponentInParent<ResistantGene>() && bestPriority > 2)
-                {
-                    bestPriority = 2;
-                    bestTarget = c.gameObject;
-                } else if (c.gameObject.GetComponent<Virus>() && bestPriority > 4)
-                {
-                    bestPriority = 4;
-                    bestTarget = c.gameObject;
+                    bestDistance = distance;
                 }
             }
         }

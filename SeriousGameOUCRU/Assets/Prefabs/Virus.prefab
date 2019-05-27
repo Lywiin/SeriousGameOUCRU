@@ -166,10 +166,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98e8f50959ba0f46ac48ae1a690368e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virusHealth: 300
+  maxHealth: 300
   moveForce: 60
   moveChangeAngle: 12
   maxVelocity: 8
-  disolveSpeed: 0.2
+  disolveSpeed: 0.3
   infectionTime: 10
   infectionRecallTime: 5

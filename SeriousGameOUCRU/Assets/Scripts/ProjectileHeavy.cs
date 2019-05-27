@@ -69,7 +69,7 @@ public class ProjectileHeavy : Projectile
     private void ApplyZoneDamage()
     {
         // Catch all the objects in the range
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
         
         // Apply damage to each object
         foreach(Collider c in hitColliders)

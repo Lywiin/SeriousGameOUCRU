@@ -7,7 +7,7 @@ public class Virus : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Health")]
-    public float virusHealth = 300f;
+    public int maxHealth = 300;
 
     [Header("Movement")]
     public float moveForce = 60f;
@@ -26,6 +26,9 @@ public class Virus : MonoBehaviour
 
     // Component
     private Rigidbody rb;
+
+    // Health
+    private int health;
 
     // Movement
     private Vector3 moveDirection;
@@ -48,6 +51,9 @@ public class Virus : MonoBehaviour
         // Init components
         rb = GetComponent<Rigidbody>();
         render = transform.GetChild(0).GetComponent<Renderer>();
+
+        // Init health
+        health = maxHealth;
 
         // Init starting direction
         currentAngle = 0f;
@@ -169,14 +175,22 @@ public class Virus : MonoBehaviour
 
     /***** HEALTH FUNCTIONS *****/
 
-    public void DamageVirus(float dmg)
+    public void DamageVirus(int dmg)
     {
-        virusHealth -= dmg;
+        // Apply damage and update color
+        health -= dmg;
+        UpdateHealthColor();
 
-        if (virusHealth <= 0)
+        if (health <= 0)
         {
             KillVirus();
         }
+    }
+
+    // Change color of the material according to health
+    protected void UpdateHealthColor()
+    {
+        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
     }
 
     // Trigger the virus death procedure
@@ -184,7 +198,7 @@ public class Virus : MonoBehaviour
     {
         // Stop virus from moving and interacting
         dead = true;
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
     }
 
@@ -196,9 +210,6 @@ public class Virus : MonoBehaviour
 
         // Animate the disolve of the virus
         render.material.SetFloat("_DisolveValue", newDisolveValue);
-
-        // Animate the color of the virus as the opposite
-        render.material.SetFloat("_LerpValue", 1 - newDisolveValue);
 
         if (newDisolveValue >= 0.75f)
         {

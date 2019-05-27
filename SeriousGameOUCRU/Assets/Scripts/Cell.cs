@@ -10,8 +10,6 @@ public abstract class Cell : MonoBehaviour
 
     [Header("Health")]
     public int maxHealth = 100;
-    public Color fullHealthColor;
-    public Color lowHealthColor;
 
     [Header("Replication")]
     public float mutationProba = 0.001f;
@@ -253,7 +251,7 @@ public abstract class Cell : MonoBehaviour
         // Animate the disolve of the cell
         render.material.SetFloat("_DisolveValue", newDisolveValue);
 
-        if (newDisolveValue == 1f)
+        if (newDisolveValue >= 0.75f)
         {
             // GameObject is destroyed after disolve
             Destroy(gameObject);
