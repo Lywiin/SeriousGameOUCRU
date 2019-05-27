@@ -14,6 +14,9 @@ public class ShieldCollision : MonoBehaviour
         if (collision.gameObject.GetComponent<HumanCell>())
         {
             collision.gameObject.GetComponent<HumanCell>().KillCell();
+
+            // Notify parent from cell killed
+            transform.parent.GetComponent<BacteriaCell>().UnTargetCell();
         }
     }
 }

@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour
         Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
 
         // Check if the touch collide with objects in the world
-        Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f);
+        Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
 
         // Get the futur target
         GameObject bestTarget = GetBestTarget(hitColliders);
@@ -240,10 +240,6 @@ public class PlayerController : MonoBehaviour
                 } else if (c.gameObject.GetComponentInParent<ResistantGene>() && bestPriority > 2)
                 {
                     bestPriority = 2;
-                    bestTarget = c.gameObject;
-                } else if (c.gameObject.GetComponent<Symptom>() && bestPriority > 3)
-                {
-                    bestPriority = 3;
                     bestTarget = c.gameObject;
                 } else if (c.gameObject.GetComponent<Virus>() && bestPriority > 4)
                 {
@@ -321,7 +317,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
 
         // Keep firing until cell die or get out of range
-        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
+        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected && fireTarget.GetComponent<Collider>().enabled);
 
         isFiring = false;
 
@@ -618,7 +614,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player dies on collision with cell
-        if (!dead && (collision.gameObject.GetComponentInParent<BacteriaCell>()))
+        if (!dead && (collision.gameObject.GetComponentInParent<BacteriaCell>() || (collision.gameObject.GetComponentInParent<Virus>())))
         {
             dead = true;
             gameController.GameOver();

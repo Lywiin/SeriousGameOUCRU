@@ -12,11 +12,13 @@ public class GameController : MonoBehaviour
     public GameObject bacteriaCell;
     public GameObject humanCell;
     public GameObject humanCellGroup;
+    public GameObject virus;
 
     [Header("Spawn")]
     public Vector2 gameZoneRadius;
     public int bacteriaCellCount;
     public int humanCellGroupCount;
+    public int virusCount;
     public float cellInitSize;
     public float playerSpawnSafeRadius = 15f;
 
@@ -103,7 +105,20 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < bacteriaCellCount; i++)
         {
             yield return new WaitForEndOfFrame();
-            SpawnCell(bacteriaCell);
+            SpawnObjectAtValidPos(bacteriaCell);
+        }
+
+        // When all bacteria are spawn we spawn the human cells
+        StartCoroutine(DelaySpawnVirus());
+    }
+
+    private IEnumerator DelaySpawnVirus()
+    {        
+        // Spawn some bacteria cells
+        for (int i = 0; i < virusCount; i++)
+        {
+            yield return new WaitForEndOfFrame();
+            SpawnObjectAtValidPos(virus);
         }
 
         // When all bacteria are spawn we spawn the human cells
@@ -120,13 +135,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //Spawn a new cell
-    private void SpawnCell(GameObject cell)
+    //Spawn a new object at a computed valid position
+    private void SpawnObjectAtValidPos(GameObject obj)
     {
-        Vector3 validPos = GetAValidPos(cellInitSize);
+        // Get a valid position by using object size as parameter
+        Vector3 validPos = GetAValidPos(obj.GetComponentInChildren<Renderer>().bounds.size.x);
         
         //Instantiate cell at position and add it to the list
-        GameObject b = Instantiate(cell, validPos, Quaternion.identity);
+        GameObject b = Instantiate(obj, validPos, Quaternion.identity);
     }
 
     // Spawn a new cell group

@@ -84,12 +84,11 @@ public class Projectile : MonoBehaviour
         {
             g.gameObject.GetComponent<ResistantGene>().DamageGene(damage);
         }
-        // Check if collided object is a virus symptom
-        else if (g.gameObject.GetComponent<Symptom>())
+        // Check if collided object is a virus
+        else if (g.gameObject.GetComponent<Virus>())
         {
-            g.gameObject.GetComponent<Symptom>().DamageSymptom(damage);
+            g.gameObject.GetComponent<Virus>().DamageVirus(damage);
         }
-
     }
 
     // Hide projectile, freeze it and prevent it from colliding again

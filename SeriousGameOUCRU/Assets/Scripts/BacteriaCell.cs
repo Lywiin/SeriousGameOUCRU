@@ -281,4 +281,9 @@ public class BacteriaCell : Cell
         if (!targetCell)
             rm.SetCanMove(true);
     }
+
+    public void UnTargetCell()
+    {
+        targetCell = null;
+    }
 }

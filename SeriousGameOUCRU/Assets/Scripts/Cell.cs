@@ -69,7 +69,7 @@ public abstract class Cell : MonoBehaviour
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();
-        render = GetComponent<Renderer>();
+        render = GetComponentInChildren<Renderer>();
         coll = GetComponent<Collider>();
     }
 

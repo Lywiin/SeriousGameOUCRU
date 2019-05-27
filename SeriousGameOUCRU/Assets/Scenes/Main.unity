@@ -1913,6 +1913,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1691786199}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: virus
+      value: 
+      objectReference: {fileID: 8319302658690431141, guid: 05455d3e9428e564188febeb36d862ad,
+        type: 3}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: virusCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
 --- !u!1001 &2008463050215810882

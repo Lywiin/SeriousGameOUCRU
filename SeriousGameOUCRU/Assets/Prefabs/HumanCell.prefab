@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8769615520535589609
+--- !u!1 &2401125065544617202
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8769615520535589612}
-  - component: {fileID: 8769615520535589613}
-  - component: {fileID: 8769615520535589610}
-  - component: {fileID: 5337183824408205446}
-  - component: {fileID: 8769615520535589608}
-  - component: {fileID: 6064827100080528097}
-  - component: {fileID: 151935942}
+  - component: {fileID: 1121852997187893893}
+  - component: {fileID: 5481705859503914083}
+  - component: {fileID: 4724700829099881745}
   m_Layer: 13
-  m_Name: HumanCell
-  m_TagString: NotTargetable
+  m_Name: HumanCellBody
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8769615520535589612
+--- !u!4 &1121852997187893893
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8769615520535589609}
+  m_GameObject: {fileID: 2401125065544617202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6555261498260236509}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 8769615520535589612}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8769615520535589613
+--- !u!33 &5481705859503914083
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8769615520535589609}
+  m_GameObject: {fileID: 2401125065544617202}
   m_Mesh: {fileID: 6138159279905317161, guid: 0e4533edb40716244b77f55540ac1dd5, type: 3}
---- !u!23 &8769615520535589610
+--- !u!23 &4724700829099881745
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8769615520535589609}
+  m_GameObject: {fileID: 2401125065544617202}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 1
@@ -82,6 +77,42 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8769615520535589609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8769615520535589612}
+  - component: {fileID: 5337183824408205446}
+  - component: {fileID: 8769615520535589608}
+  - component: {fileID: 6064827100080528097}
+  - component: {fileID: 151935942}
+  m_Layer: 13
+  m_Name: HumanCell
+  m_TagString: NotTargetable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8769615520535589612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769615520535589609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1121852997187893893}
+  - {fileID: 6555261498260236509}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &5337183824408205446
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -215,7 +246,7 @@ PrefabInstance:
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
