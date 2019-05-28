@@ -97,17 +97,28 @@ public class InputController : MonoBehaviour
 
     private void HandleFireDesktop()
     {
-        if (Input.GetButton("Fire1") && PlayerController.Instance.IsHeavyWeaponSelected())
+        if (PlayerController.Instance)
         {
-            // Switch to light weapon if heavy selected
-            StartCoroutine(PlayerController.Instance.ChangeWeapon());
-            PlayerController.Instance.FireDesktop();
+            if (Input.GetButton("Fire1"))
+            {
+                if (PlayerController.Instance.IsHeavyWeaponSelected())
+                {
+                    // Switch to light weapon if heavy selected
+                    StartCoroutine(PlayerController.Instance.ChangeWeapon());
+                }
 
-        }else if (Input.GetButton("Fire2") && !PlayerController.Instance.IsHeavyWeaponSelected())
-        {
-            // Switch to heavy weapon if light selected
-            StartCoroutine(PlayerController.Instance.ChangeWeapon());
-            PlayerController.Instance.FireDesktop();
+                PlayerController.Instance.FireDesktop();
+
+            }else if (Input.GetButton("Fire2"))
+            {
+                if (!PlayerController.Instance.IsHeavyWeaponSelected())
+                {
+                    // Switch to heavy weapon if light selected
+                    StartCoroutine(PlayerController.Instance.ChangeWeapon());
+                }
+
+                PlayerController.Instance.FireDesktop();
+            }
         }
     }
 
@@ -183,18 +194,21 @@ public class InputController : MonoBehaviour
     // Handle player movement and rotation for desktop
     private void HandlePlayerControlsDesktop()
     {
-        // Get input axes
-        float moveHor = Input.GetAxis("Horizontal");
-        float moveVer = Input.GetAxis("Vertical");
+        if (PlayerController.Instance)
+        {
+            // Get input axes
+            float moveHor = Input.GetAxis("Horizontal");
+            float moveVer = Input.GetAxis("Vertical");
 
-        // COmpute moveDirection
-        Vector3 moveDir = new Vector3(moveHor, 0.0f, moveVer);
+            // Compute moveDirection
+            Vector3 moveDir = new Vector3(moveHor, 0.0f, moveVer);
 
-        // Move the player in axis direction
-        PlayerController.Instance.MovePlayer(moveDir);
+            // Move the player in axis direction
+            PlayerController.Instance.MovePlayer(moveDir);
 
-        // Rotate the player toward mouse position
-        PlayerController.Instance.RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition));
+            // Rotate the player toward mouse position
+            PlayerController.Instance.RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition) - PlayerController.Instance.transform.position);
+        }
     }
 
     // Handle player movement and rotation for mobile
