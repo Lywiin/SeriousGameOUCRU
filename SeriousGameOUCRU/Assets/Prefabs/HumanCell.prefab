@@ -154,14 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellPrefab: {fileID: 8769615520535589609}
+  organismPrefab: {fileID: 8769615520535589609}
   maxHealth: 50
-  fullHealthColor: {r: 0.07058824, g: 0.78431374, b: 0.21568628, a: 0.39215687}
-  lowHealthColor: {r: 0, g: 0, b: 0, a: 0.39215687}
+  disolveSpeed: 2
   mutationProba: 0.0005
   duplicationProba: 0.0001
   duplicationRecallTime: 3
-  disolveSpeed: 2
   explosionParticle: {fileID: 6555261498260236508}
 --- !u!145 &151935942
 SpringJoint:

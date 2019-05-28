@@ -155,7 +155,7 @@ public class Virus : Organism
             target.GetComponent<HumanCell>().KillOrganism();
 
             // Instantiate a new virus instead of cell
-            Instantiate(gameObject, target.transform.position, Quaternion.identity);
+            Instantiate(organismPrefab, target.transform.position, Quaternion.identity);
 
             // Start recall to prevent chain infection
             StartCoroutine(InfectionRecall());

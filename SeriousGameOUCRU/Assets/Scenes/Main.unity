@@ -127,6 +127,25 @@ Light:
     type: 3}
   m_PrefabInstance: {fileID: 5684494017793925583}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &198987131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1499368337274258843, guid: b1b34be5d40741746afa1cad1fbf0e74,
+    type: 3}
+  m_PrefabInstance: {fileID: 1786539505959404309}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &198987132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198987131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfa0173db76d6647943ac691e69f4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidDebug: 1
 --- !u!4 &208432950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3035086509882772378, guid: 619a71225108acf48a257bae33700191,

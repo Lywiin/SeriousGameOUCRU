@@ -147,7 +147,7 @@ public abstract class Cell : Organism
     protected virtual GameObject InstantiateCell(Vector3 randomPos)
     {
         // Instantiate new cell
-        GameObject b = Instantiate(gameObject, randomPos, Quaternion.identity);
+        GameObject b = Instantiate(organismPrefab, randomPos, Quaternion.identity);
 
         // Get the reference to the cell script
         Cell duplicatedCell = b.GetComponent<Cell>();

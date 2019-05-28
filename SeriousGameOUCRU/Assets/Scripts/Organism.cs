@@ -6,6 +6,9 @@ public class Organism : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
+    [Header("Prefab")]
+    public GameObject organismPrefab;
+
     [Header("Health")]
     public int maxHealth = 100;
 

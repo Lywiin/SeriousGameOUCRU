@@ -279,11 +279,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  organismPrefab: {fileID: 6375226934681378963}
   maxHealth: 100
+  disolveSpeed: 2
   mutationProba: 0.0005
   duplicationProba: 0.0002
   duplicationRecallTime: 1
-  disolveSpeed: 2
   explosionParticle: {fileID: 8034501810951669596}
   conjugaisonProba: 0.1
   conjugaisonRecallTime: 5
