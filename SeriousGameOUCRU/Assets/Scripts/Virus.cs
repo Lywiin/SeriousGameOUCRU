@@ -15,6 +15,8 @@ public class Virus : Organism
     public float infectionTime = 10f;
     public float infectionRecallTime = 5f;
 
+    public static List<Virus> virusList = new List<Virus>();
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -33,6 +35,9 @@ public class Virus : Organism
     protected override void Awake()
     {
         base.Awake();
+
+        // Add to list
+        virusList.Add(this);
 
         // Init starting direction
         currentAngle = 0f;
@@ -116,6 +121,17 @@ public class Virus : Organism
     }
 
 
+    /***** HEALTH FUNCTIONS *****/
+
+    public override void KillOrganism()
+    {
+        // Remove from list
+        RemoveFromList();
+
+        base.KillOrganism();
+    }
+
+
     /***** COLLISION FUNCTIONS *****/
 
     private void OnCollisionEnter(Collision c)
@@ -172,4 +188,16 @@ public class Virus : Organism
         canInfect = true;
     }
 
+
+    /***** LIST FUNCTIONS *****/
+    
+    private void RemoveFromList()
+    {
+        virusList.Remove(this);
+
+        if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
+        {
+            GameController.Instance.PlayerWon();
+        }
+    }
 }

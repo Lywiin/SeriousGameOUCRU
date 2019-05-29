@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviour
     [Header("Player Movement")]
     public float speed = 8f;
     public float maxVelocity = 20f;
-    public Joystick movementJoystick;
-    public Joystick fireJoystick;
 
     [Header("Projectile")]
     public GameObject firePoint;

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 2008463050521556426}
   - component: {fileID: 2008463050521556421}
   - component: {fileID: 2008463050521556420}
-  - component: {fileID: 940699605011081208}
   - component: {fileID: 4463504062185026261}
+  - component: {fileID: 3372683678364425218}
+  - component: {fileID: 940699605011081208}
   - component: {fileID: 5735719035098886769}
   m_Layer: 12
   m_Name: Player
@@ -86,20 +87,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &940699605011081208
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2008463050521556422}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.6
-  m_Height: 3.8
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0.48}
 --- !u!114 &4463504062185026261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,9 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   maxVelocity: 20
-  androidDebug: 1
-  movementJoystick: {fileID: 0}
-  fireJoystick: {fileID: 0}
   firePoint: {fileID: 8795248466062620653}
   projectile1: {fileID: 6379939513572856885, guid: 440095619b5297c40bc3d4487bc02019,
     type: 3}
@@ -128,11 +112,35 @@ MonoBehaviour:
   fireDrawbackP2: 30
   weaponChangeDuration: 0.5
   weaponChangeCooldown: 0.5
-  damageMultiplier: 1.5
-  boostDuration: 5
   minRange: 15
   maxRange: 60
-  switchInput: 0
+--- !u!114 &3372683678364425218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008463050521556422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bcea4880f62f643bb05c0f7289afe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDetectedCount: 4
+--- !u!136 &940699605011081208
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008463050521556422}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.6
+  m_Height: 3.8
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.48}
 --- !u!54 &5735719035098886769
 Rigidbody:
   m_ObjectHideFlags: 0

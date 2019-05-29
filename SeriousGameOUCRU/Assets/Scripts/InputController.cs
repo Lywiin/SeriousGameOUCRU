@@ -43,7 +43,7 @@ public class InputController : MonoBehaviour
     void Update()
     {
         // If game not paused
-        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance.CanPlayerMove())
+        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance &&  PlayerController.Instance.CanPlayerMove())
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
@@ -57,7 +57,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance.CanPlayerMove() && GameController.Instance.CanPlayerMove() /*&& GameController.Instance.CanPlayerMoveCamera()*/)
+        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance && PlayerController.Instance.CanPlayerMove() && GameController.Instance.CanPlayerMove() /*&& GameController.Instance.CanPlayerMoveCamera()*/)
         {
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
@@ -155,18 +155,20 @@ public class InputController : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
 
         // Get the futur target
-        GameObject bestTarget = GetBestTarget(hitColliders);
+        GameObject bestTarget = GetClosestTarget(hitColliders);
         
         // If this target exist, start to fire at it
         if (bestTarget)
             StartCoroutine(PlayerController.Instance.RepeatFire(bestTarget));
     }
 
-    // Return the object to target which has the higher priority
-    private GameObject GetBestTarget(Collider[] hitColliders)
+    // Return the closest object to the player
+    private GameObject GetClosestTarget(Collider[] hitColliders)
     {
         GameObject bestTarget = null;
         float bestDistance = 999999f;  // Init with a high distance
+
+        Vector3 playerPos = PlayerController.Instance.transform.position;
 
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
@@ -174,13 +176,14 @@ public class InputController : MonoBehaviour
             // If the object touched is targetable we compute his distance to the player
             if (c.CompareTag("Targetable"))
             {
-                float distance = Vector3.Distance(transform.position, c.transform.position);
+                // Compute distance from player
+                Vector3 distance = c.ClosestPointOnBounds(playerPos) - playerPos;
+                float sqrDistance = distance.sqrMagnitude;
 
-                // If distance is the lowest, the gameObject become the target
-                if (distance < bestDistance)
+                if (sqrDistance < bestDistance)
                 {
                     bestTarget = c.gameObject;
-                    bestDistance = distance;
+                    bestDistance = sqrDistance;
                 }
             }
         }

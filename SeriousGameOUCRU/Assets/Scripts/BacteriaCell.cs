@@ -229,7 +229,7 @@ public class BacteriaCell : Cell
     {
         bacteriaCellList.Remove(this);
 
-        if (BacteriaCell.bacteriaCellList.Count == 0)
+        if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {
             GameController.Instance.PlayerWon();
         }

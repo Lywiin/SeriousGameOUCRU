@@ -252,7 +252,7 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         // Hide the minimap
-        Minimap.Instance.HideMinimap();
+//        Minimap.Instance.HideMinimap();
 
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();
@@ -268,7 +268,7 @@ public class GameController : MonoBehaviour
     public void PlayerWon()
     {
         // Hide the minimap
-        Minimap.Instance.HideMinimap();
+//        Minimap.Instance.HideMinimap();
 
         // Update the UI and restart
         UIController.Instance.TriggerVictory();

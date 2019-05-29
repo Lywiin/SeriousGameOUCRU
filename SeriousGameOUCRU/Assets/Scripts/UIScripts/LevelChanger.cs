@@ -40,7 +40,7 @@ public class LevelChanger : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             PlayerController.Instance.SetCanMove(true);
-            Minimap.Instance.ShowMinimap();
+//            Minimap.Instance.ShowMinimap();
 
             // Only start tutorial if activated
             if (PlayerPrefs.GetInt("Tutorial") == 1)
