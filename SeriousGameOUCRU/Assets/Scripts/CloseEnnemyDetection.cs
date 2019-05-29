@@ -7,7 +7,7 @@ public class CloseEnnemyDetection : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
-    public int maxDetectedCount = 4;
+    public int maxDetectedCount = 1;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -20,12 +20,24 @@ public class CloseEnnemyDetection : MonoBehaviour
     private float detectionRadius;
 
 
+    /*** INSTANCE ***/
+
+    private static CloseEnnemyDetection _instance;
+    public static CloseEnnemyDetection Instance { get { return _instance; } }
+
 private bool canTouch = true;
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+
         closestEnnemiesList = new List<GameObject>();
         detectedEnnemiesDictionnary = new SortedDictionary<float, GameObject>();
 
@@ -40,12 +52,12 @@ private bool canTouch = true;
 
     void Update()
     {
-        if (Input.touchCount >= 2 && canTouch)
-        {
-            StartCoroutine(TouchRecall()); 
-            TryToDetectClosestEnnemy(); 
-
-        }
+        // if (Input.touchCount >= 2 && canTouch)
+        // {
+        //     StartCoroutine(TouchRecall()); 
+        //     TryToDetectClosestEnnemy(); 
+        // }
+        TryToDetectClosestEnnemy(); 
     }
 
     private IEnumerator TouchRecall()
@@ -91,7 +103,7 @@ private bool canTouch = true;
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
-Debug.Log(c.gameObject);
+//Debug.Log(c.gameObject);
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
             Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.ClosestPointOnBounds(transform.position));
             bool onScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
@@ -164,4 +176,9 @@ Debug.Log(c.gameObject);
     //         yield return new WaitForSeconds(1.5f);
     //     }
     // }
+
+    public List<GameObject> GetClosestEnnemiesList()
+    {
+        return closestEnnemiesList;
+    }
 }
