@@ -91,6 +91,7 @@ private bool canTouch = true;
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
+Debug.Log(c.gameObject);
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
             Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.ClosestPointOnBounds(transform.position));
             bool onScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;

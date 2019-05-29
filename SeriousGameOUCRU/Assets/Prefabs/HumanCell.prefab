@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1121852997187893893}
   - component: {fileID: 5481705859503914083}
   - component: {fileID: 4724700829099881745}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: HumanCellBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8769615520535589608}
   - component: {fileID: 6064827100080528097}
   - component: {fileID: 151935942}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: HumanCell
   m_TagString: NotTargetable
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}

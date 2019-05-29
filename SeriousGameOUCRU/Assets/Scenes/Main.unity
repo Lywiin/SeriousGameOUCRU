@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 65291136}
   - component: {fileID: 65291135}
   m_Layer: 0
-  m_Name: Image
+  m_Name: CloseEnnemyIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1898,7 +1898,7 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellGroupCount
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
