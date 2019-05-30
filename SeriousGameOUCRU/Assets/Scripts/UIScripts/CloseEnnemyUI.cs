@@ -85,8 +85,8 @@ public class CloseEnnemyUI : MonoBehaviour
             // If a target exist at this position
             if (CloseEnnemyDetection.Instance.GetClosestEnnemiesList().Count > i)
             {
-                // We activate the indicator
-                indicator.SetActive(true);
+                // We fade in the indicator
+                indicator.GetComponent<Animator>().SetBool("FadeIn", true);
 
                 // We get the corresponding target
                 GameObject ennemy = CloseEnnemyDetection.Instance.GetClosestEnnemiesList()[i];
@@ -101,8 +101,8 @@ public class CloseEnnemyUI : MonoBehaviour
                 indicator.transform.rotation = newRot;
             }else
             {
-                // If no target available we hide the indicator
-                indicator.gameObject.SetActive(false);
+                // If no target available we fade out the indicator
+                indicator.GetComponent<Animator>().SetBool("FadeIn", false);
             }
         }
     }
