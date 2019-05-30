@@ -254,6 +254,9 @@ public class GameController : MonoBehaviour
         // Hide the minimap
 //        Minimap.Instance.HideMinimap();
 
+        // Hide the indicators
+        CloseEnnemyUI.Instance.HideAllIndicators();
+
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();
 
@@ -269,6 +272,9 @@ public class GameController : MonoBehaviour
     {
         // Hide the minimap
 //        Minimap.Instance.HideMinimap();
+
+        // Hide the indicators
+        CloseEnnemyUI.Instance.HideAllIndicators();
 
         // Update the UI and restart
         UIController.Instance.TriggerVictory();

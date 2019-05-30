@@ -52,11 +52,6 @@ private bool canTouch = true;
 
     void Update()
     {
-        // if (Input.touchCount >= 2 && canTouch)
-        // {
-        //     StartCoroutine(TouchRecall()); 
-        //     TryToDetectClosestEnnemy(); 
-        // }
         TryToDetectClosestEnnemy(); 
     }
 
@@ -100,40 +95,33 @@ private bool canTouch = true;
     // Refresh the list of closest ennemies
     private void RefeshClosestTargets(Collider[] hitColliders)
     {
+
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
 //Debug.Log(c.gameObject);
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
-            Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.ClosestPointOnBounds(transform.position));
+            Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.gameObject.transform.position);
             bool onScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
-            // If the object touched is targetable we compute his distance to the player
-            if (c.CompareTag("Targetable") )
+            // If an ennemy is visible we don't want to display anything 
+            if (onScreen)
             {
-                // If at least one detected object is visible we don't need any indicator so no need to go further
-                if (onScreen)
-                {
-                    // At least one bacteria is close so we reset the radius to cover the smallest area needed
-                    detectionRadius = defaultDetectionRadius;
-                    detectedEnnemiesDictionnary.Clear();
-// Debug.Log("CANCEL");
-// Debug.DrawLine(transform.position, c.gameObject.transform.position, Color.green, 1.5f);
-                    break;
-                }else
-                {
-                    // Compute distance from player
-                    Vector3 distance = c.ClosestPointOnBounds(transform.position) - transform.position;
-                    float sqrDistance = distance.sqrMagnitude;
+                // If one ennemy is on screen we can reset the search radius
+                detectionRadius = defaultDetectionRadius;
+                detectedEnnemiesDictionnary.Clear();
+                break;
+            }else
+            {
+                // Compute distance from player
+                Vector3 distance = c.ClosestPointOnBounds(transform.position) - transform.position;
+                float sqrDistance = distance.sqrMagnitude;
 
-                    // Add the object to the dictonnary
-                    detectedEnnemiesDictionnary.Add(sqrDistance, c.gameObject);
-                }
-
+                // Add the object to the dictonnary
+                detectedEnnemiesDictionnary.Add(sqrDistance, c.gameObject);
             }
         }
 
-//Debug.Log(detectedEnnemiesDictionnary.Count);
         if (detectedEnnemiesDictionnary.Count > 0)
         {
             // After adding all the element we sort the tab if not empty
