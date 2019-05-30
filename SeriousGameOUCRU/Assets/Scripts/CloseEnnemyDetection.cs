@@ -25,7 +25,6 @@ public class CloseEnnemyDetection : MonoBehaviour
     private static CloseEnnemyDetection _instance;
     public static CloseEnnemyDetection Instance { get { return _instance; } }
 
-private bool canTouch = true;
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -53,13 +52,6 @@ private bool canTouch = true;
     void Update()
     {
         TryToDetectClosestEnnemy(); 
-    }
-
-    private IEnumerator TouchRecall()
-    {
-        canTouch = false;
-        yield return new WaitForSeconds(1f);
-        canTouch = true;
     }
 
 
@@ -99,7 +91,6 @@ private bool canTouch = true;
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
-//Debug.Log(c.gameObject);
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
             Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.gameObject.transform.position);
             bool onScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
@@ -136,34 +127,18 @@ private bool canTouch = true;
         List<float> distanceList = detectedEnnemiesDictionnary.Keys.ToList();
         distanceList.Sort();
 
-// StartCoroutine(DebugDraw(distanceList));
-// List<float> tempDistanceList = new List<float>();
-
         // Add gameobject to the final list if still some to add and closestEnnemiesList not full
         for (int i = 0; i < maxDetectedCount; i++)
         {
             if (distanceList.Count > i)
             {
                 closestEnnemiesList.Add(detectedEnnemiesDictionnary[distanceList[i]]);
-//Debug.Log(closestEnnemiesList[i]);
-// tempDistanceList.Add(distanceList[i]);
             }else
             {
                 break;
             }
         }
-//StartCoroutine(DebugDraw(distanceList));
     }
-
-    // private IEnumerator DebugDraw(List<float> list)
-    // {
-    //     foreach(float distance in list)
-    //     {
-    //         GameObject g = detectedEnnemiesDictionnary[distance];
-    //         Debug.DrawLine(transform.position, g.transform.position, Color.blue, 1.5f);
-    //         yield return new WaitForSeconds(1.5f);
-    //     }
-    // }
 
     public List<GameObject> GetClosestEnnemiesList()
     {

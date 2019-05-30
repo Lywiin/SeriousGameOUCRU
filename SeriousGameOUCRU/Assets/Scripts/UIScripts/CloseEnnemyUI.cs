@@ -1,13 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class CloseEnnemyUI : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
+    [Header("GameObject")]
     public GameObject closeEnnemyIndicatorRoot;
     public GameObject closeEnnemyIndicatorPrefab;
+
+    [Header("Sprite")]
+    public Sprite indicatorWindowBacteriaSprite;
+    public Sprite indicatorWindowVirusSprite;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -71,25 +79,30 @@ public class CloseEnnemyUI : MonoBehaviour
     {
         for (int i = 0; i < CloseEnnemyDetection.Instance.maxDetectedCount; i++)
         {
+            // Get indicator at position i
+            GameObject indicator = closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject;
+
             // If a target exist at this position
             if (CloseEnnemyDetection.Instance.GetClosestEnnemiesList().Count > i)
             {
                 // We activate the indicator
-                closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject.SetActive(true);
+                indicator.SetActive(true);
 
                 // We get the corresponding target
                 GameObject ennemy = CloseEnnemyDetection.Instance.GetClosestEnnemiesList()[i];
+
+                UpdateWindowSprite(indicator, ennemy);
                 
                 // Compute new rotation from ennemy and player position
                 Quaternion newRot = Quaternion.LookRotation(ennemy.transform.position - PlayerController.Instance.transform.position);
                 newRot.z = newRot.y * -1; newRot.y = 0f; // Trick to apply the correct UI rotation
 
                 // Apply rotation
-                closeEnnemyIndicatorRoot.transform.GetChild(i).transform.rotation = newRot;
+                indicator.transform.rotation = newRot;
             }else
             {
-                // If no target available we hide the idicator
-                closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject.SetActive(false);
+                // If no target available we hide the indicator
+                indicator.gameObject.SetActive(false);
             }
         }
     }
@@ -97,5 +110,17 @@ public class CloseEnnemyUI : MonoBehaviour
     public void HideAllIndicators()
     {
         closeEnnemyIndicatorRoot.SetActive(false);
+    }
+
+    // Update window sprite according to target type
+    private void UpdateWindowSprite(GameObject indicator, GameObject ennemy)
+    {
+        if (ennemy.GetComponent<Virus>())
+        {
+            indicator.transform.GetChild(0).GetComponent<Image>().sprite = indicatorWindowVirusSprite;
+        }else
+        {
+            indicator.transform.GetChild(0).GetComponent<Image>().sprite = indicatorWindowBacteriaSprite;
+        }
     }
 }

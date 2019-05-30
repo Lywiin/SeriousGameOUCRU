@@ -1560,6 +1560,10 @@ MonoBehaviour:
   closeEnnemyIndicatorRoot: {fileID: 231453787}
   closeEnnemyIndicatorPrefab: {fileID: 2488675061871851248, guid: 90ff0c4b72d20dc469f61962a5755912,
     type: 3}
+  indicatorWindowBacteriaSprite: {fileID: 21300000, guid: 2986de5114d6f0b478ae7b0164859910,
+    type: 3}
+  indicatorWindowVirusSprite: {fileID: 21300000, guid: e212b62a868aacf458a354632b0123e3,
+    type: 3}
 --- !u!4 &1913997243
 Transform:
   m_ObjectHideFlags: 0
