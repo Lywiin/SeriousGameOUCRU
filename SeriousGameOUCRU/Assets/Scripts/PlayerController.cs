@@ -115,16 +115,22 @@ public class PlayerController : MonoBehaviour
 
             yield return null;
 
+            if (!PlayerController.Instance)
+                break;
+
         // Keep firing until cell die or get out of range
         }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected && fireTarget.GetComponent<Collider>().enabled);
 
         isFiring = false;
 
-        // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
-        if (heavyWeaponSelected)
-            StartCoroutine(UnkeepDistance(2f));
-        else
-            StartCoroutine(UnkeepDistance(0f));
+        if (PlayerController.Instance)
+        {
+            // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
+            if (heavyWeaponSelected)
+                StartCoroutine(UnkeepDistance(2f));
+            else
+                StartCoroutine(UnkeepDistance(0f));
+        }
     }
 
     // Stop keeping distance with cell after some time
