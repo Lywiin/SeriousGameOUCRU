@@ -37,6 +37,13 @@ public class Virus : Organism
     {
         base.Awake();
 
+        virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
+    }
+
+    public override void OnObjectToSpawn()
+    {
+        base.OnObjectToSpawn();
+
         // Add to list
         virusList.Add(this);
 
@@ -45,10 +52,10 @@ public class Virus : Organism
         currentRotation = new Quaternion(0f, 0f, 0f, 1f);
         moveDirection = Vector3.zero;
 
+        target = null;
+
         // Cannot infect at spawn
         StartCoroutine(InfectionRecall());
-
-        virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
     private void FixedUpdate()
@@ -137,6 +144,12 @@ public class Virus : Organism
         base.KillOrganism();
     }
 
+    protected override void DestroyOrganism()
+    {
+        // Put back this bacteria to the pool to be reused
+        VirusPool.Instance.ReturnToPool(this);
+    }
+
 
     /***** COLLISION FUNCTIONS *****/
 
@@ -177,7 +190,9 @@ public class Virus : Organism
             target.GetComponent<HumanCell>().KillOrganism();
 
             // Instantiate a new virus instead of cell
-            Instantiate(organismPrefab, target.transform.position, Quaternion.identity);
+            Virus virusToSpawn = VirusPool.Instance.Get();
+            virusToSpawn.ResetOrganismAtPosition(target.transform.position);
+            virusToSpawn.OnObjectToSpawn();
 
             // Start recall to prevent chain infection
             StartCoroutine(InfectionRecall());

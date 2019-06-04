@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Organism : MonoBehaviour
+public class Organism : MonoBehaviour, IPooledObject
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -35,9 +35,6 @@ public class Organism : MonoBehaviour
     protected virtual void Awake()
     {
         InitComponents();
-
-        // Initialize Health
-        health = maxHealth;
     }
 
     protected virtual void InitComponents()
@@ -48,9 +45,16 @@ public class Organism : MonoBehaviour
         coll = GetComponent<Collider>();
     }
 
-    protected virtual void Start()
+    protected virtual void Start(){}
+
+    public virtual void OnObjectToSpawn()
     {
-        
+        health = maxHealth;
+        disolve = false;
+        UpdateHealthColor();
+        render.material.SetFloat("_DisolveValue", 0f);
+        coll.enabled = true;
+        rb.velocity = Vector3.zero;
     }
 
     protected virtual void Update()
@@ -94,6 +98,13 @@ public class Organism : MonoBehaviour
         }
     }
 
+    public virtual void ResetOrganismAtPosition(Vector3 position)
+    {
+        transform.position = position;
+        transform.rotation = Quaternion.identity;
+        gameObject.SetActive(true);
+    }
+
     // Called when the cell has to die
     public virtual void KillOrganism()
     {
@@ -116,7 +127,12 @@ public class Organism : MonoBehaviour
         if (newDisolveValue >= 0.75f)
         {
             // GameObject is destroyed after disolve
-            Destroy(gameObject);
+            DestroyOrganism();
         }
+    }
+
+    protected virtual void DestroyOrganism()
+    {
+        Destroy(gameObject);
     }
 }

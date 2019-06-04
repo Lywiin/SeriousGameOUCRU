@@ -35,7 +35,6 @@ public class Shield : MonoBehaviour
         render = transform.GetChild(1).GetComponent<Renderer>();
         cellScript = transform.GetComponent<BacteriaCell>();
     }
-    
 
     /***** SHIELD SIZE FUNCTIONS *****/
 
@@ -129,6 +128,14 @@ public class Shield : MonoBehaviour
     public void DesactivateShield()
     {
         shield.SetActive(false);
+    }
+
+    public void ActivateShield()
+    {
+        shield.SetActive(true);
+        shield.transform.localScale = new Vector3(0.999f, 0.999f, 0.999f);
+        shieldHealth = 0;
+        shieldMaxHealth = 0;
     }
 
 

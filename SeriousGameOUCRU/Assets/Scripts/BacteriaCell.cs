@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BacteriaCell : Cell
+public class BacteriaCell : Cell, IPooledObject
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -43,9 +43,6 @@ public class BacteriaCell : Cell
     {
         base.Awake();
 
-        // Add to list
-        bacteriaCellList.Add(this);
-
         // TEMP to get initial proba
         if (BacteriaCell.bacteriaCellList.Count == 1)
             GameController.Instance.globalMutationProba = mutationProba;
@@ -54,7 +51,7 @@ public class BacteriaCell : Cell
         rm = GetComponent<RandomMovement>();
 
         // Initialize shield script component
-        shieldScript = transform.GetComponent<Shield>();
+        shieldScript = GetComponent<Shield>();
     }
 
     protected override void Start()
@@ -74,6 +71,16 @@ public class BacteriaCell : Cell
         coll = transform.GetChild(1).GetComponent<Collider>();
 
         sphereCollider = GetComponent<SphereCollider>();
+    }
+
+    public override void OnObjectToSpawn()
+    {
+        base.OnObjectToSpawn();
+
+        bacteriaCellList.Add(this);
+        cellSize = baseCellSize;
+        shieldScript.ActivateShield();
+        rm.SetCanMove(true);
     }
 
     protected override void Update()
@@ -132,13 +139,17 @@ public class BacteriaCell : Cell
 
     protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        GameObject b = base.InstantiateCell(randomPos);
-        
-        // Set shield health if cell is resistant
-        if(isResistant)
-            b.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
+        BacteriaCell bacteriaCellToSpawn = BacteriaCellPool.Instance.Get();
 
-        return b;
+        bacteriaCellToSpawn.ResetOrganismAtPosition(randomPos);
+        bacteriaCellToSpawn.OnObjectToSpawn();
+
+        if (isResistant)
+        {
+            bacteriaCellToSpawn.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
+        }
+
+        return bacteriaCellToSpawn.gameObject;
     }
 
     
@@ -229,6 +240,12 @@ public class BacteriaCell : Cell
         shieldScript.DesactivateShield();
     }
 
+    protected override void DestroyOrganism()
+    {
+        // Put back this bacteria to the pool to be reused
+        BacteriaCellPool.Instance.ReturnToPool(this);
+    }
+
 
     /***** LIST FUNCTIONS *****/
     
@@ -284,4 +301,5 @@ public class BacteriaCell : Cell
     {
         targetCell = null;
     }
+
 }

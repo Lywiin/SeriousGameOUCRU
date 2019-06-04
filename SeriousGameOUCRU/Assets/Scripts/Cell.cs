@@ -25,6 +25,7 @@ public abstract class Cell : Organism
 
     // Size
     protected float cellSize;
+    protected float baseCellSize;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -33,15 +34,18 @@ public abstract class Cell : Organism
     {
         base.Awake();
 
-        // Initialize cell size
-        cellSize = render.bounds.size.x;
+        // Initialize base cell size
+        baseCellSize = render.bounds.size.x;
     }
 
-    protected override void Start()
+    public override void OnObjectToSpawn()
     {
-        base.Start();
-        // To avoid duplication on spawn
+        explosionParticle.gameObject.SetActive(false);
+        isResistant = false;
+
         StartCoroutine(DuplicationRecall());
+
+        base.OnObjectToSpawn();
     }
 
     protected override void Update()
@@ -144,24 +148,17 @@ public abstract class Cell : Organism
     }
 
     // Instantiate cell at given position and add it to gameController list
-    protected virtual GameObject InstantiateCell(Vector3 randomPos)
+    protected abstract GameObject InstantiateCell(Vector3 randomPos);
+
+    public override void ResetOrganismAtPosition(Vector3 position)
     {
-        // Instantiate new cell
-        GameObject b = Instantiate(organismPrefab, randomPos, Quaternion.identity);
-
-        // Get the reference to the cell script
-        Cell duplicatedCell = b.GetComponent<Cell>();
-
-        // Set the health of the new becteria to the health of the parent one
-        duplicatedCell.SetOrganismHealth(health);
+        base.ResetOrganismAtPosition(position);
 
         if (isResistant)
         {
             // If parent is resistant, transmit resistance to the child
-            duplicatedCell.ActivateResistance();
+            ActivateResistance();
         }
-
-        return b;
     }
 
 

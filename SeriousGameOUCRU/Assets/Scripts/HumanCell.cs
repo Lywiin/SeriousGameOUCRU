@@ -18,6 +18,13 @@ public class HumanCell : Cell
         humanCellList.Add(this);
     }
 
+    public override void OnObjectToSpawn()
+    {
+        base.OnObjectToSpawn();
+
+        humanCellList.Add(this);
+        cellSize = baseCellSize;
+    }
 
     /***** HEALTH FUNCTIONS *****/
 
@@ -36,19 +43,26 @@ public class HumanCell : Cell
         base.KillOrganism();
     }
 
+    protected override void DestroyOrganism()
+    {
+        // Put back this bacteria to the pool to be reused
+        HumanCellPool.Instance.ReturnToPool(this);
+    }
+
 
     /***** DUPLICATION FUNCTIONS *****/
 
     protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        GameObject spawnedCell = base.InstantiateCell(randomPos);
-        
-        // If cell is spawned set her parent to the current cell
-        if (spawnedCell)
-        {
-            spawnedCell.transform.parent = transform.parent;
-        }
+        HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
+        humanCellToSpawn.ResetOrganismAtPosition(randomPos);
+        humanCellToSpawn.OnObjectToSpawn();
 
-        return spawnedCell;
+        // Attach the joint to the root rigidbody
+        humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
+        humanCellToSpawn.transform.parent = transform.parent;
+
+
+        return humanCellToSpawn.gameObject;
     }
 }

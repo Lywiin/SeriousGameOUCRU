@@ -10,6 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1682346644580189492}
   - component: {fileID: 3809284939989914336}
+  - component: {fileID: 198987132}
+  - component: {fileID: 198987133}
+  - component: {fileID: 198987134}
+  - component: {fileID: 198987135}
+  - component: {fileID: 198987136}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -54,8 +59,75 @@ MonoBehaviour:
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCellCount: 15
   humanCellGroupCount: 10
-  virusCount: 1
+  virusCount: 2
   cellInitSize: 6
   playerSpawnSafeRadius: 15
   mutationProbaIncrease: 0.00075
   globalMutationProba: 0
+--- !u!114 &198987132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499368337274258843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfa0173db76d6647943ac691e69f4f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  androidDebug: 1
+--- !u!114 &198987133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499368337274258843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aebbb0bc7d5d7645939b17bd80dc1b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &198987134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499368337274258843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06023efe6cf634349917a815b540d210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6064827100080528097, guid: c9f726c94a475f44e9bfd1acc2dfca41, type: 3}
+  initCount: 15
+--- !u!114 &198987135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499368337274258843}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b6a00146caff74682221e67a424e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 3123446490448591262, guid: 45607595a5ad3924298721b05780eadd, type: 3}
+  initCount: 15
+--- !u!114 &198987136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499368337274258843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c0b6fcf8dea6747b8de624645772f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2006459311, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
+  initCount: 2
