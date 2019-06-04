@@ -10,7 +10,10 @@ public class CloseEnnemyUI : MonoBehaviour
 
     [Header("GameObject")]
     public GameObject closeEnnemyIndicatorRoot;
-    public GameObject closeEnnemyIndicatorPrefab;
+    // public GameObject closeEnnemyIndicatorPrefab;
+    public List<GameObject> closeEnnemyIndicatorList;
+    public List<Animator> closeEnnemyIndicatorAnimatorList;
+    public List<Image> closeEnnemyIndicatorImageList;
 
     [Header("Sprite")]
     public Sprite indicatorWindowBacteriaSprite;
@@ -37,12 +40,14 @@ public class CloseEnnemyUI : MonoBehaviour
         } else {
             _instance = this;
         }
+
+
     }
 
-    private void Start()
-    {
-        InitIndicators();
-    }
+    // private void Start()
+    // {
+    //     // InitIndicators();
+    // }
 
     private void Update()
     {
@@ -58,14 +63,14 @@ public class CloseEnnemyUI : MonoBehaviour
     /***** UI FUNCTIONS *****/
 
     // Instantiate indicators according to the desired number and parent them to the root
-    private void InitIndicators()
-    {
-        for (int i = 0; i < CloseEnnemyDetection.Instance.maxDetectedCount; i++)
-        {
-            GameObject indicator = Instantiate(closeEnnemyIndicatorPrefab, closeEnnemyIndicatorRoot.transform.position, Quaternion.identity);
-            indicator.transform.SetParent(closeEnnemyIndicatorRoot.transform);
-        }
-    }
+    // private void InitIndicators()
+    // {
+    //     // for (int i = 0; i < CloseEnnemyDetection.Instance.maxDetectedCount; i++)
+    //     // {
+    //     //     GameObject indicator = Instantiate(closeEnnemyIndicatorPrefab, closeEnnemyIndicatorRoot.transform.position, Quaternion.identity);
+    //     //     indicator.transform.SetParent(closeEnnemyIndicatorRoot.transform);
+    //     // }
+    // }
 
     // Make the root follow player position
     private void UpdateRootPosition()
@@ -80,29 +85,29 @@ public class CloseEnnemyUI : MonoBehaviour
         for (int i = 0; i < CloseEnnemyDetection.Instance.maxDetectedCount; i++)
         {
             // Get indicator at position i
-            GameObject indicator = closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject;
+            // GameObject indicator = closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject;
 
             // If a target exist at this position
             if (CloseEnnemyDetection.Instance.GetClosestEnnemiesList().Count > i)
             {
                 // We fade in the indicator
-                indicator.GetComponent<Animator>().SetBool("FadeIn", true);
+                closeEnnemyIndicatorAnimatorList[i].SetBool("FadeIn", true);
 
                 // We get the corresponding target
                 GameObject ennemy = CloseEnnemyDetection.Instance.GetClosestEnnemiesList()[i];
 
-                UpdateWindowSprite(indicator, ennemy);
+                UpdateWindowSprite(i, ennemy);
                 
                 // Compute new rotation from ennemy and player position
                 Quaternion newRot = Quaternion.LookRotation(ennemy.transform.position - PlayerController.Instance.transform.position);
                 newRot.z = newRot.y * -1; newRot.y = 0f; // Trick to apply the correct UI rotation
 
                 // Apply rotation
-                indicator.transform.rotation = newRot;
+                closeEnnemyIndicatorList[i].transform.rotation = newRot;
             }else
             {
                 // If no target available we fade out the indicator
-                indicator.GetComponent<Animator>().SetBool("FadeIn", false);
+                closeEnnemyIndicatorAnimatorList[i].SetBool("FadeIn", false);
             }
         }
     }
@@ -113,14 +118,14 @@ public class CloseEnnemyUI : MonoBehaviour
     }
 
     // Update window sprite according to target type
-    private void UpdateWindowSprite(GameObject indicator, GameObject ennemy)
+    private void UpdateWindowSprite(int indicatorIndex, GameObject ennemy)
     {
         if (ennemy.GetComponent<Virus>())
         {
-            indicator.transform.GetChild(0).GetComponent<Image>().sprite = indicatorWindowVirusSprite;
+            closeEnnemyIndicatorImageList[indicatorIndex].sprite = indicatorWindowVirusSprite;
         }else
         {
-            indicator.transform.GetChild(0).GetComponent<Image>().sprite = indicatorWindowBacteriaSprite;
+            closeEnnemyIndicatorImageList[indicatorIndex].sprite = indicatorWindowBacteriaSprite;
         }
     }
 }

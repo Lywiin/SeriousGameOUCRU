@@ -21,6 +21,8 @@ public class Projectile : MonoBehaviour
 
     // Components
     protected Rigidbody rb;
+    protected MeshRenderer meshRenderer;
+    private Collider coll;
 
     // Collision
     protected bool canCollide = true;
@@ -36,6 +38,8 @@ public class Projectile : MonoBehaviour
     {
         // Initialize components
         rb = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        coll = GetComponent<Collider>();
 
         // Trigger destroy countdown
         StartCoroutine(KillProjectile());
@@ -85,8 +89,8 @@ public class Projectile : MonoBehaviour
     protected void Hide()
     {
         // Hide the projectile before the explosion
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+        meshRenderer.enabled = false;
+        coll.enabled = false;
 
         // Freeze the projectile before playing the effect
         rb.constraints = RigidbodyConstraints.FreezeAll;

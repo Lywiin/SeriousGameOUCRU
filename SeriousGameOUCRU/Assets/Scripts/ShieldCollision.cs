@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class ShieldCollision : MonoBehaviour
 {
+    /*** PRIVATE VARIABLES ***/
+
+    private BacteriaCell bacteriaCellScript;
+
+
+    /***** MONOBEHAVIOUR FUNCTIONS *****/
+
+    protected void Awake()
+    {
+        // Component init
+        bacteriaCellScript = transform.parent.GetComponent<BacteriaCell>();
+    }
+
+
     // When collide calls parent event
     private void OnCollisionEnter(Collision collision)
     {
         // Handle conjugaison of cell
-        transform.parent.GetComponent<BacteriaCell>().CollisionEvent(collision);
+        bacteriaCellScript.CollisionEvent(collision);
 
+        HumanCell humanCell = collision.gameObject.GetComponent<HumanCell>();
         // Kill cell on touch
-        if (collision.gameObject.GetComponent<HumanCell>())
+        if (humanCell)
         {
-            collision.gameObject.GetComponent<HumanCell>().KillOrganism();
+            humanCell.KillOrganism();
 
             // Notify parent from cell killed
-            transform.parent.GetComponent<BacteriaCell>().UnTargetCell();
+            bacteriaCellScript.UnTargetCell();
         }
     }
 }

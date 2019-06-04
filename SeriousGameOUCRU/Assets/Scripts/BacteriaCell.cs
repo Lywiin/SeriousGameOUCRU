@@ -34,6 +34,8 @@ public class BacteriaCell : Cell
     // Cell attack
     private GameObject targetCell = null;
 
+    private SphereCollider sphereCollider;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -70,6 +72,8 @@ public class BacteriaCell : Cell
         // Initialize components
         rb = transform.GetChild(1).GetComponent<Rigidbody>();
         coll = transform.GetChild(1).GetComponent<Collider>();
+
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     protected override void Update()
@@ -94,7 +98,7 @@ public class BacteriaCell : Cell
         
         
         // Update colldier size
-        GetComponent<SphereCollider>().radius = cellSize / 2 + detectionRange;
+        sphereCollider.radius = cellSize / 2 + detectionRange;
     }
 
 
@@ -202,6 +206,9 @@ public class BacteriaCell : Cell
     // Called when the cell has to die
     public override void KillOrganism()
     {
+        // Prevent player to keep targeting bacteria
+        PlayerController.Instance.ResetTarget();
+
         // Stop moving
         rm.SetCanMove(false);
 

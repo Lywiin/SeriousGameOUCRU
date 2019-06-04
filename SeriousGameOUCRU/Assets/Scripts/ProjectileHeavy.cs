@@ -34,7 +34,7 @@ public class ProjectileHeavy : Projectile
         yield return new WaitForSeconds(lifeTime);
 
         // Only explode if still enabled
-        if (transform.GetComponent<MeshRenderer>().enabled)
+        if (meshRenderer.enabled)
         {
             Hide();
             Explode();

@@ -28,6 +28,7 @@ public class Virus : Organism
     // Attack
     private GameObject target;
     private bool canInfect = false;
+    private float virusSize;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -46,6 +47,8 @@ public class Virus : Organism
 
         // Cannot infect at spawn
         StartCoroutine(InfectionRecall());
+
+        virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
     private void FixedUpdate()
@@ -74,7 +77,7 @@ public class Virus : Organism
         moveDirection = target.transform.position - transform.position;
 
         // Keep a small distance to stick to the cell without pushing it
-        if (moveDirection.magnitude > GetComponentInChildren<Renderer>().bounds.size.x + 0.1f)
+        if (moveDirection.magnitude > virusSize + 0.1f)
         {
             // Normalize direction before applying force to keep force constant
             moveDirection.Normalize();
@@ -125,6 +128,9 @@ public class Virus : Organism
 
     public override void KillOrganism()
     {
+        // Prevent player to keep targeting virus
+        PlayerController.Instance.ResetTarget();
+
         // Remove from list
         RemoveFromList();
 

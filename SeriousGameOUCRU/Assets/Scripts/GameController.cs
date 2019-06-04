@@ -43,6 +43,11 @@ public class GameController : MonoBehaviour
     // Keep track of number of killed bacteria cell
     private int bacteriaCellKillCount = 0;
 
+    // Size
+    private float bacteriaCellSize;
+    private float virusSize;
+
+
     /*** INSTANCE ***/
 
     private static GameController _instance;
@@ -59,6 +64,9 @@ public class GameController : MonoBehaviour
         } else {
             _instance = this;
         }
+
+        bacteriaCellSize = bacteriaCell.GetComponentInChildren<Renderer>().bounds.size.x;
+        virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
 
@@ -105,9 +113,8 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < bacteriaCellCount; i++)
         {
             yield return new WaitForEndOfFrame();
-            SpawnObjectAtValidPos(bacteriaCell);
+            SpawnObjectAtValidPos(bacteriaCell, bacteriaCellSize);
         }
-
         // When all bacteria are spawn we spawn the human cells
         StartCoroutine(DelaySpawnVirus());
     }
@@ -118,7 +125,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < virusCount; i++)
         {
             yield return new WaitForEndOfFrame();
-            SpawnObjectAtValidPos(virus);
+            SpawnObjectAtValidPos(virus, virusSize);
         }
 
         // When all bacteria are spawn we spawn the human cells
@@ -136,10 +143,10 @@ public class GameController : MonoBehaviour
     }
 
     //Spawn a new object at a computed valid position
-    private void SpawnObjectAtValidPos(GameObject obj)
+    private void SpawnObjectAtValidPos(GameObject obj, float objSize)
     {
         // Get a valid position by using object size as parameter
-        Vector3 validPos = GetAValidPos(obj.GetComponentInChildren<Renderer>().bounds.size.x);
+        Vector3 validPos = GetAValidPos(objSize);
         
         //Instantiate cell at position and add it to the list
         GameObject b = Instantiate(obj, validPos, Quaternion.identity);
@@ -167,7 +174,7 @@ public class GameController : MonoBehaviour
             GameObject cell = Instantiate(humanCell, validPos + posOffset, Quaternion.identity);
 
             // Attach the joint to the root rigidbody
-            cell.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();
+            cell.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();    // A OPTIMISER
 
             cell.transform.parent = root.transform;
         }

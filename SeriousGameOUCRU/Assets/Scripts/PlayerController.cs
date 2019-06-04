@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         isFiring = true;
         keepDistance = true;
         fireTarget = target;
-
+        
         do
         {
             // Keep the player rotated toward the target
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
         // Keep firing until cell die or get out of range
-        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected && fireTarget.GetComponent<Collider>().enabled);
+        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
         isFiring = false;
 
@@ -347,6 +347,11 @@ public class PlayerController : MonoBehaviour
     public bool IsHeavyWeaponSelected()
     {
         return heavyWeaponSelected;
+    }
+
+    public void ResetTarget()
+    {
+        fireTarget = null;
     }
 }
 

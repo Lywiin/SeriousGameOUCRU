@@ -44,11 +44,6 @@ public class CloseEnnemyDetection : MonoBehaviour
         detectionRadius = defaultDetectionRadius;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         TryToDetectClosestEnnemy(); 
