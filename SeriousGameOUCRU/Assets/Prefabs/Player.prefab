@@ -166,7 +166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4070687907954855923}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
@@ -282,7 +282,7 @@ PrefabInstance:
     - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}

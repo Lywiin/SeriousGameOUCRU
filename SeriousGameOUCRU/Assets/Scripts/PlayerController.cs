@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // Player dies on collision with cell
-        if (!dead && collision.gameObject.CompareTag("Targetable"))
+        if (!dead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
             dead = true;
             GameController.Instance.GameOver();

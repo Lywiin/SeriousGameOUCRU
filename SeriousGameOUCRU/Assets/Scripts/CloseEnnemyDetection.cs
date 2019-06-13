@@ -103,8 +103,9 @@ public class CloseEnnemyDetection : MonoBehaviour
                 Vector3 distance = c.ClosestPointOnBounds(transform.position) - transform.position;
                 float sqrDistance = distance.sqrMagnitude;
 
-                // Add the object to the dictonnary
-                detectedEnnemiesDictionnary.Add(sqrDistance, c.gameObject);
+                // Add the object to the dictonnary if not already in
+                if (!detectedEnnemiesDictionnary.ContainsKey(sqrDistance))
+                    detectedEnnemiesDictionnary.Add(sqrDistance, c.gameObject);
             }
         }
 

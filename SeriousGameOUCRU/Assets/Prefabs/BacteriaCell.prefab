@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6568450086994488695}
   - component: {fileID: 4684963551950820430}
   - component: {fileID: 5573260298962930565}
-  m_Layer: 13
+  - component: {fileID: 4336370591249996637}
+  m_Layer: 15
   m_Name: BacteriaCellBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,6 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!135 &4336370591249996637
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2412510235909780583}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3506887909704676389
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,10 +102,7 @@ GameObject:
   - component: {fileID: 586004630274944604}
   - component: {fileID: 1365131244252849316}
   - component: {fileID: 209964329630733526}
-  - component: {fileID: 3662150953194597613}
-  - component: {fileID: 1319783009016777816}
-  - component: {fileID: 6156629756879889216}
-  - component: {fileID: 6008063279987155023}
+  - component: {fileID: 4544386017632229013}
   m_Layer: 13
   m_Name: Shield
   m_TagString: Targetable
@@ -158,23 +169,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &3662150953194597613
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506887909704676389}
-  serializedVersion: 2
-  m_Mass: 80
-  m_Drag: 1
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
---- !u!135 &1319783009016777816
+--- !u!135 &4544386017632229013
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,32 +182,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6156629756879889216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506887909704676389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!138 &6008063279987155023
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506887909704676389}
-  m_ConnectedBody: {fileID: 3723424128859727507}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1 &6375226934681378963
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,11 +191,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7935908544077451904}
-  - component: {fileID: 3723424128859727507}
   - component: {fileID: 3123446490448591262}
   - component: {fileID: 3123446490448591263}
   - component: {fileID: 923662352682401394}
-  - component: {fileID: 1398050123447265884}
+  - component: {fileID: 3723424128859727507}
+  - component: {fileID: 4159586954044232312}
   m_Layer: 13
   m_Name: BacteriaCell
   m_TagString: Untagged
@@ -251,22 +220,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &3723424128859727507
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!114 &3123446490448591262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oneShieldHealth: 20
   shieldGrowthSpeed: 3
+  shield: {fileID: 3506887909704676389}
 --- !u!114 &923662352682401394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,19 +277,34 @@ MonoBehaviour:
   moveForce: 200
   moveRate: 2
   moveRateVariance: 1
---- !u!135 &1398050123447265884
-SphereCollider:
+--- !u!54 &3723424128859727507
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6375226934681378963}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mass: 80
+  m_Drag: 1
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!114 &4159586954044232312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1009397554882258751
 PrefabInstance:
   m_ObjectHideFlags: 0

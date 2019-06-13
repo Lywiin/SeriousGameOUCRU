@@ -14,7 +14,7 @@ public class ShieldCollision : MonoBehaviour
     protected void Awake()
     {
         // Component init
-        bacteriaCellScript = transform.parent.GetComponent<BacteriaCell>();
+        bacteriaCellScript = GetComponent<BacteriaCell>();
     }
 
 

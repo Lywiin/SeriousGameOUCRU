@@ -40,6 +40,14 @@ public class Virus : Organism
         virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
+    protected override void InitComponents()
+    {
+        base.InitComponents();
+
+        // Initialize components
+        coll = transform.GetChild(1).GetComponent<SphereCollider>();
+    }
+
     public override void OnObjectToSpawn()
     {
         base.OnObjectToSpawn();

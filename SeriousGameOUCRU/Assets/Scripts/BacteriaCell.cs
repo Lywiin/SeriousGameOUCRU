@@ -34,7 +34,7 @@ public class BacteriaCell : Cell, IPooledObject
     // Cell attack
     private GameObject targetCell = null;
 
-    private SphereCollider sphereCollider;
+    private SphereCollider detectionCollider;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -67,10 +67,8 @@ public class BacteriaCell : Cell, IPooledObject
         base.InitComponents();
 
         // Initialize components
-        rb = transform.GetChild(1).GetComponent<Rigidbody>();
-        coll = transform.GetChild(1).GetComponent<Collider>();
-
-        sphereCollider = GetComponent<SphereCollider>();
+        detectionCollider = transform.GetChild(0).GetComponent<SphereCollider>();
+        coll = transform.GetChild(1).GetComponent<SphereCollider>();
     }
 
     public override void OnObjectToSpawn()
@@ -105,7 +103,7 @@ public class BacteriaCell : Cell, IPooledObject
         
         
         // Update colldier size
-        sphereCollider.radius = cellSize / 2 + detectionRange;
+        detectionCollider.radius = cellSize / 2 + detectionRange;
     }
 
 

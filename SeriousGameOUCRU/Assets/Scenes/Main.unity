@@ -1752,7 +1752,9 @@ PrefabInstance:
       propertyPath: m_ReflectionProbeUsage
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3035086511153933160, guid: 619a71225108acf48a257bae33700191, type: 3}
+    - {fileID: 246455728, guid: 619a71225108acf48a257bae33700191, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 619a71225108acf48a257bae33700191, type: 3}
 --- !u!1 &1854289426
 GameObject:
@@ -2267,6 +2269,33 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1691786199}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: bacteriaCellCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: humanCellGroupCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: virusCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
+      propertyPath: initCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 198987135, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
+      propertyPath: initCount
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 198987136, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
+      propertyPath: initCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
 --- !u!1001 &2008463050215810882

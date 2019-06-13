@@ -10,13 +10,14 @@ public class Shield : MonoBehaviour
     public int oneShieldHealth = 20;
     public float shieldGrowthSpeed = 2f;
 
-    private GameObject shield;
+    public GameObject shield;
 
 
     /*** PRIVATE VARIABLES ***/
 
     // Components
     private BacteriaCell cellScript;
+    private SphereCollider shieldColl;
 
     // Health
     private int shieldHealth = 0;
@@ -31,8 +32,8 @@ public class Shield : MonoBehaviour
     private void Awake()
     {
         // Initialize components
-        shield = transform.GetChild(1).gameObject;
-        render = transform.GetChild(1).GetComponent<Renderer>();
+        shieldColl = shield.GetComponent<SphereCollider>();
+        render = shield.GetComponent<Renderer>();
         cellScript = transform.GetComponent<BacteriaCell>();
     }
 
