@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 8319302657806582398}
   - component: {fileID: 8319302657806582399}
   - component: {fileID: 5851046415775379234}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: VirusBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
 
     // Size
     private float bacteriaCellSize;
+    private float humanCellSize;
     private float virusSize;
 
 
@@ -66,6 +67,7 @@ public class GameController : MonoBehaviour
         }
 
         bacteriaCellSize = bacteriaCell.GetComponentInChildren<Renderer>().bounds.size.x;
+        humanCellSize = humanCell.GetComponentInChildren<Renderer>().bounds.size.x;
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
     }
 
@@ -113,7 +115,8 @@ public class GameController : MonoBehaviour
         // Spawn some cells
         SpawnBacteriaCell();
         SpawnVirus();
-        SpawnHumanCellGroup();
+        // SpawnHumanCellGroup();
+        SpawnHumanCell();
     }
 
     private void SpawnBacteriaCell()
@@ -128,6 +131,23 @@ public class GameController : MonoBehaviour
             BacteriaCell bacteriaCellToSpawn = BacteriaCellPool.Instance.Get();
             bacteriaCellToSpawn.ResetOrganismAtPosition(validPos);
             bacteriaCellToSpawn.OnObjectToSpawn();
+        }
+        // When all bacteria are spawn we spawn the virus
+        // StartCoroutine(DelaySpawnVirus());
+    }
+
+    private void SpawnHumanCell()
+    {        
+        // Spawn some bacteria cells
+        for (int i = 0; i < humanCellGroupCount; i++)
+        {
+            // Get a valid position by using object size as parameter
+            Vector3 validPos = GetAValidPos(humanCellSize);
+
+            // Get a human cell from the pool and activate it at the right position
+            HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
+            humanCellToSpawn.ResetOrganismAtPosition(validPos);
+            humanCellToSpawn.OnObjectToSpawn();
         }
         // When all bacteria are spawn we spawn the virus
         // StartCoroutine(DelaySpawnVirus());
@@ -150,43 +170,44 @@ public class GameController : MonoBehaviour
         // StartCoroutine(DelaySpawnHumanCellGroup());
     }
 
-    private void SpawnHumanCellGroup()
-    {
-        // Spawn some human cell groups
-        for (int i = 0; i < humanCellGroupCount; i++)
-        {
-            // We take a larger space since the group will be larger than a normal cell
-            Vector3 validPos = GetAValidPos(cellInitSize * 3);
 
-            // Spawn the root of the group
-            GameObject root = Instantiate(humanCellGroup, validPos, Quaternion.identity);
+    // private void SpawnHumanCellGroup()
+    // {
+    //     // Spawn some human cell groups
+    //     for (int i = 0; i < humanCellGroupCount; i++)
+    //     {
+    //         // We take a larger space since the group will be larger than a normal cell
+    //         Vector3 validPos = GetAValidPos(cellInitSize * 3);
 
-            // Compute a random number of cell to spawn
-            int nbCellToSpawn = Random.Range(1, 3);
+    //         // Spawn the root of the group
+    //         GameObject root = Instantiate(humanCellGroup, validPos, Quaternion.identity);
 
-            SpawnHumanCell(nbCellToSpawn, validPos, root);
-        }
-    }
+    //         // Compute a random number of cell to spawn
+    //         int nbCellToSpawn = Random.Range(1, 3);
 
-    private void SpawnHumanCell(int count, Vector3 parentPos, GameObject root)
-    {
-        // Spawn each cell and attach them to the root
-        for (int i = 0; i < count; i++)
-        {
-            // Compute an offset to spawn cell
-            Vector3 posOffset = new Vector3(Random.Range(-4, 4), 0f, Random.Range(-4, 4));
+    //         SpawnHumanCell(nbCellToSpawn, validPos, root);
+    //     }
+    // }
 
-            // Spawn cell
-            HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
-            humanCellToSpawn.ResetOrganismAtPosition(parentPos + posOffset);
-            humanCellToSpawn.OnObjectToSpawn();
+    // private void SpawnHumanCell(int count, Vector3 parentPos, GameObject root)
+    // {
+    //     // Spawn each cell and attach them to the root
+    //     for (int i = 0; i < count; i++)
+    //     {
+    //         // Compute an offset to spawn cell
+    //         Vector3 posOffset = new Vector3(Random.Range(-4, 4), 0f, Random.Range(-4, 4));
 
-            // Attach the joint to the root rigidbody
-            humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();    // A OPTIMISER
+    //         // Spawn cell
+    //         HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
+    //         humanCellToSpawn.ResetOrganismAtPosition(parentPos + posOffset);
+    //         humanCellToSpawn.OnObjectToSpawn();
 
-            humanCellToSpawn.transform.parent = root.transform;
-        }
-    }
+    //         // Attach the joint to the root rigidbody
+    //         humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();    // A OPTIMISER
+
+    //         humanCellToSpawn.transform.parent = root.transform;
+    //     }
+    // }
 
     //Spawn a new object at a computed valid position
     private void SpawnObjectAtValidPos(GameObject obj, float objSize)

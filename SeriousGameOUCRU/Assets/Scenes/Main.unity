@@ -1534,7 +1534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1740463813
 Transform:
   m_ObjectHideFlags: 0
@@ -2272,12 +2272,12 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellGroupCount
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
@@ -2286,7 +2286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198987135, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount

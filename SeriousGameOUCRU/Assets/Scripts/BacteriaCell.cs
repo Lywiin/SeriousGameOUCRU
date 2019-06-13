@@ -12,7 +12,6 @@ public class BacteriaCell : Cell, IPooledObject
 
     [Header("Transformation")]
     public float transformationProbability = 0.5f;
-    public GameObject resistantGene;
 
     [Header("Attack")]
     public float rushForce = 10f;
@@ -67,8 +66,8 @@ public class BacteriaCell : Cell, IPooledObject
         base.InitComponents();
 
         // Initialize components
-        detectionCollider = transform.GetChild(0).GetComponent<SphereCollider>();
         coll = transform.GetChild(1).GetComponent<SphereCollider>();
+        detectionCollider = transform.GetChild(2).GetComponent<SphereCollider>();
     }
 
     public override void OnObjectToSpawn()
@@ -299,5 +298,4 @@ public class BacteriaCell : Cell, IPooledObject
     {
         targetCell = null;
     }
-
 }

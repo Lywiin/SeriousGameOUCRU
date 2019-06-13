@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 6568450086994488695}
   - component: {fileID: 4684963551950820430}
   - component: {fileID: 5573260298962930565}
-  - component: {fileID: 4336370591249996637}
-  m_Layer: 15
+  - component: {fileID: 13405760064764762}
+  m_Layer: 13
   m_Name: BacteriaCellBody
-  m_TagString: Untagged
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7935908544077451904}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4684963551950820430
 MeshFilter:
@@ -78,7 +78,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4336370591249996637
+--- !u!135 &13405760064764762
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,10 +86,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2412510235909780583}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3506887909704676389
 GameObject:
@@ -102,10 +102,9 @@ GameObject:
   - component: {fileID: 586004630274944604}
   - component: {fileID: 1365131244252849316}
   - component: {fileID: 209964329630733526}
-  - component: {fileID: 4544386017632229013}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: Shield
-  m_TagString: Targetable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,11 +117,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3506887909704676389}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7935908544077451904}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1365131244252849316
 MeshFilter:
@@ -169,18 +168,49 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &4544386017632229013
+--- !u!1 &5294798126824594042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8017665434781929898}
+  - component: {fileID: 11262179848860427}
+  m_Layer: 15
+  m_Name: BacteriaDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8017665434781929898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5294798126824594042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7935908544077451904}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &11262179848860427
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3506887909704676389}
+  m_GameObject: {fileID: 5294798126824594042}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6375226934681378963
 GameObject:
@@ -214,8 +244,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6568450086994488695}
   - {fileID: 586004630274944604}
+  - {fileID: 6568450086994488695}
+  - {fileID: 8017665434781929898}
   - {fileID: 8034501810951669597}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -242,8 +273,6 @@ MonoBehaviour:
   conjugaisonProba: 0.1
   conjugaisonRecallTime: 5
   transformationProbability: 0.1
-  resistantGene: {fileID: 3885464220961194481, guid: 0d0f29dff988bd949a8778773a6d10f3,
-    type: 3}
   rushForce: 10
   detectionRange: 7
 --- !u!114 &3123446490448591263
@@ -325,7 +354,7 @@ PrefabInstance:
     - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
@@ -365,7 +394,7 @@ PrefabInstance:
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}

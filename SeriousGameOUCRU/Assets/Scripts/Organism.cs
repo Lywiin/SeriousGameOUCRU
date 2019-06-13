@@ -21,7 +21,7 @@ public class Organism : MonoBehaviour, IPooledObject
     // Components
     protected Rigidbody rb;
     protected Renderer render;
-    protected Collider coll;
+    protected SphereCollider coll;
 
     // Health
     protected int health;
@@ -42,7 +42,7 @@ public class Organism : MonoBehaviour, IPooledObject
         // Initialize components
         rb = GetComponent<Rigidbody>();
         render = GetComponentInChildren<Renderer>();
-        coll = GetComponent<Collider>();
+        coll = GetComponent<SphereCollider>();
     }
 
     protected virtual void Start(){}

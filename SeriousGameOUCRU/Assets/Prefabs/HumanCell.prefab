@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 5337183824408205446}
   - component: {fileID: 8769615520535589608}
   - component: {fileID: 6064827100080528097}
-  - component: {fileID: 151935942}
+  - component: {fileID: 6400076902263301859}
   m_Layer: 14
   m_Name: HumanCell
   m_TagString: NotTargetable
@@ -161,29 +161,22 @@ MonoBehaviour:
   duplicationProba: 0.0001
   duplicationRecallTime: 3
   explosionParticle: {fileID: 6555261498260236508}
---- !u!145 &151935942
-SpringJoint:
+--- !u!114 &6400076902263301859
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8769615520535589609}
-  m_ConnectedBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 2
-  m_Spring: 100
-  m_Damper: 0.2
-  m_MinDistance: 4
-  m_MaxDistance: 4
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56591fd8ad94f2a4ca97912e05736209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 8769615520535589608}
+  moveForce: 80
+  moveRate: 2
+  moveRateVariance: 1
 --- !u!1001 &4285921577456814271
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -59,8 +59,8 @@ public class HumanCell : Cell
         humanCellToSpawn.OnObjectToSpawn();
 
         // Attach the joint to the root rigidbody
-        humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
-        humanCellToSpawn.transform.parent = transform.parent;
+        // humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
+        // humanCellToSpawn.transform.parent = transform.parent;
 
 
         return humanCellToSpawn.gameObject;
