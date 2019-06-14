@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7a09d4f19ed9d49a3f0b00823eff8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 80
   maxVelocity: 20
   firePoint: {fileID: 8795248466062620653}
   projectile1: {fileID: 6379939513572856885, guid: 440095619b5297c40bc3d4487bc02019,
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bcea4880f62f643bb05c0f7289afe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDetectedCount: 4
+  maxDetectedCount: 3
 --- !u!136 &940699605011081208
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008463050521556422}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 1.2
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -198,11 +198,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmokeParticle (0)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
@@ -278,11 +273,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SmokeParticle (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}

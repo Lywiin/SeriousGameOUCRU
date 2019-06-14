@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8319302658690431140}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &3926595185708097574
 SphereCollider:
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 5851046415775379234}
   m_Layer: 13
   m_Name: VirusBody
-  m_TagString: Untagged
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8319302658690431140}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8319302657806582398
 MeshFilter:
@@ -164,8 +164,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4508470034031371783}
   - {fileID: 8319302657806582392}
+  - {fileID: 4508470034031371783}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,7 +177,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319302658690431141}
   serializedVersion: 2
-  m_Mass: 80
+  m_Mass: 60
   m_Drag: 1
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -200,7 +200,7 @@ MonoBehaviour:
   organismPrefab: {fileID: 8319302658690431141}
   maxHealth: 300
   disolveSpeed: 0.3
-  moveForce: 60
+  moveForce: 45
   moveChangeAngle: 12
   maxVelocity: 8
   infectionTime: 10

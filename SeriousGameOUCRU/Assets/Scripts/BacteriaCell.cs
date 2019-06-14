@@ -66,8 +66,8 @@ public class BacteriaCell : Cell, IPooledObject
         base.InitComponents();
 
         // Initialize components
-        coll = transform.GetChild(1).GetComponent<SphereCollider>();
-        detectionCollider = transform.GetChild(2).GetComponent<SphereCollider>();
+        coll = transform.GetChild(0).GetComponent<SphereCollider>();
+        detectionCollider = transform.GetChild(1).GetComponent<SphereCollider>();
     }
 
     public override void OnObjectToSpawn()

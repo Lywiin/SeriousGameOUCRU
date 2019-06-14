@@ -2272,17 +2272,17 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellGroupCount
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: virusCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount
@@ -2365,20 +2365,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
+    - target: {fileID: 5735719035098886769, guid: b847c48398719ea4598e2e2094d0508c,
         type: 3}
-      propertyPath: movementJoystick
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4463504062185026261, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: fireJoystick
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3372683678364425218, guid: b847c48398719ea4598e2e2094d0508c,
-        type: 3}
-      propertyPath: maxDetectedCount
-      value: 3
+      propertyPath: m_Constraints
+      value: 116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b847c48398719ea4598e2e2094d0508c, type: 3}

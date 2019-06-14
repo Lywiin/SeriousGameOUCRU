@@ -45,7 +45,7 @@ public class Virus : Organism
         base.InitComponents();
 
         // Initialize components
-        coll = transform.GetChild(1).GetComponent<SphereCollider>();
+        coll = transform.GetChild(0).GetComponent<SphereCollider>();
     }
 
     public override void OnObjectToSpawn()

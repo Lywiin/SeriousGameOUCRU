@@ -120,7 +120,7 @@ public class CloseEnnemyUI : MonoBehaviour
     // Update window sprite according to target type
     private void UpdateWindowSprite(int indicatorIndex, GameObject ennemy)
     {
-        if (ennemy.GetComponent<Virus>())
+        if (ennemy.GetComponentInParent<Virus>())
         {
             closeEnnemyIndicatorImageList[indicatorIndex].sprite = indicatorWindowVirusSprite;
         }else

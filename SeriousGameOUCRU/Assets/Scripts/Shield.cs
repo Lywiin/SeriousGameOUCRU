@@ -34,7 +34,7 @@ public class Shield : MonoBehaviour
         // Initialize components
         render = shield.GetComponent<Renderer>();
         cellScript = transform.GetComponent<BacteriaCell>();
-        bodyCollider = transform.GetChild(1).GetComponent<SphereCollider>();
+        bodyCollider = transform.GetChild(0).GetComponent<SphereCollider>();
     }
 
     /***** SHIELD SIZE FUNCTIONS *****/
@@ -63,7 +63,6 @@ public class Shield : MonoBehaviour
             i += Time.deltaTime * rate;
             shield.transform.localScale = Vector3.Lerp(a, b, i);
             bodyCollider.radius = 3f * shield.transform.localScale.x;
-            Debug.Log(render.bounds.extents.x);
             yield return null;
         }
         cellScript.UpdateCellSize();
