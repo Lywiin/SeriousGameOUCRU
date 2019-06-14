@@ -75,7 +75,7 @@ public class ProjectileHeavy : Projectile
         foreach(Collider c in hitColliders)
         {
             // Antibiotic doesn't damage virus
-            if (!c.gameObject.GetComponent<Virus>())
+            if (!c.gameObject.GetComponentInParent<Virus>())
                 ApplyDamage(c.gameObject);
         }
     }

@@ -98,7 +98,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 112000000, guid: 8886b06979703f442a95ace123b5d331,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2272,17 +2272,17 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellGroupCount
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: virusCount
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount
