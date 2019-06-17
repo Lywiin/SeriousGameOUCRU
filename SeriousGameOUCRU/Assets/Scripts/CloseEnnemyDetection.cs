@@ -19,6 +19,12 @@ public class CloseEnnemyDetection : MonoBehaviour
     private float defaultDetectionRadius;
     private float detectionRadius;
 
+    // Cached variables
+    Collider[] hitColliders;
+    Vector3 screenPoint;
+    Vector3 distanceFromPlayer;
+    List<float> distanceList;
+
 
     /*** INSTANCE ***/
 
@@ -42,6 +48,10 @@ public class CloseEnnemyDetection : MonoBehaviour
 
         defaultDetectionRadius = 50f;
         detectionRadius = defaultDetectionRadius;
+
+        screenPoint = Vector3.zero;
+        distanceFromPlayer = Vector3.zero;
+        distanceList = new List<float>();
     }
 
     void Update()
@@ -59,7 +69,7 @@ public class CloseEnnemyDetection : MonoBehaviour
         detectedEnnemiesDictionnary.Clear();
 
         // Return an array of collided object within detectionRange
-        Collider[] hitColliders = DetectColliders();
+        hitColliders = DetectColliders();
         int ennemiesCount = BacteriaCell.bacteriaCellList.Count + Virus.virusList.Count;
 
         // While we hit lass than maxDectedCount object or we detected all ennemies
@@ -71,7 +81,7 @@ public class CloseEnnemyDetection : MonoBehaviour
         }
 
         // Update list of close targets
-        RefeshClosestTargets(hitColliders);
+        RefeshClosestTargets();
     }
 
     private Collider[] DetectColliders()
@@ -80,14 +90,14 @@ public class CloseEnnemyDetection : MonoBehaviour
     }
 
     // Refresh the list of closest ennemies
-    private void RefeshClosestTargets(Collider[] hitColliders)
+    private void RefeshClosestTargets()
     {
 
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
         {
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
-            Vector3 screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.gameObject.transform.position);
+            screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.gameObject.transform.position);
             bool onScreen = screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
             // If an ennemy is visible we don't want to display anything 
@@ -100,12 +110,11 @@ public class CloseEnnemyDetection : MonoBehaviour
             }else
             {
                 // Compute distance from player
-                Vector3 distance = c.ClosestPointOnBounds(transform.position) - transform.position;
-                float sqrDistance = distance.sqrMagnitude;
+                distanceFromPlayer = c.ClosestPointOnBounds(transform.position) - transform.position;
 
                 // Add the object to the dictonnary if not already in
-                if (!detectedEnnemiesDictionnary.ContainsKey(sqrDistance))
-                    detectedEnnemiesDictionnary.Add(sqrDistance, c.gameObject);
+                if (!detectedEnnemiesDictionnary.ContainsKey(distanceFromPlayer.sqrMagnitude))
+                    detectedEnnemiesDictionnary.Add(distanceFromPlayer.sqrMagnitude, c.gameObject);
             }
         }
 
@@ -120,7 +129,8 @@ public class CloseEnnemyDetection : MonoBehaviour
     private void SortDetectedEnnemiesDictionnary()
     {
         // Convert dictionnary to list and sort it in ascending order
-        List<float> distanceList = detectedEnnemiesDictionnary.Keys.ToList();
+        distanceList.Clear();
+        distanceList = detectedEnnemiesDictionnary.Keys.ToList();
         distanceList.Sort();
 
         // Add gameobject to the final list if still some to add and closestEnnemiesList not full
@@ -139,5 +149,10 @@ public class CloseEnnemyDetection : MonoBehaviour
     public List<GameObject> GetClosestEnnemiesList()
     {
         return closestEnnemiesList;
+    }
+
+    public int GetClosestEnnemiesListCount()
+    {
+        return closestEnnemiesList.Count;
     }
 }

@@ -21,8 +21,8 @@ public class BacteriaCell : Cell, IPooledObject
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
-    // Movement
     private RandomMovement rm;
+    private GenericObjectPool<BacteriaCell> bacteriaCellPool;
 
     // Conjugaison
     private bool canCollide = false;
@@ -56,6 +56,8 @@ public class BacteriaCell : Cell, IPooledObject
     protected override void Start()
     {
         base.Start();
+        
+        bacteriaCellPool = BacteriaCellPool.Instance;
 
         // To avoid conjugaison on spawn
         StartCoroutine(CollidingRecall());
@@ -78,6 +80,8 @@ public class BacteriaCell : Cell, IPooledObject
         cellSize = baseCellSize;
         shieldScript.ActivateShield();
         rm.SetCanMove(true);
+
+        uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
     }
 
     protected override void Update()
@@ -85,7 +89,7 @@ public class BacteriaCell : Cell, IPooledObject
         base.Update();
         
         // Check is game is not currently paused
-        if (!GameController.Instance.IsGamePaused())
+        if (!gameController.IsGamePaused())
         {
             // Attempt to mutate cell every frame
             TryToMutateCell();
@@ -136,14 +140,14 @@ public class BacteriaCell : Cell, IPooledObject
 
     protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        BacteriaCell bacteriaCellToSpawn = BacteriaCellPool.Instance.Get();
+        BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
 
         bacteriaCellToSpawn.ResetOrganismAtPosition(randomPos);
         bacteriaCellToSpawn.OnObjectToSpawn();
 
         if (isResistant)
         {
-            bacteriaCellToSpawn.GetComponent<Shield>().SetShieldHealth(shieldScript.GetShieldHealth());
+            bacteriaCellToSpawn.GetShieldScript().SetShieldHealth(shieldScript.GetShieldHealth());
         }
 
         return bacteriaCellToSpawn.gameObject;
@@ -215,13 +219,13 @@ public class BacteriaCell : Cell, IPooledObject
     public override void KillOrganism()
     {
         // Prevent player to keep targeting bacteria
-        PlayerController.Instance.ResetTarget();
+        playerController.ResetTarget();
 
         // Stop moving
         rm.SetCanMove(false);
 
         // Increase killed count
-        GameController.Instance.IncrementBacteriaCellKillCount();
+        gameController.IncrementBacteriaCellKillCount();
 
         // Remove from list
         RemoveFromList();
@@ -240,7 +244,7 @@ public class BacteriaCell : Cell, IPooledObject
     protected override void DestroyOrganism()
     {
         // Put back this bacteria to the pool to be reused
-        BacteriaCellPool.Instance.ReturnToPool(this);
+        bacteriaCellPool.ReturnToPool(this);
     }
 
 
@@ -249,10 +253,11 @@ public class BacteriaCell : Cell, IPooledObject
     private void RemoveFromList()
     {
         bacteriaCellList.Remove(this);
+        uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
 
         if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {
-            GameController.Instance.PlayerWon();
+            gameController.PlayerWon();
         }
     }
 
@@ -297,5 +302,10 @@ public class BacteriaCell : Cell, IPooledObject
     public void UnTargetCell()
     {
         targetCell = null;
+    }
+
+    public Shield GetShieldScript()
+    {
+        return shieldScript;
     }
 }

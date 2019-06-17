@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private GameController gameController;
+    private MobileUI mobileUI;
+
     // Componenents
     private Rigidbody rb;
 
@@ -80,6 +83,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        gameController = GameController.Instance;
+        mobileUI = MobileUI.Instance;
+
         // Initialize components
         rb = GetComponent<Rigidbody>();
 
@@ -166,7 +172,7 @@ public class PlayerController : MonoBehaviour
 
         // Increase mutation proba if heavy projectile is fired
         if (heavyWeaponSelected)
-            GameController.Instance.IncreaseAllMutationProba();
+            gameController.IncreaseAllMutationProba();
     }
 
     // Spawn the desired projectile
@@ -184,7 +190,7 @@ public class PlayerController : MonoBehaviour
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
 
-        MobileUI.Instance.ToggleCurrentWeaponImage(heavyWeaponSelected);
+        mobileUI.ToggleCurrentWeaponImage(heavyWeaponSelected);
 
         // Switch to heavy weapon
         if (heavyWeaponSelected)
@@ -276,7 +282,7 @@ public class PlayerController : MonoBehaviour
             weaponChangeTimer += Time.deltaTime;
 
             // Update UI slider
-            MobileUI.Instance.FillWeaponChangeSlider(weaponChangeTimer / weaponChangeDuration);
+            mobileUI.FillWeaponChangeSlider(weaponChangeTimer / weaponChangeDuration);
 
             // When timer over weapon changing duration trigger the weapon changing procedure
             if (weaponChangeTimer > weaponChangeDuration)
@@ -293,7 +299,7 @@ public class PlayerController : MonoBehaviour
         weaponChangeTimer = 0f;
 
         // Reset UI slider
-        MobileUI.Instance.FillWeaponChangeSlider(0f);
+        mobileUI.FillWeaponChangeSlider(0f);
     }
 
     // Change max velocity according to input distance from the player
@@ -327,7 +333,7 @@ public class PlayerController : MonoBehaviour
         if (!dead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))
         {
             dead = true;
-            GameController.Instance.GameOver();
+            gameController.GameOver();
         }
     }
 

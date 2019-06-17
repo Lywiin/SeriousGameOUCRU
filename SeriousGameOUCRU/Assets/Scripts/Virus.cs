@@ -20,6 +20,8 @@ public class Virus : Organism
 
     /*** PRIVATE VARIABLES ***/
 
+    private GenericObjectPool<Virus> virusPool;
+
     // Movement
     private Vector3 moveDirection;
     private float currentAngle;
@@ -38,6 +40,13 @@ public class Virus : Organism
         base.Awake();
 
         virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        
+        virusPool = VirusPool.Instance;
     }
 
     protected override void InitComponents()
@@ -144,7 +153,7 @@ public class Virus : Organism
     public override void KillOrganism()
     {
         // Prevent player to keep targeting virus
-        PlayerController.Instance.ResetTarget();
+        playerController.ResetTarget();
 
         // Remove from list
         RemoveFromList();
@@ -155,7 +164,7 @@ public class Virus : Organism
     protected override void DestroyOrganism()
     {
         // Put back this bacteria to the pool to be reused
-        VirusPool.Instance.ReturnToPool(this);
+        virusPool.ReturnToPool(this);
     }
 
 
@@ -198,7 +207,7 @@ public class Virus : Organism
             target.GetComponent<HumanCell>().KillOrganism();
 
             // Instantiate a new virus instead of cell
-            Virus virusToSpawn = VirusPool.Instance.Get();
+            Virus virusToSpawn = virusPool.Get();
             virusToSpawn.ResetOrganismAtPosition(target.transform.position);
             virusToSpawn.OnObjectToSpawn();
 
@@ -226,7 +235,7 @@ public class Virus : Organism
 
         if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {
-            GameController.Instance.PlayerWon();
+            gameController.PlayerWon();
         }
     }
 }

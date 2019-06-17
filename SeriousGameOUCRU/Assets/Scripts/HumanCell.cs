@@ -9,6 +9,11 @@ public class HumanCell : Cell
     public static List<HumanCell> humanCellList = new List<HumanCell>();
 
 
+    /*** PRIVATE VARIABLES ***/
+
+    private GenericObjectPool<HumanCell> humanCellPool;
+
+
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     protected override void Awake()
@@ -18,12 +23,21 @@ public class HumanCell : Cell
         humanCellList.Add(this);
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        
+        humanCellPool = HumanCellPool.Instance;
+    }
+
     public override void OnObjectToSpawn()
     {
         base.OnObjectToSpawn();
 
         humanCellList.Add(this);
         cellSize = baseCellSize;
+
+        uiController.UpdateBacteriaCellCount(humanCellList.Count);
     }
 
     /***** HEALTH FUNCTIONS *****/
@@ -33,11 +47,12 @@ public class HumanCell : Cell
     {
         // Remove from list
         humanCellList.Remove(this);
+        uiController.UpdateBacteriaCellCount(humanCellList.Count);
 
         // If no human cell left it's game over
         if (humanCellList.Count == 0)
         {
-            GameController.Instance.GameOver();
+            gameController.GameOver();
         }
 
         base.KillOrganism();
@@ -46,7 +61,7 @@ public class HumanCell : Cell
     protected override void DestroyOrganism()
     {
         // Put back this bacteria to the pool to be reused
-        HumanCellPool.Instance.ReturnToPool(this);
+        humanCellPool.ReturnToPool(this);
     }
 
 
@@ -54,7 +69,7 @@ public class HumanCell : Cell
 
     protected override GameObject InstantiateCell(Vector3 randomPos)
     {
-        HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
+        HumanCell humanCellToSpawn = humanCellPool.Get();
         humanCellToSpawn.ResetOrganismAtPosition(randomPos);
         humanCellToSpawn.OnObjectToSpawn();
 

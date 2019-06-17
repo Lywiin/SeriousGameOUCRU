@@ -53,7 +53,7 @@ public abstract class Cell : Organism
         base.Update();
         
         // Check is game is not currently paused
-        if (!GameController.Instance.IsGamePaused() && !disolve)
+        if (!gameController.IsGamePaused() && !disolve)
         {
             // Attempt to duplicate cell every frame
             TryToDuplicateCell();
@@ -133,8 +133,8 @@ public abstract class Cell : Organism
         Vector3 spawnPos = transform.position + newTrans.forward * cellSize * 1.5f;
 
         // Clamp spawning position inside the game zone
-        spawnPos.x = Mathf.Clamp(spawnPos.x, -GameController.Instance.gameZoneRadius.x, GameController.Instance.gameZoneRadius.x);
-        spawnPos.z = Mathf.Clamp(spawnPos.z, -GameController.Instance.gameZoneRadius.y, GameController.Instance.gameZoneRadius.y);
+        spawnPos.x = Mathf.Clamp(spawnPos.x, -gameController.gameZoneRadius.x, gameController.gameZoneRadius.x);
+        spawnPos.z = Mathf.Clamp(spawnPos.z, -gameController.gameZoneRadius.y, gameController.gameZoneRadius.y);
 
         return spawnPos;
     }

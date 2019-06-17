@@ -24,6 +24,8 @@ public class LevelChanger : MonoBehaviour
 
     public void FadeToLevel(int index)
     {
+        Debug.Log("LEVEL CHANGER");
+        animator.enabled = true;
         levelToLoad = index;
         animator.SetTrigger("FadeOut");
     }
@@ -40,11 +42,12 @@ public class LevelChanger : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             PlayerController.Instance.SetCanMove(true);
-//            Minimap.Instance.ShowMinimap();
 
             // Only start tutorial if activated
             if (PlayerPrefs.GetInt("Tutorial") == 1)
                 Tutorial.Instance.StartTutorial();
+            else
+                Tutorial.Instance.ToggleAnimator();
         }
     }
 }

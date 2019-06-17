@@ -28,6 +28,10 @@ public class CameraController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private GameController gameController;
+    private PlayerController playerController;
+    private InputController inputController;
+
     private Plane plane;
     private Camera cam;
     private float cameraBaseSize;
@@ -67,12 +71,16 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
+        gameController = GameController.Instance;
+        playerController = PlayerController.Instance;
+        inputController = InputController.Instance;
+
         plane = new Plane(Vector3.up, 0);
         cam = transform.GetComponentInChildren<Camera>();
         cameraBaseSize = cam.fieldOfView;
 
         // Initialize zone where the camera can go
-        cameraZone = GameController.Instance.gameZoneRadius - new Vector2(15f, 5f);
+        cameraZone = gameController.gameZoneRadius - new Vector2(15f, 5f);
     }
 
     void FixedUpdate()
@@ -97,7 +105,7 @@ public class CameraController : MonoBehaviour
             // Get look at offset
             ComputeLookAtOffset();
 
-            if (GameController.Instance.CanPlayerMoveCamera())
+            if (gameController.CanPlayerMoveCamera())
             {
                 // Handle the zoom of the camera
                 ZoomCamera(lookAtOffset);
@@ -127,7 +135,7 @@ public class CameraController : MonoBehaviour
             Vector3 finalPosition = smoothedPosition + lookAtOffset + projectileOffset;
 
             // If player has completed tutorial can move camera everywhere
-            if (GameController.Instance.CanPlayerMoveCamera())
+            if (gameController.CanPlayerMoveCamera())
             {
                 // Clamp the final position in the camera zone
                 transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
@@ -146,9 +154,9 @@ public class CameraController : MonoBehaviour
         Vector3 offsetDirection = Vector3.zero;
 
         // Compute offsetDirection if we are on mobile and touch the screen or anything else
-        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android && !InputController.Instance.androidDebug))
+        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android && !inputController.androidDebug))
         {
-            offsetDirection = PlayerController.Instance.GetMoveDirection() * lookAtFactor;
+            offsetDirection = playerController.GetMoveDirection() * lookAtFactor;
         }
 
         // Smooth the offset to be applied

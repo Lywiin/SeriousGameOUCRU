@@ -28,6 +28,11 @@ public class GameController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private UIController uiController;
+    private GenericObjectPool<BacteriaCell> bacteriaCellPool;
+    private GenericObjectPool<HumanCell> humanCellPool;
+    private GenericObjectPool<Virus> virusPool;
+
     // Ingame pause
     private bool isPaused = false;
 
@@ -69,17 +74,20 @@ public class GameController : MonoBehaviour
         bacteriaCellSize = bacteriaCell.GetComponentInChildren<Renderer>().bounds.size.x;
         humanCellSize = humanCell.GetComponentInChildren<Renderer>().bounds.size.x;
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
+
+        uiController = UIController.Instance;
     }
 
 
     void Start()
     {
+        bacteriaCellPool = BacteriaCellPool.Instance;
+        humanCellPool = HumanCellPool.Instance;
+        virusPool = VirusPool.Instance;
+
         // Initialize cell lists
         HumanCell.humanCellList.Clear();
         BacteriaCell.bacteriaCellList.Clear();
-
-        // // Setup the game and spawn cells
-        // SetupGame();
     }
 
     void Update()
@@ -103,7 +111,7 @@ public class GameController : MonoBehaviour
     public void SetupGame()
     {
         // Fade info UI in
-        UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
+        uiController.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
 
         StartCoroutine(StartSpawningWithDelay());
     }
@@ -115,7 +123,6 @@ public class GameController : MonoBehaviour
         // Spawn some cells
         SpawnBacteriaCell();
         SpawnVirus();
-        // SpawnHumanCellGroup();
         SpawnHumanCell();
     }
 
@@ -128,12 +135,10 @@ public class GameController : MonoBehaviour
             Vector3 validPos = GetAValidPos(bacteriaCellSize);
 
             // Get a bacteria from the pool and activate it at the right position
-            BacteriaCell bacteriaCellToSpawn = BacteriaCellPool.Instance.Get();
+            BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
             bacteriaCellToSpawn.ResetOrganismAtPosition(validPos);
             bacteriaCellToSpawn.OnObjectToSpawn();
         }
-        // When all bacteria are spawn we spawn the virus
-        // StartCoroutine(DelaySpawnVirus());
     }
 
     private void SpawnHumanCell()
@@ -145,12 +150,10 @@ public class GameController : MonoBehaviour
             Vector3 validPos = GetAValidPos(humanCellSize);
 
             // Get a human cell from the pool and activate it at the right position
-            HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
+            HumanCell humanCellToSpawn = humanCellPool.Get();
             humanCellToSpawn.ResetOrganismAtPosition(validPos);
             humanCellToSpawn.OnObjectToSpawn();
         }
-        // When all bacteria are spawn we spawn the virus
-        // StartCoroutine(DelaySpawnVirus());
     }
 
     private void SpawnVirus()
@@ -161,53 +164,11 @@ public class GameController : MonoBehaviour
             // Get a valid position by using object size as parameter
             Vector3 validPos = GetAValidPos(virusSize);
 
-            Virus virusToSpawn = VirusPool.Instance.Get();
+            Virus virusToSpawn = virusPool.Get();
             virusToSpawn.ResetOrganismAtPosition(validPos);
             virusToSpawn.OnObjectToSpawn();
         }
-
-        // When all bacteria are spawn we spawn the human cells
-        // StartCoroutine(DelaySpawnHumanCellGroup());
     }
-
-
-    // private void SpawnHumanCellGroup()
-    // {
-    //     // Spawn some human cell groups
-    //     for (int i = 0; i < humanCellGroupCount; i++)
-    //     {
-    //         // We take a larger space since the group will be larger than a normal cell
-    //         Vector3 validPos = GetAValidPos(cellInitSize * 3);
-
-    //         // Spawn the root of the group
-    //         GameObject root = Instantiate(humanCellGroup, validPos, Quaternion.identity);
-
-    //         // Compute a random number of cell to spawn
-    //         int nbCellToSpawn = Random.Range(1, 3);
-
-    //         SpawnHumanCell(nbCellToSpawn, validPos, root);
-    //     }
-    // }
-
-    // private void SpawnHumanCell(int count, Vector3 parentPos, GameObject root)
-    // {
-    //     // Spawn each cell and attach them to the root
-    //     for (int i = 0; i < count; i++)
-    //     {
-    //         // Compute an offset to spawn cell
-    //         Vector3 posOffset = new Vector3(Random.Range(-4, 4), 0f, Random.Range(-4, 4));
-
-    //         // Spawn cell
-    //         HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
-    //         humanCellToSpawn.ResetOrganismAtPosition(parentPos + posOffset);
-    //         humanCellToSpawn.OnObjectToSpawn();
-
-    //         // Attach the joint to the root rigidbody
-    //         humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = root.GetComponent<Rigidbody>();    // A OPTIMISER
-
-    //         humanCellToSpawn.transform.parent = root.transform;
-    //     }
-    // }
 
     //Spawn a new object at a computed valid position
     private void SpawnObjectAtValidPos(GameObject obj, float objSize)
@@ -279,7 +240,7 @@ public class GameController : MonoBehaviour
         isPaused = !isPaused;
 
         // Display pause UI
-        UIController.Instance.TogglePauseUI(isPaused);
+        uiController.TogglePauseUI(isPaused);
 
         // Change time scale according to bool
         Time.timeScale = isPaused ? 0 : 1;
@@ -297,9 +258,6 @@ public class GameController : MonoBehaviour
     //Called by player when he dies
     public void GameOver()
     {
-        // Hide the minimap
-//        Minimap.Instance.HideMinimap();
-
         // Hide the indicators
         CloseEnnemyUI.Instance.HideAllIndicators();
 
@@ -307,7 +265,7 @@ public class GameController : MonoBehaviour
         CameraShake.Instance.HeavyScreenShake();
 
         // Update the UI
-        UIController.Instance.TriggerGameOver();
+        uiController.TriggerGameOver();
 
         // Kill the player and restart
         Destroy(player);
@@ -316,14 +274,11 @@ public class GameController : MonoBehaviour
     //Called when the player win
     public void PlayerWon()
     {
-        // Hide the minimap
-//        Minimap.Instance.HideMinimap();
-
         // Hide the indicators
         CloseEnnemyUI.Instance.HideAllIndicators();
 
         // Update the UI and restart
-        UIController.Instance.TriggerVictory();
+        uiController.TriggerVictory();
     }
 
 
@@ -340,6 +295,9 @@ public class GameController : MonoBehaviour
         {
             b.IncreaseMutationProba(mutationProbaIncrease);
         }
+
+        // Update UI slider
+        uiController.UpdateGlobalMutationProba(globalMutationProba);
     }
 
 

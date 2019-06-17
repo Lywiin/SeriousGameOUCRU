@@ -11,6 +11,10 @@ public class InputController : MonoBehaviour
     
     /*** PRIVATE VARIABLES ***/
 
+    private GameController gameController;
+    private PlayerController playerController;
+    private CameraController cameraController;
+
     private float repeatFireTimer = 0f;
 
     private Plane plane;
@@ -40,10 +44,17 @@ public class InputController : MonoBehaviour
         inputDistance = Vector3.zero;
     }
 
+    private void Start()
+    {
+        gameController = GameController.Instance;
+        playerController = PlayerController.Instance;
+        cameraController = CameraController.Instance;
+    }
+
     void Update()
     {
         // If game not paused
-        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance &&  PlayerController.Instance.CanPlayerMove())
+        if (!gameController.IsGamePaused() && playerController &&  playerController.CanPlayerMove())
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
@@ -57,7 +68,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!GameController.Instance.IsGamePaused() && PlayerController.Instance && PlayerController.Instance.CanPlayerMove() && GameController.Instance.CanPlayerMove() /*&& GameController.Instance.CanPlayerMoveCamera()*/)
+        if (!gameController.IsGamePaused() && playerController && playerController.CanPlayerMove() && gameController.CanPlayerMove() /*&& gameController.CanPlayerMoveCamera()*/)
         {
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
@@ -77,7 +88,7 @@ public class InputController : MonoBehaviour
     private Vector3 ScreenPositionToWorldPosition(Vector2 screenPosition)
     {
         // Create a ray from screen point in world
-        Ray ray = CameraController.Instance.GetCamera().ScreenPointToRay(screenPosition);
+        Ray ray = cameraController.GetCamera().ScreenPointToRay(screenPosition);
         float enter = 0.0f;
 
         // Get the point that intersect the plane at height 0
@@ -97,27 +108,27 @@ public class InputController : MonoBehaviour
 
     private void HandleFireDesktop()
     {
-        if (PlayerController.Instance)
+        if (playerController)
         {
             if (Input.GetButton("Fire1"))
             {
-                if (PlayerController.Instance.IsHeavyWeaponSelected())
+                if (playerController.IsHeavyWeaponSelected())
                 {
                     // Switch to light weapon if heavy selected
-                    StartCoroutine(PlayerController.Instance.ChangeWeapon());
+                    StartCoroutine(playerController.ChangeWeapon());
                 }
 
-                PlayerController.Instance.FireDesktop();
+                playerController.FireDesktop();
 
             }else if (Input.GetButton("Fire2"))
             {
-                if (!PlayerController.Instance.IsHeavyWeaponSelected())
+                if (!playerController.IsHeavyWeaponSelected())
                 {
                     // Switch to heavy weapon if light selected
-                    StartCoroutine(PlayerController.Instance.ChangeWeapon());
+                    StartCoroutine(playerController.ChangeWeapon());
                 }
 
-                PlayerController.Instance.FireDesktop();
+                playerController.FireDesktop();
             }
         }
     }
@@ -159,7 +170,7 @@ public class InputController : MonoBehaviour
         
         // If this target exist, start to fire at it
         if (bestTarget)
-            StartCoroutine(PlayerController.Instance.RepeatFire(bestTarget));
+            StartCoroutine(playerController.RepeatFire(bestTarget));
     }
 
     // Return the closest object to the player
@@ -168,7 +179,7 @@ public class InputController : MonoBehaviour
         GameObject bestTarget = null;
         float bestDistance = 999999f;  // Init with a high distance
 
-        Vector3 playerPos = PlayerController.Instance.transform.position;
+        Vector3 playerPos = playerController.transform.position;
 
         // Go through all object to find the closest one
         foreach (Collider c in hitColliders)
@@ -197,7 +208,7 @@ public class InputController : MonoBehaviour
     // Handle player movement and rotation for desktop
     private void HandlePlayerControlsDesktop()
     {
-        if (PlayerController.Instance)
+        if (playerController)
         {
             // Get input axes
             float moveHor = Input.GetAxis("Horizontal");
@@ -207,10 +218,10 @@ public class InputController : MonoBehaviour
             Vector3 moveDir = new Vector3(moveHor, 0.0f, moveVer);
 
             // Move the player in axis direction
-            PlayerController.Instance.MovePlayer(moveDir);
+            playerController.MovePlayer(moveDir);
 
             // Rotate the player toward mouse position
-            PlayerController.Instance.RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition) - PlayerController.Instance.transform.position);
+            playerController.RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition) - playerController.transform.position);
         }
     }
 
@@ -223,20 +234,20 @@ public class InputController : MonoBehaviour
             inputDistance = ComputeInputDistanceFromPlayer(0);
 
             // Compute new max velocity
-            PlayerController.Instance.ComputeCurrentMaxVelocity(inputDistance);
+            playerController.ComputeCurrentMaxVelocity(inputDistance);
 
             // Only move and rotate if player click away from the player
             if (inputDistance.magnitude > 10f)
             {
-                PlayerController.Instance.MovePlayerMobile(inputDistance);
+                playerController.MovePlayerMobile(inputDistance);
             }else
             {
-                PlayerController.Instance.NotMovePlayerMobile();
+                playerController.NotMovePlayerMobile();
             }
         }else
         {
             // Reset player weapon change timer
-            PlayerController.Instance.ResetWeaponChangeTimer();
+            playerController.ResetWeaponChangeTimer();
         }
     }
 
@@ -250,6 +261,6 @@ public class InputController : MonoBehaviour
             touchWorldPosition.y = 0;
 
             // Compute moveDirection
-            return touchWorldPosition - PlayerController.Instance.transform.position;
+            return touchWorldPosition - playerController.transform.position;
     }
 }

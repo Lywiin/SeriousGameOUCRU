@@ -23,6 +23,10 @@ public class Organism : MonoBehaviour, IPooledObject
     protected Renderer render;
     protected SphereCollider coll;
 
+    protected UIController uiController;
+    protected GameController gameController;
+    protected PlayerController playerController;
+
     // Health
     protected int health;
 
@@ -35,6 +39,7 @@ public class Organism : MonoBehaviour, IPooledObject
     protected virtual void Awake()
     {
         InitComponents();
+        uiController = UIController.Instance;
     }
 
     protected virtual void InitComponents()
@@ -45,7 +50,11 @@ public class Organism : MonoBehaviour, IPooledObject
         coll = GetComponent<SphereCollider>();
     }
 
-    protected virtual void Start(){}
+    protected virtual void Start()
+    {
+        gameController = GameController.Instance;
+        playerController = PlayerController.Instance;
+    }
 
     public virtual void OnObjectToSpawn()
     {

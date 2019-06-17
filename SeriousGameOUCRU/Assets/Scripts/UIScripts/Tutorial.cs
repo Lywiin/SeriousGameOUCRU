@@ -17,6 +17,8 @@ public class Tutorial : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private GameController gameController;
+
     // Keep track of what the player did
     private bool playerMoved = false;
     private bool playerMovedCamera = false;
@@ -57,17 +59,19 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
+        gameController = GameController.Instance;
+
         // If tutorial on, reset what player can do
         if (PlayerPrefs.GetInt("Tutorial") == 1)
         {
-            GameController.Instance.BlockPlayerInput();
+            gameController.BlockPlayerInput();
 
             // Hide UI since it's useless for now
             UIController.Instance.ToggleInfoPanel(false);
         }else
         {
             // Start the game if tutorial is off
-            GameController.Instance.SetupGame();
+            gameController.SetupGame();
         }
 
         // Change key texture if detect french language
@@ -80,15 +84,8 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        // TEMP POUR ARTHUR AZERTY
-        if (Input.GetKeyDown("p"))
-        {
-            int newValue = PlayerPrefs.GetInt("IsAzerty") == 0 ? 1 : 0;
-            PlayerPrefs.SetInt("IsAzerty", newValue);
-        }
-
         // Trigger when player move the character
-        if (GameController.Instance.CanPlayerMove() && !playerMoved && 
+        if (gameController.CanPlayerMove() && !playerMoved && 
             (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("z") || Input.GetKeyDown("q")))
         {
             // Add delay before next step
@@ -96,14 +93,14 @@ public class Tutorial : MonoBehaviour
         }
 
         // Trigger when player move the camera
-        else if (GameController.Instance.CanPlayerMoveCamera() && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
+        else if (gameController.CanPlayerMoveCamera() && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
         {
             // Add delay before next step
             StartCoroutine(PlayerMovedCameraCoroutine(0.5f));
         }
 
         // Trigger when player shoot
-        else if (GameController.Instance.CanPlayerShoot() && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
+        else if (gameController.CanPlayerShoot() && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
         {
             // Add delay before next step
             StartCoroutine(PlayerShootedCoroutine(1.0f));
@@ -168,25 +165,25 @@ public class Tutorial : MonoBehaviour
 
     public void OnMoveTextFadeInComplete()
     {
-        if (!GameController.Instance.CanPlayerMove())
+        if (!gameController.CanPlayerMove())
         {
-            GameController.Instance.SetCanPlayerMove(true);
+            gameController.SetCanPlayerMove(true);
         }
     }
 
     public void OnMoveCameraTextFadeInComplete()
     {
-        if (!GameController.Instance.CanPlayerMoveCamera())
+        if (!gameController.CanPlayerMoveCamera())
         {
-            GameController.Instance.SetCanPlayerMoveCamera(true);
+            gameController.SetCanPlayerMoveCamera(true);
         }
     }
 
     public void OnShootTextFadeInComplete()
     {
-        if (!GameController.Instance.CanPlayerShoot())
+        if (!gameController.CanPlayerShoot())
         {
-            GameController.Instance.SetCanPlayerShoot(true);
+            gameController.SetCanPlayerShoot(true);
         }
     }
 
@@ -198,11 +195,16 @@ public class Tutorial : MonoBehaviour
             gameObject.SetActive(false);
 
             // Start the game after
-            GameController.Instance.SetupGame();
+            gameController.SetupGame();
 
             // Display info UI after
             UIController.Instance.ToggleInfoPanel(true);
         }
+    }
+
+    public void ToggleAnimator()
+    {
+        animator.enabled = !animator.enabled;
     }
 
 }
