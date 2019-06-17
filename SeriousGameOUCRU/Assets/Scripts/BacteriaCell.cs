@@ -77,11 +77,11 @@ public class BacteriaCell : Cell, IPooledObject
         base.OnObjectToSpawn();
 
         bacteriaCellList.Add(this);
+        // UIController.Instance.UpdateBacteriaCellCount(bacteriaCellList.Count);
         cellSize = baseCellSize;
         shieldScript.ActivateShield();
         rm.SetCanMove(true);
 
-        uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
     }
 
     protected override void Update()
@@ -253,7 +253,7 @@ public class BacteriaCell : Cell, IPooledObject
     private void RemoveFromList()
     {
         bacteriaCellList.Remove(this);
-        uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
+        // uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
 
         if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {

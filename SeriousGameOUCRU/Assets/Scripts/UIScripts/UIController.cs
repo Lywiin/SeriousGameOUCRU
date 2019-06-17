@@ -61,6 +61,17 @@ public class UIController : MonoBehaviour
         tempTime = Time.time;
     }
 
+    void Update()
+    {
+        // Update cell count text
+        bacteriaCellCountText.text = BacteriaCell.bacteriaCellList.Count.ToString();
+        humanCellCountText.text = HumanCell.humanCellList.Count.ToString();
+
+        // Update global mutation probability slider
+        float globalProba = GameController.Instance.GetGlobalMutationGlobalProba();
+        resistanceSlider.value = globalProba;
+    }
+
 
     /***** DISPLAY FUNCTIONS *****/
 
@@ -113,34 +124,28 @@ public class UIController : MonoBehaviour
         infoPanel.SetActive(b);
     }
 
-    public void UpdateBacteriaCellCount(int count)
-    {
-        bacteriaCellCountText.text = count.ToString();
-    }
+    // public void UpdateBacteriaCellCount(int count)
+    // {
+    //     bacteriaCellCountText.text = count.ToString();
+    // }
 
-    public void UpdateHumanCellCount(int count)
-    {
-        humanCellCountText.text = count.ToString();
-    }
+    // public void UpdateHumanCellCount(int count)
+    // {
+    //     humanCellCountText.text = count.ToString();
+    // }
 
-    public void UpdateGlobalMutationProba(float proba)
-    {
-        resistanceSlider.value = proba;
-    }
+    // public void UpdateGlobalMutationProba(float proba)
+    // {
+    //     resistanceSlider.value = proba;
+    // }
 
 
     /***** ON EVENT FUNCTIONS *****/
 
     public void OnTutorialValueChanged()
     {
-        Debug.Log("TUTORIAL");
         // Change tutorial value in the preferences when player click on toggle
         int newValue = tutorialToggle.isOn ? 1 : 0;
         PlayerPrefs.SetInt("Tutorial", newValue);
-    }
-
-    public void Debuger()
-    {
-        Debug.Log("DEbUG");
     }
 }

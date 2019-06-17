@@ -75,12 +75,12 @@ public class GameController : MonoBehaviour
         humanCellSize = humanCell.GetComponentInChildren<Renderer>().bounds.size.x;
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
 
-        uiController = UIController.Instance;
     }
 
 
     void Start()
     {
+        uiController = UIController.Instance;
         bacteriaCellPool = BacteriaCellPool.Instance;
         humanCellPool = HumanCellPool.Instance;
         virusPool = VirusPool.Instance;
@@ -297,7 +297,7 @@ public class GameController : MonoBehaviour
         }
 
         // Update UI slider
-        uiController.UpdateGlobalMutationProba(globalMutationProba);
+        // uiController.UpdateGlobalMutationProba(globalMutationProba);
     }
 
 

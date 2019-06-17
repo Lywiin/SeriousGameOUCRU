@@ -39,7 +39,6 @@ public class Organism : MonoBehaviour, IPooledObject
     protected virtual void Awake()
     {
         InitComponents();
-        uiController = UIController.Instance;
     }
 
     protected virtual void InitComponents()
@@ -52,6 +51,7 @@ public class Organism : MonoBehaviour, IPooledObject
 
     protected virtual void Start()
     {
+        uiController = UIController.Instance;
         gameController = GameController.Instance;
         playerController = PlayerController.Instance;
     }

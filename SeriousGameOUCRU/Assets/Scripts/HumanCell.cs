@@ -35,9 +35,9 @@ public class HumanCell : Cell
         base.OnObjectToSpawn();
 
         humanCellList.Add(this);
+        // UIController.Instance.UpdateBacteriaCellCount(humanCellList.Count);
         cellSize = baseCellSize;
 
-        uiController.UpdateBacteriaCellCount(humanCellList.Count);
     }
 
     /***** HEALTH FUNCTIONS *****/
@@ -47,7 +47,7 @@ public class HumanCell : Cell
     {
         // Remove from list
         humanCellList.Remove(this);
-        uiController.UpdateBacteriaCellCount(humanCellList.Count);
+        // UIController.Instance.UpdateBacteriaCellCount(humanCellList.Count);
 
         // If no human cell left it's game over
         if (humanCellList.Count == 0)
