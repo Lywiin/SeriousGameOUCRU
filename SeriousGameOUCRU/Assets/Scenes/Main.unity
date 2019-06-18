@@ -387,31 +387,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3359798460489320269, guid: 1f5b45926c3c19747be8529d1954e48b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f5b45926c3c19747be8529d1954e48b, type: 3}
---- !u!1 &679583574 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3359798461158487347, guid: 1f5b45926c3c19747be8529d1954e48b,
-    type: 3}
-  m_PrefabInstance: {fileID: 321951094}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &679583577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679583574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c7b8b0986a29043b67baa0f52802e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &809727123
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -597,24 +574,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1129589665 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4006486505619167042, guid: be906119438bac64da072d67aad23133,
-    type: 3}
-  m_PrefabInstance: {fileID: 4006486504312096300}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1129589666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1129589665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c7b8b0986a29043b67baa0f52802e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1153156050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1133,7 +1092,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 321951094}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679583574}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 809ae98bcaff6d6438dde2e0a121bb9d, type: 3}
@@ -1826,11 +1785,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1777412563}
-    - target: {fileID: 4006486504181102045, guid: be906119438bac64da072d67aad23133,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FadeToLevel
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be906119438bac64da072d67aad23133, type: 3}
 --- !u!1001 &5684494017793925583

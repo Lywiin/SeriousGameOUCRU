@@ -33,7 +33,7 @@ public class BacteriaCell : Cell, IPooledObject
     // Cell attack
     private GameObject targetCell = null;
 
-    private SphereCollider detectionCollider;
+    private CircleCollider2D detectionCollider;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -68,8 +68,8 @@ public class BacteriaCell : Cell, IPooledObject
         base.InitComponents();
 
         // Initialize components
-        coll = transform.GetChild(0).GetComponent<SphereCollider>();
-        detectionCollider = transform.GetChild(1).GetComponent<SphereCollider>();
+        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
+        detectionCollider = transform.GetChild(1).GetComponent<CircleCollider2D>();
     }
 
     public override void OnObjectToSpawn()
@@ -138,7 +138,7 @@ public class BacteriaCell : Cell, IPooledObject
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateCell(Vector3 randomPos)
+    protected override GameObject InstantiateCell(Vector2 randomPos)
     {
         BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
 
@@ -157,7 +157,7 @@ public class BacteriaCell : Cell, IPooledObject
     /***** CONJUGAISON FUNCTIONS *****/
 
     // Collision event called by both cell and shield on collision
-    public void CollisionEvent(Collision collision)
+    public void CollisionEvent(Collision2D collision)
     {
         if (canCollide)
         {
@@ -264,7 +264,7 @@ public class BacteriaCell : Cell, IPooledObject
 
     /***** TRIGGER FUNCTIONS *****/
 
-    private void OnTriggerEnter(Collider c)
+    private void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.GetComponent<HumanCell>() && !targetCell)
         {
@@ -284,14 +284,14 @@ public class BacteriaCell : Cell, IPooledObject
         while (targetCell)
         {
             // Compute movement direction
-            Vector3 moveDirection = targetCell.transform.position - transform.position;
+            Vector2 moveDirection = targetCell.transform.position - transform.position;
             moveDirection.Normalize();
 
             // Move toward target while it's still alive
-            rb.AddForce(moveDirection * rushForce, ForceMode.Impulse);
+            rb.AddForce(moveDirection * rushForce, ForceMode2D.Impulse);
             
             // Wait for next frame to continue
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
 
         // Start to move again if didn't target any other cell

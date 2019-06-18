@@ -23,7 +23,7 @@ public class Virus : Organism
     private GenericObjectPool<Virus> virusPool;
 
     // Movement
-    private Vector3 moveDirection;
+    private Vector2 moveDirection;
     private float currentAngle;
     private Quaternion currentRotation;
 
@@ -39,7 +39,7 @@ public class Virus : Organism
     {
         base.Awake();
 
-        virusSize = GetComponentInChildren<Renderer>().bounds.size.x;
+        virusSize = GetComponentInChildren<SpriteRenderer>().bounds.size.x;
     }
 
     protected override void Start()
@@ -54,7 +54,7 @@ public class Virus : Organism
         base.InitComponents();
 
         // Initialize components
-        coll = transform.GetChild(0).GetComponent<SphereCollider>();
+        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 
     public override void OnObjectToSpawn()
@@ -107,7 +107,7 @@ public class Virus : Organism
             moveDirection.Normalize();
 
             // Add force to move
-            rb.AddForce(moveDirection * moveForce, ForceMode.Impulse);
+            rb.AddForce(moveDirection * moveForce, ForceMode2D.Impulse);
         }
     }
 
@@ -117,7 +117,7 @@ public class Virus : Organism
         SlightlyChangeDirection();
 
         // Add force to move the virus
-        rb.AddForce(moveDirection * moveForce, ForceMode.Impulse);
+        rb.AddForce(moveDirection * moveForce, ForceMode2D.Impulse);
 
         // Clamp the velocity of the virus
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
@@ -129,10 +129,10 @@ public class Virus : Organism
         AddAngle((float)Random.Range(-1, 2) * moveChangeAngle);
 
         // Get new rotation from angle
-        currentRotation = Quaternion.Euler(0f, currentAngle, 0f);
+        currentRotation = Quaternion.Euler(0f, 0f, currentAngle);
 
         // Apply rotation to forward vector to get movement direction
-        moveDirection = currentRotation * Vector3.forward;
+        moveDirection = currentRotation * Vector3.right;
     }
 
     private void AddAngle(float amount)
@@ -170,7 +170,7 @@ public class Virus : Organism
 
     /***** COLLISION FUNCTIONS *****/
 
-    private void OnCollisionEnter(Collision c)
+    private void OnCollisionEnter2D(Collision2D c)
     {
         if (c.gameObject.GetComponent<BacteriaCell>() || c.gameObject.CompareTag("Level"))
         {
@@ -179,7 +179,7 @@ public class Virus : Organism
         }
     }
 
-    private void OnTriggerEnter(Collider c)
+    private void OnTriggerEnter2D(Collider2D c)
     {
         // If doesn't have a target, detect a human cell and can infect the cell
         if (!target && c.GetComponent<HumanCell>() && canInfect)

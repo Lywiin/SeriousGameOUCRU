@@ -67,7 +67,7 @@ public class HumanCell : Cell
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateCell(Vector3 randomPos)
+    protected override GameObject InstantiateCell(Vector2 randomPos)
     {
         HumanCell humanCellToSpawn = humanCellPool.Get();
         humanCellToSpawn.ResetOrganismAtPosition(randomPos);

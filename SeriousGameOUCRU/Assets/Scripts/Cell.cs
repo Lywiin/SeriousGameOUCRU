@@ -103,13 +103,13 @@ public abstract class Cell : Organism
     private bool SpawnDuplicatedCell()
     {
         //Check if there is no object at position before spawing, if yes find a new position
-        Vector3 randomPos = new Vector3();
+        Vector2 randomPos = new Vector2();
         int nbTry = 0;
         while (nbTry < 5) // Arbitrary
         {
             nbTry++;
             randomPos = ComputeRandomSpawnPosAround();
-            Collider[] hitColliders = TestPosition(randomPos);
+            Collider2D[] hitColliders = TestPosition(randomPos);
 
             // If touch something doesn't duplicate (avoid cell spawning on top of each other)
             if (hitColliders.Length > 0)
@@ -124,13 +124,13 @@ public abstract class Cell : Organism
     }
 
     //Compute a random spawn position around cell
-    protected virtual Vector3 ComputeRandomSpawnPosAround()
+    protected virtual Vector2 ComputeRandomSpawnPosAround()
     {
         Transform newTrans = transform;
-        newTrans.Rotate(new Vector3(0.0f, Random.Range(0f, 360f), 0.0f), Space.World);
+        newTrans.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0f, 360f)), Space.World);
 
         // Compute new spawning position
-        Vector3 spawnPos = transform.position + newTrans.forward * cellSize * 1.5f;
+        Vector3 spawnPos = transform.position + newTrans.right * cellSize * 1.2f;
 
         // Clamp spawning position inside the game zone
         spawnPos.x = Mathf.Clamp(spawnPos.x, -gameController.gameZoneRadius.x, gameController.gameZoneRadius.x);
@@ -140,17 +140,17 @@ public abstract class Cell : Organism
     }
 
     // Test an overlap at position with size of the cell
-    protected virtual Collider[] TestPosition(Vector3 randomPos)
+    protected virtual Collider2D[] TestPosition(Vector2 randomPos)
     {
         // Test a sphere slightly bigger to keep some space between bacteria
         // Testing on everything except first layer
-        return Physics.OverlapSphere(randomPos, cellSize / 2 * 1.2f, ~(1 << 1), QueryTriggerInteraction.Ignore);
+        return Physics2D.OverlapCircleAll(randomPos, cellSize / 2 * 1.2f, ~(1 << 1));
     }
 
     // Instantiate cell at given position and add it to gameController list
-    protected abstract GameObject InstantiateCell(Vector3 randomPos);
+    protected abstract GameObject InstantiateCell(Vector2 randomPos);
 
-    public override void ResetOrganismAtPosition(Vector3 position)
+    public override void ResetOrganismAtPosition(Vector2 position)
     {
         base.ResetOrganismAtPosition(position);
 

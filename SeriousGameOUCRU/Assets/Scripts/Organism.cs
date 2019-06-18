@@ -19,9 +19,10 @@ public class Organism : MonoBehaviour, IPooledObject
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
     // Components
-    protected Rigidbody rb;
-    protected Renderer render;
-    protected SphereCollider coll;
+    protected Rigidbody2D rb;
+    // protected Renderer render;
+    protected SpriteRenderer render;
+    protected CircleCollider2D coll;
 
     protected UIController uiController;
     protected GameController gameController;
@@ -44,9 +45,10 @@ public class Organism : MonoBehaviour, IPooledObject
     protected virtual void InitComponents()
     {
         // Initialize components
-        rb = GetComponent<Rigidbody>();
-        render = GetComponentInChildren<Renderer>();
-        coll = GetComponent<SphereCollider>();
+        rb = GetComponent<Rigidbody2D>();
+        // render = GetComponentInChildren<Renderer>();
+        render = GetComponentInChildren<SpriteRenderer>();
+        coll = GetComponent<CircleCollider2D>();
     }
 
     protected virtual void Start()
@@ -61,7 +63,7 @@ public class Organism : MonoBehaviour, IPooledObject
         health = maxHealth;
         disolve = false;
         UpdateHealthColor();
-        render.material.SetFloat("_DisolveValue", 0f);
+        // render.material.SetFloat("_DisolveValue", 0f);
         coll.enabled = true;
         rb.velocity = Vector3.zero;
     }
@@ -88,7 +90,7 @@ public class Organism : MonoBehaviour, IPooledObject
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
-        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
+        // render.material.SetFloat("_LerpValue", (float)health / maxHealth);
     }
 
     // Apply damage to organism, update color and kill it if needed
@@ -107,7 +109,7 @@ public class Organism : MonoBehaviour, IPooledObject
         }
     }
 
-    public virtual void ResetOrganismAtPosition(Vector3 position)
+    public virtual void ResetOrganismAtPosition(Vector2 position)
     {
         transform.position = position;
         transform.rotation = Quaternion.identity;
@@ -127,13 +129,13 @@ public class Organism : MonoBehaviour, IPooledObject
     // Disolve the cell according to deltaTime
     protected virtual void DisolveOverTime()
     {
-        //Compute new value
-        float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
+        // //Compute new value
+        // float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
 
-        // Animate the disolve of the cell
-        render.material.SetFloat("_DisolveValue", newDisolveValue);
+        // // Animate the disolve of the cell
+        // render.material.SetFloat("_DisolveValue", newDisolveValue);
 
-        if (newDisolveValue >= 0.75f)
+        // if (newDisolveValue >= 0.75f)
         {
             // GameObject is destroyed after disolve
             DestroyOrganism();

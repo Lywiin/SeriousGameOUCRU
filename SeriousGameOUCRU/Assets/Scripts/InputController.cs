@@ -69,7 +69,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // if (!gameController.IsGamePaused() && playerController && playerController.CanPlayerMove() && gameController.CanPlayerMove() /*&& gameController.CanPlayerMoveCamera()*/)
+        if (!gameController.IsGamePaused() && playerController /*&& playerController.CanPlayerMove() && gameController.CanPlayerMove() && gameController.CanPlayerMoveCamera()*/)
         {
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)

@@ -7,7 +7,7 @@ public class RandomMovement : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Components")]
-    public Rigidbody rb;
+    public Rigidbody2D rb;
 
     [Header("Movement")]
     public float moveForce = 200f;
@@ -47,7 +47,7 @@ public class RandomMovement : MonoBehaviour
             timeToMove = Time.time + 1 / randomMoveRate;
 
             // Add force to the current cell velocity
-            rb.AddForce(new Vector3(Random.Range(-moveForce, moveForce), 0f, Random.Range(-moveForce, moveForce)), ForceMode.Impulse);
+            rb.AddForce(new Vector2(Random.Range(-moveForce, moveForce), Random.Range(-moveForce, moveForce)), ForceMode2D.Impulse);
         }
     }
 

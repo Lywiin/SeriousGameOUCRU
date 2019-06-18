@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     [Header("Spawn")]
     public Vector2 gameZoneRadius;
     public int bacteriaCellCount;
-    public int humanCellGroupCount;
+    public int humanCellCount;
     public int virusCount;
     public float cellInitSize;
     public float playerSpawnSafeRadius = 15f;
@@ -144,10 +144,10 @@ public class GameController : MonoBehaviour
     private void SpawnHumanCell()
     {        
         // Spawn some bacteria cells
-        for (int i = 0; i < humanCellGroupCount; i++)
+        for (int i = 0; i < humanCellCount; i++)
         {
             // Get a valid position by using object size as parameter
-            Vector3 validPos = GetAValidPos(humanCellSize);
+            Vector2 validPos = GetAValidPos(humanCellSize);
 
             // Get a human cell from the pool and activate it at the right position
             HumanCell humanCellToSpawn = humanCellPool.Get();
@@ -183,20 +183,20 @@ public class GameController : MonoBehaviour
     //Compute a random spawn position from gameZoneRadius and cellSize
     private Vector3 ComputeRandomSpawnPos()
     {
-        Vector3 pos = new Vector3(Random.Range(-gameZoneRadius.x + cellInitSize, gameZoneRadius.x - cellInitSize), 
-                        0.0f, Random.Range(-gameZoneRadius.y + cellInitSize, gameZoneRadius.y - cellInitSize));
+        Vector2 pos = new Vector2(Random.Range(-gameZoneRadius.x + cellInitSize, gameZoneRadius.x - cellInitSize), 
+                                  Random.Range(-gameZoneRadius.y + cellInitSize, gameZoneRadius.y - cellInitSize));
 
         float playerX = player.transform.position.x;
-        float playerZ = player.transform.position.z;
+        float playerY = player.transform.position.y;
 
         // Prevent spawning around the player
         if(pos.x > playerX - playerSpawnSafeRadius && pos.x < playerX + playerSpawnSafeRadius)
         {
             pos.x = playerX + playerSpawnSafeRadius * Mathf.Sign(pos.x - playerX);
         }
-        if(pos.z > playerZ - playerSpawnSafeRadius && pos.z < playerZ + playerSpawnSafeRadius)
+        if(pos.y > playerY - playerSpawnSafeRadius && pos.y < playerY + playerSpawnSafeRadius)
         {
-            pos.z = playerZ + playerSpawnSafeRadius * Mathf.Sign(pos.z - playerZ);
+            pos.y = playerY + playerSpawnSafeRadius * Mathf.Sign(pos.y - playerY);
         }
 
         return pos;
@@ -206,7 +206,7 @@ public class GameController : MonoBehaviour
     private Vector3 GetAValidPos(float radiusSize)
     {
         int nbHit = 0;
-        Vector3 randomPos = new Vector3();
+        Vector2 randomPos = new Vector2();
 
         do
         {
@@ -214,7 +214,7 @@ public class GameController : MonoBehaviour
             randomPos = ComputeRandomSpawnPos();
 
             // Test to see if any object is near that position
-            Collider[] hitColliders = Physics.OverlapSphere(randomPos, radiusSize, ~(1 << 1), QueryTriggerInteraction.Ignore);
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(randomPos, radiusSize, ~(1 << 1));
             nbHit = hitColliders.Length;
 
             // if there is any we try again until we find an empty position
@@ -259,7 +259,7 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         // Hide the indicators
-        CloseEnnemyUI.Instance.HideAllIndicators();
+        // CloseEnnemyUI.Instance.HideAllIndicators();
 
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();

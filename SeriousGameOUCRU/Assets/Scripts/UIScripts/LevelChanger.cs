@@ -24,7 +24,6 @@ public class LevelChanger : MonoBehaviour
 
     public void FadeToLevel(int index)
     {
-        Debug.Log("LEVEL CHANGER");
         animator.enabled = true;
         levelToLoad = index;
         animator.SetTrigger("FadeOut");

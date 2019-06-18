@@ -322,7 +322,7 @@ public class PlayerController : MonoBehaviour
 
     /*** COLLISION FUNCTIONS ***/
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Player dies on collision with cell
         if (!dead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy"))

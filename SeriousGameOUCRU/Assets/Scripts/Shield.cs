@@ -17,14 +17,15 @@ public class Shield : MonoBehaviour
 
     // Components
     private BacteriaCell cellScript;
-    private SphereCollider bodyCollider;
+    private CircleCollider2D bodyCollider;
 
     // Health
     private int shieldHealth = 0;
     private int shieldMaxHealth = 0;
 
     // Disolve
-    protected Renderer render;
+    // protected Renderer render;
+    private SpriteRenderer render;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -32,9 +33,9 @@ public class Shield : MonoBehaviour
     private void Awake()
     {
         // Initialize components
-        render = shield.GetComponent<Renderer>();
+        render = shield.GetComponent<SpriteRenderer>();
         cellScript = transform.GetComponent<BacteriaCell>();
-        bodyCollider = transform.GetChild(0).GetComponent<SphereCollider>();
+        bodyCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 
     /***** SHIELD SIZE FUNCTIONS *****/
@@ -43,10 +44,10 @@ public class Shield : MonoBehaviour
     public void UpdateShieldSize()
     {
         // Compute new scale
-        Vector3 newScale = new Vector3(0.999f, 0.999f, 0.999f);
+        Vector3 newScale = Vector3.one;
         if (shieldHealth > 0)
         {
-            newScale.x = newScale.z = 1.0f + (float)shieldHealth / 100;
+            newScale.x = newScale.y = 1.0f + (float)shieldHealth / 100;
         }
         
         // Animate the scale change
@@ -62,7 +63,7 @@ public class Shield : MonoBehaviour
         {
             i += Time.deltaTime * rate;
             shield.transform.localScale = Vector3.Lerp(a, b, i);
-            bodyCollider.radius = 3f * shield.transform.localScale.x;
+            bodyCollider.radius = 2.56f * shield.transform.localScale.x;
             yield return null;
         }
         cellScript.UpdateCellSize();
@@ -135,8 +136,8 @@ public class Shield : MonoBehaviour
     public void ActivateShield()
     {
         shield.SetActive(true);
-        shield.transform.localScale = new Vector3(0.999f, 0.999f, 0.999f);
-        bodyCollider.radius = 3f;
+        shield.transform.localScale = Vector3.one;
+        bodyCollider.radius = 2.56f;
         shieldHealth = 0;
         shieldMaxHealth = 0;
     }

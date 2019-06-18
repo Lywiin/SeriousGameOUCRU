@@ -19,7 +19,7 @@ public class ShieldCollision : MonoBehaviour
 
 
     // When collide calls parent event
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         // Handle conjugaison of cell
         bacteriaCellScript.CollisionEvent(collision);
