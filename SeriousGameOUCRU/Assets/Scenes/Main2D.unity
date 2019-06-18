@@ -805,7 +805,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 24
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -863,7 +863,7 @@ Transform:
   m_GameObject: {fileID: 477949581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 39491988}
   - {fileID: 1624135908}
@@ -1044,7 +1044,7 @@ Transform:
   m_GameObject: {fileID: 574971778}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 373160141}
   - {fileID: 70180715}
@@ -1496,7 +1496,7 @@ Transform:
   m_GameObject: {fileID: 796550165}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 1403876587}
   - {fileID: 862473711}
@@ -2840,7 +2840,7 @@ MonoBehaviour:
   lookAtSpeed: 1.5
   lookAtFactor: 3.5
   cameraSizingSpeed: 2
-  cameraSizingFactor: 1.1
+  cameraSizingFactor: 1.15
   cameraSmoothSpeed: 6
   projectileFollowFactor: 0.1
   projectileFollowZoomFactor: 2
@@ -2917,7 +2917,7 @@ Transform:
   m_GameObject: {fileID: 1741464449}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 1246144956}
   - {fileID: 177764114}

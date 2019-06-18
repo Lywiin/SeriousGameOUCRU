@@ -42,10 +42,10 @@ public class CameraController : MonoBehaviour
     // Projectile
     private bool followProjectile = false;
     private ProjectileHeavy projectile;
-    private Vector3 projectileOffset = Vector3.zero;
+    private Vector2 projectileOffset = Vector3.zero;
 
     // Look at offset
-    Vector3 lookAtOffset = Vector3.zero;
+    Vector2 lookAtOffset = Vector2.zero;
 
 
     /*** INSTANCE ***/
@@ -75,9 +75,9 @@ public class CameraController : MonoBehaviour
         playerController = PlayerController.Instance;
         inputController = InputController.Instance;
 
-        plane = new Plane(Vector3.up, 0);
+        // plane = new Plane(Vector3.up, 0);
         cam = transform.GetComponentInChildren<Camera>();
-        cameraBaseSize = cam.fieldOfView;
+        cameraBaseSize = cam.orthographicSize;
 
         // Initialize zone where the camera can go
         cameraZone = gameController.gameZoneRadius - new Vector2(15f, 5f);
@@ -108,31 +108,34 @@ public class CameraController : MonoBehaviour
             if (gameController.CanPlayerMoveCamera())
             {
                 // Handle the zoom of the camera
-                ZoomCamera(lookAtOffset);
+                ZoomCamera();
             }
 
             // Add offset if follow projectile
             if (followProjectile)
             {
-                // Compute new offset
-                Vector3 tempFollowOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
+                // // Compute new offset
+                // Vector2 tempFollowOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
 
+                // // Prevent screen exit
+                // tempFollowOffset.y /= 2f;
+
+                // COmpute and affect new offset
+                projectileOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
+                
                 // Prevent screen exit
-                tempFollowOffset.z /= 2f;
-
-                // Affect new offset
-                projectileOffset = tempFollowOffset;
+                projectileOffset /= 2f;
 
                 // Add temporary zoom out
-                cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
+                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
                 
             }else
             {
-                projectileOffset = Vector3.Lerp(projectileOffset, Vector3.zero, projectileFollowReturnSpeed * Time.deltaTime);
+                projectileOffset = Vector2.Lerp(projectileOffset, Vector2.zero, projectileFollowReturnSpeed * Time.deltaTime);
             }
 
             // Set the camera final position to that smooth position plus an offset from player mouse position
-            Vector3 finalPosition = smoothedPosition + lookAtOffset + projectileOffset;
+            Vector3 finalPosition = smoothedPosition + (Vector3)lookAtOffset + (Vector3)projectileOffset;
 
             // If player has completed tutorial can move camera everywhere
             if (gameController.CanPlayerMoveCamera())
@@ -151,7 +154,7 @@ public class CameraController : MonoBehaviour
     private void ComputeLookAtOffset()
     {
         // Init direction for the offset
-        Vector3 offsetDirection = Vector3.zero;
+        Vector2 offsetDirection = Vector2.zero;
 
         // Compute offsetDirection if we are on mobile and touch the screen or anything else
         if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android && !inputController.androidDebug))
@@ -160,11 +163,11 @@ public class CameraController : MonoBehaviour
         }
 
         // Smooth the offset to be applied
-        lookAtOffset = Vector3.Lerp(lookAtOffset, offsetDirection, Time.deltaTime * lookAtSpeed);
+        lookAtOffset = Vector2.Lerp(lookAtOffset, offsetDirection, Time.deltaTime * lookAtSpeed);
     }
 
     // Zoom the camera when player fires
-    private void ZoomCamera(Vector3 lookAtOffset)
+    private void ZoomCamera()
     {
         // Init desired size
         float desiredSize = cameraBaseSize;
@@ -178,7 +181,7 @@ public class CameraController : MonoBehaviour
         }
 
         // Apply the new camera size
-        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
     }
 
     public void FollowProjectile(ProjectileHeavy p)
