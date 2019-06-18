@@ -54,15 +54,15 @@ public class MobileUI : MonoBehaviour
 
     public void FillWeaponChangeSlider(float amount)
     {
-        if (PlayerController.Instance)
-        {
-            weaponChangeSlider.transform.position = CameraController.Instance.GetCamera().WorldToScreenPoint(PlayerController.Instance.gameObject.transform.position);
+        // if (PlayerController.Instance)
+        // {
+        //     weaponChangeSlider.transform.position = CameraController.Instance.GetCamera().WorldToScreenPoint(PlayerController.Instance.gameObject.transform.position);
 
-            // Activate slider if amount different from 0
-            weaponChangeSlider.gameObject.SetActive(amount == 0f? false: true);
+        //     // Activate slider if amount different from 0
+        //     weaponChangeSlider.gameObject.SetActive(amount == 0f? false: true);
 
-            // Update slider amount
-            weaponChangeSlider.fillAmount = amount;
-        }
+        //     // Update slider amount
+        //     weaponChangeSlider.fillAmount = amount;
+        // }
     }
 }

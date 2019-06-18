@@ -6,6 +6,7 @@ public class InputController : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
+    public Camera mainCamera;
     public bool androidDebug = true;
 
     
@@ -51,24 +52,24 @@ public class InputController : MonoBehaviour
         cameraController = CameraController.Instance;
     }
 
-    void Update()
-    {
-        // If game not paused
-        if (!gameController.IsGamePaused() && playerController &&  playerController.CanPlayerMove())
-        {
-            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-                HandleFireMobile();
-            }else
-            {
-                HandleFireDesktop();
-            }
-        }
-    }
+    // void Update()
+    // {
+    //     // If game not paused
+    //     if (!gameController.IsGamePaused() && playerController &&  playerController.CanPlayerMove())
+    //     {
+    //         if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+    //         {
+    //             HandleFireMobile();
+    //         }else
+    //         {
+    //             HandleFireDesktop();
+    //         }
+    //     }
+    // }
 
     void FixedUpdate()
     {
-        if (!gameController.IsGamePaused() && playerController && playerController.CanPlayerMove() && gameController.CanPlayerMove() /*&& gameController.CanPlayerMoveCamera()*/)
+        // if (!gameController.IsGamePaused() && playerController && playerController.CanPlayerMove() && gameController.CanPlayerMove() /*&& gameController.CanPlayerMoveCamera()*/)
         {
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
@@ -84,123 +85,123 @@ public class InputController : MonoBehaviour
 
     /*** UTILITY FUNCTION ***/
 
-    // Convert properly a screen position to a world position with raycasting
-    private Vector3 ScreenPositionToWorldPosition(Vector2 screenPosition)
-    {
-        // Create a ray from screen point in world
-        Ray ray = cameraController.GetCamera().ScreenPointToRay(screenPosition);
-        float enter = 0.0f;
+    // // Convert properly a screen position to a world position with raycasting
+    // private Vector3 ScreenPositionToWorldPosition(Vector2 screenPosition)
+    // {
+    //     // Create a ray from screen point in world
+    //     Ray ray = cameraController.GetCamera().ScreenPointToRay(screenPosition);
+    //     float enter = 0.0f;
 
-        // Get the point that intersect the plane at height 0
-        if (plane.Raycast(ray, out enter))
-        {
-            Vector3 hitPoint = ray.GetPoint(enter);
-            hitPoint.y = 0.0f;
-            return hitPoint;
-        }
+    //     // Get the point that intersect the plane at height 0
+    //     if (plane.Raycast(ray, out enter))
+    //     {
+    //         Vector3 hitPoint = ray.GetPoint(enter);
+    //         hitPoint.y = 0.0f;
+    //         return hitPoint;
+    //     }
         
-        // Return vector by default
-        return Vector3.zero;
-    }
+    //     // Return vector by default
+    //     return Vector3.zero;
+    // }
     
 
     /*** FIRE FUNCTIONS ***/
 
-    private void HandleFireDesktop()
-    {
-        if (playerController)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                if (playerController.IsHeavyWeaponSelected())
-                {
-                    // Switch to light weapon if heavy selected
-                    StartCoroutine(playerController.ChangeWeapon());
-                }
+    // private void HandleFireDesktop()
+    // {
+    //     if (playerController)
+    //     {
+    //         if (Input.GetButton("Fire1"))
+    //         {
+    //             if (playerController.IsHeavyWeaponSelected())
+    //             {
+    //                 // Switch to light weapon if heavy selected
+    //                 StartCoroutine(playerController.ChangeWeapon());
+    //             }
 
-                playerController.FireDesktop();
+    //             playerController.FireDesktop();
 
-            }else if (Input.GetButton("Fire2"))
-            {
-                if (!playerController.IsHeavyWeaponSelected())
-                {
-                    // Switch to heavy weapon if light selected
-                    StartCoroutine(playerController.ChangeWeapon());
-                }
+    //         }else if (Input.GetButton("Fire2"))
+    //         {
+    //             if (!playerController.IsHeavyWeaponSelected())
+    //             {
+    //                 // Switch to heavy weapon if light selected
+    //                 StartCoroutine(playerController.ChangeWeapon());
+    //             }
 
-                playerController.FireDesktop();
-            }
-        }
-    }
+    //             playerController.FireDesktop();
+    //         }
+    //     }
+    // }
 
-    private void HandleFireMobile()
-    {
-        // Check if player touch the screen and if touch began
-        if (Input.touchCount > 0)
-        {
-            // Increase timer every frame
-            repeatFireTimer += Time.deltaTime;
+    // private void HandleFireMobile()
+    // {
+    //     // Check if player touch the screen and if touch began
+    //     if (Input.touchCount > 0)
+    //     {
+    //         // Increase timer every frame
+    //         repeatFireTimer += Time.deltaTime;
 
-            if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
-            {
-                // When touch end we check if the input last for less than some time
-                if (repeatFireTimer < 0.4f)
-                {
-                    // If so if try to fire
-                    CheckRepeatFireTouch();
-                }
+    //         if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+    //         {
+    //             // When touch end we check if the input last for less than some time
+    //             if (repeatFireTimer < 0.4f)
+    //             {
+    //                 // If so if try to fire
+    //                 CheckRepeatFireTouch();
+    //             }
 
-                // After every end of touch we reset the timer
-                repeatFireTimer = 0f;
-            }
-        }
-    }
+    //             // After every end of touch we reset the timer
+    //             repeatFireTimer = 0f;
+    //         }
+    //     }
+    // }
 
-    // Check the touch of the player to see if it trigger the repeat fire
-    private void CheckRepeatFireTouch()
-    {
-        // Get touched world position
-        Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
+    // // Check the touch of the player to see if it trigger the repeat fire
+    // private void CheckRepeatFireTouch()
+    // {
+    //     // Get touched world position
+    //     Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
 
-        // Check if the touch collide with objects in the world
-        Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
+    //     // Check if the touch collide with objects in the world
+    //     Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
 
-        // Get the futur target
-        GameObject bestTarget = GetClosestTarget(hitColliders);
+    //     // Get the futur target
+    //     GameObject bestTarget = GetClosestTarget(hitColliders);
         
-        // If this target exist, start to fire at it
-        if (bestTarget)
-            StartCoroutine(playerController.RepeatFire(bestTarget));
-    }
+    //     // If this target exist, start to fire at it
+    //     if (bestTarget)
+    //         StartCoroutine(playerController.RepeatFire(bestTarget));
+    // }
 
-    // Return the closest object to the player
-    private GameObject GetClosestTarget(Collider[] hitColliders)
-    {
-        GameObject bestTarget = null;
-        float bestDistance = 999999f;  // Init with a high distance
+    // // Return the closest object to the player
+    // private GameObject GetClosestTarget(Collider[] hitColliders)
+    // {
+    //     GameObject bestTarget = null;
+    //     float bestDistance = 999999f;  // Init with a high distance
 
-        Vector3 playerPos = playerController.transform.position;
+    //     Vector3 playerPos = playerController.transform.position;
 
-        // Go through all object to find the closest one
-        foreach (Collider c in hitColliders)
-        {
-            // If the object touched is targetable we compute his distance to the player
-            if (c.CompareTag("Targetable"))
-            {
-                // Compute distance from player
-                Vector3 distance = c.ClosestPointOnBounds(playerPos) - playerPos;
-                float sqrDistance = distance.sqrMagnitude;
+    //     // Go through all object to find the closest one
+    //     foreach (Collider c in hitColliders)
+    //     {
+    //         // If the object touched is targetable we compute his distance to the player
+    //         if (c.CompareTag("Targetable"))
+    //         {
+    //             // Compute distance from player
+    //             Vector3 distance = c.ClosestPointOnBounds(playerPos) - playerPos;
+    //             float sqrDistance = distance.sqrMagnitude;
 
-                if (sqrDistance < bestDistance)
-                {
-                    bestTarget = c.gameObject;
-                    bestDistance = sqrDistance;
-                }
-            }
-        }
+    //             if (sqrDistance < bestDistance)
+    //             {
+    //                 bestTarget = c.gameObject;
+    //                 bestDistance = sqrDistance;
+    //             }
+    //         }
+    //     }
 
-        return bestTarget;
-    }
+    //     return bestTarget;
+    // }
 
 
     /*** MOVEMENTS FUNCTIONS ***/
@@ -215,13 +216,14 @@ public class InputController : MonoBehaviour
             float moveVer = Input.GetAxis("Vertical");
 
             // Compute moveDirection
-            Vector3 moveDir = new Vector3(moveHor, 0.0f, moveVer);
+            Vector2 moveDir = new Vector2(moveHor, moveVer);
+            Debug.Log(moveHor + " " + moveVer);
 
             // Move the player in axis direction
             playerController.MovePlayer(moveDir);
 
             // Rotate the player toward mouse position
-            playerController.RotatePlayer(ScreenPositionToWorldPosition(Input.mousePosition) - playerController.transform.position);
+            playerController.RotatePlayer((Vector2)(mainCamera.ScreenToWorldPoint(Input.mousePosition) - playerController.transform.position));
         }
     }
 
@@ -251,16 +253,15 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private Vector3 ComputeInputDistanceFromPlayer(int touchIndex)
+    private Vector2 ComputeInputDistanceFromPlayer(int touchIndex)
     {
         // Get touch position on screen
-            Vector2 touchPosition = Input.GetTouch(touchIndex).position;
+        Vector2 touchPosition = Input.GetTouch(touchIndex).position;
 
-            // Convert it to world position and keep Y always at player level (0)
-            Vector3 touchWorldPosition = ScreenPositionToWorldPosition(touchPosition);
-            touchWorldPosition.y = 0;
+        // Convert it to world position and keep Y always at player level (0)
+        Vector2 touchWorldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
 
-            // Compute moveDirection
-            return touchWorldPosition - playerController.transform.position;
+        // Compute moveDirection
+        return touchWorldPosition - (Vector2)playerController.transform.position;
     }
 }
