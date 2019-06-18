@@ -12,9 +12,8 @@ public class Parallax : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
-    private Vector3 startPos;
-    private float lenX = 100f;
-    private float lenZ = 50f;
+    private Vector2 startPos;
+    private Vector2 length;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -22,25 +21,26 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
+        length = GetComponent<SpriteRenderer>().bounds.size;
     }
 
     void FixedUpdate()
     {
         float tempX = cam.transform.position.x * (1 - parallaxEffect);
-        float tempZ = cam.transform.position.z * (1 - parallaxEffect);
+        float tempZ = cam.transform.position.y * (1 - parallaxEffect);
 
         float distX = cam.transform.position.x * parallaxEffect;
-        float distZ = cam.transform.position.z * parallaxEffect;
+        float distZ = cam.transform.position.y * parallaxEffect;
 
         // Affect new position
-        transform.position = new Vector3(startPos.x + distX, transform.position.y, startPos.z + distZ);
+        transform.position = new Vector2(startPos.x + distX, startPos.y + distZ);
 
         // Adjust X start position
-        if (tempX > startPos.x + lenX / 2) startPos.x += lenX;
-        else if (tempX < startPos.x - lenX / 2) startPos.x -= lenX;
+        if (tempX > startPos.x + length.x / 2) startPos.x += length.x;
+        else if (tempX < startPos.x - length.x / 2) startPos.x -= length.x;
 
-        // Adjust Z start position
-        if (tempZ > startPos.z + lenZ / 2) startPos.z += lenZ;
-        else if (tempZ < startPos.z - lenZ / 2) startPos.z -= lenZ;
+        // Adjust Y start position
+        if (tempZ > startPos.y + length.y / 2) startPos.y += length.y;
+        else if (tempZ < startPos.y - length.y / 2) startPos.y -= length.y;
     }
 }
