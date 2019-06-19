@@ -49,14 +49,6 @@ public class Virus : Organism
         virusPool = VirusPool.Instance;
     }
 
-    protected override void InitComponents()
-    {
-        base.InitComponents();
-
-        // Initialize components
-        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
-    }
-
     public override void OnObjectToSpawn()
     {
         base.OnObjectToSpawn();

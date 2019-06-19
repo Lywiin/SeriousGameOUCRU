@@ -48,7 +48,7 @@ public class Organism : MonoBehaviour, IPooledObject
         rb = GetComponent<Rigidbody2D>();
         // render = GetComponentInChildren<Renderer>();
         render = GetComponentInChildren<SpriteRenderer>();
-        coll = GetComponent<CircleCollider2D>();
+        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 
     protected virtual void Start()

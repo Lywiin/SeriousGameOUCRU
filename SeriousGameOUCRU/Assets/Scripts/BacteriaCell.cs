@@ -68,7 +68,6 @@ public class BacteriaCell : Cell, IPooledObject
         base.InitComponents();
 
         // Initialize components
-        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
         detectionCollider = transform.GetChild(1).GetComponent<CircleCollider2D>();
     }
 
