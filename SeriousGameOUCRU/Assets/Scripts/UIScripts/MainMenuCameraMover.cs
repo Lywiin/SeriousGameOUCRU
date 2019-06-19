@@ -41,6 +41,6 @@ public class MainMenuCameraMover : MonoBehaviour
 
     private void GetRandomDesiredPos()
     {
-        desiredPos = new Vector3(Random.Range(-moveZone.x, moveZone.x), 0.0f, Random.Range(-moveZone.y, moveZone.y));
+        desiredPos = new Vector3(Random.Range(-moveZone.x, moveZone.x), Random.Range(-moveZone.y, moveZone.y), -10f);
     }
 }
