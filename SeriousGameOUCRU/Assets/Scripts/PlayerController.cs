@@ -238,7 +238,6 @@ public class PlayerController : MonoBehaviour
 
     public void RotatePlayer(Vector2 lookAtDirection)
     {
-        Debug.Log(lookAtDirection);
         // Rotate player toward a direction
         float angle = Mathf.Atan2(lookAtDirection.y, lookAtDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
