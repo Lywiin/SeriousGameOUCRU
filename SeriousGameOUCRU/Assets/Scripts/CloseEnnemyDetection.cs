@@ -20,9 +20,9 @@ public class CloseEnnemyDetection : MonoBehaviour
     private float detectionRadius;
 
     // Cached variables
-    Collider[] hitColliders;
-    Vector3 screenPoint;
-    Vector3 distanceFromPlayer;
+    Collider2D[] hitColliders;
+    Vector2 screenPoint;
+    Vector2 distanceFromPlayer;
     List<float> distanceList;
 
 
@@ -49,8 +49,8 @@ public class CloseEnnemyDetection : MonoBehaviour
         defaultDetectionRadius = 50f;
         detectionRadius = defaultDetectionRadius;
 
-        screenPoint = Vector3.zero;
-        distanceFromPlayer = Vector3.zero;
+        screenPoint = Vector2.zero;
+        distanceFromPlayer = Vector2.zero;
         distanceList = new List<float>();
     }
 
@@ -84,9 +84,9 @@ public class CloseEnnemyDetection : MonoBehaviour
         RefeshClosestTargets();
     }
 
-    private Collider[] DetectColliders()
+    private Collider2D[] DetectColliders()
     {
-        return Physics.OverlapSphere(transform.position, detectionRadius, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
+        return Physics2D.OverlapCircleAll(transform.position, detectionRadius, 1 << LayerMask.NameToLayer("Ennemy"));
     }
 
     // Refresh the list of closest ennemies
@@ -94,7 +94,7 @@ public class CloseEnnemyDetection : MonoBehaviour
     {
 
         // Go through all object to find the closest one
-        foreach (Collider c in hitColliders)
+        foreach (Collider2D c in hitColliders)
         {
             // Convert collided object world position to screen to know if it's visible, then convert it to a boolean
             screenPoint = CameraController.Instance.GetCamera().WorldToViewportPoint(c.gameObject.transform.position);
@@ -110,7 +110,7 @@ public class CloseEnnemyDetection : MonoBehaviour
             }else
             {
                 // Compute distance from player
-                distanceFromPlayer = c.ClosestPointOnBounds(transform.position) - transform.position;
+                distanceFromPlayer = c.ClosestPoint(transform.position) - (Vector2)transform.position;
 
                 // Add the object to the dictonnary if not already in
                 if (!detectedEnnemiesDictionnary.ContainsKey(distanceFromPlayer.sqrMagnitude))

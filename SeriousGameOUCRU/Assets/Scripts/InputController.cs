@@ -52,20 +52,20 @@ public class InputController : MonoBehaviour
         cameraController = CameraController.Instance;
     }
 
-    // void Update()
-    // {
-    //     // If game not paused
-    //     if (!gameController.IsGamePaused() && playerController &&  playerController.CanPlayerMove())
-    //     {
-    //         if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-    //         {
-    //             HandleFireMobile();
-    //         }else
-    //         {
-    //             HandleFireDesktop();
-    //         }
-    //     }
-    // }
+    void Update()
+    {
+        // If game not paused
+        if (!gameController.IsGamePaused() && playerController /*&&  playerController.CanPlayerMove()*/)
+        {
+            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+                HandleFireMobile();
+            }else
+            {
+                // HandleFireDesktop();
+            }
+        }
+    }
 
     void FixedUpdate()
     {
@@ -134,74 +134,74 @@ public class InputController : MonoBehaviour
     //     }
     // }
 
-    // private void HandleFireMobile()
-    // {
-    //     // Check if player touch the screen and if touch began
-    //     if (Input.touchCount > 0)
-    //     {
-    //         // Increase timer every frame
-    //         repeatFireTimer += Time.deltaTime;
+    private void HandleFireMobile()
+    {
+        // Check if player touch the screen and if touch began
+        if (Input.touchCount > 0)
+        {
+            // Increase timer every frame
+            repeatFireTimer += Time.deltaTime;
 
-    //         if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
-    //         {
-    //             // When touch end we check if the input last for less than some time
-    //             if (repeatFireTimer < 0.4f)
-    //             {
-    //                 // If so if try to fire
-    //                 CheckRepeatFireTouch();
-    //             }
+            if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+            {
+                // When touch end we check if the input last for less than some time
+                if (repeatFireTimer < 0.4f)
+                {
+                    // If so if try to fire
+                    CheckRepeatFireTouch();
+                }
 
-    //             // After every end of touch we reset the timer
-    //             repeatFireTimer = 0f;
-    //         }
-    //     }
-    // }
+                // After every end of touch we reset the timer
+                repeatFireTimer = 0f;
+            }
+        }
+    }
 
-    // // Check the touch of the player to see if it trigger the repeat fire
-    // private void CheckRepeatFireTouch()
-    // {
-    //     // Get touched world position
-    //     Vector3 touchWorld = ScreenPositionToWorldPosition(Input.GetTouch(Input.touchCount - 1).position);
+    // Check the touch of the player to see if it trigger the repeat fire
+    private void CheckRepeatFireTouch()
+    {
+        // Get touched world position
+        Vector2 touchWorld = mainCamera.ScreenToWorldPoint(Input.GetTouch(Input.touchCount - 1).position);
 
-    //     // Check if the touch collide with objects in the world
-    //     Collider[] hitColliders = Physics.OverlapSphere(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
+        // Check if the touch collide with objects in the world
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"));
 
-    //     // Get the futur target
-    //     GameObject bestTarget = GetClosestTarget(hitColliders);
+        // Get the futur target
+        GameObject bestTarget = GetClosestTarget(hitColliders);
         
-    //     // If this target exist, start to fire at it
-    //     if (bestTarget)
-    //         StartCoroutine(playerController.RepeatFire(bestTarget));
-    // }
+        // If this target exist, start to fire at it
+        if (bestTarget)
+            StartCoroutine(playerController.RepeatFire(bestTarget));
+    }
 
-    // // Return the closest object to the player
-    // private GameObject GetClosestTarget(Collider[] hitColliders)
-    // {
-    //     GameObject bestTarget = null;
-    //     float bestDistance = 999999f;  // Init with a high distance
+    // Return the closest object to the player
+    private GameObject GetClosestTarget(Collider2D[] hitColliders)
+    {
+        GameObject bestTarget = null;
+        float bestDistance = 999999f;  // Init with a high distance
 
-    //     Vector3 playerPos = playerController.transform.position;
+        Vector2 playerPos = playerController.transform.position;
 
-    //     // Go through all object to find the closest one
-    //     foreach (Collider c in hitColliders)
-    //     {
-    //         // If the object touched is targetable we compute his distance to the player
-    //         if (c.CompareTag("Targetable"))
-    //         {
-    //             // Compute distance from player
-    //             Vector3 distance = c.ClosestPointOnBounds(playerPos) - playerPos;
-    //             float sqrDistance = distance.sqrMagnitude;
+        // Go through all object to find the closest one
+        foreach (Collider2D c in hitColliders)
+        {
+            // If the object touched is targetable we compute his distance to the player
+            if (c.CompareTag("Targetable"))
+            {
+                // Compute distance from player
+                Vector2 distance = c.ClosestPoint(playerPos) - playerPos;
+                float sqrDistance = distance.sqrMagnitude;
 
-    //             if (sqrDistance < bestDistance)
-    //             {
-    //                 bestTarget = c.gameObject;
-    //                 bestDistance = sqrDistance;
-    //             }
-    //         }
-    //     }
+                if (sqrDistance < bestDistance)
+                {
+                    bestTarget = c.gameObject;
+                    bestDistance = sqrDistance;
+                }
+            }
+        }
 
-    //     return bestTarget;
-    // }
+        return bestTarget;
+    }
 
 
     /*** MOVEMENTS FUNCTIONS ***/

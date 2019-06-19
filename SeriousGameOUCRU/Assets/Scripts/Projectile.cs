@@ -20,15 +20,15 @@ public class Projectile : MonoBehaviour
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
     // Components
-    protected Rigidbody rb;
-    protected MeshRenderer meshRenderer;
-    private Collider coll;
+    protected Rigidbody2D rb;
+    protected SpriteRenderer render;
+    private CapsuleCollider2D coll;
 
     // Collision
     protected bool canCollide = true;
 
     // Movement
-    protected Vector3 moveDirection;
+    protected Vector2 moveDirection;
     protected GameObject target;
 
 
@@ -37,14 +37,14 @@ public class Projectile : MonoBehaviour
     protected virtual void Start()
     {
         // Initialize components
-        rb = GetComponent<Rigidbody>();
-        meshRenderer = GetComponent<MeshRenderer>();
-        coll = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody2D>();
+        render = GetComponent<SpriteRenderer>();
+        coll = GetComponent<CapsuleCollider2D>();
 
         // Trigger destroy countdown
         StartCoroutine(KillProjectile());
 
-        moveDirection = transform.forward;
+        moveDirection = transform.up;
     }
 
     protected void FixedUpdate()
@@ -57,10 +57,10 @@ public class Projectile : MonoBehaviour
         }
 
         //Add force to the projectile
-        rb.AddForce(moveDirection * speed, ForceMode.Impulse);
+        rb.AddForce(moveDirection * speed, ForceMode2D.Impulse);
 
         //Clamp max velocity
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
     }
 
 
@@ -89,10 +89,10 @@ public class Projectile : MonoBehaviour
     protected void Hide()
     {
         // Hide the projectile before the explosion
-        meshRenderer.enabled = false;
+        render.enabled = false;
         coll.enabled = false;
 
         // Freeze the projectile before playing the effect
-        rb.constraints = RigidbodyConstraints.FreezeAll;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 }

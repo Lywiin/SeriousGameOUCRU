@@ -6,7 +6,7 @@ public class ProjectileLight: Projectile
 {
     /***** TRIGGER FUNCTIONS *****/
 
-    private void OnCollisionEnter(Collision c)
+    private void OnCollisionEnter2D(Collision2D c)
     {
         Hide();
 

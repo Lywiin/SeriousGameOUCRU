@@ -103,84 +103,84 @@ public class PlayerController : MonoBehaviour
 
     /*** FIRE FUNCTIONS ***/
 
-    // // Fire projectile over time
-    // public IEnumerator RepeatFire(GameObject target)
-    // {
-    //     isFiring = true;
-    //     keepDistance = true;
-    //     fireTarget = target;
+    // Fire projectile over time
+    public IEnumerator RepeatFire(GameObject target)
+    {
+        isFiring = true;
+        keepDistance = true;
+        fireTarget = target;
         
-    //     do
-    //     {
-    //         // Keep the player rotated toward the target
-    //         RotatePlayer(fireTarget.transform.position - transform.position);
+        do
+        {
+            // Keep the player rotated toward the target
+            RotatePlayer(fireTarget.transform.position - transform.position);
 
-    //         // Fire projectile as normal
-    //         if (Time.time >= timeToFire)
-    //             Fire();
+            // Fire projectile as normal
+            if (Time.time >= timeToFire)
+                Fire();
 
-    //         yield return null;
+            yield return null;
 
-    //         if (!PlayerController.Instance)
-    //             break;
+            if (!PlayerController.Instance)
+                break;
 
-    //     // Keep firing until cell die or get out of range
-    //     }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
+        // Keep firing until cell die or get out of range
+        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
-    //     isFiring = false;
+        isFiring = false;
 
-    //     if (PlayerController.Instance)
-    //     {
-    //         // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
-    //         if (heavyWeaponSelected)
-    //             StartCoroutine(UnkeepDistance(2f));
-    //         else
-    //             StartCoroutine(UnkeepDistance(0f));
-    //     }
-    // }
+        if (PlayerController.Instance)
+        {
+            // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
+            if (heavyWeaponSelected)
+                StartCoroutine(UnkeepDistance(2f));
+            else
+                StartCoroutine(UnkeepDistance(0f));
+        }
+    }
 
-    // // Stop keeping distance with cell after some time
-    // private IEnumerator UnkeepDistance(float delay)
-    // {
-    //     yield return new WaitForSeconds(delay);
-    //     if (!isFiring)
-    //     {
-    //         keepDistance = false;
-    //         fireTarget = null;
-    //     }
-    // }
+    // Stop keeping distance with cell after some time
+    private IEnumerator UnkeepDistance(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (!isFiring)
+        {
+            keepDistance = false;
+            fireTarget = null;
+        }
+    }
 
-    // public void FireDesktop()
-    // {
-    //     if (Time.time >= timeToFire)
-    //     {
-    //         Fire();
-    //     }
-    // }
+    public void FireDesktop()
+    {
+        if (Time.time >= timeToFire)
+        {
+            Fire();
+        }
+    }
 
-    // // Fire a projectile
-    // private void Fire()
-    // {
-    //     // Update next time to fire
-    //     timeToFire = Time.time + 1 / currentFireRate;
+    // Fire a projectile
+    private void Fire()
+    {
+        // Update next time to fire
+        timeToFire = Time.time + 1 / currentFireRate;
 
-    //     // Spawn the projectile
-    //     SpawnProjectile(currentProjectile);
+        // Spawn the projectile
+        SpawnProjectile(currentProjectile);
 
-    //     // Apply a drawback force
-    //     ApplyFireDrawback(currentFireDrawback);
+        // Apply a drawback force
+        ApplyFireDrawback(currentFireDrawback);
 
-    //     // Increase mutation proba if heavy projectile is fired
-    //     if (heavyWeaponSelected)
-    //         gameController.IncreaseAllMutationProba();
-    // }
+        // Increase mutation proba if heavy projectile is fired
+        if (heavyWeaponSelected)
+            gameController.IncreaseAllMutationProba();
+    }
 
-    // // Spawn the desired projectile
-    // void SpawnProjectile(GameObject projectile)
-    // {
-    //     // Instantiate projectile at player position and rotation
-    //     GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
-    // }
+    // Spawn the desired projectile
+    void SpawnProjectile(GameObject projectile)
+    {
+        // Instantiate projectile at player position and rotation
+        GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
+    }
 
     // Called by UI to change current weapon
     public IEnumerator ChangeWeapon()

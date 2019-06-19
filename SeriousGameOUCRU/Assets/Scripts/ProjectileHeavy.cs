@@ -34,7 +34,7 @@ public class ProjectileHeavy : Projectile
         yield return new WaitForSeconds(lifeTime);
 
         // Only explode if still enabled
-        if (meshRenderer.enabled)
+        if (render.enabled)
         {
             Hide();
             Explode();
@@ -44,7 +44,7 @@ public class ProjectileHeavy : Projectile
 
     /***** TRIGGER FUNCTIONS *****/
 
-    private void OnCollisionEnter(Collision c)
+    private void OnCollisionEnter2D(Collision2D c)
     {
         // Explode on impact
         Hide();
@@ -69,10 +69,10 @@ public class ProjectileHeavy : Projectile
     private void ApplyZoneDamage()
     {
         // Catch all the objects in the range
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius, 1 << LayerMask.NameToLayer("Ennemy"), QueryTriggerInteraction.Ignore);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, 1 << LayerMask.NameToLayer("Ennemy"));
         
         // Apply damage to each object
-        foreach(Collider c in hitColliders)
+        foreach(Collider2D c in hitColliders)
         {
             // Antibiotic doesn't damage virus
             if (!c.gameObject.GetComponentInParent<Virus>())

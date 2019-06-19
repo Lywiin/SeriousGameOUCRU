@@ -162,7 +162,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < virusCount; i++)
         {
             // Get a valid position by using object size as parameter
-            Vector3 validPos = GetAValidPos(virusSize);
+            Vector2 validPos = GetAValidPos(virusSize);
 
             Virus virusToSpawn = virusPool.Get();
             virusToSpawn.ResetOrganismAtPosition(validPos);
@@ -174,7 +174,7 @@ public class GameController : MonoBehaviour
     private void SpawnObjectAtValidPos(GameObject obj, float objSize)
     {
         // Get a valid position by using object size as parameter
-        Vector3 validPos = GetAValidPos(objSize);
+        Vector2 validPos = GetAValidPos(objSize);
         
         //Instantiate cell at position and add it to the list
         GameObject b = Instantiate(obj, validPos, Quaternion.identity);
@@ -203,7 +203,7 @@ public class GameController : MonoBehaviour
     }
 
     // Return a valid random position for a certain radius
-    private Vector3 GetAValidPos(float radiusSize)
+    private Vector2 GetAValidPos(float radiusSize)
     {
         int nbHit = 0;
         Vector2 randomPos = new Vector2();

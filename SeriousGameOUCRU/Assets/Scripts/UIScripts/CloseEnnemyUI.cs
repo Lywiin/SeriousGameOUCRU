@@ -26,6 +26,8 @@ public class CloseEnnemyUI : MonoBehaviour
     private PlayerController playerController;
     private CameraController cameraController;
 
+    Vector2 lookAtDirection;
+
 
     /*** INSTANCE ***/
 
@@ -52,6 +54,8 @@ public class CloseEnnemyUI : MonoBehaviour
         closeEnnemyDetection = CloseEnnemyDetection.Instance;
         playerController = PlayerController.Instance;
         cameraController = CameraController.Instance;
+
+        lookAtDirection = Vector2.zero;
     }
 
     private void Update()
@@ -79,9 +83,6 @@ public class CloseEnnemyUI : MonoBehaviour
     {
         for (int i = 0; i < closeEnnemyDetection.maxDetectedCount; i++)
         {
-            // Get indicator at position i
-            // GameObject indicator = closeEnnemyIndicatorRoot.transform.GetChild(i).gameObject;
-
             // If a target exist at this position
             if (closeEnnemyDetection.GetClosestEnnemiesList().Count > i)
             {
@@ -95,27 +96,18 @@ public class CloseEnnemyUI : MonoBehaviour
                 UpdateWindowSprite(i, ennemy);
                 
                 // Compute new rotation from ennemy and player position
-                Quaternion newRot = Quaternion.LookRotation(ennemy.transform.position - playerController.transform.position);
-                newRot.z = newRot.y * -1; newRot.y = 0f; // Trick to apply the correct UI rotation
+                lookAtDirection = ennemy.transform.position - playerController.transform.position;
+                float angle = Mathf.Atan2(lookAtDirection.y, lookAtDirection.x) * Mathf.Rad2Deg;
 
                 // Apply rotation
-                closeEnnemyIndicatorList[i].transform.rotation = newRot;
+                closeEnnemyIndicatorList[i].transform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
             }else
             {
                 // If no target available we fade out the indicator
-                // StartCoroutine(HideIndicator(i));
                 closeEnnemyIndicatorAnimatorList[i].SetBool("FadeIn", false);
             }
         }
     }
-
-    // private IEnumerator HideIndicator(int index)
-    // {
-    //     closeEnnemyIndicatorAnimatorList[index].SetBool("FadeIn", false);
-    //     yield return new WaitForSeconds(0.75f);
-    //     closeEnnemyIndicatorAnimatorList[index].enabled = false;
-
-    // }
 
     public void HideAllIndicators()
     {
