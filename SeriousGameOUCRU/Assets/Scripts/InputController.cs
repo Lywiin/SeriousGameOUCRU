@@ -62,7 +62,7 @@ public class InputController : MonoBehaviour
                 HandleFireMobile();
             }else
             {
-                // HandleFireDesktop();
+                HandleFireDesktop();
             }
         }
     }
@@ -81,58 +81,36 @@ public class InputController : MonoBehaviour
             }
         }
     }
-
-
-    /*** UTILITY FUNCTION ***/
-
-    // // Convert properly a screen position to a world position with raycasting
-    // private Vector3 ScreenPositionToWorldPosition(Vector2 screenPosition)
-    // {
-    //     // Create a ray from screen point in world
-    //     Ray ray = cameraController.GetCamera().ScreenPointToRay(screenPosition);
-    //     float enter = 0.0f;
-
-    //     // Get the point that intersect the plane at height 0
-    //     if (plane.Raycast(ray, out enter))
-    //     {
-    //         Vector3 hitPoint = ray.GetPoint(enter);
-    //         hitPoint.y = 0.0f;
-    //         return hitPoint;
-    //     }
-        
-    //     // Return vector by default
-    //     return Vector3.zero;
-    // }
     
 
     /*** FIRE FUNCTIONS ***/
 
-    // private void HandleFireDesktop()
-    // {
-    //     if (playerController)
-    //     {
-    //         if (Input.GetButton("Fire1"))
-    //         {
-    //             if (playerController.IsHeavyWeaponSelected())
-    //             {
-    //                 // Switch to light weapon if heavy selected
-    //                 StartCoroutine(playerController.ChangeWeapon());
-    //             }
+    private void HandleFireDesktop()
+    {
+        if (playerController)
+        {
+            if (Input.GetButton("Fire1"))
+            {
+                if (playerController.IsHeavyWeaponSelected())
+                {
+                    // Switch to light weapon if heavy selected
+                    StartCoroutine(playerController.ChangeWeapon());
+                }
 
-    //             playerController.FireDesktop();
+                playerController.FireDesktop();
 
-    //         }else if (Input.GetButton("Fire2"))
-    //         {
-    //             if (!playerController.IsHeavyWeaponSelected())
-    //             {
-    //                 // Switch to heavy weapon if light selected
-    //                 StartCoroutine(playerController.ChangeWeapon());
-    //             }
+            }else if (Input.GetButton("Fire2"))
+            {
+                if (!playerController.IsHeavyWeaponSelected())
+                {
+                    // Switch to heavy weapon if light selected
+                    StartCoroutine(playerController.ChangeWeapon());
+                }
 
-    //             playerController.FireDesktop();
-    //         }
-    //     }
-    // }
+                playerController.FireDesktop();
+            }
+        }
+    }
 
     private void HandleFireMobile()
     {

@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
     public void SetupGame()
     {
         // Fade info UI in
-        uiController.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
+        UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
 
         StartCoroutine(StartSpawningWithDelay());
     }
