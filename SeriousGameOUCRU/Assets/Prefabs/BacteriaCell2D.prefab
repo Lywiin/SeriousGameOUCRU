@@ -231,11 +231,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7935908544077451904}
-  - component: {fileID: 3123446490448591262}
-  - component: {fileID: 3123446490448591263}
-  - component: {fileID: 923662352682401394}
-  - component: {fileID: 4159586954044232312}
   - component: {fileID: 1532515555671245830}
+  - component: {fileID: 3123446490448591262}
+  - component: {fileID: 923662352682401394}
+  - component: {fileID: 4341253969992415331}
+  - component: {fileID: 3123446490448591263}
+  - component: {fileID: 4159586954044232312}
   m_Layer: 13
   m_Name: BacteriaCell2D
   m_TagString: Untagged
@@ -261,73 +262,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3123446490448591262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  organismPrefab: {fileID: 6375226934681378963}
-  maxHealth: 100
-  disolveSpeed: 2
-  mutationProba: 0.0005
-  duplicationProba: 0.0002
-  duplicationRecallTime: 1
-  explosionParticle: {fileID: 8034501810951669596}
-  conjugaisonProba: 0.1
-  conjugaisonRecallTime: 5
-  transformationProbability: 0.1
-  rushForce: 10
-  detectionRange: 7
---- !u!114 &3123446490448591263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c40584262e2bd841a8e3be981b225db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  oneShieldHealth: 20
-  shieldGrowthSpeed: 3
-  shield: {fileID: 3506887909704676389}
---- !u!114 &923662352682401394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56591fd8ad94f2a4ca97912e05736209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1532515555671245830}
-  moveForce: 200
-  moveRate: 2
-  moveRateVariance: 1
---- !u!114 &4159586954044232312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &1532515555671245830
 Rigidbody2D:
   serializedVersion: 4
@@ -349,6 +283,88 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3123446490448591262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7c874b7387a354a83282d9a138e6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  organismPrefab: {fileID: 6375226934681378963}
+  maxHealth: 100
+  disolveSpeed: 2
+  conjugaisonProba: 0.1
+  conjugaisonRecallTime: 5
+  transformationProbability: 0.1
+  rushForce: 10
+  detectionRange: 7
+--- !u!114 &923662352682401394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56591fd8ad94f2a4ca97912e05736209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1532515555671245830}
+  moveForce: 300
+  moveRate: 1
+  moveRateVariance: 0.5
+  maxVelocity: 8
+  randomMovement: 1
+  angleToRotate: 1
+--- !u!114 &4341253969992415331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f616454bcef9d4abdc440871e1f0f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1532515555671245830}
+  attackTime: 0
+  attackRecallTime: 5
+  spawnCopyOnTargetDeath: 0
+--- !u!114 &3123446490448591263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c40584262e2bd841a8e3be981b225db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oneShieldHealth: 20
+  shieldGrowthSpeed: 3
+  shield: {fileID: 3506887909704676389}
+--- !u!114 &4159586954044232312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1009397554882258751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -431,12 +447,6 @@ PrefabInstance:
 --- !u!4 &8034501810951669597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1009397554882258751}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8034501810951669596 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7026267903467348067, guid: 96b292893a1dc5a4a8a50f55743d37a6,
     type: 3}
   m_PrefabInstance: {fileID: 1009397554882258751}
   m_PrefabAsset: {fileID: 0}

@@ -21,17 +21,17 @@ public class ShieldCollision : MonoBehaviour
     // When collide calls parent event
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Handle conjugaison of cell
-        bacteriaCellScript.CollisionEvent(collision);
+        // // Handle conjugaison of cell
+        // bacteriaCellScript.CollisionEvent(collision);
 
-        HumanCell humanCell = collision.gameObject.GetComponent<HumanCell>();
-        // Kill cell on touch
-        if (humanCell)
-        {
-            humanCell.KillOrganism();
+        // HumanCell humanCell = collision.gameObject.GetComponent<HumanCell>();
+        // // Kill cell on touch
+        // if (humanCell)
+        // {
+        //     humanCell.KillOrganism();
 
-            // Notify parent from cell killed
-            bacteriaCellScript.UnTargetCell();
-        }
+        //     // Notify parent from cell killed
+        //     bacteriaCellScript.UnTargetCell();
+        // }
     }
 }

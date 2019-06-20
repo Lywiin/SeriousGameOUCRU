@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanCell : Cell
+public class HumanCell : Organism
 {
     /*** PUBLIC VARIABLES ***/
 
     public static List<HumanCell> humanCellList = new List<HumanCell>();
+
+    [HideInInspector]
+    public bool isTargeted;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -36,7 +39,9 @@ public class HumanCell : Cell
 
         humanCellList.Add(this);
         // UIController.Instance.UpdateBacteriaCellCount(humanCellList.Count);
-        cellSize = baseCellSize;
+        // cellSize = baseCellSize;
+
+        isTargeted = false;
 
     }
 
@@ -67,16 +72,25 @@ public class HumanCell : Cell
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateCell(Vector2 randomPos)
+    // protected override GameObject InstantiateCell(Vector2 randomPos)
+    // {
+    //     HumanCell humanCellToSpawn = humanCellPool.Get();
+    //     humanCellToSpawn.ResetOrganismAtPosition(randomPos);
+    //     humanCellToSpawn.OnObjectToSpawn();
+
+    //     // Attach the joint to the root rigidbody
+    //     // humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
+    //     // humanCellToSpawn.transform.parent = transform.parent;
+
+
+    //     return humanCellToSpawn.gameObject;
+    // }
+
+    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
     {
         HumanCell humanCellToSpawn = humanCellPool.Get();
-        humanCellToSpawn.ResetOrganismAtPosition(randomPos);
+        humanCellToSpawn.ResetOrganismAtPosition(spawnPosition);
         humanCellToSpawn.OnObjectToSpawn();
-
-        // Attach the joint to the root rigidbody
-        // humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
-        // humanCellToSpawn.transform.parent = transform.parent;
-
 
         return humanCellToSpawn.gameObject;
     }

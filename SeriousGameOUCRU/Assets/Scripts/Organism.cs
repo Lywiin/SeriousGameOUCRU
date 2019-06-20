@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Organism : MonoBehaviour, IPooledObject
+public abstract class Organism : MonoBehaviour, IPooledObject
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -24,6 +24,9 @@ public class Organism : MonoBehaviour, IPooledObject
     protected SpriteRenderer render;
     protected CircleCollider2D coll;
 
+    protected OrganismMovement orgMovement;
+    protected OrganismAttack orgAttack;
+
     protected UIController uiController;
     protected GameController gameController;
     protected PlayerController playerController;
@@ -36,6 +39,8 @@ public class Organism : MonoBehaviour, IPooledObject
     // Disolve
     protected bool disolve = false;
     protected float disolveValue;
+
+    protected float organismSize;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -52,6 +57,9 @@ public class Organism : MonoBehaviour, IPooledObject
         // render = GetComponentInChildren<Renderer>();
         render = GetComponentInChildren<SpriteRenderer>();
         coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
+
+        orgMovement = GetComponent<OrganismMovement>();
+        orgAttack = GetComponent<OrganismAttack>();
     }
 
     protected virtual void Start()
@@ -72,6 +80,10 @@ public class Organism : MonoBehaviour, IPooledObject
         // render.material.SetFloat("_DisolveValue", 0f);
         coll.enabled = true;
         rb.velocity = Vector3.zero;
+        organismSize = render.bounds.size.x;
+
+        orgMovement.OnObjectToSpawn();
+        if (orgAttack) orgAttack.OnObjectToSpawn();
     }
 
     protected virtual void Update()
@@ -153,4 +165,16 @@ public class Organism : MonoBehaviour, IPooledObject
     {
         Destroy(gameObject);
     }
+
+    public int GetHealth()
+    {
+        return health;
+    }
+
+    public float GetOrganismSize()
+    {
+        return organismSize;
+    }
+
+    public abstract GameObject InstantiateOrganism(Vector2 spawnPosition);
 }

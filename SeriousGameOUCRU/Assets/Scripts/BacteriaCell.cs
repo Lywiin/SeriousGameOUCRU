@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BacteriaCell : Cell, IPooledObject
+public class BacteriaCell : Organism
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -21,7 +21,7 @@ public class BacteriaCell : Cell, IPooledObject
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
-    private RandomMovement rm;
+    // private RandomMovement rm;
     private GenericObjectPool<BacteriaCell> bacteriaCellPool;
 
     // Conjugaison
@@ -31,7 +31,7 @@ public class BacteriaCell : Cell, IPooledObject
     private Shield shieldScript;
 
     // Cell attack
-    private GameObject targetCell = null;
+    // private GameObject targetCell = null;
 
     private CircleCollider2D detectionCollider;
 
@@ -43,11 +43,11 @@ public class BacteriaCell : Cell, IPooledObject
         base.Awake();
 
         // TEMP to get initial proba
-        if (BacteriaCell.bacteriaCellList.Count == 1)
-            GameController.Instance.globalMutationProba = mutationProba;
+        // if (BacteriaCell.bacteriaCellList.Count == 1)
+        //     GameController.Instance.globalMutationProba = mutationProba;
 
         // Init movement component
-        rm = GetComponent<RandomMovement>();
+        // rm = GetComponent<RandomMovement>();
 
         // Initialize shield script component
         shieldScript = GetComponent<Shield>();
@@ -60,7 +60,7 @@ public class BacteriaCell : Cell, IPooledObject
         bacteriaCellPool = BacteriaCellPool.Instance;
 
         // To avoid conjugaison on spawn
-        StartCoroutine(CollidingRecall());
+        // StartCoroutine(CollidingRecall());
     }
 
     protected override void InitComponents()
@@ -77,22 +77,22 @@ public class BacteriaCell : Cell, IPooledObject
 
         bacteriaCellList.Add(this);
         // UIController.Instance.UpdateBacteriaCellCount(bacteriaCellList.Count);
-        cellSize = baseCellSize;
+        // cellSize = baseCellSize;
         shieldScript.ActivateShield();
-        rm.SetCanMove(true);
+        orgMovement.SetCanMove(true);
 
     }
 
     protected override void Update()
     {
-        base.Update();
+        // base.Update();
         
-        // Check is game is not currently paused
-        if (!gameController.IsGamePaused())
-        {
-            // Attempt to mutate cell every frame
-            TryToMutateCell();
-        }
+        // // Check is game is not currently paused
+        // if (!gameController.IsGamePaused())
+        // {
+        //     // Attempt to mutate cell every frame
+        //     TryToMutateCell();
+        // }
     }
 
 
@@ -100,104 +100,104 @@ public class BacteriaCell : Cell, IPooledObject
 
     public void UpdateCellSize()
     {
-        // Update size for spawning purposes
-        cellSize = shieldScript.GetShieldSize().x;
+        // // Update size for spawning purposes
+        // cellSize = shieldScript.GetShieldSize().x;
         
         
-        // Update colldier size
-        detectionCollider.radius = cellSize / 2 + detectionRange;
+        // // Update colldier size
+        // detectionCollider.radius = cellSize / 2 + detectionRange;
     }
 
 
     /***** MUTATION FUNCTIONS *****/
 
-    protected override void TryToMutateCell()
-    {
-        // If mutation is triggered
-        if (Random.Range(0f, 1f) < mutationProba)
-        {
-            if (isResistant)
-            {
-                // If shield is already activated, duplicate it
-                shieldScript.DuplicateShield();
-            }else
-            {
-                // Activate shield for the first time
-                ActivateResistance();
-            }
-            UpdateCellSize();
-        }
-    }
+    // protected override void TryToMutateCell()
+    // {
+    //     // If mutation is triggered
+    //     if (Random.Range(0f, 1f) < mutationProba)
+    //     {
+    //         if (isResistant)
+    //         {
+    //             // If shield is already activated, duplicate it
+    //             shieldScript.DuplicateShield();
+    //         }else
+    //         {
+    //             // Activate shield for the first time
+    //             ActivateResistance();
+    //         }
+    //         UpdateCellSize();
+    //     }
+    // }
 
-    public void IncreaseMutationProba(float increase)
-    {
-        mutationProba += increase;
-    }
+    // public void IncreaseMutationProba(float increase)
+    // {
+    //     mutationProba += increase;
+    // }
 
 
     /***** DUPLICATION FUNCTIONS *****/
 
-    protected override GameObject InstantiateCell(Vector2 randomPos)
-    {
-        BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
+    // protected override GameObject InstantiateCell(Vector2 randomPos)
+    // {
+    //     BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
 
-        bacteriaCellToSpawn.ResetOrganismAtPosition(randomPos);
-        bacteriaCellToSpawn.OnObjectToSpawn();
+    //     bacteriaCellToSpawn.ResetOrganismAtPosition(randomPos);
+    //     bacteriaCellToSpawn.OnObjectToSpawn();
 
-        if (isResistant)
-        {
-            bacteriaCellToSpawn.GetShieldScript().SetShieldHealth(shieldScript.GetShieldHealth());
-        }
+    //     if (isResistant)
+    //     {
+    //         bacteriaCellToSpawn.GetShieldScript().SetShieldHealth(shieldScript.GetShieldHealth());
+    //     }
 
-        return bacteriaCellToSpawn.gameObject;
-    }
+    //     return bacteriaCellToSpawn.gameObject;
+    // }
 
     
     /***** CONJUGAISON FUNCTIONS *****/
 
     // Collision event called by both cell and shield on collision
-    public void CollisionEvent(Collision2D collision)
-    {
-        if (canCollide)
-        {
-            // Start coroutine to prevent multiColliding
-            StartCoroutine(CollidingRecall());
+    // public void CollisionEvent(Collision2D collision)
+    // {
+    //     if (canCollide)
+    //     {
+    //         // Start coroutine to prevent multiColliding
+    //         StartCoroutine(CollidingRecall());
             
-            // Try to trigger the conjugaison
-            TryToConjugateCell(collision.gameObject.GetComponentInParent<Shield>());
-        }
-    }
+    //         // Try to trigger the conjugaison
+    //         TryToConjugateCell(collision.gameObject.GetComponentInParent<Shield>());
+    //     }
+    // }
 
-    // Buffer to prevent collision for a short time
-    public IEnumerator CollidingRecall()
-    {
-        canCollide = false;
-        yield return new WaitForSeconds(conjugaisonRecallTime); // Time to wait before it can collide again
-        canCollide = true;
-    }
+    // // Buffer to prevent collision for a short time
+    // public IEnumerator CollidingRecall()
+    // {
+    //     canCollide = false;
+    //     yield return new WaitForSeconds(conjugaisonRecallTime); // Time to wait before it can collide again
+    //     canCollide = true;
+    // }
 
-    // Process to trigger the conjugaison
-    private void TryToConjugateCell(Shield s)
-    {
-        // If collided object is a shield and conjugaison chance is triggered
-        if (s && Random.Range(0, 1) < conjugaisonProba)
-        {
-            // If first time we activate resistance
-            if (!isResistant)
-            {
-                ActivateResistance();
-            }
+    // // Process to trigger the conjugaison
+    // private void TryToConjugateCell(Shield s)
+    // {
+    //     // If collided object is a shield and conjugaison chance is triggered
+    //     if (s && Random.Range(0, 1) < conjugaisonProba)
+    //     {
+    //         // If first time we activate resistance
+    //         if (!isResistant)
+    //         {
+    //             ActivateResistance();
+    //         }
 
-            // Change shield health if collided object has a larger health amount
-            if (s.GetShieldHealth() > shieldScript.GetShieldHealth())
-                shieldScript.SetShieldHealth(s.GetShieldHealth());
-        }
-    }
+    //         // Change shield health if collided object has a larger health amount
+    //         if (s.GetShieldHealth() > shieldScript.GetShieldHealth())
+    //             shieldScript.SetShieldHealth(s.GetShieldHealth());
+    //     }
+    // }
 
-    public bool CanCollide()
-    {
-        return canCollide;
-    }
+    // public bool CanCollide()
+    // {
+    //     return canCollide;
+    // }
 
 
     /***** HEALTH FUNCTIONS *****/
@@ -221,7 +221,7 @@ public class BacteriaCell : Cell, IPooledObject
         playerController.ResetTarget();
 
         // Stop moving
-        rm.SetCanMove(false);
+        orgMovement.SetCanMove(false);
 
         // Increase killed count
         gameController.IncrementBacteriaCellKillCount();
@@ -263,48 +263,57 @@ public class BacteriaCell : Cell, IPooledObject
 
     /***** TRIGGER FUNCTIONS *****/
 
-    private void OnTriggerEnter2D(Collider2D c)
-    {
-        if (c.gameObject.GetComponent<HumanCell>() && !targetCell)
-        {
-            // Set cell as target when trigger detect one
-            targetCell = c.gameObject;
+    // private void OnTriggerEnter2D(Collider2D c)
+    // {
+    //     if (c.gameObject.GetComponent<HumanCell>() && !targetCell)
+    //     {
+    //         // Set cell as target when trigger detect one
+    //         targetCell = c.gameObject;
 
-            // Move toward cell to kill it
-            StartCoroutine(MoveTowardTarget());
-        }
-    }
+    //         // Move toward cell to kill it
+    //         StartCoroutine(MoveTowardTarget());
+    //     }
+    // }
 
-    private IEnumerator MoveTowardTarget()
-    {
-        // Stop random movement
-        rm.SetCanMove(false);
+    // private IEnumerator MoveTowardTarget()
+    // {
+    //     // Stop random movement
+    //     rm.SetCanMove(false);
 
-        while (targetCell)
-        {
-            // Compute movement direction
-            Vector2 moveDirection = targetCell.transform.position - transform.position;
-            moveDirection.Normalize();
+    //     while (targetCell)
+    //     {
+    //         // Compute movement direction
+    //         Vector2 moveDirection = targetCell.transform.position - transform.position;
+    //         moveDirection.Normalize();
 
-            // Move toward target while it's still alive
-            rb.AddForce(moveDirection * rushForce, ForceMode2D.Impulse);
+    //         // Move toward target while it's still alive
+    //         rb.AddForce(moveDirection * rushForce, ForceMode2D.Impulse);
             
-            // Wait for next frame to continue
-            yield return new WaitForFixedUpdate();
-        }
+    //         // Wait for next frame to continue
+    //         yield return new WaitForFixedUpdate();
+    //     }
 
-        // Start to move again if didn't target any other cell
-        if (!targetCell)
-            rm.SetCanMove(true);
-    }
+    //     // Start to move again if didn't target any other cell
+    //     if (!targetCell)
+    //         rm.SetCanMove(true);
+    // }
 
-    public void UnTargetCell()
-    {
-        targetCell = null;
-    }
+    // public void UnTargetCell()
+    // {
+    //     targetCell = null;
+    // }
 
     public Shield GetShieldScript()
     {
         return shieldScript;
+    }
+
+    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    {
+        BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
+        bacteriaCellToSpawn.ResetOrganismAtPosition(spawnPosition);
+        bacteriaCellToSpawn.OnObjectToSpawn();
+
+        return bacteriaCellToSpawn.gameObject;
     }
 }

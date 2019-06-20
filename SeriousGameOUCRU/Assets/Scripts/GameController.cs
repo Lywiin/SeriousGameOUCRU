@@ -293,7 +293,7 @@ public class GameController : MonoBehaviour
         // Update bacteria mutation rate
         foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
         {
-            b.IncreaseMutationProba(mutationProbaIncrease);
+            // b.IncreaseMutationProba(mutationProbaIncrease);
         }
 
         // Update UI slider
