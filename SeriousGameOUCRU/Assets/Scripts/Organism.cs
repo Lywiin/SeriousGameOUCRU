@@ -30,9 +30,12 @@ public class Organism : MonoBehaviour, IPooledObject
 
     // Health
     protected int health;
+    protected Color baseHealthColor;
+    protected Color targetHealthColor;
 
     // Disolve
     protected bool disolve = false;
+    protected float disolveValue;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -61,7 +64,10 @@ public class Organism : MonoBehaviour, IPooledObject
     public virtual void OnObjectToSpawn()
     {
         health = maxHealth;
+        baseHealthColor = render.color;
+        targetHealthColor = Color.white;
         disolve = false;
+        disolveValue = 0f;
         UpdateHealthColor();
         // render.material.SetFloat("_DisolveValue", 0f);
         coll.enabled = true;
@@ -91,6 +97,7 @@ public class Organism : MonoBehaviour, IPooledObject
     protected void UpdateHealthColor()
     {
         // render.material.SetFloat("_LerpValue", (float)health / maxHealth);
+        render.color = Color.Lerp(targetHealthColor, baseHealthColor, (float)health / maxHealth);
     }
 
     // Apply damage to organism, update color and kill it if needed
@@ -130,12 +137,12 @@ public class Organism : MonoBehaviour, IPooledObject
     protected virtual void DisolveOverTime()
     {
         // //Compute new value
-        // float newDisolveValue = Mathf.MoveTowards(render.material.GetFloat("_DisolveValue"), 1f, disolveSpeed * Time.deltaTime);
+        disolveValue = Mathf.MoveTowards(disolveValue, 1f, disolveSpeed * Time.deltaTime);
 
         // // Animate the disolve of the cell
         // render.material.SetFloat("_DisolveValue", newDisolveValue);
 
-        // if (newDisolveValue >= 0.75f)
+        if (disolveValue >= 1f)
         {
             // GameObject is destroyed after disolve
             DestroyOrganism();

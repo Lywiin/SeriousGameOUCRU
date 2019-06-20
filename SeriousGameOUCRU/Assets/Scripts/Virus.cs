@@ -174,7 +174,7 @@ public class Virus : Organism
     private void OnTriggerEnter2D(Collider2D c)
     {
         // If doesn't have a target, detect a human cell and can infect the cell
-        if (!target && c.GetComponent<HumanCell>() && canInfect)
+        if (!target && c.GetComponentInParent<HumanCell>() && canInfect)
         {
             // Set new target
             target = c.gameObject;
@@ -196,7 +196,7 @@ public class Virus : Organism
         if (target)
         {
             // Get rid of cell after infection time
-            target.GetComponent<HumanCell>().KillOrganism();
+            target.GetComponentInParent<HumanCell>().KillOrganism();
 
             // Instantiate a new virus instead of cell
             Virus virusToSpawn = virusPool.Get();
