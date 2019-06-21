@@ -87,7 +87,12 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
                 continue;
             }
 
-            selfOrganism.InstantiateOrganism(randomPos);
+            Organism spawnedOrganism = selfOrganism.InstantiateOrganism(randomPos);
+
+            // Copy shield health if organism has shield
+            if (spawnedOrganism && spawnedOrganism.GetOrgMutation()) 
+                spawnedOrganism.GetOrgMutation().SetShieldHealth(selfOrganism.GetOrgMutation().GetShieldHealth());
+            
             return true;
         }
         return false;

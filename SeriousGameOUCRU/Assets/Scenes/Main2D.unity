@@ -901,84 +901,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1297626530}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: bacteriaCellCount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: humanCellGroupCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: virusCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: humanCell
-      value: 
-      objectReference: {fileID: 8769615520535589609, guid: a64d56ef9d32db342bd9b68c8d35c637,
-        type: 3}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: humanCellCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: bacteriaCell
-      value: 
-      objectReference: {fileID: 6375226934681378963, guid: b66b18613d94e744f8ce1b8908b1ca9e,
-        type: 3}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: virus
-      value: 
-      objectReference: {fileID: 8319302658690431141, guid: 0314139205ebaa3489ca97cad532eefe,
-        type: 3}
-    - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: androidDebug
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 463478366}
-    - target: {fileID: 198987135, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: initCount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 198987135, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 3123446490448591262, guid: b66b18613d94e744f8ce1b8908b1ca9e,
-        type: 3}
-    - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: initCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 6064827100080528097, guid: a64d56ef9d32db342bd9b68c8d35c637,
-        type: 3}
-    - target: {fileID: 198987136, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: initCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 198987136, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
-      propertyPath: prefab
-      value: 
-      objectReference: {fileID: 2006459311, guid: 0314139205ebaa3489ca97cad532eefe,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
 --- !u!1 &1222588103

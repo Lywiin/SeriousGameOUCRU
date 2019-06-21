@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BacteriaCell : Organism
@@ -11,7 +10,7 @@ public class BacteriaCell : Organism
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
-    private GenericObjectPool<BacteriaCell> bacteriaCellPool;
+    private static GenericObjectPool<BacteriaCell> bacteriaCellPool;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -33,16 +32,18 @@ public class BacteriaCell : Organism
         bacteriaCellList.Add(this);
     }
 
-    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    public override Organism InstantiateOrganism(Vector2 spawnPosition)
     {
-        BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
+        return BacteriaCell.InstantiateBacteriaCell(spawnPosition);
+    }
+
+    public static Organism InstantiateBacteriaCell(Vector2 spawnPosition)
+    {
+        BacteriaCell bacteriaCellToSpawn = BacteriaCellPool.Instance.Get();
         bacteriaCellToSpawn.ResetOrganismAtPosition(spawnPosition);
         bacteriaCellToSpawn.OnObjectToSpawn();
 
-        // Copy shield health if organism has shield
-        if (orgMutation) bacteriaCellToSpawn.GetComponent<OrganismMutation>().SetShieldHealth(orgMutation.GetShieldHealth());
-
-        return bacteriaCellToSpawn.gameObject;
+        return bacteriaCellToSpawn;
     }
 
 

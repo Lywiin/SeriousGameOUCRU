@@ -49,19 +49,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  bacteriaCell: {fileID: 6375226934681378963, guid: 45607595a5ad3924298721b05780eadd,
+  bacteriaCell: {fileID: 6375226934681378963, guid: b66b18613d94e744f8ce1b8908b1ca9e,
     type: 3}
-  humanCell: {fileID: 8769615520535589609, guid: c9f726c94a475f44e9bfd1acc2dfca41,
+  humanCell: {fileID: 8769615520535589609, guid: a64d56ef9d32db342bd9b68c8d35c637,
     type: 3}
   humanCellGroup: {fileID: 7985167075046369646, guid: 8e9f36b26ee39ee42906b20fa9bee7e6,
     type: 3}
-  virus: {fileID: 8319302658690431141, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
+  virus: {fileID: 8319302658690431141, guid: 0314139205ebaa3489ca97cad532eefe, type: 3}
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCellCount: 15
-  humanCellGroupCount: 10
+  humanCellCount: 10
   virusCount: 2
   cellInitSize: 6
   playerSpawnSafeRadius: 15
+  mutationProbaStart: 0.0005
   mutationProbaIncrease: 0.00075
   globalMutationProba: 0
 --- !u!114 &198987132
@@ -76,6 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfa0173db76d6647943ac691e69f4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
   androidDebug: 1
 --- !u!114 &198987133
 MonoBehaviour:
@@ -101,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b6a00146caff74682221e67a424e5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3123446490448591262, guid: 45607595a5ad3924298721b05780eadd, type: 3}
+  prefab: {fileID: 3123446490448591262, guid: b66b18613d94e744f8ce1b8908b1ca9e, type: 3}
   initCount: 15
 --- !u!114 &198987134
 MonoBehaviour:
@@ -115,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06023efe6cf634349917a815b540d210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6064827100080528097, guid: c9f726c94a475f44e9bfd1acc2dfca41, type: 3}
-  initCount: 15
+  prefab: {fileID: 6064827100080528097, guid: a64d56ef9d32db342bd9b68c8d35c637, type: 3}
+  initCount: 10
 --- !u!114 &198987136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,5 +131,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c0b6fcf8dea6747b8de624645772f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2006459311, guid: 05455d3e9428e564188febeb36d862ad, type: 3}
+  prefab: {fileID: 2006459311, guid: 0314139205ebaa3489ca97cad532eefe, type: 3}
   initCount: 2

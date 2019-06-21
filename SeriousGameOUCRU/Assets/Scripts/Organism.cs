@@ -115,7 +115,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         gameObject.SetActive(true);
     }
 
-    public abstract GameObject InstantiateOrganism(Vector2 spawnPosition);
+    public abstract Organism InstantiateOrganism(Vector2 spawnPosition);
 
 
     /***** HEALTH FUNCTIONS *****/
@@ -203,6 +203,11 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         organismSize = newSize;
         bodyColl.radius = organismSize / 2;
         if (orgAttack) orgAttack.UpdateDetectionColliderRadius(organismSize / 2);
+    }
+
+    public OrganismMutation GetOrgMutation()
+    {
+        return orgMutation;
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class HumanCell : Organism
@@ -14,7 +13,7 @@ public class HumanCell : Organism
 
     /*** PRIVATE VARIABLES ***/
 
-    private GenericObjectPool<HumanCell> humanCellPool;
+    private static GenericObjectPool<HumanCell> humanCellPool;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -45,13 +44,18 @@ public class HumanCell : Organism
         isTargeted = false;
     }
 
-    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    public override Organism InstantiateOrganism(Vector2 spawnPosition)
     {
-        HumanCell humanCellToSpawn = humanCellPool.Get();
+        return InstantiateHumanCell(spawnPosition);
+    }
+
+    public static Organism InstantiateHumanCell(Vector2 spawnPosition)
+    {
+        HumanCell humanCellToSpawn = HumanCellPool.Instance.Get();
         humanCellToSpawn.ResetOrganismAtPosition(spawnPosition);
         humanCellToSpawn.OnObjectToSpawn();
 
-        return humanCellToSpawn.gameObject;
+        return humanCellToSpawn;
     }
 
 

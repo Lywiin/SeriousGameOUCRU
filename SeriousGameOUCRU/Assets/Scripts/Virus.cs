@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Virus : Organism
@@ -11,7 +10,7 @@ public class Virus : Organism
 
     /*** PRIVATE VARIABLES ***/
 
-    private GenericObjectPool<Virus> virusPool;
+    private static GenericObjectPool<Virus> virusPool;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -34,13 +33,18 @@ public class Virus : Organism
         virusList.Add(this);
     }
 
-    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    public override Organism InstantiateOrganism(Vector2 spawnPosition)
     {
-        Virus virusToSpawn = virusPool.Get();
+        return InstantiateVirus(spawnPosition);
+    }
+
+    public static Organism InstantiateVirus(Vector2 spawnPosition)
+    {
+        Virus virusToSpawn = VirusPool.Instance.Get();
         virusToSpawn.ResetOrganismAtPosition(spawnPosition);
         virusToSpawn.OnObjectToSpawn();
 
-        return virusToSpawn.gameObject;
+        return virusToSpawn;
     }
 
 

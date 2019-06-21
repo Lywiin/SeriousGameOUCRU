@@ -30,9 +30,9 @@ public class GameController : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     private UIController uiController;
-    private GenericObjectPool<BacteriaCell> bacteriaCellPool;
-    private GenericObjectPool<HumanCell> humanCellPool;
-    private GenericObjectPool<Virus> virusPool;
+    // private GenericObjectPool<BacteriaCell> bacteriaCellPool;
+    // private GenericObjectPool<HumanCell> humanCellPool;
+    // private GenericObjectPool<Virus> virusPool;
 
     // Ingame pause
     private bool isPaused = false;
@@ -83,9 +83,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         uiController = UIController.Instance;
-        bacteriaCellPool = BacteriaCellPool.Instance;
-        humanCellPool = HumanCellPool.Instance;
-        virusPool = VirusPool.Instance;
+        // bacteriaCellPool = BacteriaCellPool.Instance;
+        // humanCellPool = HumanCellPool.Instance;
+        // virusPool = VirusPool.Instance;
 
         // Initialize cell lists
         HumanCell.humanCellList.Clear();
@@ -122,7 +122,6 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-        // Spawn some cells
         SpawnBacteriaCell();
         SpawnVirus();
         SpawnHumanCell();
@@ -137,10 +136,7 @@ public class GameController : MonoBehaviour
             // Get a valid position by using object size as parameter
             Vector3 validPos = GetAValidPos(bacteriaCellSize);
 
-            // Get a bacteria from the pool and activate it at the right position
-            BacteriaCell bacteriaCellToSpawn = bacteriaCellPool.Get();
-            bacteriaCellToSpawn.ResetOrganismAtPosition(validPos);
-            bacteriaCellToSpawn.OnObjectToSpawn();
+            BacteriaCell.InstantiateBacteriaCell(validPos);
         }
     }
 
@@ -152,10 +148,7 @@ public class GameController : MonoBehaviour
             // Get a valid position by using object size as parameter
             Vector2 validPos = GetAValidPos(humanCellSize);
 
-            // Get a human cell from the pool and activate it at the right position
-            HumanCell humanCellToSpawn = humanCellPool.Get();
-            humanCellToSpawn.ResetOrganismAtPosition(validPos);
-            humanCellToSpawn.OnObjectToSpawn();
+            HumanCell.InstantiateHumanCell(validPos);
         }
     }
 
@@ -167,9 +160,7 @@ public class GameController : MonoBehaviour
             // Get a valid position by using object size as parameter
             Vector2 validPos = GetAValidPos(virusSize);
 
-            Virus virusToSpawn = virusPool.Get();
-            virusToSpawn.ResetOrganismAtPosition(validPos);
-            virusToSpawn.OnObjectToSpawn();
+            Virus.InstantiateVirus(validPos);
         }
     }
 
@@ -291,18 +282,6 @@ public class GameController : MonoBehaviour
     public void IncreaseAllMutationProba()
     {
         OrganismMutation.mutationProba += mutationProbaIncrease;
-        
-        // // Keep trace of global inscrease
-        // globalMutationProba += mutationProbaIncrease;
-
-        // // Update bacteria mutation rate
-        // foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
-        // {
-        //     b.IncreaseMutationProba(mutationProbaIncrease);
-        // }
-
-        // Update UI slider
-        // uiController.UpdateGlobalMutationProba(globalMutationProba);
     }
 
 
