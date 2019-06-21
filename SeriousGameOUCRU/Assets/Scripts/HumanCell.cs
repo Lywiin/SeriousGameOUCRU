@@ -33,19 +33,29 @@ public class HumanCell : Organism
         humanCellPool = HumanCellPool.Instance;
     }
 
+
+    /***** POOL FUNCTIONS *****/
+
     public override void OnObjectToSpawn()
     {
         base.OnObjectToSpawn();
 
         humanCellList.Add(this);
-        // UIController.Instance.UpdateBacteriaCellCount(humanCellList.Count);
-        // cellSize = baseCellSize;
 
         isTargeted = false;
-
     }
 
-    /***** HEALTH FUNCTIONS *****/
+    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    {
+        HumanCell humanCellToSpawn = humanCellPool.Get();
+        humanCellToSpawn.ResetOrganismAtPosition(spawnPosition);
+        humanCellToSpawn.OnObjectToSpawn();
+
+        return humanCellToSpawn.gameObject;
+    }
+
+
+    /***** DEATH FUNCTIONS *****/
 
     // Called when the cell has to die
     public override void KillOrganism()
@@ -67,31 +77,5 @@ public class HumanCell : Organism
     {
         // Put back this bacteria to the pool to be reused
         humanCellPool.ReturnToPool(this);
-    }
-
-
-    /***** DUPLICATION FUNCTIONS *****/
-
-    // protected override GameObject InstantiateCell(Vector2 randomPos)
-    // {
-    //     HumanCell humanCellToSpawn = humanCellPool.Get();
-    //     humanCellToSpawn.ResetOrganismAtPosition(randomPos);
-    //     humanCellToSpawn.OnObjectToSpawn();
-
-    //     // Attach the joint to the root rigidbody
-    //     // humanCellToSpawn.GetComponent<SpringJoint>().connectedBody = transform.parent.GetComponent<Rigidbody>();    // A OPTIMISER
-    //     // humanCellToSpawn.transform.parent = transform.parent;
-
-
-    //     return humanCellToSpawn.gameObject;
-    // }
-
-    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
-    {
-        HumanCell humanCellToSpawn = humanCellPool.Get();
-        humanCellToSpawn.ResetOrganismAtPosition(spawnPosition);
-        humanCellToSpawn.OnObjectToSpawn();
-
-        return humanCellToSpawn.gameObject;
     }
 }

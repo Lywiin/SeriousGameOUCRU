@@ -8,8 +8,10 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     [Header("Componenents")]
     public Rigidbody2D rb;
+    public CircleCollider2D detectionColl;
 
     [Header("Attack")]
+    public float attackRadius = 10f;
     public float attackTime = 10f;
     public float attackRecallTime = 5f;
     public bool spawnCopyOnTargetDeath = false;
@@ -33,6 +35,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     private void Start()
     {
+        selfOrganism = GetComponent<Organism>();
         orgMovement = GetComponent<OrganismMovement>();
     }
 
@@ -41,6 +44,8 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
+        detectionColl.radius = attackRadius;
+
         canAttack = false;
         attackTarget = null;
 
@@ -70,6 +75,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             if (attackTarget && !attackTarget.isTargeted)
             {
                 attackTarget.isTargeted = true;
+                attackTarget.GetComponent<OrganismMovement>().SetCanMove(false);
 
                 // Set new attackTarget to move towards it
                 orgMovement.SetTarget(attackTarget);
@@ -80,7 +86,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
     private void OnCollisionEnter2D(Collision2D c)
     {
         // If touch target, start to attack it
-        if (canAttack && c.gameObject == attackTarget.gameObject)
+        if (canAttack && attackTarget && c.gameObject == attackTarget.gameObject)
         {
             StartCoroutine(StartAttack());
         }
@@ -94,12 +100,16 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
         int damageOverTime = attackTime == 0f ? attackTarget.GetHealth() : (int)((float)attackTarget.GetHealth() / attackTime) + 1;
 
         // While target alive we apply damage to it
-        while (attackTarget)
+        while (attackTarget.gameObject.activeSelf)
         {
             targetLastPosition = attackTarget.transform.position;
             attackTarget.DamageOrganism(damageOverTime);
             yield return new WaitForSeconds(1f);
         }
+
+        // Reset target
+        attackTarget = null;
+        orgMovement.SetTarget(null);
 
         // When target dead we spawn a new entity if requested
         if (spawnCopyOnTargetDeath)
@@ -109,5 +119,10 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
         // Start recall to prevent chain attack
         StartCoroutine(AttackRecall());
+    }
+
+    public void UpdateDetectionColliderRadius(float bodyRadius)
+    {
+        detectionColl.radius = bodyRadius + attackRadius;
     }
 }

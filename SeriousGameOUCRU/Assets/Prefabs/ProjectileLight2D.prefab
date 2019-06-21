@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   maxVelocity: 100
-  lifeTime: 0.5
+  lifeTime: 1
   damage: 10
 --- !u!50 &2134215536639134214
 Rigidbody2D:

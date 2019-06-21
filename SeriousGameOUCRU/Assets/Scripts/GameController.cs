@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
     public float playerSpawnSafeRadius = 15f;
 
     [Header("Mutation")]
+    public float mutationProbaStart = 0.0005f;
     public float mutationProbaIncrease = 0.00075f;
 
 
@@ -75,6 +76,7 @@ public class GameController : MonoBehaviour
         humanCellSize = humanCell.GetComponentInChildren<Renderer>().bounds.size.x;
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
 
+        OrganismMutation.mutationProba = mutationProbaStart;
     }
 
 
@@ -124,6 +126,7 @@ public class GameController : MonoBehaviour
         SpawnBacteriaCell();
         SpawnVirus();
         SpawnHumanCell();
+
     }
 
     private void SpawnBacteriaCell()
@@ -287,14 +290,16 @@ public class GameController : MonoBehaviour
     // Called by playerController when fire heavy projectile
     public void IncreaseAllMutationProba()
     {
-        // Keep trace of global inscrease
-        globalMutationProba += mutationProbaIncrease;
+        OrganismMutation.mutationProba += mutationProbaIncrease;
+        
+        // // Keep trace of global inscrease
+        // globalMutationProba += mutationProbaIncrease;
 
-        // Update bacteria mutation rate
-        foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
-        {
-            // b.IncreaseMutationProba(mutationProbaIncrease);
-        }
+        // // Update bacteria mutation rate
+        // foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
+        // {
+        //     b.IncreaseMutationProba(mutationProbaIncrease);
+        // }
 
         // Update UI slider
         // uiController.UpdateGlobalMutationProba(globalMutationProba);

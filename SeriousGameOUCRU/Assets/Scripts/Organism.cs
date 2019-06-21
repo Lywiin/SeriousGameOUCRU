@@ -12,21 +12,24 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     [Header("Health")]
     public int maxHealth = 100;
 
-    [Header("Disolve")]
+    [Header("Death")]
     public float disolveSpeed = 2f;
+    public ParticleSystem explosionParticle;
 
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
     // Components
     protected Rigidbody2D rb;
-    // protected Renderer render;
     protected SpriteRenderer render;
-    protected CircleCollider2D coll;
+    protected CircleCollider2D bodyColl;
 
     protected OrganismMovement orgMovement;
     protected OrganismAttack orgAttack;
+    protected OrganismDuplication orgDuplication;
+    protected OrganismMutation orgMutation;
 
+    // Instances
     protected UIController uiController;
     protected GameController gameController;
     protected PlayerController playerController;
@@ -48,18 +51,21 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     protected virtual void Awake()
     {
         InitComponents();
+
+        targetHealthColor = Color.white;
+        baseHealthColor = render.color;
     }
 
     protected virtual void InitComponents()
     {
-        // Initialize components
         rb = GetComponent<Rigidbody2D>();
-        // render = GetComponentInChildren<Renderer>();
-        render = GetComponentInChildren<SpriteRenderer>();
-        coll = transform.GetChild(0).GetComponent<CircleCollider2D>();
+        render = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        bodyColl = transform.GetChild(0).GetComponent<CircleCollider2D>();
 
         orgMovement = GetComponent<OrganismMovement>();
         orgAttack = GetComponent<OrganismAttack>();
+        orgDuplication = GetComponent<OrganismDuplication>();
+        orgMutation = GetComponent<OrganismMutation>();
     }
 
     protected virtual void Start()
@@ -67,23 +73,6 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         uiController = UIController.Instance;
         gameController = GameController.Instance;
         playerController = PlayerController.Instance;
-    }
-
-    public virtual void OnObjectToSpawn()
-    {
-        health = maxHealth;
-        baseHealthColor = render.color;
-        targetHealthColor = Color.white;
-        disolve = false;
-        disolveValue = 0f;
-        UpdateHealthColor();
-        // render.material.SetFloat("_DisolveValue", 0f);
-        coll.enabled = true;
-        rb.velocity = Vector3.zero;
-        organismSize = render.bounds.size.x;
-
-        orgMovement.OnObjectToSpawn();
-        if (orgAttack) orgAttack.OnObjectToSpawn();
     }
 
     protected virtual void Update()
@@ -94,6 +83,39 @@ public abstract class Organism : MonoBehaviour, IPooledObject
             DisolveOverTime();
         }
     }
+
+
+    /***** POOL FUNCTIONS *****/
+
+    public virtual void OnObjectToSpawn()
+    {
+        explosionParticle.gameObject.SetActive(false);
+
+        health = maxHealth;
+        UpdateHealthColor();
+
+        disolve = false;
+        disolveValue = 0f;
+        
+        bodyColl.enabled = true;
+        rb.velocity = Vector3.zero;
+
+        UpdateOrganismSize(render.bounds.size.x);
+
+        orgMovement.OnObjectToSpawn();
+        if (orgAttack) orgAttack.OnObjectToSpawn();
+        if (orgDuplication) orgDuplication.OnObjectToSpawn();
+        if (orgMutation) orgMutation.OnObjectToSpawn();
+    }
+
+    public virtual void ResetOrganismAtPosition(Vector2 position)
+    {
+        transform.position = position;
+        transform.rotation = Quaternion.identity;
+        gameObject.SetActive(true);
+    }
+
+    public abstract GameObject InstantiateOrganism(Vector2 spawnPosition);
 
 
     /***** HEALTH FUNCTIONS *****/
@@ -108,7 +130,6 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
-        // render.material.SetFloat("_LerpValue", (float)health / maxHealth);
         render.color = Color.Lerp(targetHealthColor, baseHealthColor, (float)health / maxHealth);
     }
 
@@ -122,37 +143,30 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         UpdateHealthColor();
 
         //If health is below 0, the organism dies
-        if (health <= 0)
-        {
-            KillOrganism();
-        }
+        if (health <= 0) KillOrganism();
     }
 
-    public virtual void ResetOrganismAtPosition(Vector2 position)
-    {
-        transform.position = position;
-        transform.rotation = Quaternion.identity;
-        gameObject.SetActive(true);
-    }
 
-    // Called when the cell has to die
+    /***** DEATH FUNCTIONS *****/
+
+    // Called when the organism has to die
     public virtual void KillOrganism()
     {
         // Trigger disolve anim in update
         disolve = true;
 
         // Prevent colliding again during animation
-        coll.enabled = false;
+        bodyColl.enabled = false;
+
+        explosionParticle.gameObject.SetActive(true);
+        explosionParticle.Play();
     }
 
-    // Disolve the cell according to deltaTime
+    // Disolve the organism according to deltaTime
     protected virtual void DisolveOverTime()
     {
-        // //Compute new value
+        //Compute new value
         disolveValue = Mathf.MoveTowards(disolveValue, 1f, disolveSpeed * Time.deltaTime);
-
-        // // Animate the disolve of the cell
-        // render.material.SetFloat("_DisolveValue", newDisolveValue);
 
         if (disolveValue >= 1f)
         {
@@ -166,9 +180,17 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         Destroy(gameObject);
     }
 
+
+    /***** GETTERS/SETTERS FUNCTIONS *****/
+
     public int GetHealth()
     {
         return health;
+    }
+
+    public bool IsDisolving()
+    {
+        return disolve;
     }
 
     public float GetOrganismSize()
@@ -176,5 +198,11 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         return organismSize;
     }
 
-    public abstract GameObject InstantiateOrganism(Vector2 spawnPosition);
+    public void UpdateOrganismSize(float newSize)
+    {
+        organismSize = newSize;
+        bodyColl.radius = organismSize / 2;
+        if (orgAttack) orgAttack.UpdateDetectionColliderRadius(organismSize / 2);
+    }
+
 }

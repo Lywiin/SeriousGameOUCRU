@@ -68,8 +68,7 @@ public class UIController : MonoBehaviour
         humanCellCountText.text = HumanCell.humanCellList.Count.ToString();
 
         // Update global mutation probability slider
-        float globalProba = GameController.Instance.GetGlobalMutationGlobalProba();
-        resistanceSlider.value = globalProba;
+        resistanceSlider.value = OrganismMutation.mutationProba;
     }
 
 

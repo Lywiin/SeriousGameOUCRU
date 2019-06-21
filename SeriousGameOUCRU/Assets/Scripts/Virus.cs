@@ -34,6 +34,15 @@ public class Virus : Organism
         virusList.Add(this);
     }
 
+    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
+    {
+        Virus virusToSpawn = virusPool.Get();
+        virusToSpawn.ResetOrganismAtPosition(spawnPosition);
+        virusToSpawn.OnObjectToSpawn();
+
+        return virusToSpawn.gameObject;
+    }
+
 
     /***** HEALTH FUNCTIONS *****/
 
@@ -77,14 +86,5 @@ public class Virus : Organism
         {
             gameController.PlayerWon();
         }
-    }
-
-    public override GameObject InstantiateOrganism(Vector2 spawnPosition)
-    {
-        Virus virusToSpawn = virusPool.Get();
-        virusToSpawn.ResetOrganismAtPosition(spawnPosition);
-        virusToSpawn.OnObjectToSpawn();
-
-        return virusToSpawn.gameObject;
     }
 }

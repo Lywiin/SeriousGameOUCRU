@@ -235,8 +235,8 @@ GameObject:
   - component: {fileID: 3123446490448591262}
   - component: {fileID: 923662352682401394}
   - component: {fileID: 4341253969992415331}
+  - component: {fileID: 5835470044372664631}
   - component: {fileID: 3123446490448591263}
-  - component: {fileID: 4159586954044232312}
   m_Layer: 13
   m_Name: BacteriaCell2D
   m_TagString: Untagged
@@ -298,11 +298,7 @@ MonoBehaviour:
   organismPrefab: {fileID: 6375226934681378963}
   maxHealth: 100
   disolveSpeed: 2
-  conjugaisonProba: 0.1
-  conjugaisonRecallTime: 5
-  transformationProbability: 0.1
-  rushForce: 10
-  detectionRange: 7
+  explosionParticle: {fileID: 8034501810951669596}
 --- !u!114 &923662352682401394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,9 +331,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1532515555671245830}
+  detectionColl: {fileID: 6984037410463134509}
+  attackRadius: 10
   attackTime: 0
   attackRecallTime: 5
   spawnCopyOnTargetDeath: 0
+--- !u!114 &5835470044372664631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6375226934681378963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fde8e35b09953948864255d9e315f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duplicationProba: 0.0002
+  duplicationRecallTime: 1
 --- !u!114 &3123446490448591263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,21 +362,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c40584262e2bd841a8e3be981b225db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mutationProba: 0.0005
+  shieldRender: {fileID: 1606156155290874091}
   oneShieldHealth: 20
   shieldGrowthSpeed: 3
-  shield: {fileID: 3506887909704676389}
---- !u!114 &4159586954044232312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375226934681378963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfa17e29487f5e1499a38e94c30be053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1009397554882258751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -447,6 +448,12 @@ PrefabInstance:
 --- !u!4 &8034501810951669597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1009397554882258751}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8034501810951669596 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7026267903467348067, guid: 96b292893a1dc5a4a8a50f55743d37a6,
     type: 3}
   m_PrefabInstance: {fileID: 1009397554882258751}
   m_PrefabAsset: {fileID: 0}

@@ -105,9 +105,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8769615520535589612}
+  - component: {fileID: 5724883113880755526}
   - component: {fileID: 6064827100080528097}
   - component: {fileID: 6400076902263301859}
-  - component: {fileID: 5724883113880755526}
+  - component: {fileID: 2073414512140192311}
   m_Layer: 14
   m_Name: HumanCell2D
   m_TagString: NotTargetable
@@ -131,40 +132,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6064827100080528097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8769615520535589609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  organismPrefab: {fileID: 8769615520535589609}
-  maxHealth: 50
-  disolveSpeed: 2
---- !u!114 &6400076902263301859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8769615520535589609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56591fd8ad94f2a4ca97912e05736209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 5724883113880755526}
-  moveForce: 80
-  moveRate: 2
-  moveRateVariance: 1
-  randomMovement: 1
-  moveChangeAngle: 12
-  maxVelocity: 8
 --- !u!50 &5724883113880755526
 Rigidbody2D:
   serializedVersion: 4
@@ -186,6 +153,56 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6064827100080528097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769615520535589609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b641cfff6b8eb924e87928a807026f67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  organismPrefab: {fileID: 8769615520535589609}
+  maxHealth: 50
+  disolveSpeed: 2
+  explosionParticle: {fileID: 6555261498260236508}
+  isTargeted: 0
+--- !u!114 &6400076902263301859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769615520535589609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56591fd8ad94f2a4ca97912e05736209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5724883113880755526}
+  moveForce: 80
+  moveRate: 2
+  moveRateVariance: 1
+  maxVelocity: 8
+  randomMovement: 1
+  angleToRotate: 1
+--- !u!114 &2073414512140192311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769615520535589609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fde8e35b09953948864255d9e315f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duplicationProba: 0.0002
+  duplicationRecallTime: 1
 --- !u!1001 &4285921577456814271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,6 +285,12 @@ PrefabInstance:
 --- !u!4 &6555261498260236509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4285921577456814271}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6555261498260236508 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7026267903467348067, guid: 96b292893a1dc5a4a8a50f55743d37a6,
     type: 3}
   m_PrefabInstance: {fileID: 4285921577456814271}
   m_PrefabAsset: {fileID: 0}
