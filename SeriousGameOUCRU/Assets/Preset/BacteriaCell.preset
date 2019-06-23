@@ -26,57 +26,12 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: cellPrefab
+    propertyPath: organismPrefab
     value: 
-    objectReference: {fileID: 6375226934681378963, guid: 45607595a5ad3924298721b05780eadd,
-      type: 3}
+    objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: maxHealth
     value: 100
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: fullHealthColor.r
-    value: 0.7294118
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: fullHealthColor.g
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: fullHealthColor.b
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: fullHealthColor.a
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: lowHealthColor.r
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: lowHealthColor.g
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: lowHealthColor.b
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: lowHealthColor.a
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mutationProba
-    value: 0.0005
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: duplicationProba
-    value: 0.0002
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: duplicationRecallTime
-    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: disolveSpeed
@@ -87,28 +42,3 @@ Preset:
     value: 
     objectReference: {fileID: 7026267903467348067, guid: 96b292893a1dc5a4a8a50f55743d37a6,
       type: 3}
-  - target: {fileID: 0}
-    propertyPath: conjugaisonProba
-    value: 0.1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: conjugaisonRecallTime
-    value: 5
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: transformationProbability
-    value: 0.1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: resistantGene
-    value: 
-    objectReference: {fileID: 3885464220961194481, guid: 0d0f29dff988bd949a8778773a6d10f3,
-      type: 3}
-  - target: {fileID: 0}
-    propertyPath: rushForce
-    value: 10
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: detectionRange
-    value: 7
-    objectReference: {fileID: 0}
