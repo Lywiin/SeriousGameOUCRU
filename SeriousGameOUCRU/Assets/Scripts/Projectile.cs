@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
 
     // Movement
     protected Vector2 moveDirection;
-    protected GameObject target;
+    protected Organism target;
 
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
@@ -50,10 +50,14 @@ public class Projectile : MonoBehaviour
     protected void FixedUpdate()
     {
         // Only change moveDirection if a cell is targeted
-        if (target)
+        Debug.Log(target.IsDisolving());
+        if (target && !target.IsDisolving())
         {
             moveDirection = target.transform.position - transform.position;
             moveDirection.Normalize();
+        }else
+        {
+            Destroy(gameObject);
         }
 
         //Add force to the projectile
@@ -94,5 +98,10 @@ public class Projectile : MonoBehaviour
 
         // Freeze the projectile before playing the effect
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void SetTarget(Organism newTarget)
+    {
+        target = newTarget;
     }
 }

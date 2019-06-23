@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
     {
         // Instantiate projectile at player position and rotation
         GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
+        p.GetComponent<Projectile>().SetTarget(fireTarget.GetComponentInParent<Organism>());
     }
 
     // Called by UI to change current weapon
