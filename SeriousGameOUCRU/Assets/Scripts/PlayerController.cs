@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour
 
     [Header("Projectile")]
     public GameObject firePoint;
-    public GameObject projectile1;
+    // public GameObject projectile1;
     public float fireRateP1 = 10f;
     public float fireDrawbackP1 = 2f;
-    public GameObject projectile2;
+    // public GameObject projectile2;
     public float fireRateP2 = 2f;
     public float fireDrawbackP2 = 30f;
 
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private float weaponChangeTimer = 0f;
 
     // Intermediate fire variables
-    private GameObject currentProjectile;
+    // private GameObject currentProjectile;
     private float currentFireRate;
     private float currentFireDrawback;
 
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         canMove = false;
 
         // Init projectile
-        currentProjectile = projectile1;
+        // currentProjectile = projectile1;
         currentFireRate = fireRateP1;
         currentFireDrawback = fireDrawbackP1;
 
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         timeToFire = Time.time + 1 / currentFireRate;
 
         // Spawn the projectile
-        SpawnProjectile(currentProjectile);
+        SpawnProjectile();
 
         // Apply a drawback force
         ApplyFireDrawback(currentFireDrawback);
@@ -176,11 +176,13 @@ public class PlayerController : MonoBehaviour
     }
 
     // Spawn the desired projectile
-    void SpawnProjectile(GameObject projectile)
+    void SpawnProjectile()
     {
         // Instantiate projectile at player position and rotation
-        GameObject p = Instantiate(projectile, firePoint.transform.position, transform.rotation);
-        p.GetComponent<Projectile>().SetTarget(fireTarget.GetComponentInParent<Organism>());
+        if (heavyWeaponSelected)
+            ProjectileHeavy.InstantiateProjectileHeavy(firePoint.transform.position, transform.rotation, fireTarget.GetComponentInParent<Organism>());
+        else
+            ProjectileLight.InstantiateProjectileLight(firePoint.transform.position, transform.rotation, fireTarget.GetComponentInParent<Organism>());
     }
 
     // Called by UI to change current weapon
@@ -196,14 +198,14 @@ public class PlayerController : MonoBehaviour
         // Switch to heavy weapon
         if (heavyWeaponSelected)
         {
-            currentProjectile = projectile2;
+            // currentProjectile = projectile2;
             currentFireRate = fireRateP2;
             currentFireDrawback = fireDrawbackP2;
         }
         // Else switch to light weapon
         else
         {
-            currentProjectile = projectile1;
+            // currentProjectile = projectile1;
             currentFireRate = fireRateP1;
             currentFireDrawback = fireDrawbackP1;
         }

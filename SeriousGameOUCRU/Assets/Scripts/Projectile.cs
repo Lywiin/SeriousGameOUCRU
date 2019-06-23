@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IPooledObject
 {
     /*** PUBLIC VARIABLES ***/
 
@@ -21,84 +21,134 @@ public class Projectile : MonoBehaviour
 
     // Components
     protected Rigidbody2D rb;
-    protected SpriteRenderer render;
+    protected SpriteRenderer spriteRender;
     private CapsuleCollider2D coll;
 
-    // Collision
-    protected bool canCollide = true;
+    protected bool hidden;
 
     // Movement
     protected Vector2 moveDirection;
     protected Organism target;
 
+    protected IEnumerator delayKillCoroutine;
+    protected bool delayKillCoroutineRunning;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         // Initialize components
         rb = GetComponent<Rigidbody2D>();
-        render = GetComponent<SpriteRenderer>();
+        spriteRender = GetComponent<SpriteRenderer>();
         coll = GetComponent<CapsuleCollider2D>();
 
-        // Trigger destroy countdown
-        StartCoroutine(KillProjectile());
-
-        moveDirection = transform.up;
     }
 
-    protected void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        // Only change moveDirection if a cell is targeted
-        Debug.Log(target.IsDisolving());
-        if (target && !target.IsDisolving())
+        if (!hidden)
         {
-            moveDirection = target.transform.position - transform.position;
-            moveDirection.Normalize();
-        }else
-        {
-            Destroy(gameObject);
+            // Only change moveDirection if a cell is targeted
+            if (target && !target.IsDisolving())
+            {
+                moveDirection = target.transform.position - transform.position;
+                moveDirection.Normalize();
+            }
+
+            //Add force to the projectile
+            rb.AddForce(moveDirection * speed, ForceMode2D.Impulse);
+
+            //Clamp max velocity
+            rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
         }
+    }
 
-        //Add force to the projectile
-        rb.AddForce(moveDirection * speed, ForceMode2D.Impulse);
 
-        //Clamp max velocity
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity);
+    /***** POOL FUNCTIONS *****/
+
+    public virtual void OnObjectToSpawn()
+    {
+        hidden = false;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        spriteRender.enabled = true;
+        coll.enabled = true;
+
+        moveDirection = transform.up;
+        rb.velocity = Vector2.zero;
+
+        delayKillCoroutineRunning = false;
+        
+        // Trigger destroy countdown
+        StartDelayKillCoroutine(lifeTime);
     }
 
 
     /***** KILL FUNCTIONS *****/
 
-    // Kill the projectile after some time
-    protected virtual IEnumerator KillProjectile()
+    protected virtual void StartDelayKillCoroutine(float delay)
     {
-        yield return new WaitForSeconds(lifeTime);
-        Destroy(gameObject);
+        StopDelayKillCoroutine();
+
+        delayKillCoroutine = DelayKillProjectile(delay);
+        StartCoroutine(delayKillCoroutine);
+        delayKillCoroutineRunning = true;
+    }
+
+    private void StopDelayKillCoroutine()
+    {
+        if (delayKillCoroutineRunning)
+        {
+            StopCoroutine(delayKillCoroutine);
+            delayKillCoroutineRunning = false;
+            delayKillCoroutine = null;
+        }
+    }
+
+    // Kill the projectile after some time
+    private IEnumerator DelayKillProjectile(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        KillProjectile();
+    }
+
+    protected virtual void KillProjectile()
+    {
+        Hide();
+        target = null;
+        StopDelayKillCoroutine();
     }
 
 
     /***** COLLISION FUNCTIONS *****/
 
-    protected virtual void ApplyDamage(GameObject g)
+    protected virtual void OnCollisionEnter2D(Collision2D c)
     {
-        // Check if collided object is a targetable organism
-        if (g.CompareTag("Targetable"))
-        {
-            g.transform.GetComponentInParent<Organism>().DamageOrganism(damage);
-        }
+        KillProjectile();
+    }
+
+    protected virtual void ApplyDamage(Organism o)
+    {
+        o.DamageOrganism(damage);
     }
 
     // Hide projectile, freeze it and prevent it from colliding again
     protected void Hide()
     {
         // Hide the projectile before the explosion
-        render.enabled = false;
+        spriteRender.enabled = false;
         coll.enabled = false;
 
         // Freeze the projectile before playing the effect
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        // rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        hidden = true;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
+
+
+    /***** GETTERS/SETTERS *****/
 
     public void SetTarget(Organism newTarget)
     {

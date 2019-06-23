@@ -157,6 +157,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
         // Prevent colliding again during animation
         bodyColl.enabled = false;
+        rb.angularVelocity = 0f;
 
         explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();

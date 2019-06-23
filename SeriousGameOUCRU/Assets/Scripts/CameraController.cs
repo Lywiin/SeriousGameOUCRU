@@ -188,13 +188,10 @@ public class CameraController : MonoBehaviour
     {
         followProjectile = true;
         projectile = p;
-        StartCoroutine(StopFollowProjectile(p.lifeTime + 0.5f));
     }
 
-    private IEnumerator StopFollowProjectile(float t)
+    public void StopFollowProjectile()
     {
-        yield return new WaitForSeconds(t);
-
         // Reset follow
         followProjectile = false;
         projectile = null;

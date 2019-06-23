@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 3123446490448591263}
   m_Layer: 13
   m_Name: BacteriaCell2D
-  m_TagString: Untagged
+  m_TagString: Targetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -362,10 +362,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c40584262e2bd841a8e3be981b225db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mutationProba: 0.0005
   shieldRender: {fileID: 1606156155290874091}
   oneShieldHealth: 20
   shieldGrowthSpeed: 3
+  conjugaisonProba: 0.1
+  conjugaisonRecallTime: 5
 --- !u!1001 &1009397554882258751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -373,21 +374,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7935908544077451904}
     m_Modifications:
-    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
-        type: 3}
-      propertyPath: m_Name
-      value: BacteriaExplosionParticle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -441,6 +427,21 @@ PrefabInstance:
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+        type: 3}
+      propertyPath: m_Name
+      value: BacteriaExplosionParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
+        type: 3}
+      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

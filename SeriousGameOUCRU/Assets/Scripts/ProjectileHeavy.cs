@@ -12,44 +12,60 @@ public class ProjectileHeavy : Projectile
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         ParticleSystem.ShapeModule shapeModule = particle.shape;
         shapeModule.radius = explosionRadius - 5f;
     }
-    
-    protected override void Start()
-    {
-        base.Start();
 
+
+    /***** POOL FUNCTIONS *****/
+
+    public override void OnObjectToSpawn()
+    {
+        base.OnObjectToSpawn();
+
+        particle.Clear();
+        // particle.gameObject.SetActive(false);
         CameraController.Instance.FollowProjectile(this);
+    }
+
+    public static Projectile InstantiateProjectileHeavy(Vector2 spawnPosition, Quaternion spawnRotation, Organism newTarget)
+    {
+        ProjectileHeavy projectileHeavyToSpawn = ProjectileHeavyPool.Instance.Get();
+        projectileHeavyToSpawn.transform.position = spawnPosition;
+        projectileHeavyToSpawn.transform.rotation = spawnRotation;
+        projectileHeavyToSpawn.gameObject.SetActive(true);
+
+        projectileHeavyToSpawn.OnObjectToSpawn();
+        projectileHeavyToSpawn.SetTarget(newTarget);
+
+        return projectileHeavyToSpawn;
     }
 
 
     /***** KILL FUNCTIONS *****/
 
-    // Kill the projectile after some time
-    protected override IEnumerator KillProjectile()
+    protected override void KillProjectile()
     {
-        yield return new WaitForSeconds(lifeTime);
-
-        // Only explode if still enabled
-        if (render.enabled)
+        if (spriteRender.enabled)
         {
             Hide();
             Explode();
+            CameraController.Instance.StopFollowProjectile();
+
+            StartDelayKillCoroutine(particle.main.duration);
+        }else
+        {
+            base.KillProjectile();
+            ProjectileHeavyPool.Instance.ReturnToPool(this);
         }
     }
 
 
     /***** TRIGGER FUNCTIONS *****/
-
-    private void OnCollisionEnter2D(Collision2D c)
-    {
-        // Explode on impact
-        Hide();
-        Explode();
-    }
 
     private void Explode()
     {
@@ -60,10 +76,8 @@ public class ProjectileHeavy : Projectile
         CameraShake.Instance.HeavyScreenShake();
 
         // Trigger particle effect
+        // particle.gameObject.SetActive(true);
         particle.Play();
-
-        // Destroy object when particle effect finish
-        StartCoroutine(DestroyAfterTime(particle.main.duration));
     }
 
     private void ApplyZoneDamage()
@@ -75,14 +89,10 @@ public class ProjectileHeavy : Projectile
         foreach(Collider2D c in hitColliders)
         {
             // Antibiotic doesn't damage virus
-            if (!c.gameObject.GetComponentInParent<Virus>())
-                ApplyDamage(c.gameObject);
-        }
-    }
+            Organism hitOrganism = c.GetComponentInParent<BacteriaCell>();
 
-    private IEnumerator DestroyAfterTime(float t)
-    {
-        yield return new WaitForSeconds(t);
-        Destroy(gameObject);
+            if (hitOrganism)
+                ApplyDamage(hitOrganism);
+        }
     }
 }
