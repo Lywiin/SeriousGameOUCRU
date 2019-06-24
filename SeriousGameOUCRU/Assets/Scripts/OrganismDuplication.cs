@@ -31,7 +31,7 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     protected void Update()
     {        
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused() && !selfOrganism.IsDisolving())
+        if (!gameController.IsGamePaused() && !selfOrganism.IsFading())
         {
             // Attempt to duplicate organism every frame
             TryToDuplicateOrganism();

@@ -6,7 +6,7 @@ public class ProjectileLight: Projectile
 
     protected override void FixedUpdate()
     {
-        if (!hidden && (!target || target.IsDisolving()))
+        if (!hidden && (!target || target.IsFading()))
         {
             KillProjectile();
         }

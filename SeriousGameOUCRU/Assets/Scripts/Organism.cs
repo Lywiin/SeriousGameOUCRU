@@ -39,9 +39,9 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     protected Color baseHealthColor;
     protected Color targetHealthColor;
 
-    // Disolve
-    protected bool disolve = false;
-    protected float disolveValue;
+    // Fade
+    protected bool fade = false;
+    protected float fadeValue;
 
     protected float organismSize;
 
@@ -77,10 +77,10 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
     protected virtual void Update()
     {
-        // Animate disolve of the organism
-        if (disolve)
+        // Animate fade of the organism
+        if (fade)
         {
-            DisolveOverTime();
+            FadeOverTime();
         }
     }
 
@@ -95,14 +95,13 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         health = maxHealth;
         UpdateHealthColor();
 
-        disolve = false;
-        disolveValue = 0.1f;
-        render.material.SetFloat("_DisolveValue", disolveValue);
+        fade = false;
+        fadeValue = 1f;
+        render.material.SetFloat("_FadeValue", fadeValue);
         
         bodyColl.enabled = true;
         rb.velocity = Vector3.zero;
 
-        Debug.Log(render.bounds.size.x);
         UpdateOrganismSize(render.bounds.size.x);
 
         orgMovement.OnObjectToSpawn();
@@ -156,8 +155,8 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     // Called when the organism has to die
     public virtual void KillOrganism()
     {
-        // Trigger disolve anim in update
-        disolve = true;
+        // Trigger fade anim in update
+        fade = true;
 
         // Prevent colliding again during animation
         bodyColl.enabled = false;
@@ -168,16 +167,16 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         explosionParticle.Play();
     }
 
-    // Disolve the organism according to deltaTime
-    protected virtual void DisolveOverTime()
+    // Fade the organism according to deltaTime
+    protected virtual void FadeOverTime()
     {
         //Compute new value
-        disolveValue = Mathf.MoveTowards(disolveValue, 0.75f, disolveSpeed * Time.deltaTime);
-        render.material.SetFloat("_DisolveValue", disolveValue);
+        fadeValue = Mathf.MoveTowards(fadeValue, 0f, disolveSpeed * Time.deltaTime);
+        render.material.SetFloat("_FadeValue", fadeValue);
 
-        if (disolveValue >= 0.75f)
+        if (fadeValue == 0f)
         {
-            // GameObject is destroyed after disolve
+            // GameObject is destroyed after fade
             DestroyOrganism();
         }
     }
@@ -195,9 +194,9 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         return health;
     }
 
-    public bool IsDisolving()
+    public bool IsFading()
     {
-        return disolve;
+        return fade;
     }
 
     public float GetOrganismSize()

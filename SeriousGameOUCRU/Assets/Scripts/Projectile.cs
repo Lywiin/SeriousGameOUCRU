@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour, IPooledObject
         if (!hidden)
         {
             // Only change moveDirection if a cell is targeted
-            if (target && !target.IsDisolving())
+            if (target && !target.IsFading())
             {
                 moveDirection = target.transform.position - transform.position;
                 moveDirection.Normalize();

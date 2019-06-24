@@ -53,7 +53,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     void Update()
     {
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused() && !selfOrganism.IsDisolving() && Random.Range(0f, 1f) < mutationProba)
+        if (!gameController.IsGamePaused() && !selfOrganism.IsFading() && Random.Range(0f, 1f) < mutationProba)
         {
             // Attempt to mutate organism every frame
             DuplicateShield();
