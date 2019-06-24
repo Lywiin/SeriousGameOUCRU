@@ -90,7 +90,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         bodyColl.enabled = true;
         rb.velocity = Vector3.zero;
 
-        UpdateOrganismSize(render.bounds.size.x);
+        if (!orgMutation) UpdateOrganismSize(render.bounds.size.x);
 
         orgMovement.OnObjectToSpawn();
         if (orgAttack) orgAttack.OnObjectToSpawn();

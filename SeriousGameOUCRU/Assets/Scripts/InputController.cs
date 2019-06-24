@@ -195,7 +195,6 @@ public class InputController : MonoBehaviour
 
             // Compute moveDirection
             Vector2 moveDir = new Vector2(moveHor, moveVer);
-            Debug.Log(moveHor + " " + moveVer);
 
             // Move the player in axis direction
             playerController.MovePlayer(moveDir);

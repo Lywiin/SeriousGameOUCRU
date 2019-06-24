@@ -19,12 +19,20 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
 
     protected bool canDuplicate = false;
 
+    // Cached
+    Vector2 spawnPos;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    private void Start()
+    private void Awake()
     {
         selfOrganism = GetComponent<Organism>();
+        spawnPos = Vector2.zero;
+    }
+
+    private void Start()
+    {
         gameController = GameController.Instance;
     }
 
@@ -75,7 +83,7 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
         //Check if there is no object at position before spawing, if yes find a new position
         Vector2 randomPos = new Vector2();
         int nbTry = 0;
-        while (nbTry < 5) // Arbitrary
+        while (nbTry < 3) // Arbitrary
         {
             nbTry++;
             randomPos = ComputeRandomSpawnPosAround();
@@ -97,19 +105,13 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
         }
         return false;
     }
-
+    
     //Compute a random spawn position around organism
     protected virtual Vector2 ComputeRandomSpawnPosAround()
     {
-        Transform newTrans = transform;
-        newTrans.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0f, 360f)), Space.World);
-
-        // Compute new spawning position
-        Vector3 spawnPos = transform.position + newTrans.right * selfOrganism.GetOrganismSize() * 1.2f;
-
-        // Clamp spawning position inside the game zone
-        spawnPos.x = Mathf.Clamp(spawnPos.x, -gameController.gameZoneRadius.x, gameController.gameZoneRadius.x);
-        spawnPos.z = Mathf.Clamp(spawnPos.z, -gameController.gameZoneRadius.y, gameController.gameZoneRadius.y);
+        spawnPos = Random.insideUnitCircle.normalized;
+        spawnPos *= selfOrganism.GetOrganismSize() + 1f;
+        spawnPos += (Vector2)transform.position;
 
         return spawnPos;
     }
@@ -119,7 +121,7 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     {
         // Test a sphere slightly bigger to keep some space between bacteria
         // Testing on everything except first layer
-        return Physics2D.OverlapCircleAll(randomPos, selfOrganism.GetOrganismSize() / 2 * 1.2f, ~(1 << 1));
+        return Physics2D.OverlapCircleAll(randomPos, selfOrganism.GetOrganismSize() / 2 + 0.5f, ~(1 << 1));
     }
 
 }

@@ -26,6 +26,8 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     private GameController gameController;
 
     // Shield
+    private bool isRescaling;
+    private Vector3 targetScale;
     private int shieldHealth = 0;
 
     // Conjugaison
@@ -65,6 +67,8 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
+        isRescaling = false;
+        targetScale = Vector3.one;
         shieldHealth = 0;
         shieldRender.transform.localScale = Vector3.one;
         selfOrganism.UpdateOrganismSize(shieldRender.bounds.size.x);
@@ -83,28 +87,34 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
         if (shieldHealth > 0)
         {
             shieldRender.enabled = true;
-            newScale.x = newScale.y = 1.0f + (float)shieldHealth / 100;
+            targetScale.x = targetScale.y = 1.0f + (float)shieldHealth / 100;
+        }else
+        {
+            targetScale = Vector3.one;
         }
         
         // Animate the scale change
-        StartCoroutine(RepeatLerp(shieldRender.transform.localScale, newScale, Mathf.Abs(shieldRender.transform.localScale.magnitude - newScale.magnitude) / shieldGrowthSpeed));
+        if (!isRescaling)
+        {
+            StartCoroutine(ResizeShield());
+        }
     }
 
-    // Do a complete lerp between two vectors
-    private IEnumerator RepeatLerp(Vector3 a, Vector3 b, float time)
+    private IEnumerator ResizeShield()
     {
-        float i = 0.0f;
-        float rate = (1.0f / time);
-        while (i < 1.0f)
+        isRescaling = true;
+
+        while (shieldRender.transform.localScale != targetScale)
         {
-            i += Time.deltaTime * rate;
-            shieldRender.transform.localScale = Vector3.Lerp(a, b, i);
+            shieldRender.transform.localScale = Vector3.MoveTowards(shieldRender.transform.localScale, targetScale, shieldGrowthSpeed * Time.deltaTime);
             selfOrganism.UpdateOrganismSize(shieldRender.bounds.size.x);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
 
         if (shieldRender.transform.localScale == Vector3.one)
             shieldRender.enabled = false;
+        
+        isRescaling = false;
     }
 
 
@@ -152,14 +162,14 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
 
     private void OnCollisionEnter2D(Collision2D c)
     {
-        if (canCollide)
-        {
-            // Start coroutine to prevent multiColliding
-            StartCoroutine(CollidingRecall());
+        // if (canCollide)
+        // {
+        //     // Start coroutine to prevent multiColliding
+        //     StartCoroutine(CollidingRecall());
             
-            // Try to trigger the conjugaison
-            TryToConjugateCell(c.gameObject.GetComponentInParent<OrganismMutation>());
-        }
+        //     // Try to trigger the conjugaison
+        //     TryToConjugateCell(c.gameObject.GetComponentInParent<OrganismMutation>());
+        // }
     }
 
     // Buffer to prevent collision for a short time

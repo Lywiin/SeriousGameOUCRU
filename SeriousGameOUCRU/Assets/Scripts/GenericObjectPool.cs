@@ -23,11 +23,6 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
         AddObject(initCount);
     }
 
-    // private void Update()
-    // {
-    //     Debug.Log(objects.Count);
-    // }
-
     public T Get()
     {
         if (objects.Count == 0)
