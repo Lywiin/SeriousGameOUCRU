@@ -13,7 +13,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     public int maxHealth = 100;
 
     [Header("Death")]
-    public float disolveSpeed = 2f;
+    public float fadeSpeed = 0.5f;
     public ParticleSystem explosionParticle;
 
 
@@ -41,7 +41,6 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
     // Fade
     protected bool fade = false;
-    protected float fadeValue;
 
     protected float organismSize;
 
@@ -75,29 +74,18 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         playerController = PlayerController.Instance;
     }
 
-    protected virtual void Update()
-    {
-        // Animate fade of the organism
-        if (fade)
-        {
-            FadeOverTime();
-        }
-    }
-
 
     /***** POOL FUNCTIONS *****/
 
     public virtual void OnObjectToSpawn()
     {
-        // explosionParticle.gameObject.SetActive(false);
         explosionParticle.Clear();
 
         health = maxHealth;
         UpdateHealthColor();
 
         fade = false;
-        fadeValue = 1f;
-        render.material.SetFloat("_FadeValue", fadeValue);
+        render.material.SetFloat("_FadeValue", 1f);
         
         bodyColl.enabled = true;
         rb.velocity = Vector3.zero;
@@ -133,7 +121,6 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     protected void UpdateHealthColor()
     {
         render.material.SetFloat("_LerpValue", (float)health / maxHealth);
-        // render.color = Color.Lerp(targetHealthColor, baseHealthColor, (float)health / maxHealth);
     }
 
     // Apply damage to organism, update color and kill it if needed
@@ -157,28 +144,30 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     {
         // Trigger fade anim in update
         fade = true;
+        StartCoroutine(FadeOverTime());
 
         // Prevent colliding again during animation
         bodyColl.enabled = false;
         rb.angularVelocity = 0f;
         if (orgMovement) orgMovement.SetCanMove(false);
 
-        // explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
     }
 
     // Fade the organism according to deltaTime
-    protected virtual void FadeOverTime()
+    protected IEnumerator FadeOverTime()
     {
-        //Compute new value
-        fadeValue = Mathf.MoveTowards(fadeValue, 0f, disolveSpeed * Time.deltaTime);
-        render.material.SetFloat("_FadeValue", fadeValue);
-
-        if (fadeValue == 0f)
+        float i = 0.0f;
+        float rate = (1.0f / fadeSpeed);
+        while (i < 1.0f)
         {
-            // GameObject is destroyed after fade
-            DestroyOrganism();
+            i += Time.deltaTime * rate;
+            render.material.SetFloat("_FadeValue", 1 - i);
+            yield return null;
         }
+
+        // Destroy organism when fadding over
+        DestroyOrganism();
     }
 
     protected virtual void DestroyOrganism()
