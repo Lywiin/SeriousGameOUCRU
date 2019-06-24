@@ -96,7 +96,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3676486a8519d6b4598daa011dfe086e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3853744319394542532}
   detectionColl: {fileID: 3709617982559775791}
-  attackRadius: 10
+  attackRadius: 8
   attackTime: 10
   attackRecallTime: 5
   spawnCopyOnTargetDeath: 1
@@ -269,7 +269,7 @@ PrefabInstance:
     - target: {fileID: 7026267903467348065, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7026267903467348066, guid: 96b292893a1dc5a4a8a50f55743d37a6,
         type: 3}

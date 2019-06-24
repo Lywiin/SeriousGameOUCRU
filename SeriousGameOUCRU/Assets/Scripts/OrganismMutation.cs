@@ -82,6 +82,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
         Vector3 newScale = Vector3.one;
         if (shieldHealth > 0)
         {
+            shieldRender.enabled = true;
             newScale.x = newScale.y = 1.0f + (float)shieldHealth / 100;
         }
         
@@ -101,6 +102,9 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
             selfOrganism.UpdateOrganismSize(shieldRender.bounds.size.x);
             yield return null;
         }
+
+        if (shieldRender.transform.localScale == Vector3.one)
+            shieldRender.enabled = false;
     }
 
 

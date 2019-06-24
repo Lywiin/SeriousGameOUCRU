@@ -89,17 +89,20 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
-        explosionParticle.gameObject.SetActive(false);
+        // explosionParticle.gameObject.SetActive(false);
+        explosionParticle.Clear();
 
         health = maxHealth;
         UpdateHealthColor();
 
         disolve = false;
-        disolveValue = 0f;
+        disolveValue = 0.1f;
+        render.material.SetFloat("_DisolveValue", disolveValue);
         
         bodyColl.enabled = true;
         rb.velocity = Vector3.zero;
 
+        Debug.Log(render.bounds.size.x);
         UpdateOrganismSize(render.bounds.size.x);
 
         orgMovement.OnObjectToSpawn();
@@ -130,7 +133,8 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     // Change color of the material according to health
     protected void UpdateHealthColor()
     {
-        render.color = Color.Lerp(targetHealthColor, baseHealthColor, (float)health / maxHealth);
+        render.material.SetFloat("_LerpValue", (float)health / maxHealth);
+        // render.color = Color.Lerp(targetHealthColor, baseHealthColor, (float)health / maxHealth);
     }
 
     // Apply damage to organism, update color and kill it if needed
@@ -158,8 +162,9 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         // Prevent colliding again during animation
         bodyColl.enabled = false;
         rb.angularVelocity = 0f;
+        if (orgMovement) orgMovement.SetCanMove(false);
 
-        explosionParticle.gameObject.SetActive(true);
+        // explosionParticle.gameObject.SetActive(true);
         explosionParticle.Play();
     }
 
@@ -167,9 +172,10 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     protected virtual void DisolveOverTime()
     {
         //Compute new value
-        disolveValue = Mathf.MoveTowards(disolveValue, 1f, disolveSpeed * Time.deltaTime);
+        disolveValue = Mathf.MoveTowards(disolveValue, 0.75f, disolveSpeed * Time.deltaTime);
+        render.material.SetFloat("_DisolveValue", disolveValue);
 
-        if (disolveValue >= 1f)
+        if (disolveValue >= 0.75f)
         {
             // GameObject is destroyed after disolve
             DestroyOrganism();

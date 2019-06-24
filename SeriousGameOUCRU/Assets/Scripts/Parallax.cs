@@ -12,7 +12,7 @@ public class Parallax : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
-    private Vector2 startPos;
+    private Vector3 startPos;
     private Vector2 length;
 
 
@@ -33,7 +33,7 @@ public class Parallax : MonoBehaviour
         float distZ = cam.transform.position.y * parallaxEffect;
 
         // Affect new position
-        transform.position = new Vector2(startPos.x + distX, startPos.y + distZ);
+        transform.position = new Vector3(startPos.x + distX, startPos.y + distZ, startPos.z);
 
         // Adjust X start position
         if (tempX > startPos.x + length.x / 2) startPos.x += length.x;
