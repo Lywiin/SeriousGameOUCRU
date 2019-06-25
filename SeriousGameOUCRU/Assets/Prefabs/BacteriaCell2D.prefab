@@ -299,6 +299,7 @@ MonoBehaviour:
   maxHealth: 100
   fadeSpeed: 0.5
   explosionParticle: {fileID: 8034501810951669596}
+  wobbleDuration: 1
 --- !u!114 &923662352682401394
 MonoBehaviour:
   m_ObjectHideFlags: 0

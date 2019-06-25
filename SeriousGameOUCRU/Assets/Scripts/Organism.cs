@@ -16,6 +16,9 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     public float fadeSpeed = 0.5f;
     public ParticleSystem explosionParticle;
 
+    [Header("Effect")]
+    public float wobbleDuration = 1f;
+
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
 
@@ -39,8 +42,11 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     protected Color baseHealthColor;
     protected Color targetHealthColor;
 
-    // Fade
+    // Shader effect
     protected bool fade = false;
+    protected bool isWobbling = false;
+    protected float wobblingTime;
+    protected float wobbleAmount;
 
     protected float organismSize;
 
@@ -74,6 +80,12 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         playerController = PlayerController.Instance;
     }
 
+    protected virtual void Update()
+    {
+        if (isWobbling)
+            wobblingTime += Time.deltaTime;
+    }
+
 
     /***** POOL FUNCTIONS *****/
 
@@ -83,6 +95,11 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
         health = maxHealth;
         UpdateHealthColor();
+
+        isWobbling = false;
+        wobblingTime = 0f;
+        wobbleAmount = 0f;
+        render.material.SetFloat("_WobbleAmount", wobbleAmount);
 
         fade = false;
         render.material.SetFloat("_FadeValue", 1f);
@@ -132,8 +149,46 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         //Change material color according to health
         UpdateHealthColor();
 
+        if (!isWobbling)
+            StartCoroutine(Wobble(wobbleDuration));
+        else
+            wobblingTime = 0f;
+
         //If health is below 0, the organism dies
         if (health <= 0) KillOrganism();
+    }
+
+    public IEnumerator Wobble(float duration)
+    {
+        StartWobbling();
+        yield return new WaitUntil(() => wobblingTime > duration);
+        StopWobbling();
+    }
+
+    private void StartWobbling()
+    {
+        isWobbling = true;
+
+        StartCoroutine(MoveTowardWobbleAmount(1f));
+    }
+
+    private void StopWobbling()
+    {
+        StartCoroutine(MoveTowardWobbleAmount(0f));
+
+        isWobbling = false;
+        wobblingTime = 0f;
+    }
+
+    public IEnumerator MoveTowardWobbleAmount(float targetAmount)
+    {
+        while (wobbleAmount != targetAmount)
+        {
+            wobbleAmount += wobbleAmount < targetAmount ? 0.05f : -0.05f;
+            wobbleAmount = Mathf.Clamp01(wobbleAmount);
+            render.material.SetFloat("_WobbleAmount", wobbleAmount);
+            yield return new WaitForEndOfFrame();
+        }
     }
 
 

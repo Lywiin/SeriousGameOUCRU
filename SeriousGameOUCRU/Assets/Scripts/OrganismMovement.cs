@@ -52,7 +52,7 @@ public class OrganismMovement : MonoBehaviour, IPooledObject
     {
         if (!GameController.Instance.IsGamePaused() && canMove)
         {
-            if (targetOrganism) 
+            if (targetOrganism && targetOrganism.gameObject.activeSelf) 
                 MoveTowardstargetOrganism();
             else if (randomMovement)
                 MoveRandom();

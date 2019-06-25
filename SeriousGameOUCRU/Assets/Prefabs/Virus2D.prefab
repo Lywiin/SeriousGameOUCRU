@@ -215,8 +215,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   organismPrefab: {fileID: 8319302658690431141}
   maxHealth: 300
-  disolveSpeed: 0.3
+  fadeSpeed: 0.5
   explosionParticle: {fileID: 4845763049892781991}
+  wobbleDuration: 0.5
 --- !u!114 &5984448593556077570
 MonoBehaviour:
   m_ObjectHideFlags: 0

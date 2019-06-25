@@ -362,40 +362,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bce42707b0de10a4db25bbf45203ea08, type: 3}
---- !u!1 &434905154 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1499368337274258843, guid: b1b34be5d40741746afa1cad1fbf0e74,
-    type: 3}
-  m_PrefabInstance: {fileID: 1160969205}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &434905155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434905154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd24ebeb4515996479e3889ce3c9f212, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 962952219818350212, guid: 9e66fb9f84d2df541b57940afc6241ed, type: 3}
-  initCount: 2
---- !u!114 &434905156
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 434905154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64b294f523200fc4d8f681dd90681b8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 6389900593378594400, guid: 7eeb3c2da46b24b429e0a3654f713e83, type: 3}
-  initCount: 10
 --- !u!1001 &459092235
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -945,26 +911,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1297626530}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: virusCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: bacteriaCellCount
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: humanCellCount
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
-        type: 3}
-      propertyPath: mutationProbaStart
-      value: 0.0005
-      objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera
       value: 
