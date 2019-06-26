@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     public GameObject infoPanel;
     public TextMeshProUGUI humanCellCountText;
     public TextMeshProUGUI bacteriaCellCountText;
+    public TextMeshProUGUI virusCountText;
     public Slider resistanceSlider;
 
     [Header("End Panel")]
@@ -66,6 +67,7 @@ public class UIController : MonoBehaviour
         // Update cell count text
         bacteriaCellCountText.text = BacteriaCell.bacteriaCellList.Count.ToString();
         humanCellCountText.text = HumanCell.humanCellList.Count.ToString();
+        virusCountText.text = Virus.virusList.Count.ToString();
 
         // Update global mutation probability slider
         resistanceSlider.value = OrganismMutation.mutationProba;
