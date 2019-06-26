@@ -1172,9 +1172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: Bacteria remaining
-  textVietnamese: "Vi khu\u1EA9n c\xF2n l\u1EA1i"
-  textFrench: Bacteries restantes
+  textEnglish: Virus remaining
+  textVietnamese: Virus remaining
+  textFrench: Virus remaining
 --- !u!1 &1079458920204690475
 GameObject:
   m_ObjectHideFlags: 0

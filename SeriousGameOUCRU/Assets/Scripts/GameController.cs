@@ -30,9 +30,6 @@ public class GameController : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     private UIController uiController;
-    // private GenericObjectPool<BacteriaCell> bacteriaCellPool;
-    // private GenericObjectPool<HumanCell> humanCellPool;
-    // private GenericObjectPool<Virus> virusPool;
 
     // Ingame pause
     private bool isPaused = false;
@@ -83,13 +80,11 @@ public class GameController : MonoBehaviour
     void Start()
     {
         uiController = UIController.Instance;
-        // bacteriaCellPool = BacteriaCellPool.Instance;
-        // humanCellPool = HumanCellPool.Instance;
-        // virusPool = VirusPool.Instance;
 
         // Initialize cell lists
         HumanCell.humanCellList.Clear();
         BacteriaCell.bacteriaCellList.Clear();
+        Virus.virusList.Clear();
     }
 
     void Update()
