@@ -162,14 +162,14 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
 
     private void OnCollisionEnter2D(Collision2D c)
     {
-        // if (canCollide)
-        // {
-        //     // Start coroutine to prevent multiColliding
-        //     StartCoroutine(CollidingRecall());
+        if (canCollide)
+        {
+            // Start coroutine to prevent multiColliding
+            StartCoroutine(CollidingRecall());
             
-        //     // Try to trigger the conjugaison
-        //     TryToConjugateCell(c.gameObject.GetComponentInParent<OrganismMutation>());
-        // }
+            // Try to trigger the conjugaison
+            TryToConjugateCell(c.gameObject.GetComponentInParent<OrganismMutation>());
+        }
     }
 
     // Buffer to prevent collision for a short time
