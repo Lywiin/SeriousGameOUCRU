@@ -58,6 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_689D3573: 1
+    - Vector1_CA0A5717: 0.1
     - Vector1_E005267E: 0
     - Vector1_EB271F0A: 10
     - Vector1_F1744D4D: 10
@@ -70,6 +71,7 @@ Material:
     - _DstBlend: 0
     - _EdgeThickness: 0.01
     - _EnvironmentReflections: 1
+    - _FadeValue: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -85,6 +87,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _WobbleAmount: 0
+    - _WobbleFrequency: 1
+    - _WobbleSpeed: 5
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
