@@ -67,7 +67,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     private void OnTriggerEnter2D(Collider2D c)
     {
-        if (canAttack)
+        if (canAttack && !attackTarget)
         {
             attackTarget = c.GetComponentInParent<HumanCell>();
 

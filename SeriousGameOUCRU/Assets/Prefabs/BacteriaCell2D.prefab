@@ -335,7 +335,7 @@ MonoBehaviour:
   detectionColl: {fileID: 6984037410463134509}
   attackRadius: 10
   attackTime: 0
-  attackRecallTime: 5
+  attackRecallTime: 2
   spawnCopyOnTargetDeath: 0
 --- !u!114 &5835470044372664631
 MonoBehaviour:
