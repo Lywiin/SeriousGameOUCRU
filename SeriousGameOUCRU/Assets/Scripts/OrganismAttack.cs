@@ -100,7 +100,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
         int damageOverTime = attackTime == 0f ? attackTarget.GetHealth() : (int)((float)attackTarget.GetHealth() / attackTime) + 1;
 
         // While target alive we apply damage to it
-        while (attackTarget.gameObject.activeSelf)
+        while (attackTarget && attackTarget.gameObject.activeSelf)
         {
             targetLastPosition = attackTarget.transform.position;
             attackTarget.DamageOrganism(damageOverTime);
@@ -124,5 +124,15 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
     public void UpdateDetectionColliderRadius(float bodyRadius)
     {
         detectionColl.radius = bodyRadius + attackRadius;
+    }
+
+    public void ResetTarget()
+    {
+        if (attackTarget)
+        {
+            attackTarget.isTargeted = false;
+            attackTarget.GetComponent<OrganismMovement>().SetCanMove(true);
+            attackTarget = null;
+        }
     }
 }

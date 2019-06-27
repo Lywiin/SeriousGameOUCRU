@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     // Fire time buffer
     private float timeToFire;
     private bool isFiring = false;
-    private GameObject fireTarget;
+    private Organism fireTarget;
 
     // Weapon change
     private bool heavyWeaponSelected = false;
@@ -58,9 +58,11 @@ public class PlayerController : MonoBehaviour
     private bool canMove = false;
 
     // Move direction
-    Vector2 moveDirection = Vector3.zero;
+    private Vector2 moveDirection = Vector3.zero;
     private bool keepDistance = false;
     private float currentMaxVelocity;
+    private Vector2 oppositeForceDirection;
+    private float targetDistance;
 
 
     /*** INSTANCE ***/
@@ -98,17 +100,45 @@ public class PlayerController : MonoBehaviour
         currentFireDrawback = fireDrawbackP1;
 
         currentMaxVelocity = maxVelocity;
+
+        oppositeForceDirection = Vector2.zero;
+        targetDistance = 0f;
+    }
+
+    private void FixedUpdate()
+    {
+        if (keepDistance && fireTarget)
+        {
+            // Compute values used to repeal player from target
+            oppositeForceDirection = transform.position - fireTarget.transform.position;
+            targetDistance = oppositeForceDirection.magnitude - (fireTarget.GetOrganismSize() / 2);
+
+            // Repeal player even if not moving
+            if (moveDirection == Vector2.zero)
+            {
+                rb.AddForce(oppositeForceDirection.normalized * speed * (1 - targetDistance / minRange), ForceMode2D.Impulse);
+            }
+        }
     }
 
 
     /*** FIRE FUNCTIONS ***/
 
+    public void RepeatFire(Organism newTarget)
+    {
+        // If not firing start to fire, otherwise just change the target
+        if (!isFiring)
+            StartCoroutine(StartRepeatFire(newTarget));
+        else
+            fireTarget = newTarget;
+    }
+
     // Fire projectile over time
-    public IEnumerator RepeatFire(GameObject target)
+    public IEnumerator StartRepeatFire(Organism newTarget)
     {
         isFiring = true;
         keepDistance = true;
-        fireTarget = target;
+        fireTarget = newTarget;
         
         do
         {
@@ -180,9 +210,9 @@ public class PlayerController : MonoBehaviour
     {
         // Instantiate projectile at player position and rotation
         if (heavyWeaponSelected)
-            ProjectileHeavy.InstantiateProjectileHeavy(firePoint.transform.position, transform.rotation, fireTarget.GetComponentInParent<Organism>());
+            ProjectileHeavy.InstantiateProjectileHeavy(firePoint.transform.position, transform.rotation, fireTarget);
         else
-            ProjectileLight.InstantiateProjectileLight(firePoint.transform.position, transform.rotation, fireTarget.GetComponentInParent<Organism>());
+            ProjectileLight.InstantiateProjectileLight(firePoint.transform.position, transform.rotation, fireTarget);
     }
 
     // Called by UI to change current weapon
@@ -221,18 +251,14 @@ public class PlayerController : MonoBehaviour
     // Move the player from input
     public void MovePlayer(Vector2 movementDirection)
     {
-        // Apply a force to move the player in movementDirection
-        rb.AddForce(movementDirection * speed, ForceMode2D.Impulse);
-        
-        // If player is firing and too close from a cell it gets repulsed from it
-        if (keepDistance && fireTarget && Vector2.Distance(transform.position, fireTarget.transform.position) < minRange)
+        if (keepDistance && fireTarget && targetDistance < minRange)
         {
-            // Get the opposite force direction
-            Vector2 forceDirection = transform.position - fireTarget.transform.position;
-            forceDirection.Normalize();
-
-            // Apply the opposite force
-            rb.AddForce(forceDirection * speed, ForceMode2D.Impulse);
+            // Apply opposite force if player too close from target
+            rb.AddForce(oppositeForceDirection.normalized * speed * (1 - targetDistance / minRange) / 2, ForceMode2D.Impulse);
+        }else
+        {
+            // Apply a force to move the player in movementDirection
+            rb.AddForce(movementDirection * speed, ForceMode2D.Impulse);
         }
 
         // Clamp the player velocity to not go too fast
@@ -248,8 +274,7 @@ public class PlayerController : MonoBehaviour
 
     public void MovePlayerMobile(Vector2 inputDistance)
     {
-        inputDistance.Normalize();
-        moveDirection = inputDistance;
+        moveDirection = inputDistance.normalized;
 
         // Reset timer
         ResetWeaponChangeTimer();
@@ -265,7 +290,7 @@ public class PlayerController : MonoBehaviour
     public void NotMovePlayerMobile()
     {
         // if touch on the player, doesn't move or rotate
-        moveDirection = Vector2.zero;
+        ResetMoveDirection();
         
         // Increase timer to change weapon
         IncreaseWeaponChangeTimer();
@@ -362,6 +387,11 @@ public class PlayerController : MonoBehaviour
     public void ResetTarget()
     {
         fireTarget = null;
+    }
+
+    public void ResetMoveDirection()
+    {
+        moveDirection = Vector2.zero;
     }
 }
 

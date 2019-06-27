@@ -107,7 +107,7 @@ MonoBehaviour:
   fireDrawbackP2: 30
   weaponChangeDuration: 0.5
   weaponChangeCooldown: 0.5
-  minRange: 15
+  minRange: 10
   maxRange: 60
 --- !u!114 &7217503884614659542
 MonoBehaviour:

@@ -149,7 +149,7 @@ public class InputController : MonoBehaviour
         
         // If this target exist, start to fire at it
         if (bestTarget)
-            StartCoroutine(playerController.RepeatFire(bestTarget));
+            playerController.RepeatFire(bestTarget.GetComponentInParent<Organism>());
     }
 
     // Return the closest object to the player
@@ -227,6 +227,7 @@ public class InputController : MonoBehaviour
         {
             // Reset player weapon change timer
             playerController.ResetWeaponChangeTimer();
+            playerController.ResetMoveDirection();
         }
     }
 

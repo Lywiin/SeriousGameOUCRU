@@ -205,6 +205,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         bodyColl.enabled = false;
         rb.angularVelocity = 0f;
         if (orgMovement) orgMovement.SetCanMove(false);
+        if (orgAttack) orgAttack.ResetTarget();
 
         explosionParticle.Play();
     }

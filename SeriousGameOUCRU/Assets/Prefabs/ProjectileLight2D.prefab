@@ -94,9 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8cb09f899c918b4d8f80be2e6e5c52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6379939513572856885}
   speed: 20
-  maxVelocity: 100
+  maxVelocity: 60
   lifeTime: 1
   damage: 10
 --- !u!50 &2134215536639134214
