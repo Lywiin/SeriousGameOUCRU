@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
             targetDistance = oppositeForceDirection.magnitude - (fireTarget.GetOrganismSize() / 2);
 
             // Repeal player even if not moving
-            if (moveDirection == Vector2.zero)
+            if (targetDistance < minRange && moveDirection == Vector2.zero)
             {
                 rb.AddForce(oppositeForceDirection.normalized * speed * (1 - targetDistance / minRange), ForceMode2D.Impulse);
             }
@@ -254,7 +254,8 @@ public class PlayerController : MonoBehaviour
         if (keepDistance && fireTarget && targetDistance < minRange)
         {
             // Apply opposite force if player too close from target
-            rb.AddForce(oppositeForceDirection.normalized * speed * (1 - targetDistance / minRange) / 2, ForceMode2D.Impulse);
+            rb.AddForce(movementDirection * speed * (1f - targetDistance / minRange), ForceMode2D.Impulse);
+            rb.AddForce(oppositeForceDirection.normalized * speed * (1f - targetDistance / minRange) * 2f, ForceMode2D.Impulse);
         }else
         {
             // Apply a force to move the player in movementDirection

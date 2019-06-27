@@ -248,7 +248,7 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         // Hide the indicators
-        // CloseEnnemyUI.Instance.HideAllIndicators();
+        CloseEnnemyUI.Instance.HideAllIndicators();
 
         // Shake the screen
         CameraShake.Instance.HeavyScreenShake();
