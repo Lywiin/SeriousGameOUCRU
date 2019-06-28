@@ -17,7 +17,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     public ParticleSystem explosionParticle;
 
     [Header("Effect")]
-    public float wobbleDuration = 1f;
+    public float wobbleDuration = 0.5f;
 
 
     /*** PRIVATE/PROTECTED VARIABLES ***/
@@ -150,7 +150,7 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         UpdateHealthColor();
 
         if (!isWobbling)
-            StartCoroutine(Wobble(wobbleDuration));
+            StartCoroutine(dmg >= 50 ? Wobble(wobbleDuration * 2) : Wobble(wobbleDuration));
         else
             wobblingTime = 0f;
 
@@ -181,13 +181,22 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     }
 
     public IEnumerator MoveTowardWobbleAmount(float targetAmount)
-    {
-        while (wobbleAmount != targetAmount)
+    {   
+        if (targetAmount > wobbleAmount)
         {
-            wobbleAmount += wobbleAmount < targetAmount ? 0.05f : -0.05f;
-            wobbleAmount = Mathf.Clamp01(wobbleAmount);
+            // If target amount higher starts wobbling straight away
+            wobbleAmount = targetAmount;
             render.material.SetFloat("_WobbleAmount", wobbleAmount);
-            yield return new WaitForEndOfFrame();
+        }else
+        {
+            // If target amount lower stop wobbling slowly
+            while (wobbleAmount > targetAmount)
+            {
+                wobbleAmount -= 0.05f;
+                wobbleAmount = Mathf.Clamp01(wobbleAmount);
+                render.material.SetFloat("_WobbleAmount", wobbleAmount);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 

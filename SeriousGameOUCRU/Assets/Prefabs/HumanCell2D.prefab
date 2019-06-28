@@ -169,7 +169,7 @@ MonoBehaviour:
   maxHealth: 50
   fadeSpeed: 0.5
   explosionParticle: {fileID: 6555261498260236508}
-  wobbleDuration: 0.5
+  wobbleDuration: 1.1
   isTargeted: 0
 --- !u!114 &6400076902263301859
 MonoBehaviour:

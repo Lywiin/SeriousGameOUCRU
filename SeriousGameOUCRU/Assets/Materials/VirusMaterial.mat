@@ -87,9 +87,9 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _WobbleAmount: 0
-    - _WobbleFrequency: 1
-    - _WobbleSpeed: 5
+    - _WobbleAmount: 1
+    - _WobbleFrequency: 2
+    - _WobbleSpeed: 40
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
