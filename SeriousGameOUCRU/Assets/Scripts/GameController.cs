@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     public GameObject player;
     public GameObject bacteriaCell;
     public GameObject humanCell;
-    public GameObject humanCellGroup;
+    // public GameObject humanCellGroup;
     public GameObject virus;
 
     [Header("Spawn")]

@@ -54,9 +54,6 @@ public class PlayerController : MonoBehaviour
     // Status
     private bool dead = false;
 
-    // Can player interact
-    private bool canMove = false;
-
     // Move direction
     private Vector2 moveDirection = Vector3.zero;
     private bool keepDistance = false;
@@ -90,9 +87,6 @@ public class PlayerController : MonoBehaviour
 
         // Initialize components
         rb = GetComponent<Rigidbody2D>();
-
-        // Prevent player movement from start
-        canMove = false;
 
         // Init projectile
         // currentProjectile = projectile1;
@@ -374,12 +368,7 @@ public class PlayerController : MonoBehaviour
     {
         return moveDirection;
     }
-
-    public bool CanPlayerMove()
-    {
-        return canMove;
-    }
-
+    
     public bool IsHeavyWeaponSelected()
     {
         return heavyWeaponSelected;

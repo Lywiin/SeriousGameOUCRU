@@ -67,9 +67,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.875
+    - _ScaleRatioB: 0.7109375
+    - _ScaleRatioC: 0.7109375
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -152,9 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Oswald-Bold SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -1919333477
   material: {fileID: -4464467730125937968}
-  materialHashCode: 0
+  materialHashCode: 1664447280
   m_Version: 1.1.0
   m_SourceFontFileGUID: 94e58d6f7f9745d4a9bab7544cb7f8b3
   m_SourceFontFile_EditorRef: {fileID: 0}
@@ -8641,6 +8641,7 @@ MonoBehaviour:
     kerningPairs: []
   m_FontFeatureTable:
     m_GlyphPairAdjustmentRecords: []
+  fallbackFontAssets: []
   m_FallbackFontAssetTable: []
   m_CreationSettings:
     sourceFontFileName: 

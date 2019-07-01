@@ -18,6 +18,11 @@ public class LevelChanger : MonoBehaviour
     private void Start()
     {
         animator.ResetTrigger("FadeOut");
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            GameController.Instance.SetupGame();
+        }
     }
 
     /***** FADE FUNCTIONS *****/
@@ -42,11 +47,14 @@ public class LevelChanger : MonoBehaviour
         {
             PlayerController.Instance.SetCanMove(true);
 
-            // Only start tutorial if activated
-            if (PlayerPrefs.GetInt("Tutorial") == 1)
-                Tutorial.Instance.StartTutorial();
-            else
-                Tutorial.Instance.ToggleAnimator();
+            // // Only start tutorial if activated
+            // if (PlayerPrefs.GetInt("Tutorial") == 1)
+            //     Tutorial.Instance.StartTutorial();
+            // else
+            //     Tutorial.Instance.ToggleAnimator();
+        } else if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            Tutorial.Instance.StartTutorial();
         }
     }
 }
