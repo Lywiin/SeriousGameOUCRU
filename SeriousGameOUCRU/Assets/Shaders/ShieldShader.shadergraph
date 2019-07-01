@@ -16,7 +16,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"Fade Value\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"fce85f08-a916-4fa2-8c14-fb6efa108dc3\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_C8C417E8\",\n    \"m_OverrideReferenceName\": \"_FadeValue\",\n    \"m_Value\": 1.0,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"Fade Value\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"fce85f08-a916-4fa2-8c14-fb6efa108dc3\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_C8C417E8\",\n    \"m_OverrideReferenceName\": \"_FadeValue\",\n    \"m_Value\": 0.6000000238418579,\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {
