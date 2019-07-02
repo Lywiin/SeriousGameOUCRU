@@ -9,15 +9,25 @@ public class Tutorial : MonoBehaviour
 
     public Animator animator;
 
-    public RawImage forwardKeyImage;
-    public RawImage leftKeyImage;
-    public Texture zKeyTexture;
-    public Texture qKeyTexture;
+    public RectTransform cursorRect;
+
+    // public RawImage forwardKeyImage;
+    // public RawImage leftKeyImage;
+    // public Texture zKeyTexture;
+    // public Texture qKeyTexture;
 
 
     /*** PRIVATE VARIABLES ***/
 
     private GameController gameController;
+    private PlayerController playerController;
+    private CameraController cameraController;
+
+    private List<Organism> bacteriaCellList;
+    private Organism humanCell;
+
+    private bool blockWeaponChange = true;
+
 
     // Keep track of what the player did
     private bool playerMoved = false;
@@ -50,11 +60,15 @@ public class Tutorial : MonoBehaviour
         {
             PlayerPrefs.SetInt("Tutorial", 1);
         }
+
+        bacteriaCellList = new List<Organism>();
     }
 
     private void Start()
     {
         gameController = GameController.Instance;
+        playerController = PlayerController.Instance;
+        cameraController = CameraController.Instance;
 
         gameController.BlockPlayerInput();
 
@@ -118,7 +132,7 @@ public class Tutorial : MonoBehaviour
     //     TutorialFinished();
     // }
 
-    /***** FADE IN FUNCTIONS *****/
+    /***** ANIMATOR FUNCTIONS *****/
 
     public void StartTutorial()
     {
@@ -126,9 +140,142 @@ public class Tutorial : MonoBehaviour
         animator.SetTrigger("StartTutorial");
     }
 
-    public void DebugEvent()
+    public void StartTutorialCoroutine()
     {
-        Debug.Log("TOTO");
+        StartCoroutine(TutorialCoroutine());
+    }
+
+    private IEnumerator TutorialCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        gameController.SetCanPlayerMove(false);
+
+        // Cell tutorial
+        // Process to next step
+        SpawnLightFireTutorialCell();
+        animator.SetTrigger("FadeInBacteriaText");
+
+        // Wait for player to get close to cells
+        yield return new WaitUntil(() => bacteriaCellList[0] != null && Vector2.Distance(playerController.transform.position, bacteriaCellList[0].transform.position) < 30f);
+        UnfreezeLightFireTutorial();
+
+        // Shoot tutorial
+        // Wait for the player to fire to reset time to normal
+        yield return new WaitUntil(() => playerController.IsFiring());
+        animator.SetTrigger("FadeOutCursor");
+        RescaleTime(1f);
+
+        // Wait for the player to kill the bacteria
+        yield return new WaitUntil(() => !playerController.IsFiring());
+        yield return new WaitForSeconds(1f);
+        animator.SetTrigger("FadeInSecondWeaponText");
+        RescaleTime(0f);
+
+        // Wait for the player to change weapon
+        yield return new WaitUntil(() => playerController.IsHeavyWeaponSelected());
+        animator.SetTrigger("FadeInAntibioticText");
+        RescaleTime(0f);
+
+        SpawnHeavyFireTutorialCell();
+
+        // Wait for player to kill all the cells
+        yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
+        animator.SetTrigger("FadeInVirusText");
+    }
+
+    
+
+    public void RescaleTime(float value)
+    {
+        Time.timeScale = value;
+    }
+
+
+    /***** CELL SPAWN FUNCTIONS *****/
+
+    private void SpawnLightFireTutorialCell()
+    {
+        Vector2 spawnPos = playerController.transform.position;
+        spawnPos.y = 0f;
+
+        // Spawn bacteria cell
+        spawnPos.x += 100f;
+        SpawnTutorialBacteriaCell(spawnPos);
+
+        // Spawn human cell
+        spawnPos.x -= 10f;
+        spawnPos.y += 5f;
+        SpawnTutorialHumanCell(spawnPos);
+        spawnPos.y -= 10f;
+        SpawnTutorialHumanCell(spawnPos);
+    }
+
+    private void UnfreezeLightFireTutorial()
+    {
+        // Stop time
+        RescaleTime(0f);
+
+        UnfreezeBacteriaCell(false);
+
+        // Explain cells difference
+        animator.SetTrigger("FadeInHumanCellText");
+
+        // Move cursor to bacteria position
+        Vector2 screenPos = cameraController.GetCamera().WorldToScreenPoint(bacteriaCellList[0].transform.position);
+        cursorRect.anchoredPosition = screenPos;
+    }
+
+    private void SpawnHeavyFireTutorialCell()
+    {
+        Vector2 spawnPos = playerController.transform.position;
+        spawnPos.y = 0f;
+
+        spawnPos.x += 100f;
+        SpawnTutorialBacteriaCell(spawnPos);
+
+        spawnPos.x += 10f;
+        spawnPos.y += 3f;
+        SpawnTutorialBacteriaCell(spawnPos);
+
+        spawnPos.x -= 3f;
+        spawnPos.y -= 13f;
+        SpawnTutorialBacteriaCell(spawnPos);
+
+        UnfreezeBacteriaCell(true);
+    }
+
+    private void SpawnTutorialBacteriaCell(Vector2 spawnPos)
+    {
+        Organism bacteriaCell = BacteriaCell.InstantiateBacteriaCell(spawnPos);
+        bacteriaCell.GetComponent<OrganismAttack>().enabled = false;
+        bacteriaCell.GetComponent<OrganismMovement>().enabled = false;
+        bacteriaCell.GetComponent<OrganismDuplication>().enabled = false;
+        bacteriaCell.GetComponent<OrganismMutation>().enabled = false;
+
+        bacteriaCellList.Add(bacteriaCell);
+    }
+
+    private void SpawnTutorialHumanCell(Vector2 spawnPos)
+    {
+        humanCell = HumanCell.InstantiateHumanCell(spawnPos);
+        humanCell.GetComponent<OrganismDuplication>().enabled = false;
+    }
+
+    private void UnfreezeBacteriaCell(bool mutation)
+    {
+        foreach(Organism o in bacteriaCellList)
+        {
+            o.GetComponent<OrganismAttack>().enabled = true;
+            o.GetComponent<OrganismMovement>().enabled = true;
+            if (mutation) o.GetComponent<OrganismMutation>().enabled = true;
+        }
+    }
+
+
+
+    public bool IsWeaponChangedBlocked()
+    {
+        return blockWeaponChange;
     }
 
     // private void ShowMoveText()

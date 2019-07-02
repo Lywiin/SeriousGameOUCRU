@@ -40,8 +40,8 @@ public class GameController : MonoBehaviour
 
     // Control what can the player do
     private bool canPlayerMove = true;
-    private bool canPlayerMoveCamera = true;
     private bool canPlayerShoot = true;
+    private bool canPlayerChangeWeapon = true;
 
     // Keep track of number of killed bacteria cell
     private int bacteriaCellKillCount = 0;
@@ -215,7 +215,7 @@ public class GameController : MonoBehaviour
     // Restart the game
     public void RestartGame()
     {
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene("Main2D", LoadSceneMode.Single);
         Time.timeScale = 1.0f;
     }
 
@@ -263,11 +263,15 @@ public class GameController : MonoBehaviour
     //Called when the player win
     public void PlayerWon()
     {
-        // Hide the indicators
-        CloseEnnemyUI.Instance.HideAllIndicators();
+        // CHANGE INDEX LATER
+        if (SceneManager.GetActiveScene().buildIndex != 2)
+        {
+            // Hide the indicators
+            CloseEnnemyUI.Instance.HideAllIndicators();
 
-        // Update the UI and restart
-        uiController.TriggerVictory();
+            // Update the UI and restart
+            uiController.TriggerVictory();
+        }
     }
 
 
@@ -291,13 +295,13 @@ public class GameController : MonoBehaviour
     {
         return canPlayerMove;
     }
-    public bool CanPlayerMoveCamera()
-    {
-        return canPlayerMoveCamera;
-    }
     public bool CanPlayerShoot()
     {
         return canPlayerShoot;
+    }
+    public bool CanPlayerChangeWeapon()
+    {
+        return canPlayerChangeWeapon;
     }
 
     public int GetBacteriaCellKillCount()
@@ -311,21 +315,21 @@ public class GameController : MonoBehaviour
     public void BlockPlayerInput()
     {
         canPlayerMove = false;
-        canPlayerMoveCamera = false;
         canPlayerShoot = false;
+        canPlayerChangeWeapon = false;
     }
 
     public void SetCanPlayerMove(bool b)
     {
         canPlayerMove = b;
     }
-    public void SetCanPlayerMoveCamera(bool b)
-    {
-        canPlayerMoveCamera = b;
-    }
     public void SetCanPlayerShoot(bool b)
     {
         canPlayerShoot = b;
+    }
+    public void SetCanPlayerChangeWeapon(bool b)
+    {
+        canPlayerChangeWeapon = b;
     }
 
     public void IncrementBacteriaCellKillCount()

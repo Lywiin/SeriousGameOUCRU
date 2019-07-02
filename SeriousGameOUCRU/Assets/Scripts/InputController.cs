@@ -55,7 +55,7 @@ public class InputController : MonoBehaviour
     void Update()
     {
         // If game not paused
-        if (!gameController.IsGamePaused() && playerController &&  gameController.CanPlayerMove())
+        if (!gameController.IsGamePaused() && playerController && gameController.CanPlayerShoot())
         {
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
             {
@@ -69,7 +69,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!gameController.IsGamePaused() && playerController && gameController.CanPlayerMove()/*&& gameController.CanPlayerMove() && gameController.CanPlayerMoveCamera()*/)
+        if (!gameController.IsGamePaused() && playerController && gameController.CanPlayerMove())
         {
             // Move and rotate player every frame according to platform
             if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)

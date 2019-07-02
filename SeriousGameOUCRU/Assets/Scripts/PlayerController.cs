@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
 
     // Weapon change
     private bool heavyWeaponSelected = false;
-    private bool canChangeWeapon = true;
     private float weaponChangeTimer = 0f;
 
     // Intermediate fire variables
@@ -212,7 +211,7 @@ public class PlayerController : MonoBehaviour
     // Called by UI to change current weapon
     public IEnumerator ChangeWeapon()
     {
-        canChangeWeapon = false;
+        gameController.SetCanPlayerChangeWeapon(false);
         
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
@@ -234,8 +233,12 @@ public class PlayerController : MonoBehaviour
             currentFireDrawback = fireDrawbackP1;
         }
 
-        yield return new WaitForSeconds(weaponChangeCooldown);
-        canChangeWeapon = true;
+        // Only allow weapon change if not blocked by tutorial
+        if (Tutorial.Instance && !Tutorial.Instance.IsWeaponChangedBlocked())
+        {
+            yield return new WaitForSeconds(weaponChangeCooldown);
+            gameController.SetCanPlayerChangeWeapon(true);
+        }
     }
 
 
@@ -288,26 +291,23 @@ public class PlayerController : MonoBehaviour
         ResetMoveDirection();
         
         // Increase timer to change weapon
-        IncreaseWeaponChangeTimer();
+        if (gameController.CanPlayerChangeWeapon())
+            IncreaseWeaponChangeTimer();
     }
 
     private void IncreaseWeaponChangeTimer()
     {
-        // Condition needed to change weapon
-        if (canChangeWeapon)
+        // Increase timer every frame
+        weaponChangeTimer += Time.deltaTime;
+
+        // Update UI slider
+        mobileUI.FillWeaponChangeSlider(weaponChangeTimer / weaponChangeDuration);
+
+        // When timer over weapon changing duration trigger the weapon changing procedure
+        if (weaponChangeTimer > weaponChangeDuration)
         {
-            // Increase timer every frame
-            weaponChangeTimer += Time.deltaTime;
-
-            // Update UI slider
-            mobileUI.FillWeaponChangeSlider(weaponChangeTimer / weaponChangeDuration);
-
-            // When timer over weapon changing duration trigger the weapon changing procedure
-            if (weaponChangeTimer > weaponChangeDuration)
-            {
-                ResetWeaponChangeTimer();
-                StartCoroutine(ChangeWeapon());
-            }
+            ResetWeaponChangeTimer();
+            StartCoroutine(ChangeWeapon());
         }
     }
 
@@ -382,6 +382,11 @@ public class PlayerController : MonoBehaviour
     public void ResetMoveDirection()
     {
         moveDirection = Vector2.zero;
+    }
+
+    public bool IsFiring()
+    {
+        return isFiring;
     }
 }
 

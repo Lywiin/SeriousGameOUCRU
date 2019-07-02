@@ -78,7 +78,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
                 attackTarget.GetComponent<OrganismMovement>().SetCanMove(false);
 
                 // Set new attackTarget to move towards it
-                orgMovement.SetTarget(attackTarget);
+                if (orgMovement) orgMovement.SetTarget(attackTarget);
             }
         }
     }

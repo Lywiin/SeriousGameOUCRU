@@ -105,11 +105,7 @@ public class CameraController : MonoBehaviour
             // Get look at offset
             ComputeLookAtOffset();
 
-            if (gameController.CanPlayerMoveCamera())
-            {
-                // Handle the zoom of the camera
-                ZoomCamera();
-            }
+            ZoomCamera();
 
             // Add offset if follow projectile
             if (followProjectile)
@@ -137,16 +133,9 @@ public class CameraController : MonoBehaviour
             // Set the camera final position to that smooth position plus an offset from player mouse position
             Vector3 finalPosition = smoothedPosition + (Vector3)lookAtOffset + (Vector3)projectileOffset;
 
-            // If player has completed tutorial can move camera everywhere
-            if (gameController.CanPlayerMoveCamera())
-            {
-                // Clamp the final position in the camera zone
-                transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
-            }else   
-            {
-                // Otherwise camera only follow player position
-                transform.position = smoothedPosition;
-            }
+            // Clamp the final position in the camera zone
+            // transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
+            transform.position = finalPosition;
         }
     }
 
