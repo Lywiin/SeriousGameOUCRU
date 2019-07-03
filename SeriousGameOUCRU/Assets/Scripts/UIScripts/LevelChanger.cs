@@ -19,7 +19,7 @@ public class LevelChanger : MonoBehaviour
     {
         animator.ResetTrigger("FadeOut");
 
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex > 1)
         {
             GameController.Instance.SetupGame();
         }
@@ -43,16 +43,11 @@ public class LevelChanger : MonoBehaviour
     public void OnFadeInComplete()
     {
         // Unpause the game to start
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex > 1)
         {
             PlayerController.Instance.SetCanMove(true);
-
-            // // Only start tutorial if activated
-            // if (PlayerPrefs.GetInt("Tutorial") == 1)
-            //     Tutorial.Instance.StartTutorial();
-            // else
-            //     Tutorial.Instance.ToggleAnimator();
-        } else if (SceneManager.GetActiveScene().buildIndex == 2)
+            
+        } else if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             Tutorial.Instance.StartTutorial();
         }

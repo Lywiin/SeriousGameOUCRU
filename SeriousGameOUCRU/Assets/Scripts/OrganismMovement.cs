@@ -53,7 +53,7 @@ public class OrganismMovement : MonoBehaviour, IPooledObject
         if (!GameController.Instance.IsGamePaused() && canMove)
         {
             if (targetOrganism && targetOrganism.gameObject.activeSelf) 
-                MoveTowardstargetOrganism();
+                MoveTowardsTargetOrganism();
             else if (randomMovement)
                 MoveRandom();
             else 
@@ -103,7 +103,7 @@ public class OrganismMovement : MonoBehaviour, IPooledObject
     /***** TARGET MOVEMENTS FUNCTIONS *****/
 
     // Move organism towards targetOrganism
-    private void MoveTowardstargetOrganism()
+    private void MoveTowardsTargetOrganism()
     {
         moveDirection = targetOrganism.transform.position - transform.position;
 

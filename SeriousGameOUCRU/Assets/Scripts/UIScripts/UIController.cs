@@ -93,15 +93,15 @@ public class UIController : MonoBehaviour
 
         // Desactivate useless text
         victoryText.gameObject.SetActive(false);
+
+        // Hide info panel
+        ToggleInfoPanel(false);
     }
 
     private void DisplayEndGamePanel()
     {
         //Hide Mobile UI
         MobileUI.Instance.gameObject.SetActive(false);
-
-        // Hide info panel
-        infoPanel.SetActive(false);
 
         // Calculate time spent and update text
         int minutes = (int)(Time.time - tempTime) / 60;
@@ -122,7 +122,23 @@ public class UIController : MonoBehaviour
 
     public void ToggleInfoPanel(bool b)
     {
-        infoPanel.SetActive(b);
+        if (b)
+        {
+            UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
+            UIController.Instance.GetComponent<Animator>().ResetTrigger("FadeOutInfoPanel");
+        }else
+        {
+            UIController.Instance.GetComponent<Animator>().SetTrigger("FadeOutInfoPanel");
+            UIController.Instance.GetComponent<Animator>().ResetTrigger("FadeInInfoPanel");
+        }
+    }
+
+    // Hide everything except bacteria resistance
+    public void ToggleInfoPanelCount(bool b)
+    {
+        infoPanel.transform.GetChild(1).gameObject.SetActive(b);
+        infoPanel.transform.GetChild(2).gameObject.SetActive(b);
+        infoPanel.transform.GetChild(3).gameObject.SetActive(b);
     }
 
     // public void UpdateBacteriaCellCount(int count)

@@ -11,10 +11,7 @@ public class Tutorial : MonoBehaviour
 
     public RectTransform cursorRect;
 
-    // public RawImage forwardKeyImage;
-    // public RawImage leftKeyImage;
-    // public Texture zKeyTexture;
-    // public Texture qKeyTexture;
+    public GameObject invisibleWall;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -24,15 +21,10 @@ public class Tutorial : MonoBehaviour
     private CameraController cameraController;
 
     private List<Organism> bacteriaCellList;
+    private List<Virus> virusList;
     private Organism humanCell;
 
     private bool blockWeaponChange = true;
-
-
-    // Keep track of what the player did
-    private bool playerMoved = false;
-    private bool playerMovedCamera = false;
-    private bool playerShooted = false;
 
 
     /*** INSTANCE ***/
@@ -53,9 +45,6 @@ public class Tutorial : MonoBehaviour
             _instance = this;
         }
 
-        //TEMPORARY DESACTIVATED
-        PlayerPrefs.SetInt("Tutorial", 1);
-
         if (!PlayerPrefs.HasKey("Tutorial"))
         {
             PlayerPrefs.SetInt("Tutorial", 1);
@@ -73,64 +62,14 @@ public class Tutorial : MonoBehaviour
         gameController.BlockPlayerInput();
 
         // Hide UI since it's useless for now
-        // UIController.Instance.ToggleInfoPanel(false);
         UIController.Instance.gameObject.SetActive(false);
         MobileUI.Instance.gameObject.SetActive(false);
 
-        // Change key texture if detect french language
-        // if (Application.systemLanguage == SystemLanguage.French) 
-        // {
-        //     forwardKeyImage.texture = zKeyTexture;
-        //     leftKeyImage.texture = qKeyTexture;
-        // }
-    }
+        virusList = Virus.virusList;
 
-    private void Update()
-    {
-        // // Trigger when player move the character
-        // if (gameController.CanPlayerMove() && !playerMoved && 
-        //     (Input.GetKeyDown("w") || Input.GetKeyDown("a") || Input.GetKeyDown("s") || Input.GetKeyDown("d") || Input.GetKeyDown("z") || Input.GetKeyDown("q")))
-        // {
-        //     // Add delay before next step
-        //     StartCoroutine(PlayerMovedCoroutine(0.5f));
-        // }
-
-        // // Trigger when player move the camera
-        // else if (gameController.CanPlayerMoveCamera() && !playerMovedCamera && (Input.GetAxis("Mouse X") != 0))
-        // {
-        //     // Add delay before next step
-        //     StartCoroutine(PlayerMovedCameraCoroutine(0.5f));
-        // }
-
-        // // Trigger when player shoot
-        // else if (gameController.CanPlayerShoot() && !playerShooted && (Input.GetButton("Fire1") || Input.GetButton("Fire2")))
-        // {
-        //     // Add delay before next step
-        //     StartCoroutine(PlayerShootedCoroutine(1.0f));
-        // }
     }
 
 
-    /***** COROUTINES FUNCTIONS *****/
-
-    // private IEnumerator PlayerMovedCoroutine(float t)
-    // {
-    //     yield return new WaitForSeconds(t);
-    //     playerMoved = true;
-    //     ShowMoveCameraText();
-    // }
-    // private IEnumerator PlayerMovedCameraCoroutine(float t)
-    // {
-    //     yield return new WaitForSeconds(t);
-    //     playerMovedCamera = true;
-    //     ShowShootText();
-    // }
-    // private IEnumerator PlayerShootedCoroutine(float t)
-    // {
-    //     yield return new WaitForSeconds(t);
-    //     playerShooted = true;
-    //     TutorialFinished();
-    // }
 
     /***** ANIMATOR FUNCTIONS *****/
 
@@ -147,6 +86,7 @@ public class Tutorial : MonoBehaviour
 
     private IEnumerator TutorialCoroutine()
     {
+        ReplaceWalls();
         yield return new WaitForSeconds(1.5f);
         gameController.SetCanPlayerMove(false);
 
@@ -176,14 +116,35 @@ public class Tutorial : MonoBehaviour
         animator.SetTrigger("FadeInAntibioticText");
         RescaleTime(0f);
 
+        // Setup for heavy fire tutorial
+        ReplaceWalls();
         SpawnHeavyFireTutorialCell();
+        UIController.Instance.gameObject.SetActive(true);
+        UIController.Instance.ToggleInfoPanel(true);
+        UIController.Instance.ToggleInfoPanelCount(false);
 
         // Wait for player to kill all the cells
         yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
+        yield return new WaitForSeconds(1.5f);
+        blockWeaponChange = false;
+        gameController.SetCanPlayerChangeWeapon(true);
+        UIController.Instance.ToggleInfoPanel(false);
         animator.SetTrigger("FadeInVirusText");
-    }
+        RescaleTime(0f);
 
-    
+        //Setup for virus tutorial
+        ReplaceWalls();
+        SpawnVirusTutorialCell();
+
+        // Wait for player to get close to virus
+        yield return new WaitUntil(() => virusList[0] != null && Vector2.Distance(playerController.transform.position, virusList[0].transform.position) < 50f);
+        UnfreezeVirus();
+
+        // Wait for player to kill the virus
+        yield return new WaitUntil(() => Virus.virusList.Count == 0);
+        gameController.BlockPlayerInput();
+        animator.SetTrigger("FinishTutorial");
+    }    
 
     public void RescaleTime(float value)
     {
@@ -191,12 +152,12 @@ public class Tutorial : MonoBehaviour
     }
 
 
+
     /***** CELL SPAWN FUNCTIONS *****/
 
     private void SpawnLightFireTutorialCell()
     {
         Vector2 spawnPos = playerController.transform.position;
-        spawnPos.y = 0f;
 
         // Spawn bacteria cell
         spawnPos.x += 100f;
@@ -210,39 +171,40 @@ public class Tutorial : MonoBehaviour
         SpawnTutorialHumanCell(spawnPos);
     }
 
-    private void UnfreezeLightFireTutorial()
-    {
-        // Stop time
-        RescaleTime(0f);
-
-        UnfreezeBacteriaCell(false);
-
-        // Explain cells difference
-        animator.SetTrigger("FadeInHumanCellText");
-
-        // Move cursor to bacteria position
-        Vector2 screenPos = cameraController.GetCamera().WorldToScreenPoint(bacteriaCellList[0].transform.position);
-        cursorRect.anchoredPosition = screenPos;
-    }
-
     private void SpawnHeavyFireTutorialCell()
     {
         Vector2 spawnPos = playerController.transform.position;
-        spawnPos.y = 0f;
 
         spawnPos.x += 100f;
         SpawnTutorialBacteriaCell(spawnPos);
 
-        spawnPos.x += 10f;
+        spawnPos.x += 20f;
         spawnPos.y += 3f;
         SpawnTutorialBacteriaCell(spawnPos);
 
-        spawnPos.x -= 3f;
-        spawnPos.y -= 13f;
+        spawnPos.x -= 11f;
+        spawnPos.y -= 18f;
         SpawnTutorialBacteriaCell(spawnPos);
 
         UnfreezeBacteriaCell(true);
     }
+
+    private void SpawnVirusTutorialCell()
+    {
+        Vector2 spawnPos = playerController.transform.position;
+
+        spawnPos.x += 100f;
+        SpawnTutorialVirus(spawnPos);
+
+        spawnPos.x -= 10f;
+        spawnPos.y += 5f;
+        SpawnTutorialHumanCell(spawnPos);
+        spawnPos.y -= 10f;
+        SpawnTutorialHumanCell(spawnPos);
+    }
+
+
+
 
     private void SpawnTutorialBacteriaCell(Vector2 spawnPos)
     {
@@ -261,6 +223,29 @@ public class Tutorial : MonoBehaviour
         humanCell.GetComponent<OrganismDuplication>().enabled = false;
     }
 
+    private void SpawnTutorialVirus(Vector2 spawnPos)
+    {
+        Organism virus = Virus.InstantiateVirus(spawnPos);
+        virus.GetComponent<OrganismAttack>().enabled = false;
+        virus.GetComponent<OrganismMovement>().enabled = false;
+    }
+
+
+
+    private void UnfreezeLightFireTutorial()
+    {
+        // Stop time
+        RescaleTime(0f);
+
+        UnfreezeBacteriaCell(false);
+
+        // Explain cells difference
+        animator.SetTrigger("FadeInHumanCellText");
+
+        // Move cursor to bacteria position
+        SetCursorToTargetWorldPosition(bacteriaCellList[0].transform.position);
+    }
+
     private void UnfreezeBacteriaCell(bool mutation)
     {
         foreach(Organism o in bacteriaCellList)
@@ -271,82 +256,28 @@ public class Tutorial : MonoBehaviour
         }
     }
 
+    private void UnfreezeVirus()
+    {
+        foreach(Organism o in virusList)
+        {
+            o.GetComponent<OrganismAttack>().enabled = true;
+            o.GetComponent<OrganismMovement>().enabled = true;
+        }
+    }
 
+
+    private void SetCursorToTargetWorldPosition(Vector2 worldPos)
+    {
+        cursorRect.position = cameraController.GetCamera().WorldToScreenPoint(worldPos);
+    }
+
+    private void ReplaceWalls()
+    {
+        invisibleWall.transform.position = (Vector2)playerController.transform.position + new Vector2(50f, 0f);
+    }
 
     public bool IsWeaponChangedBlocked()
     {
         return blockWeaponChange;
     }
-
-    // private void ShowMoveText()
-    // {
-    //     // Trigger the first animation for player movement
-    //     animator.SetTrigger("showMoveText");
-    // }
-
-    // private void ShowMoveCameraText()
-    // {
-    //     // Trigger the next animation for camera movement
-    //     animator.SetTrigger("showMoveCameraText");
-    // }
-
-    // private void ShowShootText()
-    // {
-    //     // Trigger the next animation for shoot input
-    //     animator.SetTrigger("showShootText");
-    // }
-
-    // private void TutorialFinished()
-    // {
-    //     // Trigger the end of the tutorial
-    //     animator.SetTrigger("tutorialFinished");
-    // }
-
-
-    /***** COMPLETED FUNCTIONS *****/
-
-    // public void OnMoveTextFadeInComplete()
-    // {
-    //     if (!gameController.CanPlayerMove())
-    //     {
-    //         gameController.SetCanPlayerMove(true);
-    //     }
-    // }
-
-    // public void OnMoveCameraTextFadeInComplete()
-    // {
-    //     if (!gameController.CanPlayerMoveCamera())
-    //     {
-    //         gameController.SetCanPlayerMoveCamera(true);
-    //     }
-    // }
-
-    // public void OnShootTextFadeInComplete()
-    // {
-    //     if (!gameController.CanPlayerShoot())
-    //     {
-    //         gameController.SetCanPlayerShoot(true);
-    //     }
-    // }
-
-    // public void HideTutorial()
-    // {
-    //     // Only trigger when last thing has been done
-    //     if (playerShooted)
-    //     {
-    //         gameObject.SetActive(false);
-
-    //         // Start the game after
-    //         gameController.SetupGame();
-
-    //         // Display info UI after
-    //         UIController.Instance.ToggleInfoPanel(true);
-    //     }
-    // }
-
-    // public void ToggleAnimator()
-    // {
-    //     animator.enabled = !animator.enabled;
-    // }
-
 }

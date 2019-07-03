@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
     public void SetupGame()
     {
         // Fade info UI in
-        UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
+        UIController.Instance.ToggleInfoPanel(true);
 
         StartCoroutine(StartSpawningWithDelay());
     }
@@ -215,7 +215,7 @@ public class GameController : MonoBehaviour
     // Restart the game
     public void RestartGame()
     {
-        SceneManager.LoadScene("Main2D", LoadSceneMode.Single);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1.0f;
     }
 
@@ -263,8 +263,8 @@ public class GameController : MonoBehaviour
     //Called when the player win
     public void PlayerWon()
     {
-        // CHANGE INDEX LATER
-        if (SceneManager.GetActiveScene().buildIndex != 2)
+        // Do not activate with tutorial
+        if (SceneManager.GetActiveScene().buildIndex != 1)
         {
             // Hide the indicators
             CloseEnnemyUI.Instance.HideAllIndicators();
