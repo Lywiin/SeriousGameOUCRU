@@ -40,7 +40,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.Vector1ShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"WobbleSpeed\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d0136de8-cdcf-44cb-84d2-4078a09a9348\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_DAC2D305\",\n    \"m_OverrideReferenceName\": \"_WobbleSpeed\",\n    \"m_Value\": 540.0,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"WobbleSpeed\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d0136de8-cdcf-44cb-84d2-4078a09a9348\"\n    },\n    \"m_DefaultReferenceName\": \"Vector1_DAC2D305\",\n    \"m_OverrideReferenceName\": \"_WobbleSpeed\",\n    \"m_Value\": 30.0,\n    \"m_FloatType\": 0,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    },\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {
