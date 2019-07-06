@@ -35,7 +35,7 @@ Material:
     - Vector1_DEDB071D: 0.5
     - Vector1_E2635A55: 1
     m_Colors:
-    - Color_241BA53F: {r: 1, g: 0.4470588, b: 0.66680604, a: 1}
+    - Color_241BA53F: {r: 1, g: 0.5613208, b: 0.7355481, a: 1}
     - Color_3D5B607D: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 0}
-    - Color_F7A735FD: {r: 0.8490566, g: 0, b: 0.07383099, a: 1}
+    - Color_F7A735FD: {r: 0.8509804, g: 0, b: 0.07404494, a: 1}
     - Vector2_6E1BCCFA: {r: 0, g: 0, b: 0, a: 0}

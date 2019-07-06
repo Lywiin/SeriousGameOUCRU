@@ -983,7 +983,7 @@ SpriteRenderer:
   m_Size: {x: 20, y: 20}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &796156226
@@ -3183,40 +3183,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1297626533}
-    - target: {fileID: 6945918903007864176, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945918902086790471, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945918903020890835, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945918903067611460, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945918902232522838, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6945918903067611459, guid: 57a5b5a0520411944a05ec9539d1323d,
-        type: 3}
-      propertyPath: parallaxEffect
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 109480132, guid: 57a5b5a0520411944a05ec9539d1323d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a5b5a0520411944a05ec9539d1323d, type: 3}
 --- !u!1001 &7217503885734008958
