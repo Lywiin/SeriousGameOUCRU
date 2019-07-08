@@ -43,11 +43,7 @@ public class LevelChanger : MonoBehaviour
     public void OnFadeInComplete()
     {
         // Unpause the game to start
-        if (SceneManager.GetActiveScene().buildIndex > 1)
-        {
-            GameController.Instance.SetCanPlayerMove(true);
-            
-        } else if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             Tutorial.Instance.StartTutorial();
         }

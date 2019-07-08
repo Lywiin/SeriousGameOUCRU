@@ -59,7 +59,7 @@ public class Tutorial : MonoBehaviour
         playerController = PlayerController.Instance;
         cameraController = CameraController.Instance;
 
-        gameController.BlockPlayerInput();
+        gameController.TogglePlayerInput(false);
 
         // Hide UI since it's useless for now
         UIController.Instance.gameObject.SetActive(false);
@@ -142,7 +142,7 @@ public class Tutorial : MonoBehaviour
 
         // Wait for player to kill the virus
         yield return new WaitUntil(() => Virus.virusList.Count == 0);
-        gameController.BlockPlayerInput();
+        gameController.TogglePlayerInput(false);
         animator.SetTrigger("FinishTutorial");
     }    
 

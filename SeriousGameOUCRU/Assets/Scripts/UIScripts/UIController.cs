@@ -84,7 +84,7 @@ public class UIController : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
 
         // Block player inputs
-        GameController.Instance.BlockPlayerInput();
+        GameController.Instance.TogglePlayerInput(false);
     }
 
     public void TriggerGameOver()

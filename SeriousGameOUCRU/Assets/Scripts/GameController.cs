@@ -74,7 +74,6 @@ public class GameController : MonoBehaviour
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
 
         OrganismMutation.mutationProba = mutationProbaStart;
-        SetCanPlayerMove(false);
     }
 
 
@@ -314,11 +313,11 @@ public class GameController : MonoBehaviour
 
     /***** SETTERS *****/
 
-    public void BlockPlayerInput()
+    public void TogglePlayerInput(bool activate)
     {
-        canPlayerMove = false;
-        canPlayerShoot = false;
-        canPlayerChangeWeapon = false;
+        canPlayerMove = activate;
+        canPlayerShoot = activate;
+        canPlayerChangeWeapon = activate;
     }
 
     public void SetCanPlayerMove(bool b)
