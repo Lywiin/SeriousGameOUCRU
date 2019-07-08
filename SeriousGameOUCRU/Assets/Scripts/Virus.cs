@@ -53,7 +53,7 @@ public class Virus : Organism
     public override void KillOrganism()
     {
         // Prevent player to keep targeting virus
-        playerController.ResetTarget();
+        // playerController.ResetTarget();
 
         // Remove from list
         RemoveFromList();

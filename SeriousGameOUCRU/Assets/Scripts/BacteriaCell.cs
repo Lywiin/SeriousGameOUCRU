@@ -65,7 +65,7 @@ public class BacteriaCell : Organism
     public override void KillOrganism()
     {
         // Prevent player to keep targeting bacteria
-        playerController.ResetTarget();
+        // playerController.ResetTarget();
 
         // Stop moving
         orgMovement.SetCanMove(false);

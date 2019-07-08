@@ -16,7 +16,7 @@ public class InputController : MonoBehaviour
     private PlayerController playerController;
     private CameraController cameraController;
 
-    private float repeatFireTimer = 0f;
+    private float repeatFireBuffer = 0f;
 
     private Plane plane;
 
@@ -124,28 +124,24 @@ public class InputController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             // Increase timer every frame
-            repeatFireTimer += Time.deltaTime;
+            repeatFireBuffer += Time.deltaTime;
 
-            if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+            if (Input.GetTouch(0).phase == TouchPhase.Ended)
             {
                 // When touch end we check if the input last for less than some time
-                if (repeatFireTimer < 0.4f)
-                {
-                    // If so if try to fire
-                    CheckRepeatFireTouch();
-                }
+                if (repeatFireBuffer < 0.4f) TryToFire();
 
                 // After every end of touch we reset the timer
-                repeatFireTimer = 0f;
+                repeatFireBuffer = 0f;
             }
         }
     }
 
     // Check the touch of the player to see if it trigger the repeat fire
-    private void CheckRepeatFireTouch()
+    private void TryToFire()
     {
         // Get touched world position
-        Vector2 touchWorld = mainCamera.ScreenToWorldPoint(Input.GetTouch(Input.touchCount - 1).position);
+        Vector2 touchWorld = mainCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
 
         // Check if the touch collide with objects in the world
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(touchWorld, 7f, 1 << LayerMask.NameToLayer("Ennemy"));
@@ -169,18 +165,14 @@ public class InputController : MonoBehaviour
         // Go through all object to find the closest one
         foreach (Collider2D c in hitColliders)
         {
-            // If the object touched is targetable we compute his distance to the player
-            if (c.CompareTag("Targetable"))
-            {
-                // Compute distance from player
-                Vector2 distance = c.ClosestPoint(playerPos) - playerPos;
-                float sqrDistance = distance.sqrMagnitude;
+            // Compute distance from player
+            Vector2 distance = c.ClosestPoint(playerPos) - playerPos;
+            float sqrDistance = distance.sqrMagnitude;
 
-                if (sqrDistance < bestDistance)
-                {
-                    bestTarget = c.gameObject;
-                    bestDistance = sqrDistance;
-                }
+            if (sqrDistance < bestDistance)
+            {
+                bestTarget = c.gameObject;
+                bestDistance = sqrDistance;
             }
         }
 
@@ -227,7 +219,7 @@ public class InputController : MonoBehaviour
                 playerController.MovePlayerMobile(inputDistance);
             }else
             {
-                playerController.NotMovePlayerMobile();
+                playerController.StayPlayerMobile();
             }
         }else
         {

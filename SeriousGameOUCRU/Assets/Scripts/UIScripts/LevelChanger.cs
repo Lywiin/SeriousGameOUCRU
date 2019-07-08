@@ -45,7 +45,7 @@ public class LevelChanger : MonoBehaviour
         // Unpause the game to start
         if (SceneManager.GetActiveScene().buildIndex > 1)
         {
-            PlayerController.Instance.SetCanMove(true);
+            GameController.Instance.SetCanPlayerMove(true);
             
         } else if (SceneManager.GetActiveScene().buildIndex == 1)
         {

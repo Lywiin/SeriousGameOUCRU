@@ -8,16 +8,14 @@ public class PlayerController : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Player Movement")]
-    public float speed = 8f;
+    public float speed = 80f;
     public float maxVelocity = 20f;
 
     [Header("Projectile")]
     public GameObject firePoint;
-    // public GameObject projectile1;
-    public float fireRateP1 = 10f;
+    public float fireRateP1 = 0.1f;
     public float fireDrawbackP1 = 2f;
-    // public GameObject projectile2;
-    public float fireRateP2 = 2f;
+    public float fireRateP2 = 0.5f;
     public float fireDrawbackP2 = 30f;
 
     [Header("Weapon Change")]
@@ -25,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public float weaponChangeCooldown = 0.5f;
 
     [Header("Attack Range")]
-    public float minRange = 15f;
+    public float minRange = 10f;
     public float maxRange = 60f;
 
 
@@ -34,30 +32,22 @@ public class PlayerController : MonoBehaviour
     private GameController gameController;
     private MobileUI mobileUI;
 
-    // Componenents
+    // Components
     private Rigidbody2D rb;
 
-    // Fire time buffer
-    private float timeToFire;
-    private bool isFiring = false;
     private Organism fireTarget;
 
     // Weapon change
     private bool heavyWeaponSelected = false;
     private float weaponChangeTimer = 0f;
 
-    // Intermediate fire variables
-    // private GameObject currentProjectile;
-    private float currentFireRate;
-    private float currentFireDrawback;
-
     // Status
-    private bool dead = false;
+    private bool isDead = false;
 
     // Move direction
     private Vector2 moveDirection = Vector3.zero;
-    private bool keepDistance = false;
     private float currentMaxVelocity;
+
     private Vector2 oppositeForceDirection;
     private float targetDistance;
 
@@ -88,11 +78,6 @@ public class PlayerController : MonoBehaviour
         // Initialize components
         rb = GetComponent<Rigidbody2D>();
 
-        // Init projectile
-        // currentProjectile = projectile1;
-        currentFireRate = fireRateP1;
-        currentFireDrawback = fireDrawbackP1;
-
         currentMaxVelocity = maxVelocity;
 
         oppositeForceDirection = Vector2.zero;
@@ -101,98 +86,52 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (keepDistance && fireTarget)
-        {
-            // Compute values used to repeal player from target
-            oppositeForceDirection = transform.position - fireTarget.transform.position;
-            targetDistance = oppositeForceDirection.magnitude - (fireTarget.GetOrganismSize() / 2);
-
-            // Repeal player even if not moving
-            if (targetDistance < minRange && moveDirection == Vector2.zero)
-            {
-                rb.AddForce(oppositeForceDirection.normalized * speed * (1 - targetDistance / minRange), ForceMode2D.Impulse);
-            }
-        }
+        MovePlayer();
     }
 
 
     /*** FIRE FUNCTIONS ***/
 
+    // If not firing start to fire, otherwise just change the target
     public void RepeatFire(Organism newTarget)
     {
-        // If not firing start to fire, otherwise just change the target
-        if (!isFiring)
-            StartCoroutine(StartRepeatFire(newTarget));
-        else
+        if (!fireTarget) 
+        {
             fireTarget = newTarget;
+            StartCoroutine(StartRepeatFire());
+        }else
+        {
+            fireTarget = newTarget;
+        }
     }
 
     // Fire projectile over time
-    public IEnumerator StartRepeatFire(Organism newTarget)
+    public IEnumerator StartRepeatFire()
     {
-        isFiring = true;
-        keepDistance = true;
-        fireTarget = newTarget;
-        
         do
         {
             // Keep the player rotated toward the target
             RotatePlayer(fireTarget.transform.position - transform.position);
 
-            // Fire projectile as normal
-            if (Time.time >= timeToFire)
-                Fire();
+            Fire();
 
-            yield return null;
-
-            if (!PlayerController.Instance)
-                break;
+            // yield return null;
+            yield return new WaitForSeconds(heavyWeaponSelected ? fireRateP2 : fireRateP1);
 
         // Keep firing until cell die or get out of range
-        }while (fireTarget && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
+        } while (fireTarget && !fireTarget.IsFading() && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
 
-        isFiring = false;
-
-        if (PlayerController.Instance)
-        {
-            // If fire heavy projectile stop keeping distance after some time to prevent unintended movement toward the cell
-            if (heavyWeaponSelected)
-                StartCoroutine(UnkeepDistance(2f));
-            else
-                StartCoroutine(UnkeepDistance(0f));
-        }
-    }
-
-    // Stop keeping distance with cell after some time
-    private IEnumerator UnkeepDistance(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (!isFiring)
-        {
-            keepDistance = false;
-            fireTarget = null;
-        }
-    }
-
-    public void FireDesktop()
-    {
-        if (Time.time >= timeToFire)
-        {
-            Fire();
-        }
+        fireTarget = null;
     }
 
     // Fire a projectile
     private void Fire()
     {
-        // Update next time to fire
-        timeToFire = Time.time + 1 / currentFireRate;
-
         // Spawn the projectile
         SpawnProjectile();
 
         // Apply a drawback force
-        ApplyFireDrawback(currentFireDrawback);
+        ApplyFireDrawback(heavyWeaponSelected? fireDrawbackP2 : fireDrawbackP1);
 
         // Increase mutation proba if heavy projectile is fired
         if (heavyWeaponSelected)
@@ -210,32 +149,24 @@ public class PlayerController : MonoBehaviour
     }
 
     // Called by UI to change current weapon
-    public IEnumerator ChangeWeapon()
+    public void ChangeWeapon()
     {
         gameController.SetCanPlayerChangeWeapon(false);
+
+        // Reset target when changing weapon
+        fireTarget = null;
         
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
-
         mobileUI.ToggleCurrentWeaponImage(heavyWeaponSelected);
 
-        // Switch to heavy weapon
-        if (heavyWeaponSelected)
-        {
-            // currentProjectile = projectile2;
-            currentFireRate = fireRateP2;
-            currentFireDrawback = fireDrawbackP2;
-        }
-        // Else switch to light weapon
-        else
-        {
-            // currentProjectile = projectile1;
-            currentFireRate = fireRateP1;
-            currentFireDrawback = fireDrawbackP1;
-        }
+        StartCoroutine(ChangeWeaponBuffer());
+    }
 
+    private IEnumerator ChangeWeaponBuffer()
+    {
         // Only allow weapon change if not blocked by tutorial
-        if (Tutorial.Instance && !Tutorial.Instance.IsWeaponChangedBlocked())
+        if (!Tutorial.Instance || Tutorial.Instance && !Tutorial.Instance.IsWeaponChangedBlocked())
         {
             yield return new WaitForSeconds(weaponChangeCooldown);
             gameController.SetCanPlayerChangeWeapon(true);
@@ -247,24 +178,30 @@ public class PlayerController : MonoBehaviour
     /*** MOVEMENTS FUNCTIONS ***/
 
     // Move the player from input
-    public void MovePlayer(Vector2 movementDirection)
+    private void MovePlayer()
     {
-        if (keepDistance && fireTarget && targetDistance < minRange)
+        if (fireTarget)
+        {
+            // Compute values used to repeal player from target
+            oppositeForceDirection = transform.position - fireTarget.transform.position;
+            targetDistance = oppositeForceDirection.magnitude - (fireTarget.GetOrganismSize() / 2);
+        }
+
+        if (fireTarget && targetDistance < minRange)
         {
             // Apply opposite force if player too close from target
-            rb.AddForce(movementDirection * speed * (1f - targetDistance / minRange), ForceMode2D.Impulse);
-            rb.AddForce(oppositeForceDirection.normalized * speed * (1f - targetDistance / minRange) * 2f, ForceMode2D.Impulse);
+            rb.AddForce(oppositeForceDirection.normalized * speed * (1f - targetDistance / minRange), ForceMode2D.Impulse);
         }else
         {
             // Apply a force to move the player in movementDirection
-            rb.AddForce(movementDirection * speed, ForceMode2D.Impulse);
+            rb.AddForce(moveDirection * speed, ForceMode2D.Impulse);
         }
 
         // Clamp the player velocity to not go too fast
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, currentMaxVelocity);
     }
 
-    public void RotatePlayer(Vector2 lookAtDirection)
+    private void RotatePlayer(Vector2 lookAtDirection)
     {
         // Rotate player toward a direction
         float angle = Mathf.Atan2(lookAtDirection.y, lookAtDirection.x) * Mathf.Rad2Deg;
@@ -275,18 +212,14 @@ public class PlayerController : MonoBehaviour
     {
         moveDirection = inputDistance.normalized;
 
-        // Reset timer
         ResetWeaponChangeTimer();
 
-        // Move player toward moveDirection
-        MovePlayer(moveDirection);
-
         // Rotate player toward moveDirection if not firing
-        if (!isFiring)
+        if (!fireTarget)
             RotatePlayer(moveDirection);
     }
 
-    public void NotMovePlayerMobile()
+    public void StayPlayerMobile()
     {
         // if touch on the player, doesn't move or rotate
         ResetMoveDirection();
@@ -308,7 +241,7 @@ public class PlayerController : MonoBehaviour
         if (weaponChangeTimer > weaponChangeDuration)
         {
             ResetWeaponChangeTimer();
-            StartCoroutine(ChangeWeapon());
+            ChangeWeapon();
         }
     }
 
@@ -349,22 +282,17 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Player dies on collision with cell
-        if (!dead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
+        if (!isDead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
         {
-            dead = true;
+            isDead = true;
             gameController.GameOver();
+            Destroy(gameObject);
         }
     }
 
 
-    // /*** GETTERS ***/
+    /*** GETTERS/SETTERS ***/
 
-
-    // Toggle player movement
-    public void SetCanMove(bool b)
-    {
-        // canMove = b;
-    }
     public Vector2 GetMoveDirection()
     {
         return moveDirection;
@@ -375,11 +303,6 @@ public class PlayerController : MonoBehaviour
         return heavyWeaponSelected;
     }
 
-    public void ResetTarget()
-    {
-        fireTarget = null;
-    }
-
     public void ResetMoveDirection()
     {
         moveDirection = Vector2.zero;
@@ -387,7 +310,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsFiring()
     {
-        return isFiring;
+        return fireTarget ? true : false;
     }
 }
 

@@ -74,11 +74,13 @@ public class GameController : MonoBehaviour
         virusSize = virus.GetComponentInChildren<Renderer>().bounds.size.x;
 
         OrganismMutation.mutationProba = mutationProbaStart;
+        SetCanPlayerMove(false);
     }
 
 
     void Start()
     {
+
         uiController = UIController.Instance;
 
         // Initialize cell lists
@@ -257,7 +259,7 @@ public class GameController : MonoBehaviour
         uiController.TriggerGameOver();
 
         // Kill the player and restart
-        Destroy(player);
+        // Destroy(player);
     }
 
     //Called when the player win

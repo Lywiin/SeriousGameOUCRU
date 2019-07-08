@@ -101,9 +101,9 @@ MonoBehaviour:
   speed: 80
   maxVelocity: 20
   firePoint: {fileID: 7217503885172424198}
-  fireRateP1: 10
+  fireRateP1: 0.1
   fireDrawbackP1: 2
-  fireRateP2: 2
+  fireRateP2: 0.5
   fireDrawbackP2: 30
   weaponChangeDuration: 0.5
   weaponChangeCooldown: 0.5
