@@ -28,8 +28,7 @@ public class ProjectileHeavy : Projectile
         base.OnObjectToSpawn();
 
         particle.Clear();
-        // particle.gameObject.SetActive(false);
-        CameraController.Instance.FollowProjectile(this);
+        CameraController.Instance.StartFollowProjectile(this);
     }
 
     public static Projectile InstantiateProjectileHeavy(Vector2 spawnPosition, Quaternion spawnRotation, Organism newTarget)

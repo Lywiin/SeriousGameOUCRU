@@ -7,23 +7,21 @@ public class CameraController : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     [Header("Camera Movement")]
-    public Transform target;
     public Vector3 offset;
-    public float smoothSpeed = 12f;
+    public float smoothSpeed = 10f;
     
-    [Header("Camera Look At")]
+    [Header("Camera Look At Offset")]
     public float lookAtSpeed = 1.5f;
     public float lookAtFactor = 3.5f;
 
-    [Header("Camera Size")]
-    public float cameraSizingSpeed = 2f;
-    public float cameraSizingFactor = 1.1f;
-    public float cameraSmoothSpeed = 6f;
+    [Header("Camera Zoom")]
+    public float cameraZoomSpeed = 6f;
+    public float cameraZoomFactor = 1.15f;
+    public float projectileFollowZoomFactor = 2f;
 
     [Header("Projectile")]
-    public float projectileFollowFactor = 0.1f;
-    public float projectileFollowZoomFactor = 2f;
-    public float projectileFollowReturnSpeed = 6f;
+    public float projectileFollowFactor = 0.3f;
+    public float projectileFollowReturnSpeed = 3f;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -32,20 +30,21 @@ public class CameraController : MonoBehaviour
     private PlayerController playerController;
     private InputController inputController;
 
-    private Plane plane;
+    private Transform targetTransform;
+
     private Camera cam;
     private float cameraBaseSize;
 
-    // Camera zone size
-    private Vector2 cameraZone;
-
     // Projectile
-    private bool followProjectile = false;
-    private ProjectileHeavy projectile;
-    private Vector2 projectileOffset = Vector3.zero;
+    private ProjectileHeavy projectileTarget;
+    private Vector3 projectileOffset;
 
-    // Look at offset
-    Vector2 lookAtOffset = Vector2.zero;
+    // Cached
+    private Vector3 lookAtOffset;
+    private Vector3 desiredPosition;
+    private Vector3 smoothedDesiredPosition;
+    private Vector3 offsetMovementDirection;
+    private Vector3 finalPosition;
 
 
     /*** INSTANCE ***/
@@ -66,24 +65,26 @@ public class CameraController : MonoBehaviour
         }
     }
 
-
-    /***** MONOBEHAVIOUR FUNCTIONS *****/
-
-    void Start()
+    private void Start()
     {
         gameController = GameController.Instance;
         playerController = PlayerController.Instance;
         inputController = InputController.Instance;
 
-        // plane = new Plane(Vector3.up, 0);
         cam = transform.GetComponentInChildren<Camera>();
         cameraBaseSize = cam.orthographicSize;
 
-        // Initialize zone where the camera can go
-        cameraZone = gameController.gameZoneRadius - new Vector2(15f, 5f);
+        projectileOffset = Vector3.zero;
+        lookAtOffset = Vector3.zero;
+        desiredPosition = Vector3.zero;
+        smoothedDesiredPosition = Vector3.zero;
+        offsetMovementDirection = Vector3.zero;
+        finalPosition = Vector3.zero;
+
+        targetTransform = PlayerController.Instance.transform;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         MoveCamera();
     }
@@ -94,100 +95,82 @@ public class CameraController : MonoBehaviour
     // Move camera according to target movements
     private void MoveCamera()
     {
-        if (target != null)
+        if (targetTransform != null)
         {
-            // Get camera base offset position
-            Vector3 desiredPosition = target.position + offset;
-
             // Smooth that position to add delay in camera movement
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+            smoothedDesiredPosition = Vector2.Lerp(transform.position, targetTransform.position, smoothSpeed * Time.deltaTime);
 
-            // Get look at offset
             ComputeLookAtOffset();
 
-            ZoomCamera();
+            ComputeProjectileOffset();
 
-            // Add offset if follow projectile
-            if (followProjectile)
-            {
-                // // Compute new offset
-                // Vector2 tempFollowOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
+            ComputeCameraZoom();
 
-                // // Prevent screen exit
-                // tempFollowOffset.y /= 2f;
-
-                // COmpute and affect new offset
-                projectileOffset = (projectile.transform.position - target.transform.position) * projectileFollowFactor;
-                
-                // Prevent screen exit
-                projectileOffset /= 2f;
-
-                // Add temporary zoom out
-                cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraSmoothSpeed);;
-                
-            }else
-            {
-                projectileOffset = Vector2.Lerp(projectileOffset, Vector2.zero, projectileFollowReturnSpeed * Time.deltaTime);
-            }
-
-            // Set the camera final position to that smooth position plus an offset from player mouse position
-            Vector3 finalPosition = smoothedPosition + (Vector3)lookAtOffset + (Vector3)projectileOffset;
-
-            // Clamp the final position in the camera zone
-            // transform.position = new Vector3(Mathf.Clamp(finalPosition.x, -cameraZone.x, cameraZone.x), finalPosition.y, Mathf.Clamp(finalPosition.z, -cameraZone.y, cameraZone.y));
-            transform.position = finalPosition;
+            // Set the final position 
+            transform.position = smoothedDesiredPosition + lookAtOffset + projectileOffset + offset;
         }
     }
 
     // Return offset position from difference between player and mouse position
     private void ComputeLookAtOffset()
     {
-        // Init direction for the offset
-        Vector2 offsetDirection = Vector2.zero;
-
-        // Compute offsetDirection if we are on mobile and touch the screen or anything else
-        if (Input.touchCount > 0 || (Application.platform != RuntimePlatform.IPhonePlayer && Application.platform != RuntimePlatform.Android && !inputController.androidDebug))
-        {
-            offsetDirection = playerController.GetMoveDirection() * lookAtFactor;
-        }
+        offsetMovementDirection = playerController.GetMoveDirection() * lookAtFactor;
 
         // Smooth the offset to be applied
-        lookAtOffset = Vector2.Lerp(lookAtOffset, offsetDirection, Time.deltaTime * lookAtSpeed);
+        lookAtOffset = Vector2.Lerp(lookAtOffset, offsetMovementDirection, Time.deltaTime * lookAtSpeed);
+    }
+
+    private void ComputeProjectileOffset()
+    {
+        // Add offset if follow projectile
+        if (projectileTarget)
+        {
+            // Compute and affect new offset
+            projectileOffset = (projectileTarget.transform.position - targetTransform.position) * projectileFollowFactor;
+            
+            // Prevent screen exit
+            projectileOffset /= 2f;            
+        }else
+        {
+            projectileOffset = Vector2.Lerp(projectileOffset, Vector2.zero, projectileFollowReturnSpeed * Time.deltaTime);
+        }
     }
 
     // Zoom the camera when player fires
-    private void ZoomCamera()
+    private void ComputeCameraZoom()
     {
-        // Init desired size
-        float desiredSize = cameraBaseSize;
-
-        // Use that offset to zoom camera in or out
-        if(Input.GetButton("Fire1"))
+        if (projectileTarget)
         {
-            // Compute new camera size and clamp it
-            float newSize = cameraBaseSize + lookAtOffset.magnitude * cameraSizingSpeed; 
-            desiredSize = Mathf.Clamp(newSize, cameraBaseSize, cameraBaseSize * cameraSizingFactor);
-        }
+            // Zoom camera out when fire projectile
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraZoomSpeed);
+        }else
+        {
+            // Init desired size
+            float desiredSize = cameraBaseSize;
 
-        // Apply the new camera size
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraSmoothSpeed);
+            if(Input.touchCount > 0)
+            {
+                // Compute new camera size
+                desiredSize = cameraBaseSize + lookAtOffset.magnitude * cameraZoomFactor; 
+            }
+
+            // Apply the new camera size
+            cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, Time.deltaTime * cameraZoomSpeed);
+        }
     }
 
-    public void FollowProjectile(ProjectileHeavy p)
+    public void StartFollowProjectile(ProjectileHeavy p)
     {
-        followProjectile = true;
-        projectile = p;
+        projectileTarget = p;
     }
 
     public void StopFollowProjectile()
     {
-        // Reset follow
-        followProjectile = false;
-        projectile = null;
+        projectileTarget = null;
     }
 
 
-    /***** GETTERS *****/
+    /***** GETTERS/SETTERS *****/
 
     public Camera GetCamera()
     {

@@ -20,7 +20,11 @@ public class InputController : MonoBehaviour
 
     private Plane plane;
 
+    // Cached 
     private Vector3 inputDistance;
+    private Vector2 touchPosition;
+    private Vector2 touchWorldPosition;
+
 
     /*** INSTANCE ***/
 
@@ -43,6 +47,8 @@ public class InputController : MonoBehaviour
         plane = new Plane(Vector3.up, 0);
 
         inputDistance = Vector3.zero;
+        touchPosition = Vector2.zero;
+        touchWorldPosition = Vector2.zero;
     }
 
     private void Start()
@@ -57,13 +63,13 @@ public class InputController : MonoBehaviour
         // If game not paused
         if (!gameController.IsGamePaused() && playerController && gameController.CanPlayerShoot())
         {
-            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-            {
+            // if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            // {
                 HandleFireMobile();
-            }else
-            {
-                HandleFireDesktop();
-            }
+            // }else
+            // {
+                // HandleFireDesktop();
+            // }
         }
     }
 
@@ -72,45 +78,45 @@ public class InputController : MonoBehaviour
         if (!gameController.IsGamePaused() && playerController && gameController.CanPlayerMove())
         {
             // Move and rotate player every frame according to platform
-            if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-            {
+            // if (androidDebug || Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+            // {
                 HandlePlayerControlsMobile();
-            }else
-            {
-                HandlePlayerControlsDesktop();
-            }
+            // }else
+            // {
+                // HandlePlayerControlsDesktop();
+            // }
         }
     }
     
 
     /*** FIRE FUNCTIONS ***/
 
-    private void HandleFireDesktop()
-    {
-        if (playerController)
-        {
-            if (Input.GetButton("Fire1"))
-            {
-                if (playerController.IsHeavyWeaponSelected())
-                {
-                    // Switch to light weapon if heavy selected
-                    StartCoroutine(playerController.ChangeWeapon());
-                }
+    // private void HandleFireDesktop()
+    // {
+    //     if (playerController)
+    //     {
+    //         if (Input.GetButton("Fire1"))
+    //         {
+    //             if (playerController.IsHeavyWeaponSelected())
+    //             {
+    //                 // Switch to light weapon if heavy selected
+    //                 StartCoroutine(playerController.ChangeWeapon());
+    //             }
 
-                playerController.FireDesktop();
+    //             playerController.FireDesktop();
 
-            }else if (Input.GetButton("Fire2"))
-            {
-                if (!playerController.IsHeavyWeaponSelected())
-                {
-                    // Switch to heavy weapon if light selected
-                    StartCoroutine(playerController.ChangeWeapon());
-                }
+    //         }else if (Input.GetButton("Fire2"))
+    //         {
+    //             if (!playerController.IsHeavyWeaponSelected())
+    //             {
+    //                 // Switch to heavy weapon if light selected
+    //                 StartCoroutine(playerController.ChangeWeapon());
+    //             }
 
-                playerController.FireDesktop();
-            }
-        }
-    }
+    //             playerController.FireDesktop();
+    //         }
+    //     }
+    // }
 
     private void HandleFireMobile()
     {
@@ -184,33 +190,33 @@ public class InputController : MonoBehaviour
 
     /*** MOVEMENTS FUNCTIONS ***/
 
-    // Handle player movement and rotation for desktop
-    private void HandlePlayerControlsDesktop()
-    {
-        if (playerController)
-        {
-            // Get input axes
-            float moveHor = Input.GetAxis("Horizontal");
-            float moveVer = Input.GetAxis("Vertical");
+    // // Handle player movement and rotation for desktop
+    // private void HandlePlayerControlsDesktop()
+    // {
+    //     if (playerController)
+    //     {
+    //         // Get input axes
+    //         float moveHor = Input.GetAxis("Horizontal");
+    //         float moveVer = Input.GetAxis("Vertical");
 
-            // Compute moveDirection
-            Vector2 moveDir = new Vector2(moveHor, moveVer);
+    //         // Compute moveDirection
+    //         Vector2 moveDir = new Vector2(moveHor, moveVer);
 
-            // Move the player in axis direction
-            playerController.MovePlayer(moveDir);
+    //         // Move the player in axis direction
+    //         playerController.MovePlayer(moveDir);
 
-            // Rotate the player toward mouse position
-            playerController.RotatePlayer((Vector2)(mainCamera.ScreenToWorldPoint(Input.mousePosition) - playerController.transform.position));
-        }
-    }
+    //         // Rotate the player toward mouse position
+    //         playerController.RotatePlayer((Vector2)(mainCamera.ScreenToWorldPoint(Input.mousePosition) - playerController.transform.position));
+    //     }
+    // }
 
     // Handle player movement and rotation for mobile
     private void HandlePlayerControlsMobile()
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Began)
         {
-            // Compute moveDirection
-            inputDistance = ComputeInputDistanceFromPlayer(0);
+            // Compute inputDistance
+            ComputeInputDistanceFromPlayer(0);
 
             // Compute new max velocity
             playerController.ComputeCurrentMaxVelocity(inputDistance);
@@ -231,15 +237,14 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private Vector2 ComputeInputDistanceFromPlayer(int touchIndex)
+    private void ComputeInputDistanceFromPlayer(int touchIndex)
     {
         // Get touch position on screen
-        Vector2 touchPosition = Input.GetTouch(touchIndex).position;
+        touchPosition = Input.GetTouch(touchIndex).position;
 
         // Convert it to world position and keep Y always at player level (0)
-        Vector2 touchWorldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
+        touchWorldPosition = mainCamera.ScreenToWorldPoint(touchPosition);
 
-        // Compute moveDirection
-        return touchWorldPosition - (Vector2)playerController.transform.position;
+        inputDistance = touchWorldPosition - (Vector2)playerController.transform.position;
     }
 }
