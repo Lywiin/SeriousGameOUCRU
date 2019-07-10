@@ -9,13 +9,26 @@ public class MainMenu : MonoBehaviour
 
     /***** SIZE FUNCTIONS *****/
 
-    public void GrowText()
+    public void OnPlayClick()
     {
-        animator.SetBool("grow", true);
+        animator.SetTrigger("FadeToLevelScreen");
+        // animator.SetBool("CanFade", false);
     }
 
-    public void ShrinkText()
+    public void CanFadeTrue()
     {
-        animator.SetBool("grow", false);
+        animator.SetBool("CanFade", true);
+    }
+
+    public void CanFadeFalse()
+    {
+        animator.SetBool("CanFade", false);
+    }
+
+    public void ResetFadeTriggers()
+    {
+        animator.ResetTrigger("FadeToHomeScreen");
+        animator.ResetTrigger("FadeToLevelScreen");
+        animator.ResetTrigger("FadeToOptionScreen");
     }
 }
