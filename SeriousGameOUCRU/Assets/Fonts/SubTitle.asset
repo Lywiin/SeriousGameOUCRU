@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SubTitle
   m_EditorClassIdentifier: 
   colorMode: 2
-  topLeft: {r: 1, g: 0.7693535, b: 0.3726415, a: 1}
-  topRight: {r: 1, g: 0.7693535, b: 0.3726415, a: 1}
-  bottomLeft: {r: 1, g: 0.8302442, b: 0.3726415, a: 1}
-  bottomRight: {r: 1, g: 0.8302442, b: 0.3726415, a: 1}
+  topLeft: {r: 1, g: 0.8544388, b: 0.6084906, a: 1}
+  topRight: {r: 1, g: 0.8544388, b: 0.6084906, a: 1}
+  bottomLeft: {r: 1, g: 0.8560295, b: 0.4481132, a: 1}
+  bottomRight: {r: 1, g: 0.8560295, b: 0.4481132, a: 1}

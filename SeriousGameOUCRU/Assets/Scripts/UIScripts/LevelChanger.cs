@@ -42,8 +42,13 @@ public class LevelChanger : MonoBehaviour
 
     public void OnFadeInComplete()
     {
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (PlayerPrefs.GetInt("CurrentLevel") < sceneIndex)
+            PlayerPrefs.SetInt("CurrentLevel", sceneIndex);
+
         // Unpause the game to start
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (sceneIndex == 1)
         {
             Tutorial.Instance.StartTutorial();
         }

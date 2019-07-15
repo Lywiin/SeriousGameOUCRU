@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class MainMenu : MonoBehaviour
     public Shader[] wallShaderArray;
     public Material[] wallMaterialArray;
 
+    [Header("Level Selection")]
+    public Button[] levelButtonArray;
+    public TextMeshProUGUI[] levelTextArray;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -38,10 +43,17 @@ public class MainMenu : MonoBehaviour
             PlayerPrefs.SetInt("Quality", 0);
         }
 
+        if (!PlayerPrefs.HasKey("CurrentLevel"))
+        {
+            PlayerPrefs.SetInt("CurrentLevel", 0);
+        }
+
         // 1 is low quality
         bool lowQuality = PlayerPrefs.GetInt("Quality") == 1;
         ChangeGraphismQuality(lowQuality);
         qualityToggle.isOn = lowQuality;
+
+        DesactivateUncompletedLevels();
     }
 
 
@@ -99,5 +111,22 @@ public class MainMenu : MonoBehaviour
 
         for (int i = 0; i < wallMaterialArray.Length; i++)
             wallMaterialArray[i].shader = wallShaderArray[shaderIndex];
+    }
+
+
+    /***** LEVEL FUNCTIONS *****/
+
+    private void DesactivateUncompletedLevels()
+    {
+        int currentLevel = PlayerPrefs.GetInt("CurrentLevel");
+
+        for (int i = 0; i < levelButtonArray.Length; i++)
+        {
+            if (currentLevel < i)
+            {
+                levelButtonArray[i].interactable = false;
+                levelTextArray[i].color = new Color(1f, 1f, 1f, 0.5f);
+            }
+        }
     }
 }
