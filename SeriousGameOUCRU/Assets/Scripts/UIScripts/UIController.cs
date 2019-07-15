@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -29,6 +30,7 @@ public class UIController : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
+    private Animator animator;
     private float tempTime = 0f;
 
 
@@ -48,6 +50,8 @@ public class UIController : MonoBehaviour
         } else {
             _instance = this;
         }
+
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -115,21 +119,29 @@ public class UIController : MonoBehaviour
         endGamePanel.SetActive(true);
     }
 
-    public void TogglePauseUI(bool b)
+    public void TogglePauseUI()
     {
-        pausePanel.SetActive(b);
+        GameController.Instance.TogglePause();
+        bool isPaused = GameController.Instance.IsGamePaused();
+
+        animator.enabled = !isPaused;
+        infoPanel.SetActive(!isPaused);
+        MobileUI.Instance.gameObject.SetActive(!isPaused);
+        CloseEnnemyUI.Instance.gameObject.SetActive(!isPaused);
+
+        pausePanel.SetActive(isPaused);
     }
 
     public void ToggleInfoPanel(bool b)
     {
         if (b)
         {
-            UIController.Instance.GetComponent<Animator>().SetTrigger("FadeInInfoPanel");
-            UIController.Instance.GetComponent<Animator>().ResetTrigger("FadeOutInfoPanel");
+            animator.SetTrigger("FadeInInfoPanel");
+            animator.ResetTrigger("FadeOutInfoPanel");
         }else
         {
-            UIController.Instance.GetComponent<Animator>().SetTrigger("FadeOutInfoPanel");
-            UIController.Instance.GetComponent<Animator>().ResetTrigger("FadeInInfoPanel");
+            animator.SetTrigger("FadeOutInfoPanel");
+            animator.ResetTrigger("FadeInInfoPanel");
         }
     }
 
@@ -164,5 +176,18 @@ public class UIController : MonoBehaviour
         // Change tutorial value in the preferences when player click on toggle
         int newValue = tutorialToggle.isOn ? 1 : 0;
         PlayerPrefs.SetInt("Tutorial", newValue);
+    }
+
+
+    /***** LEVEL CHANGE FUNCTIONS *****/
+
+    public void FadeToHome()
+    {
+        LevelChanger.Instance.FadeToLevel(0);
+    }
+
+    public void RestartLevel()
+    {
+        LevelChanger.Instance.FadeToLevel(SceneManager.GetActiveScene().buildIndex);
     }
 }

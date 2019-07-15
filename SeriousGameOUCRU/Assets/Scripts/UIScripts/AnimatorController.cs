@@ -16,7 +16,6 @@ public class AnimatorController : MonoBehaviour
 
     public void EnableAnimator()
     {
-        Debug.Log("ENABLE");
         animator.enabled = true;
     }
 }

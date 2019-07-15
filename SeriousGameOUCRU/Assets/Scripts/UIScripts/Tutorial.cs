@@ -26,6 +26,8 @@ public class Tutorial : MonoBehaviour
 
     private bool blockWeaponChange = true;
 
+    private bool freezeTime = false;
+
 
     /*** INSTANCE ***/
 
@@ -62,7 +64,7 @@ public class Tutorial : MonoBehaviour
         gameController.TogglePlayerInput(false);
 
         // Hide UI since it's useless for now
-        UIController.Instance.gameObject.SetActive(false);
+        // UIController.Instance.gameObject.SetActive(false);
         MobileUI.Instance.gameObject.SetActive(false);
 
         virusList = Virus.virusList;
@@ -148,6 +150,7 @@ public class Tutorial : MonoBehaviour
 
     public void RescaleTime(float value)
     {
+        freezeTime = value == 0f;
         Time.timeScale = value;
     }
 
@@ -279,5 +282,10 @@ public class Tutorial : MonoBehaviour
     public bool IsWeaponChangedBlocked()
     {
         return blockWeaponChange;
+    }
+
+    public bool IsTimeFreezed()
+    {
+        return freezeTime;
     }
 }

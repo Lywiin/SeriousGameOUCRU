@@ -229,11 +229,11 @@ public class GameController : MonoBehaviour
         // Change pause state
         isPaused = !isPaused;
 
-        // Display pause UI
-        uiController.TogglePauseUI(isPaused);
-
-        // Change time scale according to bool
-        Time.timeScale = isPaused ? 0 : 1;
+        // Change time scale according to bool if tutorial not paused
+        if (SceneManager.GetActiveScene().buildIndex != 1 || (Tutorial.Instance && !Tutorial.Instance.IsTimeFreezed()))
+        {
+            Time.timeScale = isPaused ? 0 : 1;
+        }
     }
 
     // Get pause state

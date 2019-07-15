@@ -12,8 +12,23 @@ public class LevelChanger : MonoBehaviour
 
     private int levelToLoad;
 
+    /*** INSTANCE ***/
+
+    private static LevelChanger _instance;
+    public static LevelChanger Instance { get { return _instance; } }
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+    }
 
     private void Start()
     {
@@ -36,12 +51,16 @@ public class LevelChanger : MonoBehaviour
 
     public void OnFadeOutComplete()
     {
+        Time.timeScale = 1.0f;
         // Load the level
         SceneManager.LoadScene(levelToLoad);
     }
 
     public void OnFadeInComplete()
     {
+        animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        animator.enabled = false;
+
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         if (PlayerPrefs.GetInt("CurrentLevel") < sceneIndex)
