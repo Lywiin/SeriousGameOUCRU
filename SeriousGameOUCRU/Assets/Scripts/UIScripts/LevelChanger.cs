@@ -3,13 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    /*** PUBLIC VARIABLES ***/
-
-    public Animator animator;
-
-
     /*** PRIVATE VARIABLES ***/
 
+    private Animator animator;
     private int levelToLoad;
 
     /*** INSTANCE ***/
@@ -28,6 +24,8 @@ public class LevelChanger : MonoBehaviour
         } else {
             _instance = this;
         }
+
+        animator = GetComponent<Animator>();
     }
 
     private void Start()

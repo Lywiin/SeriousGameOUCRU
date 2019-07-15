@@ -21,11 +21,14 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI victoryText;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI timeTextValue;
-    public TextMeshProUGUI killedCountTextValue;
-    public Toggle tutorialToggle;
+    public TextMeshProUGUI bacteriaKilledCountTextValue;
+    public TextMeshProUGUI virusKilledCountTextValue;
+    public GameObject restartButton;
+    public GameObject nextLevelButton;
 
     [Header("Pause Panel")]
     public GameObject pausePanel;
+    public GameObject pauseButton;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -59,9 +62,6 @@ public class UIController : MonoBehaviour
         // Make sure this panel is unactive
         endGamePanel.SetActive(false);
 
-        // Initialize toggle status
-        tutorialToggle.isOn = PlayerPrefs.GetInt("Tutorial") == 0 ? false : true;
-
         // Init time survived
         tempTime = Time.time;
     }
@@ -84,22 +84,18 @@ public class UIController : MonoBehaviour
     {
         DisplayEndGamePanel();
 
-        // Desactivate useless text
+        // Desactivate useless things
         gameOverText.gameObject.SetActive(false);
-
-        // Block player inputs
-        GameController.Instance.TogglePlayerInput(false);
+        restartButton.SetActive(false);
     }
 
     public void TriggerGameOver()
     {
         DisplayEndGamePanel();
 
-        // Desactivate useless text
+        // Desactivate useless things
         victoryText.gameObject.SetActive(false);
-
-        // Hide info panel
-        ToggleInfoPanel(false);
+        nextLevelButton.SetActive(false);
     }
 
     private void DisplayEndGamePanel()
@@ -113,7 +109,12 @@ public class UIController : MonoBehaviour
         timeTextValue.text = minutes.ToString() + "m " + seconds.ToString() + "s";
 
         // Update killed count text
-        killedCountTextValue.text = GameController.Instance.GetBacteriaCellKillCount().ToString();
+        bacteriaKilledCountTextValue.text = GameController.Instance.GetBacteriaCellKillCount().ToString();
+        virusKilledCountTextValue.text = GameController.Instance.GetVirusKillCount().ToString();
+
+        pauseButton.SetActive(false);
+        ToggleInfoPanel(false);
+        GameController.Instance.TogglePlayerInput(false);
 
         // Display panel
         endGamePanel.SetActive(true);
@@ -169,21 +170,11 @@ public class UIController : MonoBehaviour
     // }
 
 
-    /***** ON EVENT FUNCTIONS *****/
-
-    public void OnTutorialValueChanged()
-    {
-        // Change tutorial value in the preferences when player click on toggle
-        int newValue = tutorialToggle.isOn ? 1 : 0;
-        PlayerPrefs.SetInt("Tutorial", newValue);
-    }
-
-
     /***** LEVEL CHANGE FUNCTIONS *****/
 
-    public void FadeToHome()
+    public void ChangeLevel(int index)
     {
-        LevelChanger.Instance.FadeToLevel(0);
+        LevelChanger.Instance.FadeToLevel(index);
     }
 
     public void RestartLevel()

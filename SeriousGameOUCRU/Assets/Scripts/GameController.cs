@@ -43,8 +43,9 @@ public class GameController : MonoBehaviour
     private bool canPlayerShoot = true;
     private bool canPlayerChangeWeapon = true;
 
-    // Keep track of number of killed bacteria cell
+    // Keep track of number of killed bacteria cell and virus
     private int bacteriaCellKillCount = 0;
+    private int virusKillCount = 0;
 
     // Size
     private float bacteriaCellSize;
@@ -310,6 +311,11 @@ public class GameController : MonoBehaviour
         return bacteriaCellKillCount;
     }
 
+    public int GetVirusKillCount()
+    {
+        return virusKillCount;
+    }
+
 
     /***** SETTERS *****/
 
@@ -336,5 +342,10 @@ public class GameController : MonoBehaviour
     public void IncrementBacteriaCellKillCount()
     {
         bacteriaCellKillCount++;
+    }
+
+    public void IncrementVirusKillCount()
+    {
+        virusKillCount++;
     }
 }

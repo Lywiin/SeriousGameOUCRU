@@ -55,6 +55,9 @@ public class Virus : Organism
         // Prevent player to keep targeting virus
         // playerController.ResetTarget();
 
+        // Increase killed count
+        gameController.IncrementVirusKillCount();
+
         // Remove from list
         RemoveFromList();
 
