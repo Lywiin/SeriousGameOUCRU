@@ -25,12 +25,13 @@ public class Virus : Organism
 
     /***** POOL FUNCTIONS *****/
 
-    public override void OnObjectToSpawn()
+    protected override void OnObjectSpawn()
     {
-        base.OnObjectToSpawn();
+        base.OnObjectSpawn();
 
         // Add to list
         virusList.Add(this);
+        if (uiController) uiController.UpdateVirusCount();
     }
 
     public override Organism InstantiateOrganism(Vector2 spawnPosition)
@@ -85,9 +86,10 @@ public class Virus : Organism
 
     /***** LIST FUNCTIONS *****/
     
-    private void RemoveFromList()
+    protected override void RemoveFromList()
     {
         virusList.Remove(this);
+        uiController.UpdateVirusCount();
 
         if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {

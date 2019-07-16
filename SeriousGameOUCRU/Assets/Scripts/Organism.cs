@@ -91,6 +91,17 @@ public abstract class Organism : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
+        StartCoroutine(WaitForObjectEnable());
+    }
+    
+    public IEnumerator WaitForObjectEnable()
+    {
+        yield return new WaitUntil(() => gameObject.activeSelf);
+        OnObjectSpawn();
+    }
+
+    protected virtual void OnObjectSpawn()
+    {
         explosionParticle.Clear();
 
         health = maxHealth;
@@ -239,6 +250,11 @@ public abstract class Organism : MonoBehaviour, IPooledObject
     {
         Destroy(gameObject);
     }
+
+
+    /***** LIST FUNCTIONS *****/
+    
+    protected abstract void RemoveFromList();
 
 
     /***** GETTERS/SETTERS FUNCTIONS *****/

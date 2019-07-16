@@ -185,8 +185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -165}
-  m_SizeDelta: {x: 600, y: 70}
+  m_AnchoredPosition: {x: 100, y: -166.5}
+  m_SizeDelta: {x: 200, y: 67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &525369606
 CanvasRenderer:
@@ -216,7 +216,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Cells remaining
+  m_text: Cells
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -286,14 +286,14 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 525369604}
-    characterCount: 15
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 2
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -321,9 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: Cells remaining
-  textVietnamese: Cells remaining
-  textFrench: Cells remaining
+  textEnglish: Cells
+  textVietnamese: Cells
+  textFrench: Cellules
 --- !u!1 &657508642
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,13 +428,13 @@ RectTransform:
   m_Children:
   - {fileID: 1085589208}
   - {fileID: 525369603}
-  m_Father: {fileID: 4006486504317123632}
+  m_Father: {fileID: 8095835770379019776}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 600, y: 200}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 350, y: -200}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &969022541
 MonoBehaviour:
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -495,8 +495,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 300, y: -65}
-  m_SizeDelta: {x: 600, y: 130}
+  m_AnchoredPosition: {x: 100, y: -66.5}
+  m_SizeDelta: {x: 200, y: 133}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1085589210
 CanvasRenderer:
@@ -801,8 +801,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 100, y: -50}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7744227443132110347
 CanvasRenderer:
@@ -1036,8 +1036,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -125}
-  m_SizeDelta: {x: 500, y: 50}
+  m_AnchoredPosition: {x: 100, y: -125}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7601777569394755497
 CanvasRenderer:
@@ -1067,7 +1067,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Virus remaining
+  m_text: Virus
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -1137,14 +1137,14 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1045528051172269952}
-    characterCount: 15
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 2
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -1172,9 +1172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: Virus remaining
-  textVietnamese: Virus remaining
-  textFrench: Virus remaining
+  textEnglish: Virus
+  textVietnamese: Virus
+  textFrench: Virus
 --- !u!1 &1079458920204690475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1644,9 +1644,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4006486504434417065}
-  - {fileID: 969022540}
-  - {fileID: 4006486504385111276}
-  - {fileID: 6408966015197821547}
+  - {fileID: 8095835770379019776}
   m_Father: {fileID: 4006486505198047840}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1697,13 +1695,13 @@ RectTransform:
   m_Children:
   - {fileID: 4006486505426411487}
   - {fileID: 4006486505912503889}
-  m_Father: {fileID: 4006486504317123632}
+  m_Father: {fileID: 8095835770379019776}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -250, y: 30}
-  m_SizeDelta: {x: 500, y: 150}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 600, y: -200}
+  m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &4006486504385111277
 MonoBehaviour:
@@ -1726,7 +1724,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -2152,8 +2150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 100, y: -50}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4006486505426411481
 CanvasRenderer:
@@ -2287,7 +2285,6 @@ GameObject:
   - component: {fileID: 4006486505619167068}
   - component: {fileID: 4006486505619167043}
   - component: {fileID: 4006486505619167069}
-  - component: {fileID: 1129589666}
   m_Layer: 0
   m_Name: MainUI
   m_TagString: Untagged
@@ -2356,18 +2353,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1129589666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4006486505619167042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c7b8b0986a29043b67baa0f52802e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4006486505643718907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2755,8 +2740,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -125}
-  m_SizeDelta: {x: 500, y: 50}
+  m_AnchoredPosition: {x: 100, y: -125}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4006486505912503891
 CanvasRenderer:
@@ -2786,7 +2771,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Bacteria remaining
+  m_text: Bacteria
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -2856,14 +2841,14 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 4006486505912503890}
-    characterCount: 18
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 2
+    materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2891,9 +2876,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: Bacteria remaining
-  textVietnamese: "Vi khu\u1EA9n c\xF2n l\u1EA1i"
-  textFrench: Bacteries restantes
+  textEnglish: Bacteria
+  textVietnamese: Bacteria
+  textFrench: Bacteries
 --- !u!1 &4011652898269665032
 GameObject:
   m_ObjectHideFlags: 0
@@ -4022,13 +4007,13 @@ RectTransform:
   m_Children:
   - {fileID: 1358670266497877913}
   - {fileID: 7868002831651853461}
-  m_Father: {fileID: 4006486504317123632}
-  m_RootOrder: 3
+  m_Father: {fileID: 8095835770379019776}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 250, y: 30}
-  m_SizeDelta: {x: 500, y: 150}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 100, y: -200}
+  m_SizeDelta: {x: 200, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1361427196105465364
 MonoBehaviour:
@@ -4051,7 +4036,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -5885,6 +5870,70 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &8679309964729681686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8095835770379019776}
+  - component: {fileID: 7901067786607312213}
+  m_Layer: 5
+  m_Name: CountHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8095835770379019776
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679309964729681686}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6408966015197821547}
+  - {fileID: 969022540}
+  - {fileID: 4006486504385111276}
+  m_Father: {fileID: 4006486504317123632}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 700, y: 200}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &7901067786607312213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679309964729681686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 7
+  m_Spacing: 50
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &8938318677248267095
 GameObject:
   m_ObjectHideFlags: 0

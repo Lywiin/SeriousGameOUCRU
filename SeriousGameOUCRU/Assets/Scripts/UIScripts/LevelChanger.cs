@@ -27,16 +27,7 @@ public class LevelChanger : MonoBehaviour
 
         animator = GetComponent<Animator>();
     }
-
-    private void Start()
-    {
-        animator.ResetTrigger("FadeOut");
-
-        if (SceneManager.GetActiveScene().buildIndex > 1)
-        {
-            GameController.Instance.SetupGame();
-        }
-    }
+    
 
     /***** FADE FUNCTIONS *****/
 

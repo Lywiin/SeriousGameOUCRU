@@ -25,11 +25,12 @@ public class BacteriaCell : Organism
 
     /***** POOL FUNCTIONS *****/
 
-    public override void OnObjectToSpawn()
+    protected override void OnObjectSpawn()
     {
-        base.OnObjectToSpawn();
+        base.OnObjectSpawn();
 
         bacteriaCellList.Add(this);
+        if (uiController) uiController.UpdateBacteriaCellCount();
     }
 
     public override Organism InstantiateOrganism(Vector2 spawnPosition)
@@ -64,9 +65,6 @@ public class BacteriaCell : Organism
     // Called when the cell has to die
     public override void KillOrganism()
     {
-        // Prevent player to keep targeting bacteria
-        // playerController.ResetTarget();
-
         // Stop moving
         orgMovement.SetCanMove(false);
 
@@ -88,10 +86,10 @@ public class BacteriaCell : Organism
 
     /***** LIST FUNCTIONS *****/
     
-    private void RemoveFromList()
+    protected override void RemoveFromList()
     {
         bacteriaCellList.Remove(this);
-        // uiController.UpdateBacteriaCellCount(bacteriaCellList.Count);
+        uiController.UpdateBacteriaCellCount();
 
         if (BacteriaCell.bacteriaCellList.Count == 0 && Virus.virusList.Count == 0)
         {

@@ -18,13 +18,6 @@ public class HumanCell : Organism
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        humanCellList.Add(this);
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -35,13 +28,15 @@ public class HumanCell : Organism
 
     /***** POOL FUNCTIONS *****/
 
-    public override void OnObjectToSpawn()
+    protected override void OnObjectSpawn()
     {
-        base.OnObjectToSpawn();
+        base.OnObjectSpawn();
 
         humanCellList.Add(this);
+        if (uiController) uiController.UpdateHumanCellCount();
 
         isTargeted = false;
+
     }
 
     public override Organism InstantiateOrganism(Vector2 spawnPosition)
@@ -65,8 +60,7 @@ public class HumanCell : Organism
     public override void KillOrganism()
     {
         // Remove from list
-        humanCellList.Remove(this);
-        // UIController.Instance.UpdateBacteriaCellCount(humanCellList.Count);
+        RemoveFromList();
 
         // If no human cell left it's game over
         if (humanCellList.Count == 0)
@@ -81,5 +75,14 @@ public class HumanCell : Organism
     {
         // Put back this bacteria to the pool to be reused
         humanCellPool.ReturnToPool(this);
+    }
+
+
+    /***** LIST FUNCTIONS *****/
+    
+    protected override void RemoveFromList()
+    {
+        humanCellList.Remove(this);
+        uiController.UpdateHumanCellCount();
     }
 }

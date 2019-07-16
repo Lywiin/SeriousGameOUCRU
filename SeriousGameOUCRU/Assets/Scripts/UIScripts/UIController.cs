@@ -36,6 +36,10 @@ public class UIController : MonoBehaviour
     private Animator animator;
     private float tempTime = 0f;
 
+    private int previousBacteriaCount = 0;
+    private int previousVirusCount = 0;
+    private int previousCellCount = 0;
+
 
     /*** INSTANCE ***/
 
@@ -64,17 +68,6 @@ public class UIController : MonoBehaviour
 
         // Init time survived
         tempTime = Time.time;
-    }
-
-    void Update()
-    {
-        // Update cell count text
-        bacteriaCellCountText.text = BacteriaCell.bacteriaCellList.Count.ToString();
-        humanCellCountText.text = HumanCell.humanCellList.Count.ToString();
-        virusCountText.text = Virus.virusList.Count.ToString();
-
-        // Update global mutation probability slider
-        resistanceSlider.value = OrganismMutation.mutationProba;
     }
 
 
@@ -155,20 +148,46 @@ public class UIController : MonoBehaviour
         infoPanel.transform.GetChild(3).gameObject.SetActive(b);
     }
 
-    // public void UpdateBacteriaCellCount(int count)
-    // {
-    //     bacteriaCellCountText.text = count.ToString();
-    // }
+    // Grow bacteria count text if count has increased
+    public void UpdateBacteriaCellCount()
+    {
+        int currentBacteriaCount = BacteriaCell.bacteriaCellList.Count;
+        bacteriaCellCountText.text = currentBacteriaCount.ToString();
 
-    // public void UpdateHumanCellCount(int count)
-    // {
-    //     humanCellCountText.text = count.ToString();
-    // }
+        if (currentBacteriaCount > previousBacteriaCount)
+            animator.SetTrigger("GrowBacteriaCount");
 
-    // public void UpdateGlobalMutationProba(float proba)
-    // {
-    //     resistanceSlider.value = proba;
-    // }
+        previousBacteriaCount = currentBacteriaCount;
+    }
+
+    public void UpdateHumanCellCount()
+    {
+        int currentCellCount = HumanCell.humanCellList.Count;
+        humanCellCountText.text = currentCellCount.ToString();
+
+        if (currentCellCount < previousCellCount)
+            animator.SetTrigger("ShrinkCellCount");
+
+        previousCellCount = currentCellCount;
+    }
+
+    public void UpdateVirusCount()
+    {
+
+        int currentVirusCount = Virus.virusList.Count;
+        virusCountText.text = currentVirusCount.ToString();
+
+        if (currentVirusCount > previousVirusCount)
+            animator.SetTrigger("GrowVirusCount");
+
+        previousVirusCount = currentVirusCount;
+    }
+
+    public void UpdateGlobalMutationProba()
+    {
+        resistanceSlider.value = OrganismMutation.mutationProba;
+        animator.SetTrigger("ShineResistanceSlider");
+    }
 
 
     /***** LEVEL CHANGE FUNCTIONS *****/

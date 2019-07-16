@@ -80,13 +80,17 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-
         uiController = UIController.Instance;
 
         // Initialize cell lists
         HumanCell.humanCellList.Clear();
         BacteriaCell.bacteriaCellList.Clear();
         Virus.virusList.Clear();
+
+        if (SceneManager.GetActiveScene().buildIndex > 1)
+        {
+            GameController.Instance.SetupGame();
+        }
     }
 
     void Update()
@@ -112,18 +116,21 @@ public class GameController : MonoBehaviour
         // Fade info UI in
         UIController.Instance.ToggleInfoPanel(true);
 
-        StartCoroutine(StartSpawningWithDelay());
-    }
-
-    private IEnumerator StartSpawningWithDelay()
-    {
-        yield return new WaitForFixedUpdate();
-
+        // StartCoroutine(StartSpawningWithDelay());
         SpawnBacteriaCell();
         SpawnVirus();
         SpawnHumanCell();
-
     }
+
+    // private IEnumerator StartSpawningWithDelay()
+    // {
+    //     yield return new WaitForFixedUpdate();
+
+    //     SpawnBacteriaCell();
+    //     SpawnVirus();
+    //     SpawnHumanCell();
+
+    // }
 
     private void SpawnBacteriaCell()
     {        
@@ -283,6 +290,7 @@ public class GameController : MonoBehaviour
     public void IncreaseAllMutationProba()
     {
         OrganismMutation.mutationProba += mutationProbaIncrease;
+        uiController.UpdateGlobalMutationProba();
     }
 
 
