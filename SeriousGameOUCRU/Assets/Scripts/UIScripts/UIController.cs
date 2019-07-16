@@ -144,8 +144,6 @@ public class UIController : MonoBehaviour
     public void ToggleInfoPanelCount(bool b)
     {
         infoPanel.transform.GetChild(1).gameObject.SetActive(b);
-        infoPanel.transform.GetChild(2).gameObject.SetActive(b);
-        infoPanel.transform.GetChild(3).gameObject.SetActive(b);
     }
 
     // Grow bacteria count text if count has increased

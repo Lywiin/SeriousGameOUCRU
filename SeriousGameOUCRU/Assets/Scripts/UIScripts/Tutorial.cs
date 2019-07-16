@@ -124,6 +124,7 @@ public class Tutorial : MonoBehaviour
         UIController.Instance.gameObject.SetActive(true);
         UIController.Instance.ToggleInfoPanel(true);
         UIController.Instance.ToggleInfoPanelCount(false);
+        yield return new WaitForSeconds(0.5f);
 
         // Wait for player to kill all the cells
         yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
@@ -137,6 +138,7 @@ public class Tutorial : MonoBehaviour
         //Setup for virus tutorial
         ReplaceWalls();
         SpawnVirusTutorialCell();
+        yield return new WaitForSeconds(0.5f);
 
         // Wait for player to get close to virus
         yield return new WaitUntil(() => virusList[0] != null && Vector2.Distance(playerController.transform.position, virusList[0].transform.position) < 50f);
