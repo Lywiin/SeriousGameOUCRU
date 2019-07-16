@@ -117,7 +117,8 @@ public class UIController : MonoBehaviour
         GameController.Instance.TogglePlayerInput(false);
 
         // Display panel
-        endGamePanel.SetActive(true);
+        // endGamePanel.SetActive(true);
+        animator.SetTrigger("FadeInEndGamePanel");
     }
 
     public void TogglePauseUI()
