@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1682346644580189492}
   - component: {fileID: 3809284939989914336}
   - component: {fileID: 198987132}
-  - component: {fileID: 198987133}
   - component: {fileID: 198987135}
   - component: {fileID: 198987134}
   - component: {fileID: 198987136}
@@ -55,8 +54,6 @@ MonoBehaviour:
     type: 3}
   humanCell: {fileID: 8769615520535589609, guid: a64d56ef9d32db342bd9b68c8d35c637,
     type: 3}
-  humanCellGroup: {fileID: 7985167075046369646, guid: 8e9f36b26ee39ee42906b20fa9bee7e6,
-    type: 3}
   virus: {fileID: 8319302658690431141, guid: 0314139205ebaa3489ca97cad532eefe, type: 3}
   gameZoneRadius: {x: 100, y: 100}
   bacteriaCellCount: 15
@@ -81,18 +78,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   androidDebug: 1
---- !u!114 &198987133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499368337274258843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5aebbb0bc7d5d7645939b17bd80dc1b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &198987135
 MonoBehaviour:
   m_ObjectHideFlags: 0
