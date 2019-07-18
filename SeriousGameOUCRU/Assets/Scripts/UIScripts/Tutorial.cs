@@ -111,6 +111,7 @@ public class Tutorial : MonoBehaviour
         yield return new WaitUntil(() => !playerController.IsFiring());
         yield return new WaitForSeconds(1f);
         animator.SetTrigger("FadeInSecondWeaponText");
+        MobileUI.Instance.gameObject.SetActive(true);
         RescaleTime(0f);
 
         // Wait for the player to change weapon
