@@ -115,6 +115,7 @@ public class GameController : MonoBehaviour
     {
         // Fade info UI in
         UIController.Instance.ToggleInfoPanel(true);
+        UIController.Instance.TogglePauseButton(true);
 
         // StartCoroutine(StartSpawningWithDelay());
         SpawnBacteriaCell();

@@ -107,6 +107,7 @@ public class UIController : MonoBehaviour
 
         pauseButton.SetActive(false);
         ToggleInfoPanel(false);
+        TogglePauseButton(false);
         GameController.Instance.TogglePlayerInput(false);
 
         // Display panel
@@ -140,10 +141,20 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void TogglePauseButton(bool b)
+    {
+        if (b)
+            animator.SetTrigger("FadeInPauseButton");
+        else
+            animator.SetTrigger("FadeOutPauseButton");
+    }
+
     // Hide everything except bacteria resistance
     public void ToggleInfoPanelCount(bool b)
     {
         infoPanel.transform.GetChild(1).gameObject.SetActive(b);
+        infoPanel.transform.GetChild(2).gameObject.SetActive(b);
+        infoPanel.transform.GetChild(3).gameObject.SetActive(b);
     }
 
     // Grow bacteria count text if count has increased

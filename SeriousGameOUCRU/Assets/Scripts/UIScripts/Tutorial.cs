@@ -64,11 +64,11 @@ public class Tutorial : MonoBehaviour
         gameController.TogglePlayerInput(false);
 
         // Hide UI since it's useless for now
-        // UIController.Instance.gameObject.SetActive(false);
         MobileUI.Instance.gameObject.SetActive(false);
 
         virusList = Virus.virusList;
 
+        UIController.Instance.TogglePauseButton(true);
     }
 
 
