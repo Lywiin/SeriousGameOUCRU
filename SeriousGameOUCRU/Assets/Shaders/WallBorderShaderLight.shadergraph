@@ -10,7 +10,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"BorderColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"672ebc1e-ec31-4530-9f5d-6f55b18e1e7c\"\n    },\n    \"m_DefaultReferenceName\": \"Color_243F477C\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5058823823928833,\n        \"b\": 0.7372549176216126,\n        \"a\": 0.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"BorderColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"672ebc1e-ec31-4530-9f5d-6f55b18e1e7c\"\n    },\n    \"m_DefaultReferenceName\": \"Color_243F477C\",\n    \"m_OverrideReferenceName\": \"_BorderColor\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5058823823928833,\n        \"b\": 0.7372549176216126,\n        \"a\": 0.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {

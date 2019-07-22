@@ -39,8 +39,10 @@ Material:
     - _ParallaxEffect: 0.1
     - _Transparency: 0.75
     m_Colors:
+    - Color_4BD39FE0: {r: 1, g: 1, b: 1, a: 1}
     - Color_93D38525: {r: 1, g: 0.504717, b: 0.7374402, a: 1}
     - Color_C314D0F1: {r: 0.6666667, g: 0.02352941, b: 0.07843138, a: 1}
     - Vector2_30CDD428: {r: 0.5, g: 1, b: 0, a: 0}
     - Vector2_8A8F7AE8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_C52223BF: {r: 0, g: 1, b: 0, a: 0}
+    - _Tint: {r: 0.4117647, g: 0.89411765, b: 1, a: 0}

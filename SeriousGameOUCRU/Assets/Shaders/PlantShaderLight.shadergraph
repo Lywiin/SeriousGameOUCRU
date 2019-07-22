@@ -16,7 +16,7 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"PlantColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4992d6fb-d554-4089-a844-cc546db39869\"\n    },\n    \"m_DefaultReferenceName\": \"Color_3A0403B\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5896226167678833,\n        \"b\": 0.8960863947868347,\n        \"a\": 0.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"PlantColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"4992d6fb-d554-4089-a844-cc546db39869\"\n    },\n    \"m_DefaultReferenceName\": \"Color_3A0403B\",\n    \"m_OverrideReferenceName\": \"_PlantColor\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5896226167678833,\n        \"b\": 0.8960863947868347,\n        \"a\": 0.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {

@@ -63,6 +63,8 @@ public class CameraController : MonoBehaviour
         } else {
             _instance = this;
         }
+        
+        cam = transform.GetComponentInChildren<Camera>();
     }
 
     private void Start()
@@ -71,7 +73,6 @@ public class CameraController : MonoBehaviour
         playerController = PlayerController.Instance;
         inputController = InputController.Instance;
 
-        cam = transform.GetComponentInChildren<Camera>();
         cameraBaseSize = cam.orthographicSize;
 
         projectileOffset = Vector3.zero;

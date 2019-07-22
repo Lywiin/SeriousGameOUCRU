@@ -4,19 +4,19 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.TextureShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"MainTex\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"148aa20b-0409-4b8f-b46c-ec468123713d\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_11D3AB00\",\n    \"m_OverrideReferenceName\": \"_MainTex\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"dd8ea11611caf6e4d93d75badaeefe9c\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"MainTex\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"148aa20b-0409-4b8f-b46c-ec468123713d\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_11D3AB00\",\n    \"m_OverrideReferenceName\": \"_MainTex\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"1f877113824e87845805c2adff647b1a\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"CoreColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"21a5da87-4538-4155-9172-5734febfc9ef\"\n    },\n    \"m_DefaultReferenceName\": \"Color_F7A735FD\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Value\": {\n        \"r\": 0.6666666865348816,\n        \"g\": 0.02352941408753395,\n        \"b\": 0.0784313753247261,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"CoreColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"21a5da87-4538-4155-9172-5734febfc9ef\"\n    },\n    \"m_DefaultReferenceName\": \"Color_F7A735FD\",\n    \"m_OverrideReferenceName\": \"_CoreColor\",\n    \"m_Value\": {\n        \"r\": 0.6666666865348816,\n        \"g\": 0.02352941408753395,\n        \"b\": 0.0784313753247261,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.ColorShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"SideColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"ebe6e86b-3aac-4eb5-82e5-ba91aff05bab\"\n    },\n    \"m_DefaultReferenceName\": \"Color_241BA53F\",\n    \"m_OverrideReferenceName\": \"\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5047169923782349,\n        \"b\": 0.7374401688575745,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"SideColor\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"ebe6e86b-3aac-4eb5-82e5-ba91aff05bab\"\n    },\n    \"m_DefaultReferenceName\": \"Color_241BA53F\",\n    \"m_OverrideReferenceName\": \"_SideColor\",\n    \"m_Value\": {\n        \"r\": 1.0,\n        \"g\": 0.5047169923782349,\n        \"b\": 0.7374401688575745,\n        \"a\": 1.0\n    },\n    \"m_ColorMode\": 0,\n    \"m_Hidden\": false\n}"
         },
         {
             "typeInfo": {
