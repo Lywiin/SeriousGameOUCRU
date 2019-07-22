@@ -32,4 +32,4 @@ Material:
     m_Colors:
     - Color_3A0403B: {r: 1, g: 0.5707547, b: 0.7412352, a: 0}
     - Vector2_B2FC2094: {r: 1, g: 0, b: 0, a: 0}
-    - _PlantColor: {r: 0.48584908, g: 0.9216532, b: 1, a: 0}
+    - _PlantColor: {r: 1, g: 0.5882353, b: 0.8980392, a: 0}

@@ -27,7 +27,7 @@ public class LevelColor : MonoBehaviour
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (CameraController.Instance)
             cam = CameraController.Instance.GetCamera();
@@ -37,13 +37,16 @@ public class LevelColor : MonoBehaviour
         UpdateLevelColor();
     }
 
+    private void OnLoadScene()
+    {
+        Debug.Log("TOTO");
+    }
+
 
     /***** COLOR FUNCTIONS *****/
 
     private void UpdateLevelColor()
     {
-        Debug.Log("UPDATE COLOR");
-
         cam.backgroundColor = cameraColor;
         plantMaterial.SetColor("_PlantColor", plantColor);
         wallBorderMaterial.SetColor("_BorderColor", wallSideColor);
