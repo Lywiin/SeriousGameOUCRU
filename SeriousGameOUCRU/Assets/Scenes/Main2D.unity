@@ -4944,12 +4944,6 @@ PrefabInstance:
       objectReference: {fileID: 1297626533}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a5b5a0520411944a05ec9539d1323d, type: 3}
---- !u!1 &6945918902568308423 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6945918901997660587, guid: 57a5b5a0520411944a05ec9539d1323d,
-    type: 3}
-  m_PrefabInstance: {fileID: 6945918902568308422}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7217503885734008958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5086,42 +5080,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7338580606853519663, guid: 116b077290cc71b47baadb741146e352,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7338580607253006207, guid: 116b077290cc71b47baadb741146e352,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7338580607756712344, guid: 116b077290cc71b47baadb741146e352,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7338580606853519657, guid: 116b077290cc71b47baadb741146e352,
         type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 6945918902568308423}
+      objectReference: {fileID: 1808791624}
     - target: {fileID: 7338580607253006201, guid: 116b077290cc71b47baadb741146e352,
         type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 6945918902568308423}
+      objectReference: {fileID: 1808791624}
     - target: {fileID: 7338580607756712346, guid: 116b077290cc71b47baadb741146e352,
         type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 6945918902568308423}
+      objectReference: {fileID: 1808791624}
     - target: {fileID: 7338580607967834290, guid: 116b077290cc71b47baadb741146e352,
-        type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 6945918902568308423}
-    - target: {fileID: 7338580606932959609, guid: 116b077290cc71b47baadb741146e352,
         type: 3}
       propertyPath: cam
       value: 

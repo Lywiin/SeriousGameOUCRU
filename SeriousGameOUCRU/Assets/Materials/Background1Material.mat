@@ -37,6 +37,7 @@ Material:
     - Vector1_F2944E8E: 3
     - Vector1_F92AFD4B: 0.5
     - _ParallaxEffect: 0.1
+    - _Transparency: 0.75
     m_Colors:
     - Color_93D38525: {r: 1, g: 0.504717, b: 0.7374402, a: 1}
     - Color_C314D0F1: {r: 0.6666667, g: 0.02352941, b: 0.07843138, a: 1}

@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
     [Header("Option")]
     public Toggle qualityToggle;
 
+    public GameObject backgroundHolderPrefab;
     public Shader[] backgroundShaderArray;
     public Material[] backgroundMaterialArray;
 
@@ -50,7 +51,6 @@ public class MainMenu : MonoBehaviour
 
         // 1 is low quality
         bool lowQuality = PlayerPrefs.GetInt("Quality") == 1;
-        ChangeGraphismQuality(lowQuality);
         qualityToggle.isOn = lowQuality;
 
         DesactivateUncompletedLevels();
@@ -93,9 +93,8 @@ public class MainMenu : MonoBehaviour
     {
         int shaderIndex = lowQuality ? 1 : 0;
         PlayerPrefs.SetInt("Quality", shaderIndex);
-        
-        for (int i = 0; i < backgroundMaterialArray.Length; i++)
-            backgroundMaterialArray[i].shader = backgroundShaderArray[shaderIndex];
+
+        if (BackgroundHolder.Instance) BackgroundHolder.Instance.ToggleBackgroundQuality(shaderIndex);
 
         for (int i = 0; i < organismMaterialArray.Length; i++)
             organismMaterialArray[i].shader = organismShaderArray[shaderIndex];
