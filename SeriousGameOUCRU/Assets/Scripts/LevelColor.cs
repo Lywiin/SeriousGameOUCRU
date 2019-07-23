@@ -36,12 +36,7 @@ public class LevelColor : MonoBehaviour
 
         UpdateLevelColor();
     }
-
-    private void OnLoadScene()
-    {
-        Debug.Log("TOTO");
-    }
-
+    
 
     /***** COLOR FUNCTIONS *****/
 

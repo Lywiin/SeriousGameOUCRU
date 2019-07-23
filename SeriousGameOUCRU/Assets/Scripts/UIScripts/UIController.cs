@@ -208,6 +208,11 @@ public class UIController : MonoBehaviour
 
     public void RestartLevel()
     {
-        LevelChanger.Instance.FadeToLevel(SceneManager.GetActiveScene().buildIndex);
+        ChangeLevel(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextLevel()
+    {
+        ChangeLevel(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

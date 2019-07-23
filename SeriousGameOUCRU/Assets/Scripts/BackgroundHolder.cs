@@ -7,6 +7,7 @@ public class BackgroundHolder : MonoBehaviour
     /*** PUBLIC VARIABLES ***/
 
     public Material background1Material;
+    // public Material[] backgroundMaterialArray;
     public Shader[] backgroundShaderArray;
 
 
@@ -43,5 +44,8 @@ public class BackgroundHolder : MonoBehaviour
 
         for (int i = 1; i < transform.childCount; i++)
             transform.GetChild(i).gameObject.SetActive(quality == 1 ? false : true);
+
+        // for (int i = 0; i < backgroundMaterialArray.Length; i++)
+        //     backgroundMaterialArray[i].shader = backgroundShaderArray[quality];
     }
 }

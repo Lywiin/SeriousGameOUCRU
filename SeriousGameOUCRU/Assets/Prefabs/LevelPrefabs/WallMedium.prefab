@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &8844175142989621424
+--- !u!1001 &2085597866776846365
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7686698508848387294, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
       propertyPath: m_Name
-      value: WallVeryLarge
+      value: WallMedium
       objectReference: {fileID: 0}
     - target: {fileID: 7686698508848387293, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
@@ -69,38 +69,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7686698508848387290, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
-      propertyPath: m_Size.y
-      value: 320
+      propertyPath: m_Size.x
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7686698508848387290, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
-      propertyPath: m_Size.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
-        type: 3}
       propertyPath: m_Size.y
-      value: 320
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 60
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
+        type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
       propertyPath: m_Size.x
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
-    - target: {fileID: 7686698507394591050, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
+    - target: {fileID: 7686698508848387291, guid: 2d5dd95ea77264c45b9e4e87d4c5917a,
         type: 3}
       propertyPath: m_Size.y
-      value: 201
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d5dd95ea77264c45b9e4e87d4c5917a, type: 3}

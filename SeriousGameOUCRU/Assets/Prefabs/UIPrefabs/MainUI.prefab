@@ -500,7 +500,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -806,7 +806,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -2131,7 +2131,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 10
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 525a6f35ff223244d9be0d8182382100, type: 2}
   m_sharedMaterial: {fileID: 21579184331260088, guid: 525a6f35ff223244d9be0d8182382100,
@@ -3181,8 +3181,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4006486505619167043}
-        m_MethodName: ChangeLevel
-        m_Mode: 3
+        m_MethodName: NextLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

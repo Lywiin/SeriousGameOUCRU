@@ -1716,17 +1716,17 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellCount
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: virusCount
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera

@@ -522,6 +522,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background1Material: {fileID: 2100000, guid: c2bac42ad675b87439fe137d7b321b58, type: 2}
+  backgroundMaterialArray:
+  - {fileID: 2100000, guid: c2bac42ad675b87439fe137d7b321b58, type: 2}
+  - {fileID: 2100000, guid: e1930431a4bf2894286d69ca6d569e21, type: 2}
+  - {fileID: 2100000, guid: 4632dc6950bf6d448bb21b60135f7d2e, type: 2}
+  - {fileID: 2100000, guid: 099b24cab21acf940855065f98c0b058, type: 2}
   backgroundShaderArray:
   - {fileID: -6465566751694194690, guid: 9cee91e9f3b50014cbdff08e3e9ae212, type: 3}
   - {fileID: -6465566751694194690, guid: b50e221bbecbeb542a490940f8664503, type: 3}

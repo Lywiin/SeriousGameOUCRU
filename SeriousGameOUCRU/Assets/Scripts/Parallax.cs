@@ -23,6 +23,7 @@ public class Parallax : MonoBehaviour
     {
         startPos = transform.position;
         length = GetComponent<SpriteRenderer>().bounds.size;
+        // length = new Vector2(20f, 10f);
 
         parallaxEffect = GetComponent<SpriteRenderer>().sharedMaterial.GetFloat("_ParallaxEffect");
     }
