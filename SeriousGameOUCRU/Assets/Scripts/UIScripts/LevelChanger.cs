@@ -27,6 +27,14 @@ public class LevelChanger : MonoBehaviour
 
         animator = GetComponent<Animator>();
     }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            AudioManager.Instance.PlayGameTheme();
+        else
+            AudioManager.Instance.SmoothPlay("MenuTheme", 1f);
+    }
     
 
     /***** FADE FUNCTIONS *****/
@@ -36,6 +44,19 @@ public class LevelChanger : MonoBehaviour
         animator.enabled = true;
         levelToLoad = index;
         animator.SetTrigger("FadeOut");
+
+        // Transition from menu to game music
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            AudioManager.Instance.Play("StartGame");
+            AudioManager.Instance.SmoothStop("MenuTheme", 1f);
+        }
+
+        // Transition from game to menu music
+        if (index == 0)
+        {
+            AudioManager.Instance.SmoothStop("GameTheme", 1f);
+        }
     }
 
     public void OnFadeOutComplete()

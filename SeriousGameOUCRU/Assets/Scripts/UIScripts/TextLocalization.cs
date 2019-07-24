@@ -60,21 +60,33 @@ public class TextLocalization : MonoBehaviour
         }
     }
 
-    public void SwitchLanguageToEnglish()
+    public void SwitchLanguage(string newLanguage)
     {
-        TextLocalization.ChangeLanguage("English");
+        // if (string.Compare(PlayerPrefs.GetString("Language"), newLanguage) != 0)
+        AudioManager.Instance.Play("Select2");
+
+        TextLocalization.ChangeLanguage(newLanguage);
         UnselectButton();
     }
-    public void SwitchLanguageToVietnamese()
-    {
-        TextLocalization.ChangeLanguage("Vietnamese");
-        UnselectButton();
-    }
-    public void SwitchLanguageToFrench()
-    {
-        TextLocalization.ChangeLanguage("French");
-        UnselectButton();
-    }
+
+    // public void SwitchLanguageToEnglish()
+    // {
+    //     AudioManager.Instance.Play("Select1");
+    //     TextLocalization.ChangeLanguage("English");
+    //     UnselectButton();
+    // }
+    // public void SwitchLanguageToVietnamese()
+    // {
+    //     AudioManager.Instance.Play("Select1");
+    //     TextLocalization.ChangeLanguage("Vietnamese");
+    //     UnselectButton();
+    // }
+    // public void SwitchLanguageToFrench()
+    // {
+    //     AudioManager.Instance.Play("Select1");
+    //     TextLocalization.ChangeLanguage("French");
+    //     UnselectButton();
+    // }
 
     // Change the language
     public static void ChangeLanguage(string l)
