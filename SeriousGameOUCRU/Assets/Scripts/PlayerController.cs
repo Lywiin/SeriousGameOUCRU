@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         oppositeForceDirection = Vector2.zero;
         targetDistance = 0f;
 
-        motorSound = AudioManager.Instance.SmoothPlay("ShipMotor", 1f);
+        if (AudioManager.Instance) motorSound = AudioManager.Instance.SmoothPlay("ShipMotor", 1f);
     }
 
     private void FixedUpdate()
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
 
         // Change motor sound according to velocity
-        motorSound.source.pitch = motorSound.pitch + rb.velocity.sqrMagnitude / 1000f;
+        if (motorSound != null) motorSound.source.pitch = motorSound.pitch + rb.velocity.sqrMagnitude / 1000f;
     }
 
 
