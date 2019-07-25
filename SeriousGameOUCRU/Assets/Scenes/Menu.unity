@@ -6192,7 +6192,7 @@ MonoBehaviour:
   sounds:
   - name: MenuTheme
     clip: {fileID: 8300000, guid: 270dc6dedbe6fa549afbe6841b3a276a, type: 3}
-    volume: 0.05
+    volume: 0.2
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -6216,7 +6216,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Select2
     clip: {fileID: 8300000, guid: cf83b56bd962be64d8e1c6036dfad965, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -6270,7 +6270,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShipMotor
     clip: {fileID: 8300000, guid: 45907d6aa025abc41bd0b02fc5c5cf4d, type: 3}
-    volume: 0.1
+    volume: 0.15
     pitch: 1
     loop: 1
     source: {fileID: 0}
