@@ -59,6 +59,9 @@ public class HumanCell : Organism
     // Called when the cell has to die
     public override void KillOrganism()
     {
+        if (render.isVisible)
+            AudioManager.Instance.Play("HumanCellDeath");
+
         // Remove from list
         RemoveFromList();
 

@@ -31,9 +31,9 @@ public class LevelChanger : MonoBehaviour
     private void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0)
-            AudioManager.Instance.PlayGameTheme();
+            AudioManager.Instance.SmoothPlay("GameTheme", 0.5f);
         else
-            AudioManager.Instance.SmoothPlay("MenuTheme", 1f);
+            AudioManager.Instance.SmoothPlay("MenuTheme", 0.5f);
     }
     
 
@@ -45,18 +45,16 @@ public class LevelChanger : MonoBehaviour
         levelToLoad = index;
         animator.SetTrigger("FadeOut");
 
-        // Transition from menu to game music
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            AudioManager.Instance.Play("StartGame");
-            AudioManager.Instance.SmoothStop("MenuTheme", 1f);
-        }
+        AudioManager.Instance.Play("FadeScreen");
 
-        // Transition from game to menu music
-        if (index == 0)
-        {
-            AudioManager.Instance.SmoothStop("GameTheme", 1f);
-        }
+        // Stop musics
+        if (SceneManager.GetActiveScene().buildIndex == 0) 
+            AudioManager.Instance.SmoothStop("MenuTheme", 0.5f);
+        else
+            AudioManager.Instance.SmoothStop("GameTheme", 0.5f);
+
+        // Make sure motor are stopped
+        if (PlayerController.Instance) PlayerController.Instance.StopMotorSound();
     }
 
     public void OnFadeOutComplete()

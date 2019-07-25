@@ -128,4 +128,30 @@ public class MainMenu : MonoBehaviour
             }
         }
     }
+
+
+    /***** SOUNDS FUNCTIONS *****/
+
+    public void OnSlide()
+    {
+        AudioManager.Instance.Play("Slide");
+    }
+
+    public void OnSelect1()
+    {
+        AudioManager.Instance.Play("Select1");
+    }
+
+    public void OnSelect2()
+    {
+        AudioManager.Instance.Play("Select2");
+    }
+
+
+    /***** LANGUAGE FUNCTIONS *****/
+
+    public void SwitchLanguage(string newLanguage)
+    {
+        TextLocalization.ChangeLanguage(newLanguage);
+    }
 }

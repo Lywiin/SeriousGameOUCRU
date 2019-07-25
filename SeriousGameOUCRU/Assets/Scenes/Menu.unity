@@ -287,9 +287,9 @@ MonoBehaviour:
           m_StringArgument: FadeToHomeScreen
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2665,6 +2665,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3682173157733974537, guid: 4dac99de86e3a1d48a868c4f58f50fac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dac99de86e3a1d48a868c4f58f50fac, type: 3}
 --- !u!4 &811782834 stripped
@@ -3109,9 +3114,9 @@ MonoBehaviour:
           m_StringArgument: FadeToCreditScreen
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3242,7 +3247,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 881467483}
+      - m_Target: {fileID: 537040310}
         m_MethodName: SwitchLanguage
         m_Mode: 5
         m_Arguments:
@@ -4027,9 +4032,9 @@ MonoBehaviour:
           m_StringArgument: GrowText
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4367,9 +4372,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSelect1
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4695,7 +4700,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 881467483}
+      - m_Target: {fileID: 537040310}
         m_MethodName: SwitchLanguage
         m_Mode: 5
         m_Arguments:
@@ -5071,9 +5076,9 @@ MonoBehaviour:
           m_StringArgument: FadeToOptionScreen
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5266,7 +5271,7 @@ GameObject:
   - component: {fileID: 1711612511}
   - component: {fileID: 1711612513}
   m_Layer: 5
-  m_Name: LaboCreditText
+  m_Name: SubTitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5595,9 +5600,9 @@ MonoBehaviour:
           m_StringArgument: FadeToHomeScreen
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5929,7 +5934,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 881467483}
+      - m_Target: {fileID: 537040310}
         m_MethodName: SwitchLanguage
         m_Mode: 5
         m_Arguments:
@@ -6187,7 +6192,7 @@ MonoBehaviour:
   sounds:
   - name: MenuTheme
     clip: {fileID: 8300000, guid: 270dc6dedbe6fa549afbe6841b3a276a, type: 3}
-    volume: 0.02
+    volume: 0.05
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -6215,11 +6220,59 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: StartGame
+  - name: FadeScreen
     clip: {fileID: 8300000, guid: 77fdafb8533b6354b83f5150f096f212, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
+    source: {fileID: 0}
+  - name: FireLight
+    clip: {fileID: 8300000, guid: 431ced66bf23aa145a37c6069902f685, type: 3}
+    volume: 0.05
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: FireHeavy
+    clip: {fileID: 8300000, guid: 63520a0c892592c47929c4fbde6a603f, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 12e3890219c2a214e8f2beb714360f6b, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HumanCellDeath
+    clip: {fileID: 8300000, guid: fb9f137cd1849ad48a2cb6c431717752, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BacteriaCellDeath
+    clip: {fileID: 8300000, guid: 7b4c30aa560e71341bd1aafa145fee4a, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: VirusDeath
+    clip: {fileID: 8300000, guid: d86fde3f69a0ea54ab1de46111c1d86c, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ShipExplosion
+    clip: {fileID: 8300000, guid: c072cd2b5a596eb4581b2bfd8d56077d, type: 3}
+    volume: 0.15
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ShipMotor
+    clip: {fileID: 8300000, guid: 45907d6aa025abc41bd0b02fc5c5cf4d, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
 --- !u!4 &1799683788
 Transform:
@@ -6716,9 +6769,9 @@ MonoBehaviour:
           m_StringArgument: FadeToHomeScreen
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1799683787}
-        m_MethodName: Play
-        m_Mode: 5
+      - m_Target: {fileID: 537040310}
+        m_MethodName: OnSlide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

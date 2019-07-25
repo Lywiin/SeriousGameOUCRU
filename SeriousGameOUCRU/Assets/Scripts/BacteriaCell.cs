@@ -65,6 +65,9 @@ public class BacteriaCell : Organism
     // Called when the cell has to die
     public override void KillOrganism()
     {
+        if (render.isVisible)
+            AudioManager.Instance.Play("BacteriaCellDeath");
+
         // Stop moving
         orgMovement.SetCanMove(false);
 

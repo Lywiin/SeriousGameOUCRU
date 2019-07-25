@@ -16,9 +16,6 @@ public class TextLocalization : MonoBehaviour
     public static List<TextLocalization> localizationInstancesList = new List<TextLocalization>();
 
 
-    /*** PRIVATE VARIABLES ***/
-    GameObject myEventSystem;
-
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
     private void Awake()
@@ -29,15 +26,23 @@ public class TextLocalization : MonoBehaviour
             PlayerPrefs.SetString("Language", "English");
         }
 
-        // Add instance and update text for initialization
-        localizationInstancesList.Add(this);
-        UpdateText();
+        // UpdateText();
     }
 
     private void Start()
     {
         // Initialize event system
-        myEventSystem = GameObject.Find("EventSystem");
+        // myEventSystem = GameObject.Find("EventSystem");
+    }
+
+    private void OnEnable()
+    {
+        localizationInstancesList.Add(this);
+        UpdateText();
+    }
+    private void OnDisable()
+    {
+        localizationInstancesList.Remove(this);
     }
 
 
@@ -60,14 +65,14 @@ public class TextLocalization : MonoBehaviour
         }
     }
 
-    public void SwitchLanguage(string newLanguage)
-    {
-        // if (string.Compare(PlayerPrefs.GetString("Language"), newLanguage) != 0)
-        AudioManager.Instance.Play("Select2");
+    // public void SwitchLanguage(string newLanguage)
+    // {
+    //     // if (string.Compare(PlayerPrefs.GetString("Language"), newLanguage) != 0)
+    //     AudioManager.Instance.Play("Select2");
 
-        TextLocalization.ChangeLanguage(newLanguage);
-        UnselectButton();
-    }
+    //     TextLocalization.ChangeLanguage(newLanguage);
+    //     UnselectButton();
+    // }
 
     // public void SwitchLanguageToEnglish()
     // {
@@ -91,16 +96,20 @@ public class TextLocalization : MonoBehaviour
     // Change the language
     public static void ChangeLanguage(string l)
     {
+        AudioManager.Instance.Play("Select2");
+
         // Change language in the preference
         PlayerPrefs.SetString("Language", l);
 
         TextLocalization.UpdateAllText();
+
+        UnselectButton();
     }
 
     // Unselect all ui object
-    private void UnselectButton()
+    private static void UnselectButton()
     {
-        myEventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+        GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     // Update text of all objects, used after changing language

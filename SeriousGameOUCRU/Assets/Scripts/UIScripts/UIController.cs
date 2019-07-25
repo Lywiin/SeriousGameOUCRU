@@ -117,6 +117,8 @@ public class UIController : MonoBehaviour
 
     public void TogglePauseUI()
     {
+        AudioManager.Instance.Play("Select1");
+
         GameController.Instance.TogglePause();
         bool isPaused = GameController.Instance.IsGamePaused();
 

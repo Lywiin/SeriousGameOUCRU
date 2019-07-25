@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour
 
     /*** PRIVATE VARIABLES ***/
 
-    
 
 
     /*** INSTANCE ***/
@@ -48,10 +47,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        SmoothPlay("MenuTheme", 1f);
-    }
+    // void Start()
+    // {
+    //     SmoothPlay("MenuTheme", 2f);
+    // }
 
 
     /***** SOUNDS FUNCTIONS *****/
@@ -62,21 +61,25 @@ public class AudioManager : MonoBehaviour
         return s;
     }
 
-    public void Play(string name)
+    public Sound Play(string name)
     {
         Sound s = FindSound(name);
         if (s == null)
-            return;
+            return null;
 
         s.source.Play();
+        return s;
     }
 
-    public void SmoothPlay(string name, float duration)
+    public Sound SmoothPlay(string name, float duration)
     {
         Sound s = FindSound(name);
-        s.source.Play();
+        if (s == null)
+            return null;
 
+        s.source.Play();
         StartCoroutine(SoundFadeIn(s, duration));
+        return s;
     }
 
     public void SmoothStop(string name, float duration)
@@ -100,7 +103,7 @@ public class AudioManager : MonoBehaviour
     }
 
     public IEnumerator SoundFadeOut(Sound s, float duration)
-    {
+    {        
         float targetVolume = 0f;
         s.source.volume = s.volume;
 
@@ -115,13 +118,13 @@ public class AudioManager : MonoBehaviour
         s.source.Stop();
     }
 
-    public void PlayGameTheme()
-    {
-        Sound s = FindSound("GameTheme");
+    // public void PlayGameTheme()
+    // {
+    //     Sound s = FindSound("GameTheme");
 
-        if (!s.source.isPlaying)
-        {
-            SmoothPlay("GameTheme", 2f);
-        }
-    }
+    //     if (!s.source.isPlaying)
+    //     {
+    //         SmoothPlay("GameTheme", 2f);
+    //     }
+    // }
 }

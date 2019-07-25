@@ -238,6 +238,11 @@ public class GameController : MonoBehaviour
         // Change pause state
         isPaused = !isPaused;
 
+        if (isPaused)
+            PlayerController.Instance.PauseMotorSound();
+        else
+            PlayerController.Instance.PlayMotorSound();
+
         // Change time scale according to bool if tutorial not paused
         if (SceneManager.GetActiveScene().buildIndex != 1 || (Tutorial.Instance && !Tutorial.Instance.IsTimeFreezed()))
         {

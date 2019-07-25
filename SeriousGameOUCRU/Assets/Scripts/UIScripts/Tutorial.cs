@@ -154,6 +154,12 @@ public class Tutorial : MonoBehaviour
     public void RescaleTime(float value)
     {
         freezeTime = value == 0f;
+
+        if (freezeTime)
+            PlayerController.Instance.PauseMotorSound();
+        else
+            PlayerController.Instance.PlayMotorSound();
+
         Time.timeScale = value;
     }
 

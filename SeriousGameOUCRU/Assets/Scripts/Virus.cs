@@ -53,8 +53,8 @@ public class Virus : Organism
 
     public override void KillOrganism()
     {
-        // Prevent player to keep targeting virus
-        // playerController.ResetTarget();
+        if (render.isVisible)
+            AudioManager.Instance.Play("VirusDeath");
 
         // Increase killed count
         gameController.IncrementVirusKillCount();

@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private GameController gameController;
     private MobileUI mobileUI;
+    private AudioManager audioManager;
 
     // Components
     private Rigidbody2D rb;
@@ -50,6 +51,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 oppositeForceDirection;
     private float targetDistance;
+
+    private Sound motorSound;
 
 
     /*** INSTANCE ***/
@@ -74,6 +77,7 @@ public class PlayerController : MonoBehaviour
     {
         gameController = GameController.Instance;
         mobileUI = MobileUI.Instance;
+        audioManager = AudioManager.Instance;
 
         // Initialize components
         rb = GetComponent<Rigidbody2D>();
@@ -82,11 +86,16 @@ public class PlayerController : MonoBehaviour
 
         oppositeForceDirection = Vector2.zero;
         targetDistance = 0f;
+
+        motorSound = AudioManager.Instance.SmoothPlay("ShipMotor", 1f);
     }
 
     private void FixedUpdate()
     {
         MovePlayer();
+
+        // Change motor sound according to velocity
+        motorSound.source.pitch = motorSound.pitch + rb.velocity.sqrMagnitude / 1000f;
     }
 
 
@@ -135,7 +144,13 @@ public class PlayerController : MonoBehaviour
 
         // Increase mutation proba if heavy projectile is fired
         if (heavyWeaponSelected)
+        {
             gameController.IncreaseAllMutationProba();
+            audioManager.Play("FireHeavy");
+        }else
+        {
+            audioManager.Play("FireLight");
+        }
     }
 
     // Spawn the desired projectile
@@ -151,6 +166,8 @@ public class PlayerController : MonoBehaviour
     // Called by UI to change current weapon
     public void ChangeWeapon()
     {
+        AudioManager.Instance.Play("Select1");
+
         gameController.SetCanPlayerChangeWeapon(false);
 
         // Reset target when changing weapon
@@ -262,7 +279,6 @@ public class PlayerController : MonoBehaviour
 
         // apply this multiplier on base velocity
         currentMaxVelocity = maxVelocity * velocityMultiplier;
-
     }
 
     // Apply a drawback force to the player when firing
@@ -284,10 +300,34 @@ public class PlayerController : MonoBehaviour
         // Player dies on collision with cell
         if (!isDead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
         {
+            AudioManager.Instance.Play("ShipExplosion");
+            StopMotorSound();
+
             isDead = true;
             gameController.GameOver();
             Destroy(gameObject);
         }
+    }
+
+
+    /*** SOUNDS FUNCTIONS ***/
+
+    public void StopMotorSound()
+    {
+        if(motorSound.source.isPlaying)
+            AudioManager.Instance.SmoothStop("ShipMotor", 0.5f);
+        else
+            motorSound.source.Stop();
+    }
+
+    public void PauseMotorSound()
+    {
+        motorSound.source.Pause();
+    }
+
+    public void PlayMotorSound()
+    {
+        motorSound.source.Play();
     }
 
 
