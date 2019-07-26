@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
     private void DisplayEndGamePanel()
     {
         //Hide Mobile UI
-        MobileUI.Instance.gameObject.SetActive(false);
+        // MobileUI.Instance.gameObject.SetActive(false);
 
         // Calculate time spent and update text
         int minutes = (int)(Time.time - tempTime) / 60;
@@ -124,7 +124,7 @@ public class UIController : MonoBehaviour
 
         animator.enabled = !isPaused;
         infoPanel.SetActive(!isPaused);
-        MobileUI.Instance.gameObject.SetActive(!isPaused);
+        // MobileUI.Instance.gameObject.SetActive(!isPaused);
         CloseEnnemyUI.Instance.gameObject.SetActive(!isPaused);
 
         pausePanel.SetActive(isPaused);

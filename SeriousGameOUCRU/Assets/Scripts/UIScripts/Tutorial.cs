@@ -64,7 +64,7 @@ public class Tutorial : MonoBehaviour
         gameController.TogglePlayerInput(false);
 
         // Hide UI since it's useless for now
-        MobileUI.Instance.gameObject.SetActive(false);
+        // MobileUI.Instance.gameObject.SetActive(false);
 
         virusList = Virus.virusList;
 
@@ -111,8 +111,11 @@ public class Tutorial : MonoBehaviour
         yield return new WaitUntil(() => !playerController.IsFiring());
         yield return new WaitForSeconds(1f);
         animator.SetTrigger("FadeInSecondWeaponText");
-        MobileUI.Instance.gameObject.SetActive(true);
+        // MobileUI.Instance.gameObject.SetActive(true);
         RescaleTime(0f);
+        UIController.Instance.gameObject.SetActive(true);
+        UIController.Instance.ToggleInfoPanel(true);
+        UIController.Instance.ToggleInfoPanelCount(false);
 
         // Wait for the player to change weapon
         yield return new WaitUntil(() => playerController.IsHeavyWeaponSelected());
@@ -122,9 +125,6 @@ public class Tutorial : MonoBehaviour
         // Setup for heavy fire tutorial
         ReplaceWalls();
         SpawnHeavyFireTutorialCell();
-        UIController.Instance.gameObject.SetActive(true);
-        UIController.Instance.ToggleInfoPanel(true);
-        UIController.Instance.ToggleInfoPanelCount(false);
         yield return new WaitForSeconds(0.5f);
 
         // Wait for player to kill all the cells
@@ -132,7 +132,7 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         blockWeaponChange = false;
         gameController.SetCanPlayerChangeWeapon(true);
-        UIController.Instance.ToggleInfoPanel(false);
+        // UIController.Instance.ToggleInfoPanel(false);
         animator.SetTrigger("FadeInVirusText");
         RescaleTime(0f);
 

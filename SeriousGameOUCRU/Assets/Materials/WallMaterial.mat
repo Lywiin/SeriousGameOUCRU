@@ -47,6 +47,6 @@ Material:
     - Color_F7A735FD: {r: 0.8509804, g: 0, b: 0.07404494, a: 1}
     - Vector2_6E1BCCFA: {r: 0, g: 0, b: 0, a: 0}
     - _BorderColor: {r: 1, g: 0.5058824, b: 0.7372549, a: 0}
-    - _CoreColor: {r: 0.8509804, g: 0, b: 0.45490196, a: 0}
-    - _SideColor: {r: 1, g: 0.4745098, b: 0.7647059, a: 0}
+    - _CoreColor: {r: 0.8784314, g: 0.25882354, b: 0, a: 0}
+    - _SideColor: {r: 1, g: 0.6666667, b: 0.4, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 0}
