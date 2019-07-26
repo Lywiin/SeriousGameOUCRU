@@ -146,10 +146,10 @@ public class PlayerController : MonoBehaviour
         if (heavyWeaponSelected)
         {
             gameController.IncreaseAllMutationProba();
-            audioManager.Play("FireHeavy");
+            if(audioManager) audioManager.Play("FireHeavy");
         }else
         {
-            audioManager.Play("FireLight");
+            if(audioManager) audioManager.Play("FireLight");
         }
     }
 
@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     // Called by UI to change current weapon
     public void ChangeWeapon()
     {
-        AudioManager.Instance.Play("Select1");
+        if (AudioManager.Instance) AudioManager.Instance.Play("Select1");
 
         gameController.SetCanPlayerChangeWeapon(false);
 
@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour
         // Player dies on collision with cell
         if (!isDead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
         {
-            AudioManager.Instance.Play("ShipExplosion");
+            if(AudioManager.Instance) AudioManager.Instance.Play("ShipExplosion");
             StopMotorSound();
 
             isDead = true;
@@ -314,20 +314,20 @@ public class PlayerController : MonoBehaviour
 
     public void StopMotorSound()
     {
-        if(motorSound.source.isPlaying)
+        if (motorSound != null && motorSound.source.isPlaying && AudioManager.Instance)
             AudioManager.Instance.SmoothStop("ShipMotor", 0.5f);
-        else
+        else if (motorSound != null)
             motorSound.source.Stop();
     }
 
     public void PauseMotorSound()
     {
-        motorSound.source.Pause();
+        if (motorSound != null) motorSound.source.Pause();
     }
 
     public void PlayMotorSound()
     {
-        motorSound.source.Play();
+        if (motorSound != null) motorSound.source.Play();
     }
 
 

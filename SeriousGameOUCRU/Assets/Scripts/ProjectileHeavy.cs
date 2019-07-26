@@ -68,7 +68,7 @@ public class ProjectileHeavy : Projectile
 
     private void Explode()
     {
-        AudioManager.Instance.Play("Explosion");
+        if (AudioManager.Instance) AudioManager.Instance.Play("Explosion");
 
         // Apply the damage in zone
         ApplyZoneDamage();

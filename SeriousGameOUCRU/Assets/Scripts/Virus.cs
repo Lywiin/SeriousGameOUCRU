@@ -53,7 +53,7 @@ public class Virus : Organism
 
     public override void KillOrganism()
     {
-        if (render.isVisible)
+        if (render.isVisible && AudioManager.Instance)
             AudioManager.Instance.Play("VirusDeath");
 
         // Increase killed count
