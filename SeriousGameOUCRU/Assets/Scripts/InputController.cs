@@ -214,7 +214,7 @@ public class InputController : MonoBehaviour
             playerController.ComputeCurrentMaxVelocity(inputDistance);
 
             // Only move and rotate if player click away from the player
-            if (inputDistance.magnitude > 10f)
+            if (inputDistance.magnitude > 8f)
             {
                 playerController.MovePlayerMobile(inputDistance);
             }else

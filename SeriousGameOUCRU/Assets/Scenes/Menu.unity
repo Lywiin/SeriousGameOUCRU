@@ -6198,7 +6198,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GameTheme
     clip: {fileID: 8300000, guid: aec12b00ec0d81941968e205bc87b89b, type: 3}
-    volume: 0.2
+    volume: 0.4
     pitch: 1
     loop: 1
     source: {fileID: 0}

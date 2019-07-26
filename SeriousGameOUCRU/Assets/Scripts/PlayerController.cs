@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player Movement")]
     public float speed = 80f;
-    public float maxVelocity = 20f;
+    public float maxVelocity = 15f;
+    public float velocityAccelFactor = 1.2f;
 
     [Header("Projectile")]
     public GameObject firePoint;
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 oppositeForceDirection;
     private float targetDistance;
 
-    private Sound motorSound;
+    private Sound motorSound = null;
 
 
     /*** INSTANCE ***/
@@ -275,7 +276,8 @@ public class PlayerController : MonoBehaviour
     public void ComputeCurrentMaxVelocity(Vector2 inputDistance)
     {
         // Compute a multiplier
-        float velocityMultiplier = inputDistance.magnitude / 60f + 0.5f;
+        float inputDistanceMagnitude = (Mathf.Clamp(inputDistance.magnitude, 8f, 30f) - 8f) / 22f;
+        float velocityMultiplier = 1f + inputDistanceMagnitude * velocityAccelFactor;
 
         // apply this multiplier on base velocity
         currentMaxVelocity = maxVelocity * velocityMultiplier;

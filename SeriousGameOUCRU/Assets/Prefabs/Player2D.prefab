@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 80
-  maxVelocity: 20
+  maxVelocity: 15
+  velocityAccelFactor: 1.2
   firePoint: {fileID: 7217503885172424198}
   fireRateP1: 0.1
   fireDrawbackP1: 2
