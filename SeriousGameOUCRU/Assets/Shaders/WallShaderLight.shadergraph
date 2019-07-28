@@ -4,13 +4,13 @@
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.TextureShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"MainTex\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"148aa20b-0409-4b8f-b46c-ec468123713d\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_11D3AB00\",\n    \"m_OverrideReferenceName\": \"_MainTex\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"1f877113824e87845805c2adff647b1a\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"MainTex\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"148aa20b-0409-4b8f-b46c-ec468123713d\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_11D3AB00\",\n    \"m_OverrideReferenceName\": \"_MainTex\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"fee31946a6d8f9240aca77772de2af5c\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {
                 "fullName": "UnityEditor.ShaderGraph.TextureShaderProperty"
             },
-            "JSONnodeData": "{\n    \"m_Name\": \"WallSprite\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d0e99f49-5019-44e4-9f18-e572eed965c1\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_2E81B5B4\",\n    \"m_OverrideReferenceName\": \"_WallSprite\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"1f877113824e87845805c2adff647b1a\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
+            "JSONnodeData": "{\n    \"m_Name\": \"WallSprite\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"d0e99f49-5019-44e4-9f18-e572eed965c1\"\n    },\n    \"m_DefaultReferenceName\": \"Texture2D_2E81B5B4\",\n    \"m_OverrideReferenceName\": \"_WallSprite\",\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"fee31946a6d8f9240aca77772de2af5c\"\n    },\n    \"m_Modifiable\": true,\n    \"m_DefaultType\": 0\n}"
         },
         {
             "typeInfo": {

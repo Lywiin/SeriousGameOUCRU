@@ -4442,6 +4442,11 @@ PrefabInstance:
       propertyPath: backgroundColors.Array.data[2].b
       value: 0.27058825
       objectReference: {fileID: 0}
+    - target: {fileID: 2758432217738019848, guid: 1f5b45926c3c19747be8529d1954e48b,
+        type: 3}
+      propertyPath: wallTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: c011dd2ae240d8d42b859c90359816a0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f5b45926c3c19747be8529d1954e48b, type: 3}
 --- !u!1001 &2129581350

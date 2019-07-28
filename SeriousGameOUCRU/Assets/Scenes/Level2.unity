@@ -2529,11 +2529,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4006486505426411480, guid: be906119438bac64da072d67aad23133,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -2547,6 +2542,11 @@ PrefabInstance:
     - target: {fileID: 4006486504981386540, guid: be906119438bac64da072d67aad23133,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4006486504267987588, guid: be906119438bac64da072d67aad23133,

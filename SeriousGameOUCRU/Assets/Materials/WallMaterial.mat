@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1f877113824e87845805c2adff647b1a, type: 3}
+        m_Texture: {fileID: 2800000, guid: fee31946a6d8f9240aca77772de2af5c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2DLOD_804F074B_Texture:
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WallSprite:
-        m_Texture: {fileID: 2800000, guid: 1f877113824e87845805c2adff647b1a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 06717e00dada0b646bd4299773943ceb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -47,6 +47,6 @@ Material:
     - Color_F7A735FD: {r: 0.8509804, g: 0, b: 0.07404494, a: 1}
     - Vector2_6E1BCCFA: {r: 0, g: 0, b: 0, a: 0}
     - _BorderColor: {r: 1, g: 0.5058824, b: 0.7372549, a: 0}
-    - _CoreColor: {r: 0.8509804, g: 0, b: 0.07450981, a: 0}
-    - _SideColor: {r: 1, g: 0.5058824, b: 0.7372549, a: 0}
+    - _CoreColor: {r: 0.8509804, g: 0, b: 0.72156864, a: 0}
+    - _SideColor: {r: 1, g: 0.4745098, b: 0.9490196, a: 0}
     - _Tint: {r: 1, g: 1, b: 1, a: 0}
