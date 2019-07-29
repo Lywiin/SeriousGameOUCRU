@@ -6198,13 +6198,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: GameTheme
     clip: {fileID: 8300000, guid: aec12b00ec0d81941968e205bc87b89b, type: 3}
-    volume: 0.4
+    volume: 0.8
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Slide
     clip: {fileID: 8300000, guid: 5b383ccf661ab8746b580aec1a5db59d, type: 3}
-    volume: 0.2
+    volume: 0.4
     pitch: 3
     loop: 0
     source: {fileID: 0}
@@ -6216,49 +6216,49 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Select2
     clip: {fileID: 8300000, guid: cf83b56bd962be64d8e1c6036dfad965, type: 3}
-    volume: 0.3
+    volume: 0.6
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FadeScreen
     clip: {fileID: 8300000, guid: 77fdafb8533b6354b83f5150f096f212, type: 3}
-    volume: 0.2
+    volume: 0.4
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FireLight
     clip: {fileID: 8300000, guid: 431ced66bf23aa145a37c6069902f685, type: 3}
-    volume: 0.05
+    volume: 0.15
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: FireHeavy
     clip: {fileID: 8300000, guid: 63520a0c892592c47929c4fbde6a603f, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Explosion
     clip: {fileID: 8300000, guid: 12e3890219c2a214e8f2beb714360f6b, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: HumanCellDeath
     clip: {fileID: 8300000, guid: fb9f137cd1849ad48a2cb6c431717752, type: 3}
-    volume: 0.15
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BacteriaCellDeath
     clip: {fileID: 8300000, guid: 7b4c30aa560e71341bd1aafa145fee4a, type: 3}
-    volume: 0.15
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: VirusDeath
     clip: {fileID: 8300000, guid: d86fde3f69a0ea54ab1de46111c1d86c, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -6270,7 +6270,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ShipMotor
     clip: {fileID: 8300000, guid: 45907d6aa025abc41bd0b02fc5c5cf4d, type: 3}
-    volume: 0.15
+    volume: 0.3
     pitch: 1
     loop: 1
     source: {fileID: 0}
