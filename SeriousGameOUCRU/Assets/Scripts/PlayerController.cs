@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(heavyWeaponSelected ? fireRateP2 : fireRateP1);
 
         // Keep firing until cell die or get out of range
-        } while (fireTarget && !fireTarget.IsFading() && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected);
+        } while (fireTarget && !fireTarget.IsFading() && Vector3.Distance(transform.position, fireTarget.transform.position) < maxRange && !heavyWeaponSelected && gameController.CanPlayerShoot());
 
         fireTarget = null;
     }
@@ -321,6 +321,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = Vector2.zero;
         gameController.SetCanPlayerMove(false);
+        gameController.SetCanPlayerShoot(false);
         gameController.GameOver();
 
         yield return new WaitForSeconds(2f);
