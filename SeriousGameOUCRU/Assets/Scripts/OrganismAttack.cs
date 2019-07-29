@@ -14,7 +14,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
     public float attackRadius = 10f;
     public float attackTime = 10f;
     public float attackRecallTime = 5f;
-    public bool spawnCopyOnTargetDeath = false;
+    public bool instantKill = true;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -65,7 +65,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
         canAttack = true;
     }
 
-    private void OnTriggerEnter2D(Collider2D c)
+    private void OnTriggerStay2D(Collider2D c)
     {
         if (canAttack && !attackTarget)
         {
@@ -75,7 +75,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             if (attackTarget && !attackTarget.isTargeted)
             {
                 attackTarget.isTargeted = true;
-                attackTarget.GetComponent<OrganismMovement>().SetCanMove(false);
+                if (!instantKill) attackTarget.GetComponent<OrganismMovement>().SetCanMove(false);
 
                 // Set new attackTarget to move towards it
                 if (orgMovement) orgMovement.SetTarget(attackTarget);
@@ -86,13 +86,16 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
     private void OnCollisionEnter2D(Collision2D c)
     {
         // If touch target, start to attack it
-        if (canAttack && attackTarget && c.gameObject == attackTarget.gameObject)
+        if (!instantKill && canAttack && attackTarget && c.gameObject == attackTarget.gameObject)
         {
-            StartCoroutine(StartAttack());
+            StartCoroutine(AttackOverTime());
+        }else if (instantKill)
+        {
+            InstantAttack(c.transform.GetComponentInParent<HumanCell>()); 
         }
     }
 
-    private IEnumerator StartAttack()
+    private IEnumerator AttackOverTime()
     {
         canAttack = false;
 
@@ -111,14 +114,28 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
         attackTarget = null;
         orgMovement.SetTarget(null);
 
-        // When target dead we spawn a new entity if requested
-        if (spawnCopyOnTargetDeath)
-        {
-            selfOrganism.InstantiateOrganism(targetLastPosition);
-        }
+        selfOrganism.InstantiateOrganism(targetLastPosition);
 
         // Start recall to prevent chain attack
         StartCoroutine(AttackRecall());
+    }
+
+    private void InstantAttack(HumanCell target)
+    {
+        if (target)
+        {
+            target.DamageOrganism(target.GetHealth());
+
+            if (target == attackTarget) 
+            {
+                // Reset target
+                attackTarget = null;
+                orgMovement.SetTarget(null);
+
+                // Start recall to prevent chain attack
+                StartCoroutine(AttackRecall());
+            }
+        }
     }
 
     public void UpdateDetectionColliderRadius(float bodyRadius)

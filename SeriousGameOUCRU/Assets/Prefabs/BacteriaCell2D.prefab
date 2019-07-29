@@ -313,10 +313,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1532515555671245830}
-  moveForce: 300
-  moveRate: 1
+  moveForce: 700
+  moveRate: 1.2
   moveRateVariance: 0.5
-  maxVelocity: 8
+  maxVelocity: 10
   randomMovement: 1
   angleToRotate: 1
 --- !u!114 &4341253969992415331
@@ -336,7 +336,7 @@ MonoBehaviour:
   attackRadius: 10
   attackTime: 0
   attackRecallTime: 2
-  spawnCopyOnTargetDeath: 0
+  instantKill: 1
 --- !u!114 &5835470044372664631
 MonoBehaviour:
   m_ObjectHideFlags: 0

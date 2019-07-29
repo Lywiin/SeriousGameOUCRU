@@ -254,7 +254,7 @@ MonoBehaviour:
   attackRadius: 8
   attackTime: 10
   attackRecallTime: 5
-  spawnCopyOnTargetDeath: 1
+  instantKill: 0
 --- !u!1001 &2503379892066123716
 PrefabInstance:
   m_ObjectHideFlags: 0
