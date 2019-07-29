@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public float minRange = 10f;
     public float maxRange = 60f;
 
+    [Header("Death")]
+    public ParticleSystem explosionParticles;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -93,7 +96,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (!isDead)
+            MovePlayer();
 
         // Change motor sound according to velocity
         if (motorSound != null) motorSound.source.pitch = motorSound.pitch + rb.velocity.sqrMagnitude / 1000f;
@@ -302,13 +306,30 @@ public class PlayerController : MonoBehaviour
         // Player dies on collision with cell
         if (!isDead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
         {
-            if(AudioManager.Instance) AudioManager.Instance.Play("ShipExplosion");
-            StopMotorSound();
-
-            isDead = true;
-            gameController.GameOver();
-            Destroy(gameObject);
+            StartCoroutine(KillShip());
         }
+    }
+
+    private IEnumerator KillShip()
+    {
+        explosionParticles.Play();
+        if(AudioManager.Instance) AudioManager.Instance.Play("ShipExplosion");
+        StopMotorSound();
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        ResetVelocity();
+
+        isDead = true;
+        gameController.GameOver();
+
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+    }
+
+    public void ResetVelocity()
+    {
+        rb.velocity = Vector2.zero;
     }
 
 
