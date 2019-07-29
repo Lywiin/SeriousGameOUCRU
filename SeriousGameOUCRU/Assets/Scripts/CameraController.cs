@@ -144,7 +144,7 @@ public class CameraController : MonoBehaviour
         {
             // Zoom camera out when fire projectile
             cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraBaseSize + projectileOffset.magnitude * projectileFollowZoomFactor, Time.deltaTime * cameraZoomSpeed);
-        }else
+        }else if (gameController.CanPlayerMove())
         {
             // Init desired size
             float desiredSize = cameraBaseSize;

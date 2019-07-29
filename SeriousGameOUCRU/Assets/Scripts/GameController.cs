@@ -281,6 +281,8 @@ public class GameController : MonoBehaviour
         // Do not activate with tutorial
         if (SceneManager.GetActiveScene().buildIndex != 1)
         {
+            SetCanPlayerMove(false);
+
             // Hide the indicators
             CloseEnnemyUI.Instance.HideAllIndicators();
 

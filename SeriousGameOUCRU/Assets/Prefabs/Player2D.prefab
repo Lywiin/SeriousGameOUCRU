@@ -111,6 +111,9 @@ MonoBehaviour:
   weaponChangeCooldown: 0.5
   minRange: 10
   maxRange: 60
+  smokeParticles:
+  - {fileID: 8521097540098351736}
+  - {fileID: 8521097538672103356}
   explosionParticles: {fileID: 858712946252807711}
 --- !u!114 &7217503884614659542
 MonoBehaviour:
@@ -368,6 +371,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7217503884506406320}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &8521097538672103356 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1326517466582487564, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217503884506406320}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7217503886469525620
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -460,6 +469,12 @@ PrefabInstance:
 --- !u!4 &3088484621161624793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 7217503886469525620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &8521097540098351736 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1326517466582487564, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
     type: 3}
   m_PrefabInstance: {fileID: 7217503886469525620}
   m_PrefabAsset: {fileID: 0}

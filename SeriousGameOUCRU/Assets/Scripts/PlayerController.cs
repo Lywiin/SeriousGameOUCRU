@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     public float minRange = 10f;
     public float maxRange = 60f;
 
-    [Header("Death")]
+    [Header("Particles")]
+    public ParticleSystem[] smokeParticles;
     public ParticleSystem explosionParticles;
 
 
@@ -45,9 +46,6 @@ public class PlayerController : MonoBehaviour
     // Weapon change
     private bool heavyWeaponSelected = false;
     private float weaponChangeTimer = 0f;
-
-    // Status
-    private bool isDead = false;
 
     // Move direction
     private Vector2 moveDirection = Vector3.zero;
@@ -96,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isDead)
+        if (gameController.CanPlayerMove())
             MovePlayer();
 
         // Change motor sound according to velocity
@@ -304,7 +302,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Player dies on collision with cell
-        if (!isDead && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
+        if (gameController.CanPlayerMove() && collision.gameObject.layer == LayerMask.NameToLayer("Ennemy") && SceneManager.GetActiveScene().buildIndex != 1)
         {
             StartCoroutine(KillShip());
         }
@@ -316,20 +314,17 @@ public class PlayerController : MonoBehaviour
         if(AudioManager.Instance) AudioManager.Instance.Play("ShipExplosion");
         StopMotorSound();
 
+        smokeParticles[0].Stop();
+        smokeParticles[1].Stop();
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<CapsuleCollider2D>().enabled = false;
-        ResetVelocity();
 
-        isDead = true;
+        rb.velocity = Vector2.zero;
+        gameController.SetCanPlayerMove(false);
         gameController.GameOver();
 
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);
-    }
-
-    public void ResetVelocity()
-    {
-        rb.velocity = Vector2.zero;
     }
 
 
