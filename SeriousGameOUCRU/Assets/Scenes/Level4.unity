@@ -4023,12 +4023,12 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: humanCellCount
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
@@ -4044,6 +4044,26 @@ PrefabInstance:
         type: 3}
       propertyPath: gameZoneRadius.y
       value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationSoftCapBacteriaCell
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationSoftCapHumanCell
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationRecallTimeBacteriaCell
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationRecallTimeHumanCell
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera

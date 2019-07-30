@@ -96,4 +96,9 @@ public class Virus : Organism
             gameController.PlayerWon();
         }
     }
+
+    public override int GetListCount()
+    {
+        return Virus.virusList.Count;
+    }
 }

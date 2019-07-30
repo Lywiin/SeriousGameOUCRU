@@ -30,6 +30,12 @@ public class HumanCell : Organism
 
     protected override void OnObjectSpawn()
     {
+        if (orgDuplication) 
+        {
+            orgDuplication.SetDuplicationRecallTime(gameController.duplicationRecallTimeHumanCell);
+            orgDuplication.SetDuplicationSoftCap(gameController.duplicationSoftCapHumanCell);
+        }
+
         base.OnObjectSpawn();
 
         humanCellList.Add(this);
@@ -87,5 +93,10 @@ public class HumanCell : Organism
     {
         humanCellList.Remove(this);
         uiController.UpdateHumanCellCount();
+    }
+
+    public override int GetListCount()
+    {
+        return HumanCell.humanCellList.Count;
     }
 }

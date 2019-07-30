@@ -349,8 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fde8e35b09953948864255d9e315f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duplicationProba: 0.0002
-  duplicationRecallTime: 1
+  minDuplicationProba: 0.0001
+  maxDuplicationProba: 0.002
 --- !u!114 &3123446490448591263
 MonoBehaviour:
   m_ObjectHideFlags: 0

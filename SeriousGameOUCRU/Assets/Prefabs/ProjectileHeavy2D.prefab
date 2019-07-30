@@ -98,7 +98,7 @@ MonoBehaviour:
   speed: 10
   maxVelocity: 80
   lifeTime: 0.5
-  damage: 80
+  damage: 120
   explosionRadius: 30
   particle: {fileID: 7326478590060991107}
 --- !u!50 &1405361550025326832

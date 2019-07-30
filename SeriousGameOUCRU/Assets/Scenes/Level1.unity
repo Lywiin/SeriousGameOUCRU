@@ -2385,7 +2385,7 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: bacteriaCellCount
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
@@ -2397,17 +2397,67 @@ PrefabInstance:
       propertyPath: gameZoneRadius.x
       value: 130
       objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationMeanDelay
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationVarianceDelay
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationDelay
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationDelayBacteriaCell
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationDelayHumanCell
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: meanDuplicationTimeBacteria
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationRecallTimeHumanCell
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationRecallTimeBacteriaCell
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationSoftCapBacteriaCell
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
+        type: 3}
+      propertyPath: duplicationSoftCapHumanCell
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 463478366}
     - target: {fileID: 198987135, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198987134, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 198987136, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: initCount

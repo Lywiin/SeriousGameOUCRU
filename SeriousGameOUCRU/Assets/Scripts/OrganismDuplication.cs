@@ -7,8 +7,8 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     /*** PUBLIC VARIABLES ***/
 
     [Header("Duplication")]
-    public float duplicationProba = 0.0002f;
-    public float duplicationRecallTime = 1f;
+    public float minDuplicationProba = 0.0001f;
+    public float maxDuplicationProba = 0.005f;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -17,7 +17,11 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     private Organism selfOrganism;
     private GameController gameController;
 
-    protected bool canDuplicate = false;
+    private bool canDuplicate = false;
+
+    private float duplicationProbaIncreaseRate;
+    private float duplicationRecallTime;
+    private int duplicationSoftCap;
 
     // Cached
     Vector2 spawnPos;
@@ -39,7 +43,7 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     protected void Update()
     {        
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused() && !selfOrganism.IsFading())
+        if (canDuplicate && !gameController.IsGamePaused() && !selfOrganism.IsFading())
         {
             // Attempt to duplicate organism every frame
             TryToDuplicateOrganism();
@@ -50,32 +54,49 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
-        StartCoroutine(DuplicationRecall());
+        duplicationProbaIncreaseRate = (maxDuplicationProba - minDuplicationProba) / (duplicationSoftCap - 1);
+        StartCoroutine(DuplicationRecall(Random.Range(duplicationRecallTime / 2, duplicationRecallTime)));
     }
 
 
     /***** DUPLICATION FUNCTIONS *****/
 
+    public void SetDuplicationRecallTime(float duration)
+    {
+        duplicationRecallTime = duration;
+    }
+
+    public void SetDuplicationSoftCap(int softCap)
+    {
+        duplicationSoftCap = softCap;
+    }
+
     // Buffer to prevent duplication for a short time
-    public IEnumerator DuplicationRecall()
+    public IEnumerator DuplicationRecall(float duration)
     {
         canDuplicate = false;
-        yield return new WaitForSeconds(duplicationRecallTime); // Time to wait before it can duplicate again
+        yield return new WaitForSeconds(duration); // Time to wait before it can duplicate again
         canDuplicate = true;
     }
     
     private void TryToDuplicateOrganism()
     {
+        // Compute duplication proba depending on number of current similar organism
+        float currentDuplicationProba = maxDuplicationProba - duplicationProbaIncreaseRate * Mathf.Min(selfOrganism.GetListCount() - 1, duplicationSoftCap - 1);
+
         // If duplication is triggered
-        if (canDuplicate && Random.Range(0f, 1f) < duplicationProba)
+        if (canDuplicate && Random.Range(0f, 1f) < currentDuplicationProba)
         {
             // Buffer to prevent quick duplication
-            StartCoroutine(DuplicationRecall());
+            StartCoroutine(DuplicationRecall(duplicationRecallTime));
 
             // Spawn new organism
             SpawnDuplicatedOrganism();
         }
     }
+
+
+    /***** SPAWN DUPLICATE FUNCTIONS *****/
 
     //Spawn a new organism around the current one and return a bool if did so
     private bool SpawnDuplicatedOrganism()

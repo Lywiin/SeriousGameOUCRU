@@ -286,4 +286,10 @@ public abstract class Organism : MonoBehaviour, IPooledObject
         return orgMutation;
     }
 
+    public OrganismDuplication GetOrgDuplication()
+    {
+        return orgDuplication;
+    }
+
+    public abstract int GetListCount();
 }

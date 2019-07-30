@@ -27,10 +27,17 @@ public class BacteriaCell : Organism
 
     protected override void OnObjectSpawn()
     {
+        if (orgDuplication)
+        {
+            orgDuplication.SetDuplicationRecallTime(gameController.duplicationRecallTimeBacteriaCell);
+            orgDuplication.SetDuplicationSoftCap(gameController.duplicationSoftCapBacteriaCell);
+        }
+
         base.OnObjectSpawn();
 
         bacteriaCellList.Add(this);
         if (uiController) uiController.UpdateBacteriaCellCount();
+
     }
 
     public override Organism InstantiateOrganism(Vector2 spawnPosition)
@@ -98,5 +105,10 @@ public class BacteriaCell : Organism
         {
             gameController.PlayerWon();
         }
+    }
+
+    public override int GetListCount()
+    {
+        return BacteriaCell.bacteriaCellList.Count;
     }
 }

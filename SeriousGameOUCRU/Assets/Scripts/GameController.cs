@@ -11,7 +11,6 @@ public class GameController : MonoBehaviour
     public GameObject player;
     public GameObject bacteriaCell;
     public GameObject humanCell;
-    // public GameObject humanCellGroup;
     public GameObject virus;
 
     [Header("Spawn")]
@@ -25,6 +24,13 @@ public class GameController : MonoBehaviour
     [Header("Mutation")]
     public float mutationProbaStart = 0.0005f;
     public float mutationProbaIncrease = 0.00075f;
+    public float mutationProbaMultiplier = 1.2f;
+
+    [Header("Duplication")]
+    public float duplicationRecallTimeBacteriaCell = 5f;
+    public float duplicationRecallTimeHumanCell = 5f;
+    public int duplicationSoftCapBacteriaCell = 10;
+    public int duplicationSoftCapHumanCell = 20;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -100,12 +106,6 @@ public class GameController : MonoBehaviour
         {
             TogglePause();
         }
-
-        // Restart the game
-        if (Input.GetButtonDown("Cancel"))
-        {
-            RestartGame();
-        }
     }
 
     /***** START FUNCTIONS *****/
@@ -117,21 +117,10 @@ public class GameController : MonoBehaviour
         UIController.Instance.ToggleInfoPanel(true);
         UIController.Instance.TogglePauseButton(true);
 
-        // StartCoroutine(StartSpawningWithDelay());
         SpawnBacteriaCell();
         SpawnVirus();
         SpawnHumanCell();
     }
-
-    // private IEnumerator StartSpawningWithDelay()
-    // {
-    //     yield return new WaitForFixedUpdate();
-
-    //     SpawnBacteriaCell();
-    //     SpawnVirus();
-    //     SpawnHumanCell();
-
-    // }
 
     private void SpawnBacteriaCell()
     {        
@@ -299,6 +288,9 @@ public class GameController : MonoBehaviour
     {
         OrganismMutation.mutationProba += mutationProbaIncrease;
         uiController.UpdateGlobalMutationProba();
+
+        // Increase next increase at each use
+        mutationProbaIncrease *= mutationProbaMultiplier;
     }
 
 
