@@ -102,14 +102,6 @@ public class TextLocalization : MonoBehaviour
         PlayerPrefs.SetString("Language", l);
 
         TextLocalization.UpdateAllText();
-
-        UnselectButton();
-    }
-
-    // Unselect all ui object
-    private static void UnselectButton()
-    {
-        GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
     }
 
     // Update text of all objects, used after changing language

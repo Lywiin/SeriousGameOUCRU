@@ -134,17 +134,17 @@ public class MainMenu : MonoBehaviour
 
     public void OnSlide()
     {
-        AudioManager.Instance.Play("Slide");
+        if (AudioManager.Instance) AudioManager.Instance.Play("Slide");
     }
 
     public void OnSelect1()
     {
-        AudioManager.Instance.Play("Select1");
+        if (AudioManager.Instance) AudioManager.Instance.Play("Select1");
     }
 
     public void OnSelect2()
     {
-        AudioManager.Instance.Play("Select2");
+        if (AudioManager.Instance) AudioManager.Instance.Play("Select2");
     }
 
 
