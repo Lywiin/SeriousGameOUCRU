@@ -260,15 +260,15 @@ public class GameController : MonoBehaviour
         // Update the UI
         uiController.TriggerGameOver();
 
-        // Kill the player and restart
-        // Destroy(player);
+        OrganismDuplication.StopDuplication();
+        OrganismMutation.StopMutation();
     }
 
     //Called when the player win
     public void PlayerWon()
     {
         // Do not activate with tutorial
-        if (SceneManager.GetActiveScene().buildIndex != 1)
+        if (SceneManager.GetActiveScene().buildIndex > 1)
         {
             SetCanPlayerMove(false);
 
@@ -277,9 +277,10 @@ public class GameController : MonoBehaviour
 
             // Update the UI and restart
             uiController.TriggerVictory();
+
+            OrganismDuplication.StopDuplication();
         }
     }
-
 
     /***** MUTATION FUNCTIONS *****/
 

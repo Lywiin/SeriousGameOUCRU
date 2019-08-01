@@ -33,6 +33,8 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     // Conjugaison
     private bool canCollide = false;
 
+    [HideInInspector] public bool canMutate = true;
+
 
     /***** MONOBEHAVIOUR FUNCTIONS *****/
 
@@ -55,7 +57,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     void Update()
     {
         // Check is game is not currently paused
-        if (!gameController.IsGamePaused() && !selfOrganism.IsFading() && Random.Range(0f, 1f) < mutationProba)
+        if (canMutate && !gameController.IsGamePaused() && !selfOrganism.IsFading() && Random.Range(0f, 1f) < mutationProba)
         {
             // Attempt to mutate organism every frame
             DuplicateShield();
@@ -67,6 +69,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
 
     public virtual void OnObjectToSpawn()
     {
+        canMutate = true;
         isRescaling = false;
         targetScale = Vector3.one;
         shieldHealth = 0;
@@ -155,6 +158,12 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     {
         shieldHealth = h;
         UpdateShieldSize(); // Update size when changing health
+    }
+
+    public static void StopMutation()
+    {
+        foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
+            b.GetOrgMutation().canMutate = false;
     }
 
 

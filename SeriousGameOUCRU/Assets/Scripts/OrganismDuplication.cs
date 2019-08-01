@@ -17,7 +17,7 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
     private Organism selfOrganism;
     private GameController gameController;
 
-    private bool canDuplicate = false;
+    [HideInInspector] public bool canDuplicate = false;
 
     private float duplicationProbaIncreaseRate;
     private float duplicationRecallTime;
@@ -93,6 +93,15 @@ public class OrganismDuplication : MonoBehaviour, IPooledObject
             // Spawn new organism
             SpawnDuplicatedOrganism();
         }
+    }
+
+    // Stop all organism from duplicating
+    public static void StopDuplication()
+    {
+        foreach (BacteriaCell b in BacteriaCell.bacteriaCellList)
+            b.GetOrgDuplication().canDuplicate = false;
+        foreach (HumanCell h in HumanCell.humanCellList)
+            h.GetOrgDuplication().canDuplicate = false;
     }
 
 
