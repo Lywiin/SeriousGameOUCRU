@@ -29,6 +29,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     private bool isRescaling;
     private Vector3 targetScale;
     private int shieldHealth = 0;
+    private Material shieldSharedMaterial;
 
     // Conjugaison
     private bool canCollide = false;
@@ -51,6 +52,8 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
         // TEMP to get initial proba
         if (BacteriaCell.bacteriaCellList.Count == 1)
             gameController.globalMutationProba = mutationProba;
+        
+        shieldSharedMaterial = shieldRender.sharedMaterial;
     }
 
     // Update is called once per frame
@@ -120,6 +123,33 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
         isRescaling = false;
     }
 
+    public void ShineShields()
+    {
+        if (shieldHealth > 0) StartCoroutine(ShineShield(0.4f));
+    }
+
+    private IEnumerator ShineShield(float duration)
+    {
+        float baseIntensity = shieldSharedMaterial.GetFloat("_Intensity");
+        float newIntensity = baseIntensity;
+        float timeSpent = 0f;
+
+        while (timeSpent < duration)
+        {
+            timeSpent += Time.deltaTime;
+
+            newIntensity += (timeSpent < duration / 2 ? Time.deltaTime: -Time.deltaTime) * 9f;
+            shieldSharedMaterial.SetFloat("_Intensity", newIntensity);
+
+            yield return new WaitForEndOfFrame();
+        }
+        
+        shieldSharedMaterial.SetFloat("_Intensity", baseIntensity);
+
+        // yield return new WaitForSeconds(0.1f);
+        // shieldSharedMaterial.SetFloat("_Intensity", baseIntensity);
+    }
+
 
     /***** HEALTH FUNCTIONS *****/
 
@@ -171,7 +201,7 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
 
     private void OnCollisionEnter2D(Collision2D c)
     {
-        if (canCollide)
+        if (canCollide && canMutate)
         {
             // Start coroutine to prevent multiColliding
             StartCoroutine(CollidingRecall());

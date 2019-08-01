@@ -148,6 +148,7 @@ public class PlayerController : MonoBehaviour
         // Increase mutation proba if heavy projectile is fired
         if (heavyWeaponSelected)
         {
+            if (fireTarget) fireTarget.GetOrgMutation().ShineShields();
             gameController.IncreaseAllMutationProba();
             if(audioManager) audioManager.Play("FireHeavy");
         }else
