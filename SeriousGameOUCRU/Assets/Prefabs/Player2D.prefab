@@ -64,6 +64,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -189,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7217503885172424198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7217503884614659547}
@@ -202,11 +203,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7217503884614659547}
     m_Modifications:
-    - target: {fileID: 1565148458609521480, guid: 81245efad3f40b8418a7083b3408e9a2,
-        type: 3}
-      propertyPath: m_Name
-      value: ShipExplosionParticle
-      objectReference: {fileID: 0}
     - target: {fileID: 1565148458609521483, guid: 81245efad3f40b8418a7083b3408e9a2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -262,6 +258,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1565148458609521480, guid: 81245efad3f40b8418a7083b3408e9a2,
+        type: 3}
+      propertyPath: m_Name
+      value: ShipExplosionParticle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81245efad3f40b8418a7083b3408e9a2, type: 3}
 --- !u!4 &858712946252807710 stripped
@@ -283,11 +284,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7217503884614659547}
     m_Modifications:
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_Name
-      value: SmokeParticle (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -343,6 +339,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
+        type: 3}
+      propertyPath: m_Name
+      value: SmokeParticle (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6473381919560323009, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_VertexStreams.Array.size
@@ -384,11 +385,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7217503884614659547}
     m_Modifications:
-    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
-        type: 3}
-      propertyPath: m_Name
-      value: SmokeParticle
-      objectReference: {fileID: 0}
     - target: {fileID: 5689517395205162157, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -443,6 +439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1995772669694774715, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
+        type: 3}
+      propertyPath: m_Name
+      value: SmokeParticle
       objectReference: {fileID: 0}
     - target: {fileID: 6473381919560323009, guid: 7af290a2ccdb33f40b22dd691d5a8ae7,
         type: 3}
