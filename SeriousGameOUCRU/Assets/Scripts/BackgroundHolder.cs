@@ -6,9 +6,13 @@ public class BackgroundHolder : MonoBehaviour
 {
     /*** PUBLIC VARIABLES ***/
 
-    public Material background1Material;
-    // public Material[] backgroundMaterialArray;
+    [Header("Shaders")]
     public Shader[] backgroundShaderArray;
+
+    [Header("Background 1")]
+    public Material background1Material;
+    public GameObject background1Root;
+    public Sprite[] background1Sprites;
 
 
     /*** INSTANCE ***/
@@ -40,12 +44,21 @@ public class BackgroundHolder : MonoBehaviour
 
     public void ToggleBackgroundQuality(int quality)
     {
+        // Change background 1 quality
         background1Material.shader = backgroundShaderArray[quality];
+        ChangeBackground1Texture(quality);
 
+        // Disable other background in low quality settings
         for (int i = 1; i < transform.childCount; i++)
             transform.GetChild(i).gameObject.SetActive(quality == 1 ? false : true);
+    }
 
-        // for (int i = 0; i < backgroundMaterialArray.Length; i++)
-        //     backgroundMaterialArray[i].shader = backgroundShaderArray[quality];
+    // Change texture of all background 1 objects based on quality settings
+    private void ChangeBackground1Texture(int quality)
+    {
+        background1Root.GetComponent<SpriteRenderer>().sprite = background1Sprites[quality];
+
+        for (int i = 0; i < background1Root.transform.childCount; i++)
+            background1Root.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = background1Sprites[quality];
     }
 }

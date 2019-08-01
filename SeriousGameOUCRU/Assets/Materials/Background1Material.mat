@@ -37,7 +37,7 @@ Material:
     - Vector1_F2944E8E: 3
     - Vector1_F92AFD4B: 0.5
     - _ParallaxEffect: 0.1
-    - _Transparency: 0.5
+    - _Transparency: 0.6
     m_Colors:
     - Color_4BD39FE0: {r: 1, g: 1, b: 1, a: 1}
     - Color_93D38525: {r: 1, g: 0.504717, b: 0.7374402, a: 1}
@@ -45,4 +45,4 @@ Material:
     - Vector2_30CDD428: {r: 0.5, g: 1, b: 0, a: 0}
     - Vector2_8A8F7AE8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_C52223BF: {r: 0, g: 1, b: 0, a: 0}
-    - _Tint: {r: 1, g: 0.7764706, b: 0.9098039, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 0}
