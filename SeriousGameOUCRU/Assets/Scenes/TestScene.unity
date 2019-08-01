@@ -1621,7 +1621,7 @@ PrefabInstance:
     - target: {fileID: 3809284939989914336, guid: b1b34be5d40741746afa1cad1fbf0e74,
         type: 3}
       propertyPath: mutationProbaStart
-      value: 0.005
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 198987132, guid: b1b34be5d40741746afa1cad1fbf0e74, type: 3}
       propertyPath: mainCamera
