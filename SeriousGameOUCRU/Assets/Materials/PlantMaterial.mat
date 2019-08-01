@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlantMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 8e99d46776e067b4a968bd30f4ca8381,
+  m_Shader: {fileID: -6465566751694194690, guid: 94f1cacb7afc87c4982a7677ff44433d,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4

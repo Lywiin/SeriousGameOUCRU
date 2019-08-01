@@ -64,6 +64,11 @@ public class LevelChanger : MonoBehaviour
             // Make sure motor are stopped
             if (PlayerController.Instance) PlayerController.Instance.StopMotorSound();
         }
+
+        if (UIController.Instance)
+        {
+            UIController.Instance.SetPauseButtonInteractible(false);
+        }
     }
 
     public void OnFadeOutComplete()
@@ -87,6 +92,11 @@ public class LevelChanger : MonoBehaviour
         if (sceneIndex == 1)
         {
             Tutorial.Instance.StartTutorial();
+        }
+
+        if (UIController.Instance)
+        {
+            UIController.Instance.SetPauseButtonInteractible(true);
         }
     }
 }

@@ -28,7 +28,7 @@ public class UIController : MonoBehaviour
 
     [Header("Pause Panel")]
     public GameObject pausePanel;
-    public GameObject pauseButton;
+    public Button pauseButton;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -105,7 +105,7 @@ public class UIController : MonoBehaviour
         bacteriaKilledCountTextValue.text = GameController.Instance.GetBacteriaCellKillCount().ToString();
         virusKilledCountTextValue.text = GameController.Instance.GetVirusKillCount().ToString();
 
-        pauseButton.SetActive(false);
+        pauseButton.gameObject.SetActive(false);
         ToggleInfoPanel(false);
         TogglePauseButton(false);
         GameController.Instance.TogglePlayerInput(false);
@@ -149,6 +149,11 @@ public class UIController : MonoBehaviour
             animator.SetTrigger("FadeInPauseButton");
         else
             animator.SetTrigger("FadeOutPauseButton");
+    }
+
+    public void SetPauseButtonInteractible(bool isInteractible)
+    {
+        pauseButton.interactable = isInteractible;
     }
 
     // Hide everything except bacteria resistance
