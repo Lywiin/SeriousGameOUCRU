@@ -48,10 +48,6 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
     private void Start()
     {
         gameController = GameController.Instance;
-
-        // TEMP to get initial proba
-        if (BacteriaCell.bacteriaCellList.Count == 1)
-            gameController.globalMutationProba = mutationProba;
         
         shieldSharedMaterial = shieldRender.sharedMaterial;
     }
@@ -145,9 +141,6 @@ public class OrganismMutation : MonoBehaviour, IPooledObject
         }
         
         shieldSharedMaterial.SetFloat("_Intensity", baseIntensity);
-
-        // yield return new WaitForSeconds(0.1f);
-        // shieldSharedMaterial.SetFloat("_Intensity", baseIntensity);
     }
 
 

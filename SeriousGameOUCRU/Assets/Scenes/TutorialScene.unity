@@ -120,11 +120,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &22174686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1995662556}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &22174687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22174686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: 'Follow the red arrow to get closer from the infectious bacteria '
+  textVietnamese: 'Follow the red arrow to get closer from the infectious bacteria '
+  textFrench: "Suis la fl\xE8che rouge pour te rapprocher de la bact\xE9rie inf\xE9ctieuse"
 --- !u!20 &46479772 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6945918902159364248, guid: 57a5b5a0520411944a05ec9539d1323d,
     type: 3}
   m_PrefabInstance: {fileID: 1661779444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &48636377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4413872303404333290, guid: be906119438bac64da072d67aad23133,
+    type: 3}
+  m_PrefabInstance: {fileID: 1801912740}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &98473071
 PrefabInstance:
@@ -239,6 +266,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4b9399ddebf2a47a1333c6a48823b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &184919658 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 499434793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &184919659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184919658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Keep pressing on your ship to change weapon
+  textVietnamese: Keep pressing on your ship to change weapon
+  textFrench: Laisse appuyer sur ton vaisseau pour changer d'arme
+--- !u!1 &205795667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590309521}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &205795668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 205795667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Congratulation! You are now ready to go defend your body!
+  textVietnamese: Congratulation! You are now ready to go defend your body!
+  textFrench: "F\xE9licitation ! Tu es maintenant pr\xEAt \xE0 d\xE9fendre ton corps
+    !"
+--- !u!1 &332910245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256565302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &332910246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332910245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Keep pressing on your ship to change weapon once again
+  textVietnamese: Keep pressing on your ship to change weapon once again
+  textFrench: Laisse appuyer sur ton vaisseau encore une fois pour changer d'arme
 --- !u!1001 &334526218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -376,6 +467,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 30, y: 200}
   m_EdgeRadius: 0
+--- !u!1 &405994639 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1573316932}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &405994640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405994639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Touch the bacteria once to fire antibodies at it
+  textVietnamese: Touch the bacteria once to fire antibodies at it
+  textFrench: "Touche la bact\xE9rie une fois pour lui tirer des anticorps"
 --- !u!1001 &420202152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -577,6 +689,27 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 420202152}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &485522163 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1467787810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &485522164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485522163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Get rid of the resistant bacteria
+  textVietnamese: Get rid of the resistant bacteria
+  textFrench: "D\xE9barrasse-toi de la bact\xE9rie r\xE9sistante"
 --- !u!1001 &499434793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -737,7 +870,7 @@ PrefabInstance:
     - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
       propertyPath: m_text
-      value: "Keep touching your ship to \nchange weapon"
+      value: Keep pressing on your ship to change weapon
       objectReference: {fileID: 0}
     - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
@@ -762,6 +895,51 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 499434793}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &521120378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 652450399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &521120379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521120378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: The green cells are your body's cells, you should defend them against
+    other organisms!
+  textVietnamese: The green cells are your body's cells, you should defend them against
+    other organisms!
+  textFrench: "Les cellules vertes sont les cellules de ton corps, tu dois les d\xE9fendre
+    contre les autres organismes !"
+--- !u!1 &567204358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1803881972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &567204359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567204358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Try your new weapon on the group of bacteria
+  textVietnamese: Try your new weapon on the group of bacteria
+  textFrench: "Essai ta nouvelle arme sur le groupe de bact\xE9ries"
 --- !u!1 &591831230 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7217503884614659548, guid: 46643b2489610324cb2d4d2ba375d281,
@@ -849,6 +1027,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617458577}
   m_CullTransparentMesh: 0
+--- !u!1 &634208287 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 654382431}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &634208288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634208287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Find and kill the virus using antibodies
+  textVietnamese: Find and kill the virus using antibodies
+  textFrench: Trouve et tue le virus en utilisant des anticorps
 --- !u!1001 &652450399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1105,7 +1304,7 @@ PrefabInstance:
     - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
@@ -1273,7 +1472,10 @@ RectTransform:
   - {fileID: 499434794}
   - {fileID: 1005187293}
   - {fileID: 1803881973}
+  - {fileID: 1057818863}
+  - {fileID: 1467787811}
   - {fileID: 911618632}
+  - {fileID: 1256565303}
   - {fileID: 654382432}
   - {fileID: 1590309522}
   m_Father: {fileID: 2121407400}
@@ -1339,7 +1541,7 @@ PrefabInstance:
     - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -1459,8 +1661,8 @@ PrefabInstance:
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
       propertyPath: m_text
-      value: Before you go, defend yourself against this virus. Careful though, they
-        are not sentive to antibiotics! Don't forget to change your weapon
+      value: "Before you go, defend yourself against this virus. Careful though, virus
+        are not sentive to antibiotics!\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -1722,8 +1924,7 @@ PrefabInstance:
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
       propertyPath: m_text
-      value: Your second weapon is an antibiotic. It is very powerful but be careful!
-        The more you use it, the more resistant the bacteria will get!
+      value: Your second weapon is a powerfull antibiotic
       objectReference: {fileID: 0}
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -1810,6 +2011,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 250, y: 30}
   m_EdgeRadius: 0
+--- !u!1 &1036656471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1060044484}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1036656472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036656471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Good job! Now look on your right, your radar detected a close bacteria
+    infecting your system
+  textVietnamese: Good job! Now look on your right, your radar detected a close bacteria
+    infecting your system
+  textFrench: "Bien jou\xE9 ! Maintenant, regarde sur ta droite, ton radar a d\xE9tect\xE9
+    une bact\xE9rie infectant ton syst\xE8me"
 --- !u!1 &1054138457
 GameObject:
   m_ObjectHideFlags: 0
@@ -1885,6 +2110,212 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054138457}
   m_CullTransparentMesh: 0
+--- !u!1001 &1057818862
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 759650705}
+    m_Modifications:
+    - target: {fileID: 2203353833058693941, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Name
+      value: AntibioticText2Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693941, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 820
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376492674544256431, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376492674544256431, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5376492674544256431, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676340574263099593, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_text
+      value: Be careful though! The more you use antibiotics, the more resistant the
+        bacteria will get!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832557242230, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832557242230, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203353832557242230, guid: 3cb72c2186592b846871c11ed59b8666,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3cb72c2186592b846871c11ed59b8666, type: 3}
+--- !u!224 &1057818863 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1057818862}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1060044484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2091,6 +2522,27 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1060044484}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1097698676 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1005187292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1097698677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097698676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Your second weapon is a powerfull antibiotic
+  textVietnamese: Your second weapon is a powerfull antibiotic
+  textFrench: Ta seconde arme est un puissant antibiotique
 --- !u!1 &1110079417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2216,6 +2668,191 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46643b2489610324cb2d4d2ba375d281, type: 3}
+--- !u!1001 &1256565302
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 759650705}
+    m_Modifications:
+    - target: {fileID: 3333240414252523743, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Name
+      value: WeaponChangeTextBoxSmall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523743, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812644272399013445, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_text
+      value: Keep pressing on your ship to change weapon once again
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d60cbbcd09192d84c83149c2afa09c5c, type: 3}
+--- !u!224 &1256565303 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1256565302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1298990717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2310,6 +2947,260 @@ PrefabInstance:
       objectReference: {fileID: 1661779445}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 116b077290cc71b47baadb741146e352, type: 3}
+--- !u!1 &1349325618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3333240414416000654, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2070826656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1349325619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349325618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Touch the screen anywhere to move your ship
+  textVietnamese: Touch the screen anywhere to move your ship
+  textFrench: "Touche l'\xE9cran n'importe o\xF9 pour d\xE9placer le vaisseau"
+--- !u!1 &1366233444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 420202152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1366233445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366233444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: The red cells are bad bacteria, you should get rid of them before they
+    destroy all the cells in your body!
+  textVietnamese: The red cells are bad bacteria, you should get rid of them before
+    they destroy all the cells in your body!
+  textFrench: "Les cellules rouges sont de mauvaises bact\xE9ries, tu dois t'en d\xE9barrasser
+    avant qu'elles tuent les cellules de ton corps !"
+--- !u!1001 &1467787810
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 759650705}
+    m_Modifications:
+    - target: {fileID: 3333240414252523743, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Name
+      value: AntibioticUseTextBoxSmall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523743, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8812644272399013445, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_textInfo.materialCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_text
+      value: Get rid of the resistant bacteria
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d60cbbcd09192d84c83149c2afa09c5c, type: 3}
+--- !u!224 &1467787811 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3333240414252523740, guid: d60cbbcd09192d84c83149c2afa09c5c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1467787810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1533183087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1057818862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1533183088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533183087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Be careful though! The more you use antibiotics, the more resistant
+    the bacteria will get!
+  textVietnamese: Be careful though! The more you use antibiotics, the more resistant
+    the bacteria will get!
+  textFrench: "Attention cependant ! Plus tu utilises d'antibiotique, plus les bact\xE9ries
+    deviendront r\xE9sistantes"
 --- !u!1001 &1573316932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2585,7 +3476,7 @@ PrefabInstance:
     - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2203353833058693942, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -2862,6 +3753,51 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1661779444}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1745289140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 2203353833642273720}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1745289141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745289140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Welcome inside your body! Let me guide you through your mission
+  textVietnamese: Welcome inside your body! Let me guide you through your mission
+  textFrench: "Bienvenue dans ton corps ! Laisse-moi te guider \xE0 travers ta mission"
+--- !u!1 &1769355281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 911618631}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1769355282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769355281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: 'Before you go, defend yourself against this virus. Careful though,
+    virus are not sentive to antibiotics! '
+  textVietnamese: 'Before you go, defend yourself against this virus. Careful though,
+    virus are not sentive to antibiotics! '
+  textFrench: "Avant de partir, d\xE9fends-toi contre ce virus. Attention cependant,
+    les virus ne sont pas sensibles aux antibiotiques !"
 --- !u!1001 &1801912740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2928,6 +3864,102 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504981386540, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504267987588, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504267987588, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504267987588, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504267987588, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486505643718900, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486505643718900, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486505643718900, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486505643718900, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296107552859970884, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 124162592, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 238783101, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 657508643, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1733558933, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4903542981797511934, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674323043543727103, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594379975166085008, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594379975166085008, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4594379975166085008, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be906119438bac64da072d67aad23133, type: 3}
@@ -3091,7 +4123,7 @@ PrefabInstance:
     - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
       propertyPath: m_text
-      value: Go try your new weapon on the group of bacteria
+      value: Try your new weapon on the group of bacteria
       objectReference: {fileID: 0}
     - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
@@ -3548,9 +4580,7 @@ PrefabInstance:
     - target: {fileID: 3333240414416000652, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
       propertyPath: m_text
-      value: 'Move towards the bacteria before
-
-        it kills your body''s cells'
+      value: 'Follow the red arrow to get closer from the infectious bacteria '
       objectReference: {fileID: 0}
     - target: {fileID: 3333240414740935836, guid: d60cbbcd09192d84c83149c2afa09c5c,
         type: 3}
@@ -3644,6 +4674,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00aac09aedf92b44c8bc2fe2cbbf0a51, type: 3}
+--- !u!1 &2032688612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2032688613}
+  - component: {fileID: 2032688615}
+  - component: {fileID: 2032688614}
+  m_Layer: 0
+  m_Name: ArrowCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &2032688613
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032688612}
+  m_LocalRotation: {x: 0, y: 0, z: -0.258819, w: 0.9659259}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2121407400}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1043.1383, y: 492.00024}
+  m_SizeDelta: {x: 100, y: 60}
+  m_Pivot: {x: 1.3, y: 0.5}
+--- !u!114 &2032688614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032688612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 9af0b065430494049a862c753a2a0643, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2032688615
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032688612}
+  m_CullTransparentMesh: 0
 --- !u!1001 &2070826656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3834,6 +4939,27 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2070826656}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2093177647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2203353832886879588, guid: 3cb72c2186592b846871c11ed59b8666,
+    type: 3}
+  m_PrefabInstance: {fileID: 1840548591}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2093177648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093177647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Good job! But you should know that you also have a second weapon
+  textVietnamese: Good job! But you should know that you also have a second weapon
+  textFrench: "Bien jou\xE9 ! Mais sache que tu poss\xE8des aussi une seconde arme"
 --- !u!1 &2113858480
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,8 +4992,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2113858482}
   cursorRect: {fileID: 617458578}
+  arrowCursorRect: {fileID: 2032688613}
   invisibleWall: {fileID: 1110079417}
   textBoxParent: {fileID: 759650704}
+  weaponChangeIcon: {fileID: 48636377}
 --- !u!95 &2113858482
 Animator:
   serializedVersion: 3
@@ -3936,6 +5064,7 @@ RectTransform:
   - {fileID: 759650705}
   - {fileID: 1054138458}
   - {fileID: 617458578}
+  - {fileID: 2032688613}
   m_Father: {fileID: 2113858483}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

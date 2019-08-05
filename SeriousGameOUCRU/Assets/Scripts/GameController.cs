@@ -40,10 +40,6 @@ public class GameController : MonoBehaviour
     // Ingame pause
     private bool isPaused = false;
 
-    // Keep track of the mutation proba
-    [HideInInspector]
-    public float globalMutationProba = 0f;
-
     // Control what can the player do
     private bool canPlayerMove = true;
     private bool canPlayerShoot = true;
@@ -296,11 +292,6 @@ public class GameController : MonoBehaviour
 
 
     /***** GETTERS *****/
-
-    public float GetGlobalMutationGlobalProba()
-    {
-        return globalMutationProba;
-    }
 
     public bool CanPlayerMove()
     {

@@ -130,7 +130,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             {
                 // Reset target
                 attackTarget = null;
-                orgMovement.SetTarget(null);
+                if (orgMovement) orgMovement.SetTarget(null);
 
                 // Start recall to prevent chain attack
                 StartCoroutine(AttackRecall());
