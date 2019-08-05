@@ -13,6 +13,8 @@ public class Tutorial : MonoBehaviour
 
     public GameObject invisibleWall;
 
+    public GameObject textBoxParent;
+
 
     /*** PRIVATE VARIABLES ***/
 
@@ -27,6 +29,9 @@ public class Tutorial : MonoBehaviour
     private bool blockWeaponChange = true;
 
     private bool freezeTime = false;
+
+    private int textIndex = 0;
+    private TextBox currentTextBox;
 
 
     /*** INSTANCE ***/
@@ -72,71 +77,122 @@ public class Tutorial : MonoBehaviour
     }
 
 
+    /***** DIALOG FUNCTIONS *****/
+
+    private void TriggerNextText()
+    {
+        if (textIndex < textBoxParent.transform.childCount)
+        {
+            currentTextBox = textBoxParent.transform.GetChild(textIndex).GetComponent<TextBox>();
+            currentTextBox.gameObject.SetActive(true);
+            textIndex++;
+        }
+    }
+
 
     /***** ANIMATOR FUNCTIONS *****/
 
     public void StartTutorial()
     {
-        // ShowMoveText();
-        animator.SetTrigger("StartTutorial");
+        StartCoroutine(TutoCoroutine());
     }
 
-    public void StartTutorialCoroutine()
+    private IEnumerator TutoCoroutine()
     {
-        StartCoroutine(TutorialCoroutine());
-    }
+        // yield return new WaitForSeconds(0.5f);
+        // Welcome text
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
 
-    private IEnumerator TutorialCoroutine()
-    {
+        // Move text
+        TriggerNextText();
+        animator.SetTrigger("StartShineScreenOutline");
+        gameController.SetCanPlayerMove(true);
+        yield return new WaitUntil(() => playerController.GetMoveDirection() != Vector2.zero);
+
+        // Move text fade out
+        yield return new WaitForSeconds(1f);
+        animator.SetTrigger("StopShineScreenOutline");
+        currentTextBox.FadeOut();
+        yield return new WaitForSeconds(1f);
+
+        // Bacteria text
         ReplaceWalls();
-        yield return new WaitForSeconds(1.5f);
-        gameController.SetCanPlayerMove(false);
-
-        // Cell tutorial
-        // Process to next step
         SpawnLightFireTutorialCell();
-        animator.SetTrigger("FadeInBacteriaText");
-
-        // Wait for player to get close to cells
-        yield return new WaitUntil(() => bacteriaCellList[0] != null && Vector2.Distance(playerController.transform.position, bacteriaCellList[0].transform.position) < 30f);
-        UnfreezeLightFireTutorial();
-
-        // Shoot tutorial
-        // Wait for the player to fire to reset time to normal
-        yield return new WaitUntil(() => playerController.IsFiring());
-        animator.SetTrigger("FadeOutCursor");
+        TriggerNextText();
+        RescaleTime(0f);
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+        
+        // Bacteria move text
         RescaleTime(1f);
+        TriggerNextText();
+        yield return new WaitUntil(() => bacteriaCellList[0] && Vector2.Distance(playerController.transform.position, bacteriaCellList[0].transform.position) < 30f);
+        currentTextBox.FadeOut();
 
-        // Wait for the player to kill the bacteria
+        // Human cell text
+        RescaleTime(0f);
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+
+        // Bacteria cell text
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+        
+        // Bacteria click text
+        TriggerNextText();
+        animator.SetTrigger("StartGrowCursor");
+        SetCursorToTargetWorldPosition(bacteriaCellList[0].transform.position);
+        gameController.SetCanPlayerShoot(true);
+        yield return new WaitUntil(() => playerController.IsFiring());
+
+        // Player kills bacteria
+        RescaleTime(1f);
+        UnfreezeBacteriaCell(false);
+        animator.SetTrigger("StopGrowCursor");
+        currentTextBox.FadeOut();
         yield return new WaitUntil(() => !playerController.IsFiring());
         yield return new WaitForSeconds(1f);
-        animator.SetTrigger("FadeInSecondWeaponText");
-        // MobileUI.Instance.gameObject.SetActive(true);
+
+        // Second weapon text
         RescaleTime(0f);
+        TriggerNextText();
         UIController.Instance.gameObject.SetActive(true);
         UIController.Instance.ToggleInfoPanel(true);
         UIController.Instance.ToggleInfoPanelCount(false);
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
 
-        // Wait for the player to change weapon
+        // Weapon change text
+        RescaleTime(1f);
+        TriggerNextText();
+        gameController.SetCanPlayerChangeWeapon(true);
         yield return new WaitUntil(() => playerController.IsHeavyWeaponSelected());
-        animator.SetTrigger("FadeInAntibioticText");
-        RescaleTime(0f);
+        currentTextBox.FadeOut();
 
-        // Setup for heavy fire tutorial
+        // Antibiotic text
+        RescaleTime(0f);
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+
+        // Player kills bacteria group
+        RescaleTime(1f);
+        TriggerNextText();
         ReplaceWalls();
         SpawnHeavyFireTutorialCell();
         yield return new WaitForSeconds(0.5f);
-
-        // Wait for player to kill all the cells
         yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
+        currentTextBox.FadeOut();
         yield return new WaitForSeconds(1.5f);
+
+        // Virus text
         blockWeaponChange = false;
         gameController.SetCanPlayerChangeWeapon(true);
-        // UIController.Instance.ToggleInfoPanel(false);
-        animator.SetTrigger("FadeInVirusText");
         RescaleTime(0f);
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
 
-        //Setup for virus tutorial
+        // Setup virus tutorial
+        RescaleTime(1f);
+        TriggerNextText();
         ReplaceWalls();
         SpawnVirusTutorialCell();
         yield return new WaitForSeconds(0.5f);
@@ -145,11 +201,16 @@ public class Tutorial : MonoBehaviour
         yield return new WaitUntil(() => virusList[0] != null && Vector2.Distance(playerController.transform.position, virusList[0].transform.position) < 50f);
         UnfreezeVirus();
 
-        // Wait for player to kill the virus
+        // Player kills virus
         yield return new WaitUntil(() => Virus.virusList.Count == 0);
         gameController.TogglePlayerInput(false);
-        animator.SetTrigger("FinishTutorial");
-    }    
+        currentTextBox.FadeOut();
+
+        // Finish text
+        TriggerNextText();
+        yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+        LevelChanger.Instance.FadeToLevel(2);
+    }
 
     public void RescaleTime(float value)
     {
@@ -184,7 +245,7 @@ public class Tutorial : MonoBehaviour
     }
 
     private void SpawnHeavyFireTutorialCell()
-    {
+    {      
         Vector2 spawnPos = playerController.transform.position;
 
         spawnPos.x += 100f;
@@ -242,27 +303,11 @@ public class Tutorial : MonoBehaviour
         virus.GetComponent<OrganismMovement>().enabled = false;
     }
 
-
-
-    private void UnfreezeLightFireTutorial()
-    {
-        // Stop time
-        RescaleTime(0f);
-
-        UnfreezeBacteriaCell(false);
-
-        // Explain cells difference
-        animator.SetTrigger("FadeInHumanCellText");
-
-        // Move cursor to bacteria position
-        SetCursorToTargetWorldPosition(bacteriaCellList[0].transform.position);
-    }
-
     private void UnfreezeBacteriaCell(bool mutation)
     {
         foreach(Organism o in bacteriaCellList)
         {
-            o.GetComponent<OrganismAttack>().enabled = true;
+            // o.GetComponent<OrganismAttack>().enabled = true;
             o.GetComponent<OrganismMovement>().enabled = true;
             if (mutation) o.GetComponent<OrganismMutation>().enabled = true;
         }
@@ -272,7 +317,7 @@ public class Tutorial : MonoBehaviour
     {
         foreach(Organism o in virusList)
         {
-            o.GetComponent<OrganismAttack>().enabled = true;
+            // o.GetComponent<OrganismAttack>().enabled = true;
             o.GetComponent<OrganismMovement>().enabled = true;
         }
     }
