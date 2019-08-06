@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -109,12 +110,30 @@ public class PlayerController : MonoBehaviour
     {
         if (!fireTarget) 
         {
-            fireTarget = newTarget;
+            SetFireTarget(newTarget);
             StartCoroutine(StartRepeatFire());
         }else
         {
-            fireTarget = newTarget;
+            SetFireTarget(newTarget);
         }
+    }
+
+    private void SetFireTarget(Organism newTarget)
+    {
+        if (newTarget != fireTarget)
+        {
+            fireTarget = newTarget;
+            if (SceneManager.GetActiveScene().buildIndex > 1) UpdateFireAnalytics(); // Not for tutorial
+        }
+    }
+
+    private void UpdateFireAnalytics()
+    {
+        AnalyticsEvent.Custom("Fire", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+            { "projectile", IsHeavyWeaponSelected() ? "Antibiotic" : "Antibody"}
+        });
     }
 
     // Fire projectile over time
@@ -139,6 +158,8 @@ public class PlayerController : MonoBehaviour
     // Fire a projectile
     private void Fire()
     {
+        UpdateVirusAntibioticUseAnalytics();
+
         // Spawn the projectile
         SpawnProjectile();
 
@@ -148,7 +169,7 @@ public class PlayerController : MonoBehaviour
         // Increase mutation proba if heavy projectile is fired
         if (heavyWeaponSelected)
         {
-            if (fireTarget) fireTarget.GetOrgMutation().ShineShields();
+            if (fireTarget && fireTarget.GetOrgMutation()) fireTarget.GetOrgMutation().ShineShields();
             gameController.IncreaseAllMutationProba();
             if(audioManager) audioManager.Play("FireHeavy");
         }else
@@ -157,8 +178,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void UpdateVirusAntibioticUseAnalytics()
+    {
+        if (fireTarget && fireTarget.GetComponentInParent<Virus>() && IsHeavyWeaponSelected())
+        {
+            AnalyticsEvent.Custom("AntibioticUseOnVirus", new Dictionary<string, object>
+            {
+                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+            });
+        }
+    }
+
     // Spawn the desired projectile
-    void SpawnProjectile()
+    private void SpawnProjectile()
     {
         // Instantiate projectile at player position and rotation
         if (heavyWeaponSelected)
@@ -263,6 +295,7 @@ public class PlayerController : MonoBehaviour
         {
             ResetWeaponChangeTimer();
             ChangeWeapon();
+            if (SceneManager.GetActiveScene().buildIndex > 1) UpdateWeaponChangeAnalytics(); // Not for tutorial
         }
     }
 
@@ -273,6 +306,14 @@ public class PlayerController : MonoBehaviour
 
         // Reset UI slider
         mobileUI.FillWeaponChangeSlider(0f);
+    }
+
+    private void UpdateWeaponChangeAnalytics()
+    {
+        AnalyticsEvent.Custom("WeaponChange", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1 }
+        });
     }
 
     // Change max velocity according to input distance from the player
@@ -323,7 +364,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = Vector2.zero;
         gameController.SetCanPlayerMove(false);
         gameController.SetCanPlayerShoot(false);
-        gameController.GameOver();
+        gameController.GameOver(true);
 
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);

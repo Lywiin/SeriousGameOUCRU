@@ -1651,9 +1651,15 @@ MonoBehaviour:
   levelButtonArray:
   - {fileID: 1708505266}
   - {fileID: 154494530}
+  - {fileID: 1027371646}
+  - {fileID: 264158671}
+  - {fileID: 2070173218}
   levelTextArray:
   - {fileID: 1805010735}
   - {fileID: 1793649926}
+  - {fileID: 1775333178}
+  - {fileID: 230008608}
+  - {fileID: 775908892}
 --- !u!95 &537040311
 Animator:
   serializedVersion: 3

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class GameController : MonoBehaviour
 {
@@ -90,9 +91,12 @@ public class GameController : MonoBehaviour
         Virus.virusList.Clear();
 
         if (SceneManager.GetActiveScene().buildIndex > 1)
-        {
             GameController.Instance.SetupGame();
-        }
+
+        AnalyticsEvent.Custom("Play", new Dictionary<string, object>()
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1}
+        });
     }
 
     void Update()
@@ -245,7 +249,7 @@ public class GameController : MonoBehaviour
     /***** OUTCOME FUNCTIONS *****/
 
     //Called by player when he dies
-    public void GameOver()
+    public void GameOver(bool deathByCollision)
     {
         // Hide the indicators
         CloseEnnemyUI.Instance.HideAllIndicators();
@@ -254,10 +258,31 @@ public class GameController : MonoBehaviour
         CameraShake.Instance.HeavyScreenShake();
 
         // Update the UI
-        uiController.TriggerGameOver();
+        uiController.TriggerGameOver(deathByCollision);
 
         OrganismDuplication.StopDuplication();
         OrganismMutation.StopMutation();
+
+        UpdateDeathAnalytics(deathByCollision);
+    }
+
+    public void UpdateDeathAnalytics(bool deathByCollision)
+    {
+        if (deathByCollision)
+        {
+            AnalyticsEvent.Custom("Death", new Dictionary<string, object>
+            {
+                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+                { "cause_of_death", "DeathByCollision"}
+            });
+        }else
+        {
+            AnalyticsEvent.Custom("Death", new Dictionary<string, object>
+            {
+                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+                { "cause_of_death", "DeathByCells"}
+            });
+        }
     }
 
     //Called when the player win
@@ -266,6 +291,8 @@ public class GameController : MonoBehaviour
         // Do not activate with tutorial
         if (SceneManager.GetActiveScene().buildIndex > 1)
         {
+            UpdateCurrentLevelPref();
+
             SetCanPlayerMove(false);
 
             // Hide the indicators
@@ -275,6 +302,20 @@ public class GameController : MonoBehaviour
             uiController.TriggerVictory();
 
             OrganismDuplication.StopDuplication();
+        }
+    }
+
+    public void UpdateCurrentLevelPref()
+    {
+        int levelIndex = SceneManager.GetActiveScene().buildIndex;
+        levelIndex--;   // Remove menu scene
+
+        // Update max level completed
+        if (PlayerPrefs.GetInt("CurrentLevel") == levelIndex)
+        {
+            PlayerPrefs.SetInt("CurrentLevel", levelIndex + 1);
+            AnalyticsEvent.Custom("CompletedLevel" + levelIndex.ToString());
+            Debug.Log(PlayerPrefs.GetInt("CurrentLevel"));
         }
     }
 

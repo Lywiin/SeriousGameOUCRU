@@ -249,6 +249,9 @@ public class Tutorial : MonoBehaviour
         // Finish text
         TriggerNextText();
         yield return new WaitUntil(() => !currentTextBox.gameObject.activeSelf);
+
+        // Fade to next level
+        gameController.UpdateCurrentLevelPref();
         LevelChanger.Instance.FadeToLevel(2);
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 using TMPro;
 
 public class UIController : MonoBehaviour
@@ -34,7 +35,6 @@ public class UIController : MonoBehaviour
     /*** PRIVATE VARIABLES ***/
 
     private Animator animator;
-    private float tempTime = 0f;
 
     private int previousBacteriaCount = 0;
     private int previousVirusCount = 0;
@@ -65,9 +65,6 @@ public class UIController : MonoBehaviour
     {
         // Make sure this panel is unactive
         endGamePanel.SetActive(false);
-
-        // Init time survived
-        tempTime = Time.time;
     }
 
 
@@ -76,19 +73,25 @@ public class UIController : MonoBehaviour
     public void TriggerVictory()
     {
         DisplayEndGamePanel();
+        UpdateVictoryAnalytics();
 
         // Desactivate useless things
         gameOverText.gameObject.SetActive(false);
         restartButton.SetActive(false);
+
+        
     }
 
-    public void TriggerGameOver()
+    public void TriggerGameOver(bool deathByCollision)
     {
         DisplayEndGamePanel();
+        UpdateGameOverAnalytics();
 
         // Desactivate useless things
         victoryText.gameObject.SetActive(false);
         nextLevelButton.SetActive(false);
+        if (deathByCollision) gameOverText.transform.GetChild(2).gameObject.SetActive(false);
+        else gameOverText.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     private void DisplayEndGamePanel()
@@ -97,8 +100,8 @@ public class UIController : MonoBehaviour
         // MobileUI.Instance.gameObject.SetActive(false);
 
         // Calculate time spent and update text
-        int minutes = (int)(Time.time - tempTime) / 60;
-        int seconds = (int)(Time.time - tempTime) % 60;
+        int minutes = (int)Time.timeSinceLevelLoad / 60;
+        int seconds = (int)Time.timeSinceLevelLoad % 60;
         timeTextValue.text = minutes.ToString() + "m " + seconds.ToString() + "s";
 
         // Update killed count text
@@ -113,6 +116,40 @@ public class UIController : MonoBehaviour
         // Display panel
         // endGamePanel.SetActive(true);
         animator.SetTrigger("FadeInEndGamePanel");
+    }
+
+    private void UpdateVictoryAnalytics()
+    {
+        AnalyticsEvent.Custom("VictoryStats", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+            { "time_elapsed", Time.timeSinceLevelLoad },
+            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+            { "virus_killed", GameController.Instance.GetVirusKillCount() },
+            { "resistance_proba", OrganismMutation.mutationProba }
+        });       
+
+        AnalyticsEvent.Custom("Victory", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1 }
+        }); 
+    }
+
+    private void UpdateGameOverAnalytics()
+    {
+        AnalyticsEvent.Custom("GameOverStats", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
+            { "time_elapsed", Time.timeSinceLevelLoad },
+            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+            { "virus_killed", GameController.Instance.GetVirusKillCount() },
+            { "resistance_proba", OrganismMutation.mutationProba }
+        });
+
+        AnalyticsEvent.Custom("GameOver", new Dictionary<string, object>
+        {
+            { "level", SceneManager.GetActiveScene().buildIndex - 1}
+        });
     }
 
     public void TogglePauseUI()

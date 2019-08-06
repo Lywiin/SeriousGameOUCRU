@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class ProjectileHeavy : Projectile
 {
@@ -85,6 +86,8 @@ public class ProjectileHeavy : Projectile
     {
         // Catch all the objects in the range
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, 1 << LayerMask.NameToLayer("Ennemy"));
+
+        int hitBacteriaCount = 0;
         
         // Apply damage to each object
         foreach(Collider2D c in hitColliders)
@@ -93,7 +96,19 @@ public class ProjectileHeavy : Projectile
             Organism hitOrganism = c.GetComponentInParent<BacteriaCell>();
 
             if (hitOrganism)
+            {
                 ApplyDamage(hitOrganism);
+                hitBacteriaCount++;
+            }
+        }
+
+        if (hitBacteriaCount > 0)
+        {
+            // Notify analytics of number of bacteria hit at the same time
+            AnalyticsEvent.Custom("SuccessfulAntibioticHit", new Dictionary<string, object>
+            {
+                { "hit_count", hitBacteriaCount }
+            });
         }
     }
 }

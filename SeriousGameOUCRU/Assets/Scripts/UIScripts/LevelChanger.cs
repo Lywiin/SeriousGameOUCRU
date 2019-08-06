@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class LevelChanger : MonoBehaviour
 {
     /*** PRIVATE VARIABLES ***/
@@ -84,9 +85,6 @@ public class LevelChanger : MonoBehaviour
         animator.enabled = false;
 
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (PlayerPrefs.GetInt("CurrentLevel") < sceneIndex)
-            PlayerPrefs.SetInt("CurrentLevel", sceneIndex);
 
         // Unpause the game to start
         if (sceneIndex == 1)

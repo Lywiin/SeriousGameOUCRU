@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class HumanCell : Organism
 {
@@ -74,7 +75,7 @@ public class HumanCell : Organism
         // If no human cell left it's game over
         if (humanCellList.Count == 0)
         {
-            gameController.GameOver();
+            gameController.GameOver(false);
         }
 
         base.KillOrganism();
