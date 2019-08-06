@@ -36,6 +36,7 @@ public class TextBox : MonoBehaviour
 
     public void FadeOut()
     {
+        if (button && AudioManager.Instance) AudioManager.Instance.Play("Select1");
         animator.SetTrigger("FadeOutTextBox");
     }
 }
