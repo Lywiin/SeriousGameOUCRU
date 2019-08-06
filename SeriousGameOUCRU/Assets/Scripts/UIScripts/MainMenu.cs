@@ -12,8 +12,6 @@ public class MainMenu : MonoBehaviour
     public Toggle qualityToggle;
 
     public GameObject backgroundHolderPrefab;
-    public Shader[] backgroundShaderArray;
-    public Material[] backgroundMaterialArray;
 
     public Shader[] organismShaderArray;
     public Material[] organismMaterialArray;

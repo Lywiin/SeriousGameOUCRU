@@ -45,4 +45,4 @@ Material:
     - Vector2_30CDD428: {r: 0.5, g: 1, b: 0, a: 0}
     - Vector2_8A8F7AE8: {r: 1, g: 1, b: 0, a: 0}
     - Vector2_C52223BF: {r: 0, g: 1, b: 0, a: 0}
-    - _Tint: {r: 0.9490196, g: 0.654902, b: 1, a: 0}
+    - _Tint: {r: 1, g: 1, b: 1, a: 0}
