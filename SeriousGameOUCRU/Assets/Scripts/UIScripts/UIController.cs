@@ -120,36 +120,28 @@ public class UIController : MonoBehaviour
 
     private void UpdateVictoryAnalytics()
     {
-        AnalyticsEvent.Custom("VictoryStats", new Dictionary<string, object>
+        AnalyticsEvent.Custom("VictoryStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
             { "time_elapsed", Time.timeSinceLevelLoad },
             { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
             { "virus_killed", GameController.Instance.GetVirusKillCount() },
             { "resistance_proba", OrganismMutation.mutationProba }
         });       
 
-        AnalyticsEvent.Custom("Victory", new Dictionary<string, object>
-        {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1 }
-        }); 
+        AnalyticsEvent.Custom("VictoryLevel" + (SceneManager.GetActiveScene().buildIndex - 1)); 
     }
 
     private void UpdateGameOverAnalytics()
     {
-        AnalyticsEvent.Custom("GameOverStats", new Dictionary<string, object>
+        AnalyticsEvent.Custom("GameOverStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
             { "time_elapsed", Time.timeSinceLevelLoad },
             { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
             { "virus_killed", GameController.Instance.GetVirusKillCount() },
             { "resistance_proba", OrganismMutation.mutationProba }
         });
 
-        AnalyticsEvent.Custom("GameOver", new Dictionary<string, object>
-        {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1}
-        });
+        AnalyticsEvent.Custom("GameOverLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     public void TogglePauseUI()

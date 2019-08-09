@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using UnityEngine.SceneManagement;
 
 public class ProjectileHeavy : Projectile
 {
@@ -105,7 +106,7 @@ public class ProjectileHeavy : Projectile
         if (hitBacteriaCount > 0)
         {
             // Notify analytics of number of bacteria hit at the same time
-            AnalyticsEvent.Custom("SuccessfulAntibioticHit", new Dictionary<string, object>
+            AnalyticsEvent.Custom("SuccessfulAntibioticHitLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
             {
                 { "hit_count", hitBacteriaCount }
             });

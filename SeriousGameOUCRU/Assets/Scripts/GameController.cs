@@ -93,10 +93,7 @@ public class GameController : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex > 1)
             GameController.Instance.SetupGame();
 
-        AnalyticsEvent.Custom("Play", new Dictionary<string, object>()
-        {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1}
-        });
+        AnalyticsEvent.Custom("PlayedLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     void Update()
@@ -268,21 +265,10 @@ public class GameController : MonoBehaviour
 
     public void UpdateDeathAnalytics(bool deathByCollision)
     {
-        if (deathByCollision)
+        AnalyticsEvent.Custom("DeathLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
-            AnalyticsEvent.Custom("Death", new Dictionary<string, object>
-            {
-                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
-                { "cause_of_death", "DeathByCollision"}
-            });
-        }else
-        {
-            AnalyticsEvent.Custom("Death", new Dictionary<string, object>
-            {
-                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
-                { "cause_of_death", "DeathByCells"}
-            });
-        }
+            { "cause_of_death", deathByCollision ? "DeathByCollision" : "DeathByCells"}
+        });
     }
 
     //Called when the player win

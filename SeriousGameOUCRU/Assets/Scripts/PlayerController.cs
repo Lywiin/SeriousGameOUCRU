@@ -129,9 +129,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateFireAnalytics()
     {
-        AnalyticsEvent.Custom("Fire", new Dictionary<string, object>
+        AnalyticsEvent.Custom("FireLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1 },
             { "projectile", IsHeavyWeaponSelected() ? "Antibiotic" : "Antibody"}
         });
     }
@@ -182,10 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         if (fireTarget && fireTarget.GetComponentInParent<Virus>() && IsHeavyWeaponSelected())
         {
-            AnalyticsEvent.Custom("AntibioticUseOnVirus", new Dictionary<string, object>
-            {
-                { "level", SceneManager.GetActiveScene().buildIndex - 1 },
-            });
+            AnalyticsEvent.Custom("AntibioticUseOnVirusLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
         }
     }
 
@@ -310,10 +306,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateWeaponChangeAnalytics()
     {
-        AnalyticsEvent.Custom("WeaponChange", new Dictionary<string, object>
-        {
-            { "level", SceneManager.GetActiveScene().buildIndex - 1 }
-        });
+        AnalyticsEvent.Custom("WeaponChangeLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     // Change max velocity according to input distance from the player
