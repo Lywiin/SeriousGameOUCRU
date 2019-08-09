@@ -315,6 +315,8 @@ public class GameController : MonoBehaviour
 
         // Increase next increase at each use
         mutationProbaIncrease *= mutationProbaMultiplier;
+
+        Debug.Log(OrganismMutation.mutationProba + " " + mutationProbaIncrease + " " + mutationProbaMultiplier);
     }
 
 

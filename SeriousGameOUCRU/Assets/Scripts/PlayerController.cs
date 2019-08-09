@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
         if (newTarget != fireTarget)
         {
             fireTarget = newTarget;
-            if (SceneManager.GetActiveScene().buildIndex > 1) UpdateFireAnalytics(); // Not for tutorial
+            // if (SceneManager.GetActiveScene().buildIndex > 1) UpdateFireAnalytics(); // Not for tutorial
         }
     }
 
@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
     // Fire a projectile
     private void Fire()
     {
-        UpdateVirusAntibioticUseAnalytics();
+        // UpdateVirusAntibioticUseAnalytics();
 
         // Spawn the projectile
         SpawnProjectile();
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
         {
             ResetWeaponChangeTimer();
             ChangeWeapon();
-            if (SceneManager.GetActiveScene().buildIndex > 1) UpdateWeaponChangeAnalytics(); // Not for tutorial
+            // if (SceneManager.GetActiveScene().buildIndex > 1) UpdateWeaponChangeAnalytics(); // Not for tutorial
         }
     }
 

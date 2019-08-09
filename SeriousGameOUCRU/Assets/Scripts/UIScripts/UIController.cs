@@ -120,26 +120,26 @@ public class UIController : MonoBehaviour
 
     private void UpdateVictoryAnalytics()
     {
-        AnalyticsEvent.Custom("VictoryStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
-        {
-            { "time_elapsed", Time.timeSinceLevelLoad },
-            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
-            { "virus_killed", GameController.Instance.GetVirusKillCount() },
-            { "resistance_proba", OrganismMutation.mutationProba }
-        });       
+        // AnalyticsEvent.Custom("VictoryStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
+        // {
+        //     { "time_elapsed", Time.timeSinceLevelLoad },
+        //     { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+        //     { "virus_killed", GameController.Instance.GetVirusKillCount() },
+        //     { "resistance_proba", OrganismMutation.mutationProba }
+        // });       
 
         AnalyticsEvent.Custom("VictoryLevel" + (SceneManager.GetActiveScene().buildIndex - 1)); 
     }
 
     private void UpdateGameOverAnalytics()
     {
-        AnalyticsEvent.Custom("GameOverStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
-        {
-            { "time_elapsed", Time.timeSinceLevelLoad },
-            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
-            { "virus_killed", GameController.Instance.GetVirusKillCount() },
-            { "resistance_proba", OrganismMutation.mutationProba }
-        });
+        // AnalyticsEvent.Custom("GameOverStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
+        // {
+        //     { "time_elapsed", Time.timeSinceLevelLoad },
+        //     { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+        //     { "virus_killed", GameController.Instance.GetVirusKillCount() },
+        //     { "resistance_proba", OrganismMutation.mutationProba }
+        // });
 
         AnalyticsEvent.Custom("GameOverLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
