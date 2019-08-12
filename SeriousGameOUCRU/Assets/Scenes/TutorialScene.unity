@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -139,7 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: 'Follow the red arrow to get closer from the infectious bacteria '
-  textVietnamese: 'Follow the red arrow to get closer from the infectious bacteria '
+  textVietnamese: "\u0110i theo h\u01B0\u1EDBng m\u0169i t\xEAn \u0111\u1ECF \u0111\u1EC3
+    ti\u1EBFn g\u1EA7n h\u01A1n v\u1EDBi vi khu\u1EA9n l\xE2y nhi\u1EC5m"
   textFrench: "Suis la fl\xE8che rouge pour te rapprocher de la bact\xE9rie inf\xE9ctieuse"
 --- !u!20 &46479772 stripped
 Camera:
@@ -285,7 +286,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Keep pressing on your ship to change weapon
-  textVietnamese: Keep pressing on your ship to change weapon
+  textVietnamese: "Nh\u1EA5n gi\u1EEF t\xE0u \u0111\u1EC3 thay \u0111\u1ED5i v\u0169
+    kh\xED"
   textFrench: Laisse appuyer sur ton vaisseau pour changer d'arme
 --- !u!1 &205795667 stripped
 GameObject:
@@ -306,7 +308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Congratulation! You are now ready to go defend your body!
-  textVietnamese: Congratulation! You are now ready to go defend your body!
+  textVietnamese: "Ch\xFAc m\u1EEBng! B\xE2y gi\u1EDD b\u1EA1n \u0111\xE3 s\u1EB5n
+    s\xE0ng \u0111\u1EC3 b\u1EA3o v\u1EC7 c\u01A1 th\u1EC3 c\u1EE7a m\xECnh"
   textFrench: "F\xE9licitation ! Tu es maintenant pr\xEAt \xE0 d\xE9fendre ton corps
     !"
 --- !u!1 &332910245 stripped
@@ -328,7 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Keep pressing on your ship to change weapon once again
-  textVietnamese: Keep pressing on your ship to change weapon once again
+  textVietnamese: "Nh\u1EA5n gi\u1EEF t\xE0u \u0111\u1EC3 thay \u0111\u1ED5i v\u0169
+    kh\xED m\u1ED9t l\u1EA7n n\u1EEFa"
   textFrench: Laisse appuyer sur ton vaisseau encore une fois pour changer d'arme
 --- !u!1001 &334526218
 PrefabInstance:
@@ -342,6 +346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelChanger
       objectReference: {fileID: 0}
+    - target: {fileID: 3359798461158487358, guid: 1f5b45926c3c19747be8529d1954e48b,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 334526219}
     - target: {fileID: 3359798461158487345, guid: 1f5b45926c3c19747be8529d1954e48b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -397,11 +406,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3359798461158487358, guid: 1f5b45926c3c19747be8529d1954e48b,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 334526219}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f5b45926c3c19747be8529d1954e48b, type: 3}
 --- !u!95 &334526219 stripped
@@ -486,7 +490,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Touch the bacteria once to fire antibodies at it
-  textVietnamese: Touch the bacteria once to fire antibodies at it
+  textVietnamese: "Ch\u1EA1m v\xE0o vi khu\u1EA9n m\u1ED9t l\u1EA7n \u0111\u1EC3 b\u1EAFn
+    kh\xE1ng th\u1EC3 v\xE0o ch\xFAng"
   textFrench: "Touche la bact\xE9rie une fois pour lui tirer des anticorps"
 --- !u!1001 &420202152
 PrefabInstance:
@@ -708,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Get rid of the resistant bacteria
-  textVietnamese: Get rid of the resistant bacteria
+  textVietnamese: "Lo\u1EA1i b\u1ECF vi khu\u1EA9n kh\xE1ng thu\u1ED1c"
   textFrench: "D\xE9barrasse-toi de la bact\xE9rie r\xE9sistante"
 --- !u!1001 &499434793
 PrefabInstance:
@@ -915,8 +920,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: The green cells are your body's cells, you should defend them against
     other organisms!
-  textVietnamese: The green cells are your body's cells, you should defend them against
-    other organisms!
+  textVietnamese: "M\u0169i t\xEAn m\xE0u xanh l\xE0 t\u1EBF b\xE0o c\u1EE7a c\u01A1
+    th\u1EC3 b\u1EA1n. B\u1EA1n n\xEAn b\u1EA3o v\u1EC7 ch\xFAng kh\u1ECFi nh\u1EEFng
+    sinh v\u1EADt kia"
   textFrench: "Les cellules vertes sont les cellules de ton corps, tu dois les d\xE9fendre
     contre les autres organismes !"
 --- !u!1 &567204358 stripped
@@ -938,7 +944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Try your new weapon on the group of bacteria
-  textVietnamese: Try your new weapon on the group of bacteria
+  textVietnamese: "Th\u1EED v\u0169 kh\xED m\u1EDBi v\u1EDBi nh\xF3m vi khu\u1EA9n
+    n\xE0y"
   textFrench: "Essai ta nouvelle arme sur le groupe de bact\xE9ries"
 --- !u!1 &591831230 stripped
 GameObject:
@@ -1046,7 +1053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Find and kill the virus using antibodies
-  textVietnamese: Find and kill the virus using antibodies
+  textVietnamese: "T\xECm v\xE0 ti\xEAu di\u1EC7t nh\u1EEFng vi r\xFAt c\xF3 kh\xE1ng
+    th\u1EC3"
   textFrench: Trouve et tue le virus en utilisant des anticorps
 --- !u!1001 &652450399
 PrefabInstance:
@@ -1662,7 +1670,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: "Before you go, defend yourself against this virus. Careful though, virus
-        are not sentive to antibiotics!\r\n"
+        are not sensitive to antibiotics!\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -1924,7 +1932,7 @@ PrefabInstance:
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
       propertyPath: m_text
-      value: Your second weapon is a powerfull antibiotic
+      value: Your second weapon is a powerful antibiotic
       objectReference: {fileID: 0}
     - target: {fileID: 2203353832886879590, guid: 3cb72c2186592b846871c11ed59b8666,
         type: 3}
@@ -2031,8 +2039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: Good job! Now look on your right, your radar detected a close bacteria
     infecting your system
-  textVietnamese: Good job! Now look on your right, your radar detected a close bacteria
-    infecting your system
+  textVietnamese: "T\u1ED1t l\u1EAFm! B\xE2y gi\u1EDD th\xEC nh\xECn sang b\xEAn ph\u1EA3i,
+    Ra-\u0111a \u0111\xE3 ph\xE1t hi\u1EC7n ra m\u1ED9t vi khu\u1EA9n g\u1EA7n \u0111\u1EA5y
+    \u0111ang l\xE2y nhi\u1EC5m c\u01A1 th\u1EC3 b\u1EA1n"
   textFrench: "Bien jou\xE9 ! Maintenant, regarde sur ta droite, ton radar a d\xE9tect\xE9
     une bact\xE9rie infectant ton syst\xE8me"
 --- !u!1 &1054138457
@@ -2540,8 +2549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textEnglish: Your second weapon is a powerfull antibiotic
-  textVietnamese: Your second weapon is a powerfull antibiotic
+  textEnglish: Your second weapon is a powerful antibiotic
+  textVietnamese: "V\u0169 kh\xED th\u1EE9 hai c\u1EE7a b\u1EA1n l\xE0 m\u1ED9t kh\xE1ng
+    sinh c\u1EF1c m\u1EA1nh"
   textFrench: Ta seconde arme est un puissant antibiotique
 --- !u!1 &1110079417
 GameObject:
@@ -2966,7 +2976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Touch the screen anywhere to move your ship
-  textVietnamese: Touch the screen anywhere to move your ship
+  textVietnamese: "Ch\u1EA1m v\xE0o m\xE0n h\xECnh \u0111\u1EC3 di chuy\u1EC3n t\xE0u"
   textFrench: "Touche l'\xE9cran n'importe o\xF9 pour d\xE9placer le vaisseau"
 --- !u!1 &1366233444 stripped
 GameObject:
@@ -2988,8 +2998,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: The red cells are bad bacteria, you should get rid of them before they
     destroy all the cells in your body!
-  textVietnamese: The red cells are bad bacteria, you should get rid of them before
-    they destroy all the cells in your body!
+  textVietnamese: "Nh\u1EEFng t\u1EBF b\xE0o m\xE0u \u0111\u1ECF l\xE0 nh\u1EEFng
+    vi khu\u1EA9n c\xF3 h\u1EA1i, B\u1EA1n c\u1EA7n ph\u1EA3i lo\u1EA1i b\u1ECF ch\xFAng
+    tr\u01B0\u1EDBc khi ch\xFAng ph\xE1 hu\u1EF7 to\xE0n b\u1ED9 t\u1EBF b\xE0o trong
+    c\u01A1 th\u1EC3 b\u1EA1n"
   textFrench: "Les cellules rouges sont de mauvaises bact\xE9ries, tu dois t'en d\xE9barrasser
     avant qu'elles tuent les cellules de ton corps !"
 --- !u!1001 &1467787810
@@ -3197,8 +3209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: Be careful though! The more you use antibiotics, the more resistant
     the bacteria will get!
-  textVietnamese: Be careful though! The more you use antibiotics, the more resistant
-    the bacteria will get!
+  textVietnamese: "Ph\u1EA3i c\u1EA9n th\u1EADn, c\xE0ng d\xF9ng nhi\u1EC1u kh\xE1ng
+    sinh th\xEC vi khu\u1EA9n c\xE0ng kh\xE1ng thu\u1ED1c nhi\u1EC1u h\u01A1n"
   textFrench: "Attention cependant ! Plus tu utilises d'antibiotique, plus les bact\xE9ries
     deviendront r\xE9sistantes"
 --- !u!1001 &1573316932
@@ -3772,7 +3784,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Welcome inside your body! Let me guide you through your mission
-  textVietnamese: Welcome inside your body! Let me guide you through your mission
+  textVietnamese: "Ch\xE0o m\u1EEBng \u0111\u1EBFn v\u1EDBi b\xEAn trong c\u01A1 th\u1EC3
+    b\u1EA1n! \u0110\u1EC3 t\xF4i h\u01B0\u1EDBng d\u1EABn b\u1EA1n c\xE1ch \u0111\u1EC3
+    v\u01B0\u1EE3t qua nhi\u1EC7m v\u1EE5 n\xE0y"
   textFrench: "Bienvenue dans ton corps ! Laisse-moi te guider \xE0 travers ta mission"
 --- !u!1 &1769355281 stripped
 GameObject:
@@ -3793,9 +3807,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: 'Before you go, defend yourself against this virus. Careful though,
-    virus are not sentive to antibiotics! '
-  textVietnamese: 'Before you go, defend yourself against this virus. Careful though,
-    virus are not sentive to antibiotics! '
+    virus are not sensitive to antibiotics! '
+  textVietnamese: "Tr\u01B0\u1EDBc khi di chuy\u1EC3n, h\xE3y t\u1EF1 b\u1EA3o v\u1EC7
+    c\u01A1 th\u1EC3 b\u1EA1n kh\u1ECFi vi-r\xFAt n\xE0y. Tuy nhi\xEAn ph\u1EA3i c\u1EA9n
+    th\u1EADn, vi-r\xFAt kh\xF4ng b\u1ECB \u1EA3nh h\u01B0\u1EDFng b\u1EDFi kh\xE1ng
+    sinh"
   textFrench: "Avant de partir, d\xE9fends-toi contre ce virus. Attention cependant,
     les virus ne sont pas sensibles aux antibiotiques !"
 --- !u!1001 &1801912740
@@ -3865,11 +3881,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4006486504981386540, guid: be906119438bac64da072d67aad23133,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3915,19 +3926,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2296107552859970884, guid: be906119438bac64da072d67aad23133,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 124162592, guid: be906119438bac64da072d67aad23133, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 238783101, guid: be906119438bac64da072d67aad23133, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 657508643, guid: be906119438bac64da072d67aad23133, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3960,6 +3958,24 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 238783101, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 124162592, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296107552859970884, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be906119438bac64da072d67aad23133, type: 3}
@@ -4958,7 +4974,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Good job! But you should know that you also have a second weapon
-  textVietnamese: Good job! But you should know that you also have a second weapon
+  textVietnamese: "T\u1ED1t l\u1EAFm! Nh\u01B0ng ch\xFA \xFD r\u1EB1ng b\u1EA1n c\u0169ng
+    \u0111\u01B0\u1EE3c trang b\u1ECB th\xEAm m\u1ED9t lo\u1EA1i v\u0169 kh\xED n\u1EEFa"
   textFrench: "Bien jou\xE9 ! Mais sache que tu poss\xE8des aussi une seconde arme"
 --- !u!1 &2113858480
 GameObject:

@@ -196,7 +196,7 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
         currentTextBox.FadeOut();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
 
         // Antibiotic text 2
         RescaleTime(0f);

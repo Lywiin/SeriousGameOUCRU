@@ -149,7 +149,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             attackTarget.targetedBy = null;
             attackTarget.GetComponent<OrganismMovement>().SetCanMove(true);
             attackTarget = null;
-            orgMovement.SetTarget(null);
+            if (orgMovement) orgMovement.SetTarget(null);
         }
     }
 }

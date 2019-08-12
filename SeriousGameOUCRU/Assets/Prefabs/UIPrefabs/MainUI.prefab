@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Cells
-  textVietnamese: Cells
+  textVietnamese: "S\u1ED1 t\u1EBF b\xE0o"
   textFrench: Cellules
 --- !u!1 &657508642
 GameObject:
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Virus
-  textVietnamese: Virus
+  textVietnamese: "Vi-r\xFAt"
   textFrench: Virus
 --- !u!1 &1079458920204690475
 GameObject:
@@ -1487,7 +1487,7 @@ MonoBehaviour:
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1547,7 +1547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: All your body cells died
-  textVietnamese: All your body cells died
+  textVietnamese: "T\u1EA5t c\u1EA3 c\xE1c t\u1EBF b\xE0o c\u01A1 th\u1EC3 b\u1EA1n
+    \u0111\xE3 b\u1ECB ph\xE1 hu\u1EF7"
   textFrench: Toutes les cellules de votre corps sont mortes
 --- !u!1 &2435963430463195452
 GameObject:
@@ -1939,7 +1940,7 @@ MonoBehaviour:
   m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1999,7 +2000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Your ship got destroyed
-  textVietnamese: Your ship got destroyed
+  textVietnamese: "T\xE0u \u0111\xE3 b\u1ECB ph\xE1 hu\u1EF7"
   textFrench: "Votre vaisseau a \xE9t\xE9 d\xE9truit"
 --- !u!1 &4006486504267987595
 GameObject:
@@ -3173,7 +3174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Pause
-  textVietnamese: Pause
+  textVietnamese: "T\u1EA1m d\u1EEBng"
   textFrench: Pause
 --- !u!1 &4006486505912503888
 GameObject:
@@ -3349,7 +3350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textEnglish: Bacteria
-  textVietnamese: Bacteria
+  textVietnamese: "S\u1ED1 vi khu\u1EA9n"
   textFrench: Bacteries
 --- !u!1 &4011652898269665032
 GameObject:
@@ -3362,6 +3363,7 @@ GameObject:
   - component: {fileID: 5439557445801041307}
   - component: {fileID: 1854569546910018245}
   - component: {fileID: 7786305848066288245}
+  - component: {fileID: 4976821593127909067}
   m_Layer: 5
   m_Name: BacteriaKilledText
   m_TagString: Untagged
@@ -3510,6 +3512,21 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4976821593127909067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011652898269665032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Bacteria killed
+  textVietnamese: "S\u1ED1 vi khu\u1EA9n b\u1ECB ti\xEAu di\u1EC7t"
+  textFrench: "Bact\xE9ries tu\xE9es"
 --- !u!1 &4408250818570998214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4555,6 +4572,7 @@ GameObject:
   - component: {fileID: 3691015729767996954}
   - component: {fileID: 4140887121244291984}
   - component: {fileID: 5150227188518821164}
+  - component: {fileID: 2217408762439900776}
   m_Layer: 5
   m_Name: TimeText
   m_TagString: Untagged
@@ -4702,6 +4720,21 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2217408762439900776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7077489838145906062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Time
+  textVietnamese: "Th\u1EDDi gian"
+  textFrench: Temps
 --- !u!1 &7093488847014143765
 GameObject:
   m_ObjectHideFlags: 0
@@ -4945,6 +4978,7 @@ GameObject:
   - component: {fileID: 3739817293997495491}
   - component: {fileID: 7705173228322990861}
   - component: {fileID: 3525143642203728613}
+  - component: {fileID: 2291543403564606677}
   m_Layer: 5
   m_Name: VirusKilledText
   m_TagString: Untagged
@@ -5093,6 +5127,21 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2291543403564606677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7270912526445236643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00b9f8700bd0c745a406add1b957592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textEnglish: Virus killed
+  textVietnamese: "S\u1ED1 vi-r\xFAt b\u1ECB ti\xEAu di\u1EC7t"
+  textFrench: "Virus tu\xE9s"
 --- !u!1 &7272235507091648336
 GameObject:
   m_ObjectHideFlags: 0
