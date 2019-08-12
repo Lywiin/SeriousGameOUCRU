@@ -72,13 +72,16 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             attackTarget = c.GetComponentInParent<HumanCell>();
 
             // if target is a human cell and not already targeted
-            if (attackTarget && !attackTarget.isTargeted)
+            if (attackTarget && !attackTarget.targetedBy)
             {
-                attackTarget.isTargeted = true;
+                attackTarget.targetedBy = this;
                 if (!instantKill) attackTarget.GetComponent<OrganismMovement>().SetCanMove(false);
 
                 // Set new attackTarget to move towards it
                 if (orgMovement) orgMovement.SetTarget(attackTarget);
+            }else
+            {
+                attackTarget = null;
             }
         }
     }
@@ -103,18 +106,14 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
         int damageOverTime = attackTime == 0f ? attackTarget.GetHealth() : (int)((float)attackTarget.GetHealth() / attackTime) + 1;
 
         // While target alive we apply damage to it
-        while (attackTarget && attackTarget.gameObject.activeSelf)
+        while (attackTarget)
         {
             targetLastPosition = attackTarget.transform.position;
             attackTarget.DamageOrganism(damageOverTime);
-            yield return new WaitForSeconds(1f);
+
+            if (!attackTarget) selfOrganism.InstantiateOrganism(targetLastPosition);
+            yield return new WaitForSeconds(attackTarget ? 1f : 0f);
         }
-
-        // Reset target
-        attackTarget = null;
-        orgMovement.SetTarget(null);
-
-        selfOrganism.InstantiateOrganism(targetLastPosition);
 
         // Start recall to prevent chain attack
         StartCoroutine(AttackRecall());
@@ -147,9 +146,10 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
     {
         if (attackTarget)
         {
-            attackTarget.isTargeted = false;
+            attackTarget.targetedBy = null;
             attackTarget.GetComponent<OrganismMovement>().SetCanMove(true);
             attackTarget = null;
+            orgMovement.SetTarget(null);
         }
     }
 }

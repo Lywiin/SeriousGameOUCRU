@@ -8,8 +8,7 @@ public class HumanCell : Organism
 
     public static List<HumanCell> humanCellList = new List<HumanCell>();
 
-    [HideInInspector]
-    public bool isTargeted;
+    [HideInInspector] public OrganismAttack targetedBy;
 
 
     /*** PRIVATE VARIABLES ***/
@@ -41,9 +40,6 @@ public class HumanCell : Organism
 
         humanCellList.Add(this);
         if (uiController) uiController.UpdateHumanCellCount();
-
-        isTargeted = false;
-
     }
 
     public override Organism InstantiateOrganism(Vector2 spawnPosition)
@@ -66,6 +62,9 @@ public class HumanCell : Organism
     // Called when the cell has to die
     public override void KillOrganism()
     {
+        // Reset attacker if one
+        if (targetedBy) targetedBy.ResetTarget();
+
         if (render.isVisible && AudioManager.Instance)
             AudioManager.Instance.Play("HumanCellDeath");
 
