@@ -47,11 +47,6 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // void Start()
-    // {
-    //     SmoothPlay("MenuTheme", 2f);
-    // }
-
 
     /***** SOUNDS FUNCTIONS *****/
 
