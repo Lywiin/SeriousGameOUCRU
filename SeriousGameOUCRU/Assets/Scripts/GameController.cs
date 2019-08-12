@@ -260,7 +260,7 @@ public class GameController : MonoBehaviour
         OrganismDuplication.StopDuplication();
         OrganismMutation.StopMutation();
 
-        UpdateDeathAnalytics(deathByCollision);
+        // UpdateDeathAnalytics(deathByCollision);
     }
 
     public void UpdateDeathAnalytics(bool deathByCollision)
@@ -301,7 +301,6 @@ public class GameController : MonoBehaviour
         {
             PlayerPrefs.SetInt("CurrentLevel", levelIndex + 1);
             AnalyticsEvent.Custom("CompletedLevel" + levelIndex.ToString());
-            Debug.Log(PlayerPrefs.GetInt("CurrentLevel"));
         }
     }
 
@@ -315,8 +314,6 @@ public class GameController : MonoBehaviour
 
         // Increase next increase at each use
         mutationProbaIncrease *= mutationProbaMultiplier;
-
-        Debug.Log(OrganismMutation.mutationProba + " " + mutationProbaIncrease + " " + mutationProbaMultiplier);
     }
 
 
