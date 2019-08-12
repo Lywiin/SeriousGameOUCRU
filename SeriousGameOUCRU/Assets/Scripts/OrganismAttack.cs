@@ -35,8 +35,8 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     private void Start()
     {
-        selfOrganism = GetComponent<Organism>();
-        orgMovement = GetComponent<OrganismMovement>();
+        selfOrganism = GetComponentInParent<Organism>();
+        orgMovement = GetComponentInParent<OrganismMovement>();
     }
 
 
@@ -149,7 +149,7 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
             attackTarget.targetedBy = null;
             attackTarget.GetComponent<OrganismMovement>().SetCanMove(true);
             attackTarget = null;
-            if (orgMovement) orgMovement.SetTarget(null);
+            orgMovement.SetTarget(null);
         }
     }
 }

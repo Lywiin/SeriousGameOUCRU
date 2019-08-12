@@ -73,7 +73,7 @@ public class CameraController : MonoBehaviour
         playerController = PlayerController.Instance;
         inputController = InputController.Instance;
 
-        cameraBaseSize = cam.orthographicSize;
+        GetCameraBaseSize();
 
         projectileOffset = Vector3.zero;
         lookAtOffset = Vector3.zero;
@@ -92,6 +92,14 @@ public class CameraController : MonoBehaviour
 
 
     /***** CAMERA FUNCTIONS *****/
+
+    private void GetCameraBaseSize()
+    {
+        cameraBaseSize = cam.orthographicSize;
+
+        float aspectRatio = (float)Screen.width / Screen.height;
+        cameraBaseSize += Mathf.Clamp((2 - aspectRatio) * 12, 0f, 6f);   //Add 6 for an aspect ratio of 1.5 but 0 for aspect ratio of 2
+    }
 
     // Move camera according to target movements
     private void MoveCamera()

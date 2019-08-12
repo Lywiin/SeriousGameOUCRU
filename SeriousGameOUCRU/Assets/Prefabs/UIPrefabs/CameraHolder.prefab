@@ -44,16 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73804ebb6e2704946ada0cd7748b5c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 12
   lookAtSpeed: 1.5
   lookAtFactor: 3.5
-  cameraSizingSpeed: 2
-  cameraSizingFactor: 1.15
-  cameraSmoothSpeed: 6
-  projectileFollowFactor: 0.3
+  cameraZoomSpeed: 6
+  cameraZoomFactor: 1.15
   projectileFollowZoomFactor: 2
+  projectileFollowFactor: 0.3
   projectileFollowReturnSpeed: 6
 --- !u!1001 &6016079621799744146
 PrefabInstance:
@@ -126,21 +124,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ClearFlags
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3682173157733974538, guid: 4dac99de86e3a1d48a868c4f58f50fac,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
-      value: 0.8509804
-      objectReference: {fileID: 0}
-    - target: {fileID: 3682173157733974538, guid: 4dac99de86e3a1d48a868c4f58f50fac,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0.078431375
-      objectReference: {fileID: 0}
-    - target: {fileID: 3682173157733974538, guid: 4dac99de86e3a1d48a868c4f58f50fac,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0.19607843
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dac99de86e3a1d48a868c4f58f50fac, type: 3}
