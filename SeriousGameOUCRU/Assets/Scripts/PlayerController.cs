@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [Header("Weapon Change")]
     public float weaponChangeDuration = 0.5f;
     public float weaponChangeCooldown = 0.5f;
+    public int maxAntibioticUseBeforeAlert = 1;
 
     [Header("Attack Range")]
     public float minRange = 10f;
@@ -47,6 +48,9 @@ public class PlayerController : MonoBehaviour
     // Weapon change
     private bool heavyWeaponSelected = false;
     private float weaponChangeTimer = 0f;
+    private int antibodyUseCount = 0;
+    private int antibioticUseCount = 0;
+    private int antibioticUseInRowCount = 0;
 
     // Move direction
     private Vector2 moveDirection = Vector3.zero;
@@ -123,15 +127,37 @@ public class PlayerController : MonoBehaviour
         if (newTarget != fireTarget)
         {
             fireTarget = newTarget;
-            // if (SceneManager.GetActiveScene().buildIndex > 1) UpdateFireAnalytics(); // Not for tutorial
+            if (SceneManager.GetActiveScene().buildIndex > 1) IncreaseFireCount();
         }
     }
 
-    private void UpdateFireAnalytics()
+    private void IncreaseFireCount()
+    {
+        if(IsHeavyWeaponSelected())
+        {
+            // Increase count
+            antibioticUseCount++;
+            antibioticUseInRowCount++;
+
+            // If use antibiotic too much in a row display message
+            if (antibioticUseInRowCount == maxAntibioticUseBeforeAlert) 
+            {
+                WeaponUseUI.Instance.DisplayWeaponUsePanel();
+            }
+        }
+        else
+        {
+            antibodyUseCount++;
+            antibioticUseInRowCount = 0;    // Reset count in row
+        }
+    }
+
+    public void UpdateFireAnalytics()
     {
         AnalyticsEvent.Custom("FireLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
-            { "projectile", IsHeavyWeaponSelected() ? "Antibiotic" : "Antibody"}
+            { "antibiotic", antibioticUseCount},
+            { "antibody", antibodyUseCount}
         });
     }
 
@@ -208,6 +234,13 @@ public class PlayerController : MonoBehaviour
         // Switch weapon 
         heavyWeaponSelected = !heavyWeaponSelected;
         mobileUI.ToggleCurrentWeaponImage(heavyWeaponSelected);
+
+        // Reset antibiotic use too much message
+        if (!heavyWeaponSelected && antibioticUseInRowCount >= maxAntibioticUseBeforeAlert) 
+        {
+            WeaponUseUI.Instance.HideWeaponUsePanel();
+            antibioticUseInRowCount = 0;
+        }
 
         StartCoroutine(ChangeWeaponBuffer());
     }
@@ -358,6 +391,8 @@ public class PlayerController : MonoBehaviour
         gameController.SetCanPlayerMove(false);
         gameController.SetCanPlayerShoot(false);
         gameController.GameOver(true);
+
+        UpdateFireAnalytics();
 
         yield return new WaitForSeconds(2f);
         Destroy(gameObject);

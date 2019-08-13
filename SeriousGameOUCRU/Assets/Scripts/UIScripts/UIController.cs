@@ -96,8 +96,8 @@ public class UIController : MonoBehaviour
 
     private void DisplayEndGamePanel()
     {
-        //Hide Mobile UI
-        // MobileUI.Instance.gameObject.SetActive(false);
+        // Hide Weapon use UI
+        WeaponUseUI.Instance.HideWeaponUsePanel();
 
         // Calculate time spent and update text
         int minutes = (int)Time.timeSinceLevelLoad / 60;

@@ -286,6 +286,7 @@ public class GameController : MonoBehaviour
 
             // Update the UI and restart
             uiController.TriggerVictory();
+            PlayerController.Instance.UpdateFireAnalytics();
 
             OrganismDuplication.StopDuplication();
         }

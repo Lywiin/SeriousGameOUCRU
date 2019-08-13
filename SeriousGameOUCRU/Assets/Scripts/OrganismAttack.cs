@@ -35,8 +35,8 @@ public class OrganismAttack : MonoBehaviour, IPooledObject
 
     private void Start()
     {
-        selfOrganism = GetComponentInParent<Organism>();
-        orgMovement = GetComponentInParent<OrganismMovement>();
+        selfOrganism = GetComponent<Organism>();
+        orgMovement = GetComponent<OrganismMovement>();
     }
 
 
