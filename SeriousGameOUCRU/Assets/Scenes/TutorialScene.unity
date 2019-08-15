@@ -920,9 +920,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: The green cells are your body's cells, you should defend them against
     other organisms!
-  textVietnamese: "M\u0169i t\xEAn m\xE0u xanh l\xE0 t\u1EBF b\xE0o c\u1EE7a c\u01A1
-    th\u1EC3 b\u1EA1n. B\u1EA1n n\xEAn b\u1EA3o v\u1EC7 ch\xFAng kh\u1ECFi nh\u1EEFng
-    sinh v\u1EADt kia"
+  textVietnamese: "Nh\u1EEFng t\u1EBF b\xE0o m\xE0u xanh l\xE0 c\xE1c t\u1EBF b\xE0o
+    c\u1EE7a c\u01A1 th\u1EC3 b\u1EA1n, b\u1EA1n n\xEAn b\u1EA3o v\u1EC7 ch\xFAng
+    kh\u1ECFi nh\u1EEFng sinh v\u1EADt kia!"
   textFrench: "Les cellules vertes sont les cellules de ton corps, tu dois les d\xE9fendre
     contre les autres organismes !"
 --- !u!1 &567204358 stripped
@@ -3881,6 +3881,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4006486504981386540, guid: be906119438bac64da072d67aad23133,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3926,6 +3931,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 124162592, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 238783101, guid: be906119438bac64da072d67aad23133, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 657508643, guid: be906119438bac64da072d67aad23133, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3958,19 +3971,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 238783101, guid: be906119438bac64da072d67aad23133, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 124162592, guid: be906119438bac64da072d67aad23133, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4006486504317123639, guid: be906119438bac64da072d67aad23133,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296107552859970884, guid: be906119438bac64da072d67aad23133,
         type: 3}

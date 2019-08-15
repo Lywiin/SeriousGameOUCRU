@@ -154,6 +154,7 @@ public class UIController : MonoBehaviour
         animator.enabled = !isPaused;
         infoPanel.SetActive(!isPaused);
         CloseEnnemyUI.Instance.gameObject.SetActive(!isPaused);
+        WeaponUseUI.Instance.transform.GetChild(0).GetChild(0).gameObject.SetActive(!isPaused);
         if (Tutorial.Instance) Tutorial.Instance.GetComponentInChildren<CanvasGroup>().alpha = isPaused ? 0 : 1;
 
         pausePanel.SetActive(isPaused);

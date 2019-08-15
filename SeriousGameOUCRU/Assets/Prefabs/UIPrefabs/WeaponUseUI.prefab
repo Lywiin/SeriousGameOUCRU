@@ -239,10 +239,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textEnglish: Be careful, you are using too much antibiotics ! Consider changing
     your weapon
-  textVietnamese: Be careful, you are using too much antibiotics ! Consider changing
-    your weapon
-  textFrench: Be careful, you are using too much antibiotics ! Consider changing your
-    weapon
+  textVietnamese: "C\u1EA9n th\u1EADn! B\u1EA1n \u0111ang d\xF9ng qu\xE1 nhi\u1EC1u
+    thu\u1ED1c kh\xE1ng sinh r\u1ED3i! H\xE3y C\xE2n nh\u1EAFc trong vi\u1EC7c thay
+    \u0111\u1ED5i v\u0169 kh\xED nh\xE9"
+  textFrench: "Attention, tu utilises trop d'antibiotiques ! Pense \xE0 changer d'arme"
 --- !u!1 &5586102496319637370
 GameObject:
   m_ObjectHideFlags: 0
