@@ -2782,7 +2782,6 @@ MonoBehaviour:
   bacteriaCellCountText: {fileID: 4006486505426411480}
   virusCountText: {fileID: 7682091081778464486}
   resistanceSlider: {fileID: 4006486504267987589}
-  weaponUseText: {fileID: 0}
   endGamePanel: {fileID: 7459969204764831476}
   victoryText: {fileID: 3976840823832695720}
   gameOverText: {fileID: 3389456639899354887}
@@ -5443,6 +5442,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4006486505619167043}
+        m_MethodName: UpdateCanceledLevelAnalytics
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &7372420905690448324
@@ -7117,6 +7127,17 @@ MonoBehaviour:
       - m_Target: {fileID: 4006486505619167043}
         m_MethodName: ChangeLevel
         m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4006486505619167043}
+        m_MethodName: UpdateCanceledLevelAnalytics
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -213,7 +213,7 @@ public class Tutorial : MonoBehaviour
         bacteriaCellList[0].GetOrgMutation().SetShieldHealth(250);
         yield return new WaitUntil(() => BacteriaCell.bacteriaCellList.Count == 0);
         currentTextBox.FadeOut();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
 
         // Virus text
         blockWeaponChange = false;

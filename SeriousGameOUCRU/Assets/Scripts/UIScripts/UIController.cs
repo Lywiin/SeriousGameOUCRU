@@ -85,7 +85,7 @@ public class UIController : MonoBehaviour
     public void TriggerGameOver(bool deathByCollision)
     {
         DisplayEndGamePanel();
-        UpdateGameOverAnalytics();
+        UpdateGameOverAnalytics(deathByCollision);
 
         // Desactivate useless things
         victoryText.gameObject.SetActive(false);
@@ -119,29 +119,26 @@ public class UIController : MonoBehaviour
     }
 
     private void UpdateVictoryAnalytics()
-    {
-        // AnalyticsEvent.Custom("VictoryStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
-        // {
-        //     { "time_elapsed", Time.timeSinceLevelLoad },
-        //     { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
-        //     { "virus_killed", GameController.Instance.GetVirusKillCount() },
-        //     { "resistance_proba", OrganismMutation.mutationProba }
-        // });       
-
-        AnalyticsEvent.Custom("VictoryLevel" + (SceneManager.GetActiveScene().buildIndex - 1)); 
+    {    
+        AnalyticsEvent.Custom("VictoryLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
+        {
+            { "time_elapsed", Time.timeSinceLevelLoad },
+            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+            { "virus_killed", GameController.Instance.GetVirusKillCount() },
+            { "resistance_proba", OrganismMutation.mutationProba }
+        }); 
     }
 
-    private void UpdateGameOverAnalytics()
+    private void UpdateGameOverAnalytics(bool deathByCollision)
     {
-        // AnalyticsEvent.Custom("GameOverStatsLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
-        // {
-        //     { "time_elapsed", Time.timeSinceLevelLoad },
-        //     { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
-        //     { "virus_killed", GameController.Instance.GetVirusKillCount() },
-        //     { "resistance_proba", OrganismMutation.mutationProba }
-        // });
-
-        AnalyticsEvent.Custom("GameOverLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
+        AnalyticsEvent.Custom("GameOverLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
+        {
+            { "cause_of_death", deathByCollision ? "DeathByCollision" : "DeathByCells"},
+            { "time_elapsed", Time.timeSinceLevelLoad },
+            { "bacteria_killed", GameController.Instance.GetBacteriaCellKillCount() },
+            { "virus_killed", GameController.Instance.GetVirusKillCount() },
+            { "resistance_proba", OrganismMutation.mutationProba }
+        });
     }
 
     public void TogglePauseUI()
@@ -154,7 +151,7 @@ public class UIController : MonoBehaviour
         animator.enabled = !isPaused;
         infoPanel.SetActive(!isPaused);
         CloseEnnemyUI.Instance.gameObject.SetActive(!isPaused);
-        WeaponUseUI.Instance.transform.GetChild(0).GetChild(0).gameObject.SetActive(!isPaused);
+        if (WeaponUseUI.Instance) WeaponUseUI.Instance.transform.GetChild(0).GetChild(0).gameObject.SetActive(!isPaused);
         if (Tutorial.Instance) Tutorial.Instance.GetComponentInChildren<CanvasGroup>().alpha = isPaused ? 0 : 1;
 
         pausePanel.SetActive(isPaused);
@@ -250,6 +247,15 @@ public class UIController : MonoBehaviour
 
     public void NextLevel()
     {
-        ChangeLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        
+        if (SceneManager.GetActiveScene().buildIndex + 1 < 6)
+            ChangeLevel(SceneManager.GetActiveScene().buildIndex + 1);
+        else
+            ChangeLevel(0);
+    }
+
+    public void UpdateCanceledLevelAnalytics()
+    {
+        AnalyticsEvent.Custom("CanceledLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 }

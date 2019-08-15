@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     private int antibodyUseCount = 0;
     private int antibioticUseCount = 0;
     private int antibioticUseInRowCount = 0;
+    private int antibioticUseOnVirus = 0;
 
     // Move direction
     private Vector2 moveDirection = Vector3.zero;
@@ -157,7 +158,8 @@ public class PlayerController : MonoBehaviour
         AnalyticsEvent.Custom("FireLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
         {
             { "antibiotic", antibioticUseCount},
-            { "antibody", antibodyUseCount}
+            { "antibody", antibodyUseCount},
+            { "antibioticUsedOnVirus", antibioticUseOnVirus}
         });
     }
 
@@ -183,7 +185,9 @@ public class PlayerController : MonoBehaviour
     // Fire a projectile
     private void Fire()
     {
-        // UpdateVirusAntibioticUseAnalytics();
+        // Count for analytics
+        if(fireTarget && fireTarget.GetComponentInParent<Virus>() && IsHeavyWeaponSelected())
+            antibioticUseOnVirus++;
 
         // Spawn the projectile
         SpawnProjectile();
@@ -200,14 +204,6 @@ public class PlayerController : MonoBehaviour
         }else
         {
             if(audioManager) audioManager.Play("FireLight");
-        }
-    }
-
-    private void UpdateVirusAntibioticUseAnalytics()
-    {
-        if (fireTarget && fireTarget.GetComponentInParent<Virus>() && IsHeavyWeaponSelected())
-        {
-            AnalyticsEvent.Custom("AntibioticUseOnVirusLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
         }
     }
 
@@ -324,7 +320,6 @@ public class PlayerController : MonoBehaviour
         {
             ResetWeaponChangeTimer();
             ChangeWeapon();
-            // if (SceneManager.GetActiveScene().buildIndex > 1) UpdateWeaponChangeAnalytics(); // Not for tutorial
         }
     }
 
@@ -335,11 +330,6 @@ public class PlayerController : MonoBehaviour
 
         // Reset UI slider
         mobileUI.FillWeaponChangeSlider(0f);
-    }
-
-    private void UpdateWeaponChangeAnalytics()
-    {
-        AnalyticsEvent.Custom("WeaponChangeLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     // Change max velocity according to input distance from the player

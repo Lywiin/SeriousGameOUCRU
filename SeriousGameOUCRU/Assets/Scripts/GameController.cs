@@ -92,8 +92,6 @@ public class GameController : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex > 1)
             GameController.Instance.SetupGame();
-
-        AnalyticsEvent.Custom("PlayedLevel" + (SceneManager.GetActiveScene().buildIndex - 1));
     }
 
     void Update()
@@ -259,16 +257,6 @@ public class GameController : MonoBehaviour
 
         OrganismDuplication.StopDuplication();
         OrganismMutation.StopMutation();
-
-        // UpdateDeathAnalytics(deathByCollision);
-    }
-
-    public void UpdateDeathAnalytics(bool deathByCollision)
-    {
-        AnalyticsEvent.Custom("DeathLevel" + (SceneManager.GetActiveScene().buildIndex - 1), new Dictionary<string, object>
-        {
-            { "cause_of_death", deathByCollision ? "DeathByCollision" : "DeathByCells"}
-        });
     }
 
     //Called when the player win
@@ -301,7 +289,16 @@ public class GameController : MonoBehaviour
         if (PlayerPrefs.GetInt("CurrentLevel") == levelIndex)
         {
             PlayerPrefs.SetInt("CurrentLevel", levelIndex + 1);
-            AnalyticsEvent.Custom("CompletedLevel" + levelIndex.ToString());
+            AnalyticsEvent.Custom("CompletedLevel" + levelIndex.ToString(), new Dictionary<string, object>
+            {
+                { "firstTime", true }
+            });
+        }else
+        {
+            AnalyticsEvent.Custom("CompletedLevel" + levelIndex.ToString(), new Dictionary<string, object>
+            {
+                { "firstTime", false }
+            });
         }
     }
 
